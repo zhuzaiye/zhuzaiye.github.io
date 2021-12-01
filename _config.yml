@@ -187,18 +187,7 @@ exclude:
   - /node_modules
   - /screenshots
   - /test
-  - /vendor
-  
-collections_dir: docs
-collections:
-  docs:
-    output: true
-  sample_page:
-    output: true
-  sample_articles:
-    output: true
-  sample_languages:
-    output: true
+  - /vendor 
 
 defaults:
   - scope:
@@ -224,4 +213,3 @@ plugins:
   - jekyll-sitemap
   - jemoji
   
-data_dir: /docs/_data
