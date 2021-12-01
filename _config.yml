@@ -1,7 +1,12 @@
+
+# 主题
+theme: jekyll-theme-midnight
+
 # 基础配置
 baseurl:
 # 网站标题
-title: [Tech Log.]
+title: Tech Log
+
 # 网站描述
 description: "Logs with awesome stories."
 # 搜索关键词
@@ -10,5 +15,12 @@ keywords: joelang,hzzhu,hzzhu2
 timezone: Asia/Shanghai
 # 编码
 encoding: "utf-8"
-# git源码仓
-repository: hzzhu92/hzzhu92.github.io
+# githubxinxi 
+github:
+  repository_url: https://github.com/hzzhu92
+  zip_url: 
+  another_url: 
+
+# 展示下载
+show_downloads: false
+google_analytics:
