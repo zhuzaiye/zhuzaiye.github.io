@@ -1,5 +1,14 @@
-title: Midnight theme
-description: Midnight is a theme for GitHub Pages.
-show_downloads: true
-google_analytics:
-theme: jekyll-theme-midnight
+# 基础配置
+baseurl:
+# 网站标题
+title: "Tech Log."
+# 网站描述
+description: "Logs with awesome stories."
+# 搜索关键词
+keywords: joelang,hzzhu,hzzhu2
+# 时区
+timezone: Asia/Shanghai
+# 编码
+encoding: "utf-8"
+# git源码仓
+repository: hzzhu92/hzzhu92.github.io
