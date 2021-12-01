@@ -1,3 +1,4 @@
+
 # 主题
 theme: jekyll-theme-midnight
 
@@ -5,6 +6,7 @@ theme: jekyll-theme-midnight
 baseurl:
 # 网站标题
 title: Tech Log
+
 # 网站描述
 description: "Logs with awesome stories."
 # 搜索关键词
@@ -22,3 +24,6 @@ github:
 # 展示下载
 show_downloads: false
 google_analytics:
+
+
+
