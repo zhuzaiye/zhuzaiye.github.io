@@ -1,7 +1,7 @@
 # 基础配置
 baseurl:
 # 网站标题
-title: "Tech Log."
+title: [Tech Log.]
 # 网站描述
 description: "Logs with awesome stories."
 # 搜索关键词
