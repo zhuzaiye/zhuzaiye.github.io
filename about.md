@@ -8,7 +8,6 @@ layout: article
 
 - Responsive
 
-
 ## Skins
 
 TeXt
