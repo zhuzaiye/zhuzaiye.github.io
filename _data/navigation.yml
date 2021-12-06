@@ -4,9 +4,9 @@ header:
     url:        /
   - titles: Docs
     children:
-    - titles: 
-      url: /docs/rust/environment
-      key: docs
+      - titles: 
+        url: /docs/rust/environment
+        key: docs
   - titles:
       # @start locale config
       en      : &EN       Archive
