@@ -1,9 +1,11 @@
 header:
   - titles: 
       en      : &EN       Home
-    url:        /rust
+    url:        /
   - titles: Docs
-    url: /docs/rust/environment
+    children:
+      - titles: rust
+        url: /docs/rust/environment
   - titles:
       # @start locale config
       en      : &EN       Archive
