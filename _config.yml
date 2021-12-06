@@ -232,3 +232,4 @@ plugins:
   - jekyll-sitemap
   - jemoji
   
+data_dir: _data
