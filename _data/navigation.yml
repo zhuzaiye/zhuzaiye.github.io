@@ -3,9 +3,7 @@ header:
       en      : &EN       Home
     url:        /
   - titles: Docs
-    children:
-      - titles: rust
-        url: /docs/rust/environment
+    url: /docs/rust/environment
   - titles:
       # @start locale config
       en      : &EN       Archive
