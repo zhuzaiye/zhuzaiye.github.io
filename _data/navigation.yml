@@ -1,10 +1,10 @@
 header:
   - titles: 
       en      : &EN       Home
-    url:        /
+    url:        /rust
   - titles: Docs
     children:
-      - titles: 
+      - titles: rust
         url: /docs/rust/environment
         key: docs
   - titles:
