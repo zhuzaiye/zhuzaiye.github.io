@@ -206,7 +206,7 @@ defaults:
       pageview: true
   ## docs
   - scope:
-      path: "_docs/rust"
+      path: "docs/rust"
     values:
       layout: article
       nav_key: docs
