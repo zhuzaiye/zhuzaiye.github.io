@@ -3,10 +3,7 @@ header:
       en      : &EN       Home
     url:        /rust
   - titles: Docs
-    children:
-      - titles: rust
-        url: /docs/rust/environment
-        key: docs
+    url: /docs/rust/environment
   - titles:
       # @start locale config
       en      : &EN       Archive
