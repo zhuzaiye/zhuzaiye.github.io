@@ -2,6 +2,11 @@ header:
   - titles: 
       en      : &EN       Home
     url:        /
+  - titles: Docs
+    children:
+    - titles: 
+      url: /docs/rust/environment
+      key: docs
   - titles:
       # @start locale config
       en      : &EN       Archive
@@ -14,7 +19,7 @@ header:
 
 
 docs-rust:
-  - title: Rust基础
+  - title: Rust 基础
     children:
       - title: 环境搭建
         url: /docs/rust/environment
