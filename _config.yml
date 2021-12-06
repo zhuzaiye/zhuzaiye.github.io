@@ -189,15 +189,9 @@ exclude:
   - /test
   - /vendor 
 
-collections_dir: docs
+collections_dir: ""
 collections:
   docs:
-    output: true
-  sample_page:
-    output: true
-  sample_articles:
-    output: true
-  sample_languages:
     output: true
 
 defaults:
