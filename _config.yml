@@ -1,8 +1,13 @@
-name: "Jekyll true minimal theme"
-description: "Lightweight theme"
+name: "JoeLang Note"
+description: "Tech note, Tech share."
 
-url: '' 
-baseurl: ''
+url: https://github.com/hzzhu92 
+baseurl: ""
+
+timezone: Asia/Shanghai
+future: true
+
+permalink: /:year/:month/:day/:title.html
 
 markdown: kramdown
 markdown_ext: "markdown,mkdown,mkdn,mkd,md"
@@ -11,6 +16,12 @@ highlighter: rouge
 kramdown:
   input: GFM
   syntax_highlighter: rouge
+  extensions: fenced_code_blocks
+  math_engine: mathjax
+  parse_block_html: true
+
+# post to shown in the recent posts in frontpage
+front_page_post: 10
 
 plugins:
   - jekyll-paginate
@@ -22,7 +33,19 @@ paginate_path: /page-:num
 source: .
 destination: ./_site
 
-sass:
-    style: :compressed
-    sass_dir: assets/css/
+excerpt_separator: <!--more-->
+
+# header navigation
+navigation: 
+  - name: 主页
+    url: /
+  - name: 归档
+    url: /archive.html
+  - name: 分类
+    url: /categories.html
+  - name: 搜索
+    url: /search.html 
+
+# table of contents set up
+toc_max: 3
 

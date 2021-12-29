@@ -1,5 +1,10 @@
 # github-jekyll-pages
 
+## jekyll
+
+`jekyll` 是一款简单的博客系统，也可以说是一个静态网站生成器。
+她有一个模版目录，存放整个静态网站的模版文件，可以通过Liquid处理模版文件，把使用标记语言Textile或Markdown编写的内容文件，按照模版格式，转换成最终的静态网站页面。
+
 ## directory
 
 ```text
@@ -14,10 +19,25 @@ _config.yml: 网站的一些配置信息
 index.html: 网站的入口
 ```
 
-## 步骤
-
-### 创建主入口文件
+## 归档 Archive
 
 ```
 
 ```
+
+## 问题
+
+- 首次`jekyll serve` 出现 `jekyll-paginate` **load error**
+   
+```sh
+# 在Gemfile中添加
+group :jekyll_plugins do
+      gem 'jekyll-paginate'
+end
+```
+
+## 技术栈
+
+### Liquid
+
+Liquid 代码分为对象(object)、标记(tags)和过滤器(filter)

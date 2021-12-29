@@ -1,0 +1,203 @@
+ul.homepage-post-list {
+    list-style-type: none !important;
+    padding-left: 0px;
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+ul.year-post-list,
+ul.tag-post-list,
+ul.category-post-list {
+    margin-top:5px;
+}
+
+.archive-post-title {
+    white-space: nowrap;
+    overflow-x: auto;
+    margin-right: 5px;
+}
+
+h3.post-year,
+h3.post-tag,
+h3.post-category-heading {
+    margin-bottom:5px;
+    border-bottom: 1px solid rgb(215, 215, 215);
+}
+.post-category {
+    background-color: #d4e6f7;
+    padding: 0.1em 0.4em;
+    border-radius: 3px;
+    /* line-height: 1.0rem; */
+    /* word-break: keep-all; */
+    display: inline-block;
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+.year-count {
+    font-size: medium;
+    font-weight: normal;
+    color: gray;
+}
+
+.note-count {
+    font-size: 1.0rem;
+    font-weight: normal;
+    color: gray;
+}
+
+h3.recent-post {
+    margin-top: 20px;
+    margin-bottom: 0px;
+    border-bottom: 1px solid rgb(215, 215, 215);
+}
+
+li.post-list {
+    margin-bottom: 25px;
+}
+.post-date {
+    color:rgb(120, 120, 120);
+    font-weight:500;
+}
+a.homepage-post-title {
+    font-size:large;
+    font-weight:500;
+}
+p.post-exerpt {
+    margin-top: 0px !important;
+}
+
+.note-container {
+    /*margin-left: 40px; */
+    margin-right: 5px;
+    margin-bottom: 40px;
+    /* margin-top: 50px; */
+    border-radius: 5px 5px 3px 3px;
+    display: flex;
+}
+
+.note-container p {
+    margin: 0px;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    text-align: justify;
+    text-justify: inter-ideograph;
+}
+
+.note-date {
+    /* color:rgb(121, 121, 121); */
+    font-weight:normal;
+    padding: 2px 0px 2px 5px; 
+    /* border-radius: 2px 2px 2px 2px; */
+    /* border: 0.0px solid #c1c1c1; */
+    /* box-shadow: 5px 5px 3px #a8a8a8; */
+    /* text-decoration: underline dotted; */
+    margin-left: 15px;
+    flex: 1;
+    order: 2;
+    align-self: flex-start;
+}
+
+.note-content-container {
+    border: 0.0px solid #c1c1c1;
+    border-radius: 3px 3px 3px 3px;
+    box-shadow: 5px 5px 3px #a8a8a8;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    flex: 0 0 65%;
+    order: 1;
+    background-color: #d4e6f7;
+}
+a.note-link {
+    opacity: 1;
+    color:rgb(121, 121, 121);
+    /* text-decoration: none; */
+    text-decoration: underline dotted;
+}
+
+a.note-link:hover {
+    color: black;
+    opacity: 1;
+    transition: opacity 0.2s ease-in-out 0.1s;
+}
+
+.pagination {
+    text-align: center;
+    width: 65%;
+    margin-left: 0px;
+    margin-right: auto;
+}
+
+.page-input {
+    width: 35px;
+    height: 16px;
+    text-align: center;
+    border: 0.3px solid rgb(50,50,50);
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+#myBtn {
+    border: none;
+    color: black;
+    background-color: #e7e7e7;
+    padding: 1.0px 5px;
+}
+
+.page-input::placeholder {
+    color: black;
+    opacity: 1;
+}
+
+.gray-previous,
+.gray-next {
+    color: gray;
+}
+
+p.more {
+    font-size: 1.2em;
+}
+
+.spacer {
+    height: 10px;
+}
+
+@media screen and (max-width: 768px) {
+    .note-date {
+        font-size: small;
+        padding: 2px 10px 2px 10px;
+        order: 1;
+        margin-left: 0px;
+        box-shadow: 0px 0px 0px #a8a8a8;
+        border: 0.0px solid #a8a8a8;
+        border-bottom: 0.0px solid #d8d8d8;
+        border-radius: 5px 5px 0px 0px;
+        text-align: left;
+        /* text-decoration: underline dotted; */
+        align-self: stretch;
+        background-color: #d4e6f7;
+    }
+    .note-container {
+        margin-left: 0px;
+        margin-right: 0px;
+        margin-bottom: 35px;
+        flex-direction: column;
+    }
+    .note-content-container {
+        padding-left: 5px;
+        padding-right: 5px;
+        width: 0 0 100%;
+        order: 2;
+        border-radius: 0px 0px 5px 5px;
+        box-shadow: 0px 0px 0px #a8a8a8;
+        border: 0.0px solid #a8a8a8;
+        border-top: 0px solid #c1c1c1;
+    }
+    .pagination {
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}

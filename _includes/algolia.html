@@ -1,0 +1,186 @@
+<script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.6.0/dist/instantsearch.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.24.0/moment.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.6.0/dist/instantsearch.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.6.0/dist/instantsearch-theme-algolia.min.css">
+
+<script>
+
+const search = instantsearch({
+  appId: '{{ site.algolia.application_id }}',
+  apiKey: '{{ site.algolia.search_only_api_key }}',
+  indexName: '{{ site.algolia.index_name }}',
+  routing: true,
+  searchFunction(helper) {
+    const container = document.querySelector('#search-hits');
+    container.style.display = helper.state.query === '' ? 'none' : '';
+
+    helper.search();
+  }
+});
+
+const hitTemplate = function(hit) {
+  let date = '';
+  if (hit.date) {
+    date = moment.unix(hit.date).format('YYYY-M-D');
+  }
+
+  let url = '';
+  if (hit.anchor) {
+    url = `{{ site.baseurl }}${hit.url}#${hit.anchor}`;
+  } else {
+    url = `{{ site.baseurl }}${hit.url}`;
+  }
+
+  let title = '';
+  if (hit.title) {
+    title = hit._highlightResult.title.value;
+  }
+  let breadcrumbs = '';
+  if (hit._highlightResult.headings) {
+    breadcrumbs = hit._highlightResult.headings.map(match => {
+      return `<span class="post-breadcrumb">${match.value}</span>`
+    }).join(' > ')
+  }
+
+  let postnote = '';
+  let hitnote = false;
+  if (hit._highlightResult.note) {
+    if (hit._highlightResult.note.matchLevel != "none") {
+      postnote = hit._highlightResult.note.value;
+      hitnote = true;
+    }
+  }
+
+  let content = '';
+  if (hit._highlightResult.html) {
+    content = hit._highlightResult.html.value;
+  }
+  //const content = hit._highlightResult.html.value;
+
+  if (hit.title && hitnote) {
+    return `
+    <div class="post-item">
+      <span class="post-date">${date}</span>
+      <br>
+      <a class="homepage-post-title" href="${url}">${title}</a>
+      <div class="post-note-text">${postnote}</div>
+      {{#breadcrumbs}}<a href="${url}" class="post-breadcrumbs">${breadcrumbs}</a>{{/breadcrumbs}}
+      <div class="post-snippet">${content}</div>
+    </div>
+    `;
+  } else if (hit.category == "social") {
+    return `
+    <div class="post-item">
+      <a class="post-date" href="${url}">${date}</a>
+      <div class="post-snippet">${content}</div>
+    </div>
+  `;
+  } else {
+    return `
+    <div class="post-item">
+      <span class="post-date">${date}</span>
+      <br>
+      <a class="homepage-post-title" href="${url}">${title}</a>
+      {{#breadcrumbs}}<a href="${url}" class="post-breadcrumbs">${breadcrumbs}</a>{{/breadcrumbs}}
+      <div class="post-snippet">${content}</div>
+    </div>
+    `;
+  }
+}  
+
+/*
+  if (hit.title) {
+      return `
+    <div class="post-item">
+      <span class="post-date">${date}</span>
+      <br>
+      <a class="homepage-post-title" href="${url}">${title}</a>
+      {{#breadcrumbs}}<a href="${url}" class="post-breadcrumbs">${breadcrumbs}</a>{{/breadcrumbs}}
+      <div class="post-snippet">${content}</div>
+    </div>
+    `;
+  } else {
+    return `
+    <div class="post-item">
+      <a class="post-date" href="${url}">${date}</a>
+      <div class="post-snippet">${content}</div>
+    </div>
+  `;
+  }
+}
+*/
+
+search.addWidget(
+  instantsearch.widgets.searchBox({
+    container: '#search-searchbar',
+    placeholder: '搜索文章...',
+    poweredBy: true // This is required if you're on the free Community plan
+  })
+);
+
+search.addWidget(
+  instantsearch.widgets.hits({
+    container: '#search-hits',
+    templates: {
+      item: hitTemplate
+    }
+  })
+);
+
+search.start();
+</script>
+
+<style>
+.ais-search-box {
+  max-width: 100%;
+  margin-bottom: 15px;
+  background-color: rgb(249, 249, 249);
+}
+.post-item {
+  margin-bottom: 30px;
+}
+.homepage-post-title .ais-Highlight {
+  color: #f20a19;
+}
+
+.ais-Highlight {
+  color: #f20a19;
+}
+.post-link .ais-Highlight {
+  color: #111;
+  font-style: normal;
+  text-decoration: underline;
+}
+.post-breadcrumbs {
+  color: #424242;
+  display: block;
+}
+.post-breadcrumb {
+  font-size: 18px;
+  color: #424242;
+}
+.post-breadcrumb .ais-Highlight {
+  color: #f20a19;
+  font-weight: bold;
+  font-style: normal;
+}
+
+em.ais-Highlight {
+  color: #f20a19 !important;
+  font-weight: bold;
+  font-style: normal;
+}
+
+.post-snippet p {
+  margin-top: 0px !important;
+}
+
+.post-snippet .ais-Highlight {
+  color: #f20a19;
+  font-style: normal;
+  font-weight: bold;
+}
+.post-snippet img {
+  display: none;
+}
+</style>

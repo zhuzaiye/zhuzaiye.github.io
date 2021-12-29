@@ -1,0 +1,396 @@
+html {
+    font-size: 16px;
+    background-color: whitesmoke;
+}
+
+body {
+    font-family: Consolas, "Clear Sans","Helvetica Neue",Helvetica,Arial,sans-serif,"微软雅黑";
+    color: rgb(51, 51, 51);
+    line-height: 1.6;
+    width:100%;
+    max-width: 740px;
+    margin:0 auto;
+    background-color: rgb(249, 249, 249);
+}
+
+a {
+    color: #0366d6;
+    text-decoration: none;
+    word-wrap: break-word;
+}
+a:hover {
+    text-decoration: underline;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    position: relative;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    font-weight: bold;
+    line-height: 1.4;
+    cursor: text;
+}
+h1:hover a.anchor,
+h2:hover a.anchor,
+h3:hover a.anchor,
+h4:hover a.anchor,
+h5:hover a.anchor,
+h6:hover a.anchor {
+    text-decoration: none;
+}
+
+h1 {
+    padding-bottom: .3em;
+    font-size:1.75em;
+    line-height: 1.2;
+    border-bottom: 1px solid rgb(215, 215, 215);
+}
+h2 {
+    padding-bottom: .1em;
+    font-size: 1.75em;
+    line-height: 1.225;
+    border-bottom: 1px solid rgb(215, 215, 215);
+}
+h3 {
+    font-size: 1.5em;
+    line-height: 1.43;
+}
+h4 {
+    font-size: 1.25em;
+}
+h5 {
+    font-size: 1em;
+}
+h6 {
+   font-size: 1em;
+    color: #777;
+}
+p,
+blockquote,
+ul,
+ol,
+dl,
+table{
+    margin: 0.8em 0;
+}
+li>ol,
+li>ul {
+    margin: 0 0;
+}
+hr {
+    height: 2px;
+    padding: 0;
+    margin: 16px 0;
+    background-color: #e7e7e7;
+    border: 0 none;
+    overflow: hidden;
+    box-sizing: content-box;
+}
+
+li p.first {
+    display: inline-block;
+}
+/* ul,
+ol {
+    padding-left: 30px;
+} */
+ul:first-child,
+ol:first-child {
+    margin-top: 0;
+}
+ul:last-child,
+ol:last-child {
+    margin-bottom: 0;
+}
+blockquote {
+    border-left: 4px solid #dfe2e5;
+    padding: 0 15px;
+    color: #777777;
+}
+blockquote blockquote {
+    padding-right: 0;
+}
+table {
+    padding: 0;
+    word-break: initial;
+}
+table tr {
+    border-top: 1px solid #dfe2e5;
+    margin: 0;
+    padding: 0;
+}
+table tr:nth-child(2n),
+thead {
+    background-color: #f8f8f8;
+}
+table tr th {
+    font-weight: bold;
+    border: 1px solid #dfe2e5;
+    border-bottom: 0;
+    margin: 0;
+    padding: 6px 13px;
+}
+table tr td {
+    border: 1px solid #dfe2e5;
+    margin: 0;
+    padding: 6px 13px;
+}
+table tr th:first-child,
+table tr td:first-child {
+    margin-top: 0;
+}
+table tr th:last-child,
+table tr td:last-child {
+    margin-bottom: 0;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+    margin: 0 auto;
+    height: auto;
+}
+
+img.note-image {
+    display: block;
+    max-width: 95%;
+    margin: 5px auto 10px auto;
+    height: auto;
+}
+
+code {
+    /* font-family: inherit; */
+    font-family: Consolas, "Clear Sans","Helvetica Neue",Helvetica,Arial,monospace,sans-serif;
+    border: 1px solid #e7eaed;
+    border-radius: 3px;
+    padding: 0;
+    padding: 2px 4px 0px 4px;
+    font-size: 0.9em;
+    background-color: #efefef;
+}
+
+pre {
+    /* font-family: inherit; */
+    padding: 10px;
+    overflow: auto;
+    border-radius: 2px;
+    background-color: #efefef;
+    max-height: 610px;
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+}    
+pre code {
+    /*font-family: inherit;*/
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    margin: 0;
+    line-height: 1.6;
+}
+.site-header {
+    padding-top: 10px;
+    background-color: black;
+    border-bottom: solid rgb(199, 199, 199) 0.8px;
+}
+.site-name {
+    margin: 0px 10px 10px 20px;
+}
+.site-name-text {
+    color: whitesmoke;
+    font-size: xx-large;
+    text-decoration: none;
+}
+
+a.site-name-text {
+    text-decoration: none;
+}
+
+.header-navigation {
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+
+ul.nav-list {
+    padding-left: 0px;
+    list-style-type: none;
+    font-size: 0;
+}
+
+li.nav-item {
+    display: inline;
+}
+
+.nav-item a{
+    color: whitesmoke;
+    font-size: large;
+    text-decoration: none;
+    padding: 5px;
+    margin: 5px;
+}
+.nav-item a:hover {
+    color: black;
+    background-color: whitesmoke;
+    text-decoration: none;
+    border-radius: 4px;
+}
+.nav-item a.active {
+    color: black;
+    background-color: whitesmoke;
+    text-decoration: none;
+    border-radius: 4px;
+}
+
+.container {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.footer-container {
+    padding-top: 5px;
+    margin-top: 40px;
+    margin-bottom: 20px;
+    border-top: 1px solid rgb(215, 215, 215);
+    font-size: small;
+    text-align: center;
+}
+
+.page-content {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.larger {
+    font-size: larger
+}
+
+a.post-tag {
+    background-color: #d4e6f7;
+    padding: 0.2em 0.3em;
+    border-radius: 2px;
+    line-height: 1.6rem;
+    word-break: keep-all;
+}
+
+.post-note {
+    text-align: justify;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+.post-note-text {
+    font-style: italic;
+    color:rgb(120, 120, 120);
+}
+
+.footnotes {
+    margin-top: 40px;
+    border-top: 0.3px solid rgb(215, 215, 215);
+}
+
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+ }
+ 
+/* Modal Content (Image) */
+.modal-content {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+    touch-action: pan-x pan-y pinch-zoom;
+}
+ 
+@keyframes zoom {
+    from {transform:scale(0)}
+    to {transform:scale(1)}
+}
+ 
+/* The Close Button */
+.close {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+ 
+ .close:hover,
+ .close:focus {
+   color: #bbb;
+   text-decoration: none;
+   cursor: pointer;
+ }
+ 
+@media screen and (max-width: 768px) {
+    ol {
+        padding-left: 30px;
+        margin-left: 0px;
+    }
+    ul {
+        padding-left: 20px;
+        margin-left: 0px;
+    }
+    .header-navigation {
+        margin-left: 0px;
+    }
+    .site-name {
+        text-align: center;
+        margin: 0 0px 10px 0px;
+    }
+    .site-name-text {
+        font-size: x-large;
+    }
+    ul.nav-list {
+        width: 100%;
+        margin: auto;
+        text-align: center;
+    }
+    .nav-item a {
+        color: whitesmoke;
+        padding: 5px;
+        margin-right: 5px;
+        margin-left: 5px;
+    }
+    .footer-container {
+        text-align: center;
+    }
+    h1 {
+        font-size: 1.5em;
+    }
+    h2 {
+        font-size: 1.5em;
+    }
+    h3 {
+        font-size: 1.2em;
+    }
+    h4 {
+        font-size: 1.0em;
+    }
+    h5 {
+        font-size: 1em;
+    }
+    h6 {
+       font-size: 1em;
+    }
+    .modal-content {
+        width: 100%;
+    }
+}

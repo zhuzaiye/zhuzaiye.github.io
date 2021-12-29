@@ -1,26 +1,37 @@
 ---
 layout: default
 ---
+{% capture my_include %}
+  {% include homeintro.md %}
+{% endcapture %}
+{{ my_include | markdownify }}
 
-{% for post in paginator.posts %}
+{% assign long_posts = site.posts | where_exp: "page","page.layout != 'note' " %}
+
 <section>
-  <h2>
-    <a href='{{ site.url }}{{ post.url }}' title='{{ post.title }}'>
-      {{ post.title }}
-    </a>
-  </h2>
-  
-  <p>{{ post.excerpt | strip_html | truncate: 250 }}</p>
-</section>       
-{% endfor %}
+  <h3 class="recent-post">新近博文</h3>
+  <ul class="homepage-post-list" >
+      {% for post in long_posts limit: site.front_page_post %}
+ 
+        <li class="post-list">
+          <div class="homepage-post-metadata">
+          <span class="post-date">{{ post.date|date: "%Y-%m-%d" }}</span>
+          <br>
+          <a class="homepage-post-title" href='{{ site.baseurl }}{{ post.url }}' title='{{ post.title }}'>
+             {{ post.title }}
+          </a> 
+          </div>
+        <div class="post-excerpt">
+           {{ post.excerpt | strip_html | truncate: 233, '...'}} 
+        </div>
+        </li>
 
-{% if paginator.previous_page %}
-<a href='{{ site.url }}{{ paginator.previous_page_path }}'>Previous</a>
-{% endif %}
-
-&mdash; {{ paginator.page }} of {{ paginator.total_pages }} &mdash;
-
-{% if paginator.next_page %}
-<a href='{{ site.url }}{{ paginator.next_page_path }}'>Next</a>
-{% endif %}
-
+      {% endfor %}
+  </ul>
+  {% assign numposts = long_posts | size %}
+  {% if numposts > site.front_page_post %}
+      <p class="more">
+          <a href="{{ site.base }}/archive.html">更多&hellip;</a>
+      </p>
+  {% endif %}
+</section>

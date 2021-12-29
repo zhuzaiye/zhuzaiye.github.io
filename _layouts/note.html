@@ -1,0 +1,50 @@
+---
+layout: default
+---
+{% assign weekday = page.date | date:"%A" %}
+{% case weekday %}
+  {% when "Monday" %}
+    {% assign zhweekday = "星期一" %}
+  {% when "Tuesday" %}
+    {% assign zhweekday = "星期二" %} 
+  {% when "Wednesday" %}
+    {% assign zhweekday = "星期三" %}
+  {% when "Thursday" %}
+    {% assign zhweekday = "星期四" %} 
+  {% when "Friday" %}
+    {% assign zhweekday = "星期五" %} 
+  {% when "Saturday" %}
+    {% assign zhweekday = "星期六" %} 
+  {% when "Sunday" %}
+    {% assign zhweekday = "星期日" %}
+  {% else %} 
+    {% assign zhweekday = "Wrong date" %}        
+{% endcase %}
+
+<h2>{{ page.date | date: "%Y-%m-%d %H:%M" }} {{ zhweekday }}</h2>
+{{ content }}
+
+{% comment %}
+{% capture imgfile %}{{ page.date | date: "%Y%m%d" | append: page.slug}}{% endcapture %}
+        {% for img in site.static_files %}
+          {% if img.path contains "/assets/notes/" and img.name contains imgfile %}
+            {% if site.jsdelivr.enabled %}
+              <img class="note-image" src= {{site.jsdelivr.url | append: img.path}} alt="">
+            {% else %}
+              <img class="note-image" src={{img.path}} alt="">
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+{% endcomment %}
+        {% if page.mf-photo %}
+           {% for img in page.mf-photo%}
+            {% if site.jsdelivr.enabled %}
+                <img class="note-image" src={{img | replace: "https://xienotes.net", site.jsdelivr.url }} alt="">
+            {% else %}
+               <img class="note-image" src={{img | replace: "https://xienotes.net","" }} alt="">
+            {% endif %}
+           {% endfor %}
+        {% endif %}
+
+{% include mathjax.html %}
+{% include modalImage.html %}
