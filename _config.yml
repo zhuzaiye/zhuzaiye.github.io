@@ -1,7 +1,7 @@
 name: "JoeLang Note"
 description: "Tech note, Tech share."
 
-url: https://github.com/hzzhu92 
+url: https://github.com/hzzhu92
 baseurl: ""
 
 timezone: Asia/Shanghai
@@ -49,3 +49,12 @@ navigation:
 # table of contents set up
 toc_max: 3
 
+gitalk:
+  clientID: b8e0d5c59de9bd168d9d
+  clientSecret: 5a5f35a7228e41b751165d43d5828464764036a3
+  repository: https://github.com/hzzhu92/hzzhu92.github.io
+  owner: hzzhu92
+  admin: # GitHub repo owner and collaborators, only these guys can initialize GitHub issues, IT IS A LIST.
+    # - your GitHub Id
+    # 82822977
+    - hzzhu92
