@@ -1,7 +1,3 @@
-# Tech Blog
-
-我的技术blog: https://hzzhu92.github.io
-
-## change log
-
-## 概览
+# jekyll-true-minimal
+Minimal and ascetic theme for jekyll.
+Live demo: https://cyevgeniy.github.io/jekyll-true-minimal/
