@@ -1,6 +1,7 @@
 html {
     font-size: 16px;
     background-color: whitesmoke;
+    height: 100%;
 }
 
 body {
@@ -8,6 +9,7 @@ body {
     color: rgb(51, 51, 51);
     line-height: 1.6;
     width:100%;
+    height: 100%;
     max-width: 740px;
     margin:0 auto;
     background-color: rgb(249, 249, 249);
@@ -248,15 +250,23 @@ li.nav-item {
 .container {
     padding-left: 0px;
     padding-right: 0px;
+    min-height:100%;
+    /* _height:100%; */
+    margin-bottom:-90px;   /*假定页脚的高度为120px*/
 }
 
 .footer-container {
-    padding-top: 5px;
-    margin-top: 40px;
+    padding-top: 30px;
+    margin-top: 20px;
     margin-bottom: 20px;
     border-top: 1px solid rgb(215, 215, 215);
     font-size: small;
     text-align: center;
+    height: 90px;
+}
+
+.footer-placeholder {
+  height: 90px;
 }
 
 .page-content {
