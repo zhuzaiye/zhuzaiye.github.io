@@ -1,7 +1,7 @@
 ---
+layout: null
 ---
 [
-  {% comment %}
   {% for post in site.posts %}
   {% capture stripped_content %}
   {{ post.content | jsonify | strip_html | escape | strip_newlines | replace: "\n", "" | replace: "\", "" | replace: "{","" | replace: "&","" | replace: "@","" | replace:"$","" | replace: "%","" | replace: "  ","" | replace: " ","" }}
@@ -16,5 +16,4 @@
     } {% unless forloop.last %},{% endunless %}
   {% endfor %}
 
-  {% endcomment %}
 ]

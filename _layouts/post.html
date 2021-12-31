@@ -54,7 +54,9 @@
                 {% endif %}
             {% include toc.html html=content h_max=site.toc_max %}
             </div>
-            {% endif %}        
+            {% endif %}
+            
+            {% include toc.html html=content %}
             {{ content }}
         </div>
         

@@ -2,8 +2,24 @@
 layout: default
 ---
 ## 搜索
-<div id="search-searchbar"></div>
 
-<div class="post-list" id="search-hits">
+<!-- Html Elements for Search -->
+<div id="search-container">
+<input type="text" id="search-input" placeholder=" 标题 日期 标签 分类" style="height:30px;width:150px; padding-left:5px;">
+<ul id="results-container"></ul>
 </div>
-{% include algolia.html %}
+
+<!-- Script pointing to simple-jekyll-search.min.js -->
+<script src="/assets/js/simple-jekyll-search.min.js" type="text/javascript"></script>
+
+<!-- Configuration -->
+<script>
+SimpleJekyllSearch({
+  searchInput: document.getElementById('search-input'),
+  resultsContainer: document.getElementById('results-container'),
+  json: '/search.json',
+  searchResultTemplate: '<li><a href="{url}" title="{desc}">{title}</a> &nbsp;<span>{date}</span></li>', // 文章列表模板
+  noResultsText: '没有搜索到文章',  // 搜索不到提示语
+  fuzzy: false // 是否模糊匹配
+})
+</script>
