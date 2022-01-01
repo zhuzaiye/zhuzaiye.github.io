@@ -13,7 +13,7 @@
 
         <div class="post-metadata" >
         <span>
-             发布日期：{{ page.date | date: "%Y-%m-%d %H:%M" }}
+             发布日期: {{ page.date | date: "%Y-%m-%d %H:%M" }}
             {% if page.category.size > 0 %}
                 <span>
                     &thinsp; 分类:
@@ -55,8 +55,7 @@
             {% include toc.html html=content h_max=site.toc_max %}
             </div>
             {% endif %}
-            
-            {% include toc.html html=content %}
+          
             {{ content }}
         </div>
         
@@ -68,6 +67,8 @@
     </div>
     {% include modalImage.html %}
 </body>
+
 {% include gitalk.html %} 
+
 <script src="/assets/js/newTab.js"></script>
 </html>
