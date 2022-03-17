@@ -1,5 +1,0 @@
-# Hugo Page
-
-## Commands
-
-## Debug
