@@ -117,14 +117,13 @@
 			
 		</div>
 <div class="doc_comments">
-    <div class="comments_block_title">发表评论</div>
     <div id="gitalk-container"></div>
 </div>
 
 
 <link rel="stylesheet" href="https://unpkg.com/gitalk@1.2.2/dist/gitalk.css">
 
-<script src="https://unpkg.com/gitalk@latest/dist/gitalk.min.js"></script> 
+<script src="https://unpkg.com/gitalk@latest/dist/gitalk.min.js"></script>
 
 <script>
     const gitalk = new Gitalk({
@@ -136,7 +135,7 @@
         id: location.pathname, 
         distractionFreeMode: false 
     });
-    (function () {
+    (function() {
         if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
             document.getElementById('gitalk-container').innerHTML = 'Gitalk comments not available by default when the website is previewed locally.';
             return;
