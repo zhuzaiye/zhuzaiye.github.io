@@ -12,7 +12,7 @@ th {
 }
 
 html {
-    font-family: JetBrains monospace;
+    font-family: JetBrains Mono;
     -ms-text-size-adjust: 100%;
     -webkit-text-size-adjust: 100%
 }
@@ -130,7 +130,7 @@ code,
 kbd,
 pre,
 samp {
-    font-family: JetBrains monospace;
+    font-family: JetBrains Mono;
     font-size: 1em
 }
 

@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><title>Hugo: 基于 Hugo&#43;GithubPage 搭建静态网站 - CodeMax</title><meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta property="og:title" content="Hugo: 基于 Hugo&#43;GithubPage 搭建静态网站" />
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><title>Hugo: 基于 Hugo&#43;GithubPage 搭建静态网站 - CodeMax</title><link rel="icon" type="image/png" href=/images/favicon.ico /><meta name="viewport" content="width=device-width, initial-scale=1"> <meta property="og:title" content="Hugo: 基于 Hugo&#43;GithubPage 搭建静态网站" />
 <meta property="og:description" content="通过Hugo和GithubPage搭建简易的日志记录的静态网站。" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://hzzhu92.github.io/posts/20220319-huho/" /><meta property="article:section" content="posts" />
@@ -15,13 +14,10 @@
 <meta name="twitter:description" content="通过Hugo和GithubPage搭建简易的日志记录的静态网站。"/>
 <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:200,300" rel="stylesheet">
 
-	<link rel="stylesheet" type="text/css" media="screen" href="https://hzzhu92.github.io/css/normalize.css" />
-	<link rel="stylesheet" type="text/css" media="screen" href="https://hzzhu92.github.io/css/main.css" /><link rel="stylesheet" type="text/css" href="https://hzzhu92.github.io/css/dark.css" media="(prefers-color-scheme: dark)" />
-
-	<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
-	<script src="https://hzzhu92.github.io/js/main.js"></script>
+    <link rel="stylesheet" type="text/css" media="screen" href="https://hzzhu92.github.io/css/normalize.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="https://hzzhu92.github.io/css/main.css" /><link rel="stylesheet" type="text/css" href="https://hzzhu92.github.io/css/dark.css" media="(prefers-color-scheme: dark)"  /> <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script src="https://hzzhu92.github.io/js/main.js"></script>
 </head>
-
 <body>
 	<div class="container wrapper post">
 		<div class="header">
@@ -62,9 +58,13 @@
 		</div>
 
 		<div class="markdown">
-			<p>通过Hugo和GithubPage搭建简易的日志记录的静态网站。本文记录自己搭建的过程和踩过的坑。</p>
+			<p>[TOC]</p>
+<p>通过Hugo和GithubPage搭建简易的日志记录的静态网站。本文记录自己搭建的过程和踩过的坑。</p>
 <blockquote>
-<p><a href="https://gohugo.io/documentation/"><code>Hugo</code></a>&ndash;The world’s fastest framework for building websites.Hugo is one of the most popular open-source static site generators. With its amazing speed and flexibility, Hugo makes building websites fun again.</p>
+<p><a href="https://gohugo.io/documentation/"><code>Hugo</code></a>
+The world’s fastest framework for building websites.
+Hugo is one of the most popular open-source static site generators. 
+With its amazing speed and flexibility, Hugo makes building websites fun again.</p>
 </blockquote>
 <h2 id="install-hugo">Install Hugo</h2>
 <p>Hugo的<a href="https://github.com/gohugoio/hugo/releases">下载地址</a>,根据自己的操作系统选择不同的系统版本。本机选择<strong>hugo_extended_0.95.0_Windows-64bit.zip</strong>。</p>
@@ -78,7 +78,7 @@
 <ul>
 <li>初始化项目</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span><span style="color:#586e75"># 初始化一个hugo项目 hugo new site [项目名称]</span>
+<div class="highlight"><pre tabindex="0" style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span><span style="color:#93a1a1;font-style:italic"># 初始化一个hugo项目 hugo new site [项目名称]</span>
 </span></span><span style="display:flex;"><span>hugo new site awsomework_log
 </span></span></code></pre></div><ul>
 <li>选择适合你的hugo themes或者自己写</li>
@@ -89,212 +89,219 @@
 <li>下载<a href="https://github.com/vividvilla/ezhil">themes-ezhil</a></li>
 <li>将zip包解压至awsomework_log中,替换其中相同的所有</li>
 </ol>
-<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span><span style="color:#586e75"># 目录结构</span>
+<div class="highlight"><pre tabindex="0" style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-toml" data-lang="toml"><span style="display:flex;"><span><span style="color:#93a1a1;font-style:italic"># 目录结构</span>
 </span></span><span style="display:flex;"><span>.
-</span></span><span style="display:flex;"><span>+--- archetypes       <span style="color:#586e75"># 文档架构文件夹</span>
-</span></span><span style="display:flex;"><span>|   +--- default.md   <span style="color:#586e75"># 默认的架构markdown</span>
-</span></span><span style="display:flex;"><span>+--- config.toml      <span style="color:#586e75"># 配置文件</span>
-</span></span><span style="display:flex;"><span>+--- content          <span style="color:#586e75"># 存放网站资源内容文件夹</span>
-</span></span><span style="display:flex;"><span>|   +--- about.md     <span style="color:#586e75"># 主页About的内容markdown</span>
-</span></span><span style="display:flex;"><span>|   +--- posts        <span style="color:#586e75"># 存放需要部署到网站的内容的文件夹</span>
-</span></span><span style="display:flex;"><span>+--- images           <span style="color:#586e75"># 暂时未用到</span>
-</span></span><span style="display:flex;"><span>+--- layouts          <span style="color:#586e75"># 暂时未用到</span>
-</span></span><span style="display:flex;"><span>+--- README.md       
-</span></span><span style="display:flex;"><span>+--- static           <span style="color:#586e75"># 存放js,img和css的静态资源文件夹</span>
-</span></span><span style="display:flex;"><span>|   +--- css
-</span></span><span style="display:flex;"><span>|   |   +--- animate.min.css
-</span></span><span style="display:flex;"><span>|   |   +--- comments.css
-</span></span><span style="display:flex;"><span>|   |   +--- dark.css
-</span></span><span style="display:flex;"><span>|   |   +--- highlight.css
-</span></span><span style="display:flex;"><span>|   |   +--- main.css
-</span></span><span style="display:flex;"><span>|   |   +--- normalize.css
-</span></span><span style="display:flex;"><span>|   +--- images
-</span></span><span style="display:flex;"><span>|   |   +--- favicon.ico
-</span></span><span style="display:flex;"><span>|   |   +--- hugo_version_20220319.png
-</span></span><span style="display:flex;"><span>|   +--- js
-</span></span><span style="display:flex;"><span>|   |   +--- feather.min.js
-</span></span><span style="display:flex;"><span>|   |   +--- jquery-3.5.1.min.js
-</span></span><span style="display:flex;"><span>|   |   +--- main.js
-</span></span><span style="display:flex;"><span>+--- themes          <span style="color:#586e75"># 存放网页结构和模板的文件夹</span>
-</span></span><span style="display:flex;"><span>|   +--- codemax
-</span></span><span style="display:flex;"><span>|   |   +--- layouts
-</span></span><span style="display:flex;"><span>|   |   |   +--- 404.html
-</span></span><span style="display:flex;"><span>|   |   |   +--- index.html
-</span></span><span style="display:flex;"><span>|   |   |   +--- partials
-</span></span><span style="display:flex;"><span>|   |   |   |   +--- disqus.html
-</span></span><span style="display:flex;"><span>|   |   |   |   +--- footer.html
-</span></span><span style="display:flex;"><span>|   |   |   |   +--- gitalk.html
-</span></span><span style="display:flex;"><span>|   |   |   |   +--- head.html
-</span></span><span style="display:flex;"><span>|   |   |   |   +--- header.html
-</span></span><span style="display:flex;"><span>|   |   |   |   +--- js.html
-</span></span><span style="display:flex;"><span>|   |   |   |   +--- mathjax.html
-</span></span><span style="display:flex;"><span>|   |   |   |   +--- paginator.html
-</span></span><span style="display:flex;"><span>|   |   |   +--- _default
-</span></span><span style="display:flex;"><span>|   |   |   |   +--- list.html
-</span></span><span style="display:flex;"><span>|   |   |   |   +--- single.html
-</span></span><span style="display:flex;"><span>|   |   |   |   +--- terms.html
+</span></span><span style="display:flex;"><span>+<span style="color:#268bd2">---</span> <span style="color:#268bd2">archetypes</span>       <span style="color:#93a1a1;font-style:italic"># 文档架构文件夹</span>
+</span></span><span style="display:flex;"><span>|   +<span style="color:#268bd2">---</span> <span style="color:#268bd2">default</span>.<span style="color:#268bd2">md</span>   <span style="color:#93a1a1;font-style:italic"># 默认的架构markdown</span>
+</span></span><span style="display:flex;"><span>+<span style="color:#268bd2">---</span> <span style="color:#268bd2">config</span>.<span style="color:#268bd2">toml</span>      <span style="color:#93a1a1;font-style:italic"># 配置文件</span>
+</span></span><span style="display:flex;"><span>+<span style="color:#268bd2">---</span> <span style="color:#268bd2">content</span>          <span style="color:#93a1a1;font-style:italic"># 存放网站资源内容文件夹</span>
+</span></span><span style="display:flex;"><span>|   +<span style="color:#268bd2">---</span> <span style="color:#268bd2">about</span>.<span style="color:#268bd2">md</span>     <span style="color:#93a1a1;font-style:italic"># 主页About的内容markdown</span>
+</span></span><span style="display:flex;"><span>|   +<span style="color:#268bd2">---</span> <span style="color:#268bd2">posts</span>        <span style="color:#93a1a1;font-style:italic"># 存放需要部署到网站的内容的文件夹</span>
+</span></span><span style="display:flex;"><span>+<span style="color:#268bd2">---</span> <span style="color:#268bd2">images</span>           <span style="color:#93a1a1;font-style:italic"># 暂时未用到</span>
+</span></span><span style="display:flex;"><span>+<span style="color:#268bd2">---</span> <span style="color:#268bd2">layouts</span>          <span style="color:#93a1a1;font-style:italic"># 暂时未用到</span>
+</span></span><span style="display:flex;"><span>+<span style="color:#268bd2">---</span> <span style="color:#268bd2">README</span>.<span style="color:#268bd2">md</span>       
+</span></span><span style="display:flex;"><span>+<span style="color:#268bd2">---</span> <span style="color:#268bd2">static</span>           <span style="color:#93a1a1;font-style:italic"># 存放js,img和css的静态资源文件夹</span>
+</span></span><span style="display:flex;"><span>|   +<span style="color:#268bd2">---</span> <span style="color:#268bd2">css</span>
+</span></span><span style="display:flex;"><span>|   |   +<span style="color:#268bd2">---</span> <span style="color:#268bd2">animate</span>.<span style="color:#268bd2">min</span>.<span style="color:#268bd2">css</span>
+</span></span><span style="display:flex;"><span>|   |   +<span style="color:#268bd2">---</span> <span style="color:#268bd2">comments</span>.<span style="color:#268bd2">css</span>
+</span></span><span style="display:flex;"><span>|   |   +<span style="color:#268bd2">---</span> <span style="color:#268bd2">dark</span>.<span style="color:#268bd2">css</span>
+</span></span><span style="display:flex;"><span>|   |   +<span style="color:#268bd2">---</span> <span style="color:#268bd2">highlight</span>.<span style="color:#268bd2">css</span>
+</span></span><span style="display:flex;"><span>|   |   +<span style="color:#268bd2">---</span> <span style="color:#268bd2">main</span>.<span style="color:#268bd2">css</span>
+</span></span><span style="display:flex;"><span>|   |   +<span style="color:#268bd2">---</span> <span style="color:#268bd2">normalize</span>.<span style="color:#268bd2">css</span>
+</span></span><span style="display:flex;"><span>|   +<span style="color:#268bd2">---</span> <span style="color:#268bd2">images</span>
+</span></span><span style="display:flex;"><span>|   |   +<span style="color:#268bd2">---</span> <span style="color:#268bd2">favicon</span>.<span style="color:#268bd2">ico</span>
+</span></span><span style="display:flex;"><span>|   |   +<span style="color:#268bd2">---</span> <span style="color:#268bd2">hugo_version_20220319</span>.<span style="color:#268bd2">png</span>
+</span></span><span style="display:flex;"><span>|   +<span style="color:#268bd2">---</span> <span style="color:#268bd2">js</span>
+</span></span><span style="display:flex;"><span>|   |   +<span style="color:#268bd2">---</span> <span style="color:#268bd2">feather</span>.<span style="color:#268bd2">min</span>.<span style="color:#268bd2">js</span>
+</span></span><span style="display:flex;"><span>|   |   +<span style="color:#268bd2">---</span> <span style="color:#268bd2">jquery-3</span>.<span style="color:#2aa198;font-weight:bold">5.1</span>.<span style="color:#268bd2">min</span>.<span style="color:#268bd2">js</span>
+</span></span><span style="display:flex;"><span>|   |   +<span style="color:#268bd2">---</span> <span style="color:#268bd2">main</span>.<span style="color:#268bd2">js</span>
+</span></span><span style="display:flex;"><span>+<span style="color:#268bd2">---</span> <span style="color:#268bd2">themes</span>          <span style="color:#93a1a1;font-style:italic"># 存放网页结构和模板的文件夹</span>
+</span></span><span style="display:flex;"><span>|   +<span style="color:#268bd2">---</span> <span style="color:#268bd2">codemax</span>
+</span></span><span style="display:flex;"><span>|   |   +<span style="color:#268bd2">---</span> <span style="color:#268bd2">layouts</span>
+</span></span><span style="display:flex;"><span>|   |   |   +<span style="color:#268bd2">---</span> <span style="color:#2aa198;font-weight:bold">404</span>.<span style="color:#268bd2">html</span>
+</span></span><span style="display:flex;"><span>|   |   |   +<span style="color:#268bd2">---</span> <span style="color:#268bd2">index</span>.<span style="color:#268bd2">html</span>
+</span></span><span style="display:flex;"><span>|   |   |   +<span style="color:#268bd2">---</span> <span style="color:#268bd2">partials</span>
+</span></span><span style="display:flex;"><span>|   |   |   |   +<span style="color:#268bd2">---</span> <span style="color:#268bd2">disqus</span>.<span style="color:#268bd2">html</span>
+</span></span><span style="display:flex;"><span>|   |   |   |   +<span style="color:#268bd2">---</span> <span style="color:#268bd2">footer</span>.<span style="color:#268bd2">html</span>
+</span></span><span style="display:flex;"><span>|   |   |   |   +<span style="color:#268bd2">---</span> <span style="color:#268bd2">gitalk</span>.<span style="color:#268bd2">html</span>
+</span></span><span style="display:flex;"><span>|   |   |   |   +<span style="color:#268bd2">---</span> <span style="color:#268bd2">head</span>.<span style="color:#268bd2">html</span>
+</span></span><span style="display:flex;"><span>|   |   |   |   +<span style="color:#268bd2">---</span> <span style="color:#268bd2">header</span>.<span style="color:#268bd2">html</span>
+</span></span><span style="display:flex;"><span>|   |   |   |   +<span style="color:#268bd2">---</span> <span style="color:#268bd2">js</span>.<span style="color:#268bd2">html</span>
+</span></span><span style="display:flex;"><span>|   |   |   |   +<span style="color:#268bd2">---</span> <span style="color:#268bd2">mathjax</span>.<span style="color:#268bd2">html</span>
+</span></span><span style="display:flex;"><span>|   |   |   |   +<span style="color:#268bd2">---</span> <span style="color:#268bd2">paginator</span>.<span style="color:#268bd2">html</span>
+</span></span><span style="display:flex;"><span>|   |   |   +<span style="color:#268bd2">---</span> <span style="color:#268bd2">_default</span>
+</span></span><span style="display:flex;"><span>|   |   |   |   +<span style="color:#268bd2">---</span> <span style="color:#268bd2">list</span>.<span style="color:#268bd2">html</span>
+</span></span><span style="display:flex;"><span>|   |   |   |   +<span style="color:#268bd2">---</span> <span style="color:#268bd2">single</span>.<span style="color:#268bd2">html</span>
+</span></span><span style="display:flex;"><span>|   |   |   |   +<span style="color:#268bd2">---</span> <span style="color:#268bd2">terms</span>.<span style="color:#268bd2">html</span>
 </span></span></code></pre></div><ol start="3">
 <li>在static文件中存入或者手写自己需要的js\css文件，其中main.js和main.css是DIY本网站的主要js\css文件,需要增加和修改二者即可</li>
 <li>最为重要的是<strong>config.toml</strong>配置文件的修改</li>
 </ol>
-<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-t" data-lang="t"><span style="display:flex;"><span>baseURL <span style="color:#719e07">=</span> <span style="color:#2aa198">&#34;http://localhost:1313/&#34;</span>  <span style="color:#586e75"># 静态网站的url</span>
-</span></span><span style="display:flex;"><span>languageCode <span style="color:#719e07">=</span> <span style="color:#2aa198">&#34;en-us&#34;</span>              <span style="color:#586e75"># 网站语言meta </span>
-</span></span><span style="display:flex;"><span>title <span style="color:#719e07">=</span> <span style="color:#2aa198">&#34;CodeMax&#34;</span>                   <span style="color:#586e75"># 网站标题</span>
-</span></span><span style="display:flex;"><span>theme <span style="color:#719e07">=</span> <span style="color:#2aa198">&#34;codemax&#34;</span>                   <span style="color:#586e75"># theme名称 需要和文档中的themes下第一级目录名称</span>
-</span></span><span style="display:flex;"><span>                                    <span style="color:#586e75"># 一致 例如：themes/codemax</span>
-</span></span><span style="display:flex;"><span>paginate <span style="color:#719e07">=</span> <span style="color:#2aa198">5</span>                        <span style="color:#586e75"># 每页展示的内容list数量</span>
+<div class="highlight"><pre tabindex="0" style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-toml" data-lang="toml"><span style="display:flex;"><span><span style="color:#268bd2">baseURL</span> = <span style="color:#2aa198">&#34;http://localhost:1313/&#34;</span>  <span style="color:#93a1a1;font-style:italic"># 静态网站的url</span>
+</span></span><span style="display:flex;"><span><span style="color:#268bd2">languageCode</span> = <span style="color:#2aa198">&#34;en-us&#34;</span>              <span style="color:#93a1a1;font-style:italic"># 网站语言meta </span>
+</span></span><span style="display:flex;"><span><span style="color:#268bd2">title</span> = <span style="color:#2aa198">&#34;CodeMax&#34;</span>                   <span style="color:#93a1a1;font-style:italic"># 网站标题</span>
+</span></span><span style="display:flex;"><span><span style="color:#268bd2">theme</span> = <span style="color:#2aa198">&#34;codemax&#34;</span>                   <span style="color:#93a1a1;font-style:italic"># theme名称 需要和文档中的themes下第一级目录名称</span>
+</span></span><span style="display:flex;"><span>                                    <span style="color:#93a1a1;font-style:italic"># 一致 例如：themes/codemax</span>
+</span></span><span style="display:flex;"><span><span style="color:#268bd2">paginate</span> = <span style="color:#2aa198;font-weight:bold">5</span>                        <span style="color:#93a1a1;font-style:italic"># 每页展示的内容list数量</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>copyright <span style="color:#719e07">=</span> <span style="color:#2aa198">&#34;© Copyright CodeMax&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#268bd2">copyright</span> = <span style="color:#2aa198">&#34;© Copyright CodeMax&#34;</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>pygmentsstyle <span style="color:#719e07">=</span> <span style="color:#2aa198">&#34;solarized-dark&#34;</span>
-</span></span><span style="display:flex;"><span>pygmentscodefences <span style="color:#719e07">=</span> true
-</span></span><span style="display:flex;"><span>pygmentscodefencesguesssyntax <span style="color:#719e07">=</span> true
+</span></span><span style="display:flex;"><span><span style="color:#268bd2">pygmentsstyle</span> = <span style="color:#2aa198">&#34;solarized-dark&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#268bd2">pygmentscodefences</span> = <span style="color:#859900;font-weight:bold">true</span>
+</span></span><span style="display:flex;"><span><span style="color:#268bd2">pygmentscodefencesguesssyntax</span> = <span style="color:#859900;font-weight:bold">true</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>googleAnalytics <span style="color:#719e07">=</span> <span style="color:#2aa198">&#34;UA-123-45&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#268bd2">googleAnalytics</span> = <span style="color:#2aa198">&#34;UA-123-45&#34;</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>summaryLength <span style="color:#719e07">=</span> <span style="color:#2aa198">50</span>
+</span></span><span style="display:flex;"><span><span style="color:#268bd2">summaryLength</span> = <span style="color:#2aa198;font-weight:bold">50</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>[params]
-</span></span><span style="display:flex;"><span>	subtitle <span style="color:#719e07">=</span> <span style="color:#2aa198">&#34;Good Good Study, Day Day Up&#34;</span>   <span style="color:#586e75"># 网站副标题</span>
-</span></span><span style="display:flex;"><span>	disableDisqusTypes <span style="color:#719e07">=</span> [<span style="color:#2aa198">&#34;page&#34;</span>]              
-</span></span><span style="display:flex;"><span>	featherIconsCDN <span style="color:#719e07">=</span> false                    <span style="color:#586e75"># feather icon的启动</span>
-</span></span><span style="display:flex;"><span>	mode <span style="color:#719e07">=</span> <span style="color:#2aa198">&#34;auto&#34;</span> <span style="color:#586e75"># &#34;dark&#34;, &#34;auto&#34;, &#34;light&#34;    # 网页背景主题 auto 根据浏览器背景主题走</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#586e75"># customCSS = &#34;css/custom.css&#34;  # Custom CSS applied to default styles.</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#586e75"># customDarkCSS = &#34;css/custom-dark.css&#34;# Custom styles applied to dark mode css.</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#586e75"># customJS = [&#34;https://code.jquery.com/jquery-3.4.1.js&#34;, &#34;js/custom1.js&#34;] </span>
-</span></span><span style="display:flex;"><span>    <span style="color:#586e75"># Custom JS scripts.</span>
-</span></span><span style="display:flex;"><span>    enableMathJax <span style="color:#719e07">=</span> true                       <span style="color:#586e75"># 是否开启公式 </span>
-</span></span><span style="display:flex;"><span>    enableGitalk <span style="color:#719e07">=</span> true                        <span style="color:#586e75"># 是否开启gittalk</span>
+</span></span><span style="display:flex;"><span>[<span style="color:#268bd2">params</span>]
+</span></span><span style="display:flex;"><span>	<span style="color:#268bd2">subtitle</span> = <span style="color:#2aa198">&#34;Good Good Study, Day Day Up&#34;</span>   <span style="color:#93a1a1;font-style:italic"># 网站副标题</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#268bd2">disableDisqusTypes</span> = [<span style="color:#2aa198">&#34;page&#34;</span>]              
+</span></span><span style="display:flex;"><span>	<span style="color:#268bd2">featherIconsCDN</span> = <span style="color:#859900;font-weight:bold">false</span>                    <span style="color:#93a1a1;font-style:italic"># feather icon的启动</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#268bd2">mode</span> = <span style="color:#2aa198">&#34;auto&#34;</span> <span style="color:#93a1a1;font-style:italic"># &#34;dark&#34;, &#34;auto&#34;, &#34;light&#34;    # 网页背景主题 auto 根据浏览器背景主题走</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#93a1a1;font-style:italic"># customCSS = &#34;css/custom.css&#34;  # Custom CSS applied to default styles.</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#93a1a1;font-style:italic"># customDarkCSS = &#34;css/custom-dark.css&#34;# Custom styles applied to dark mode css.</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#93a1a1;font-style:italic"># customJS = [&#34;https://code.jquery.com/jquery-3.4.1.js&#34;, &#34;js/custom1.js&#34;] </span>
+</span></span><span style="display:flex;"><span>    <span style="color:#93a1a1;font-style:italic"># Custom JS scripts.</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#268bd2">enableMathJax</span> = <span style="color:#859900;font-weight:bold">true</span>                       <span style="color:#93a1a1;font-style:italic"># 是否开启公式 </span>
+</span></span><span style="display:flex;"><span>    <span style="color:#268bd2">enableGitalk</span> = <span style="color:#859900;font-weight:bold">true</span>                        <span style="color:#93a1a1;font-style:italic"># 是否开启gittalk</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>[[menu<span style="color:#719e07">.</span>main]]  <span style="color:#586e75"># 主页的menu分栏 </span>
-</span></span><span style="display:flex;"><span>name <span style="color:#719e07">=</span> <span style="color:#2aa198">&#34;Home&#34;</span>  <span style="color:#586e75"># name:menu 名称 url:存放路由 weight:展示顺序权重</span>
-</span></span><span style="display:flex;"><span>url <span style="color:#719e07">=</span> <span style="color:#2aa198">&#34;/&#34;</span>
-</span></span><span style="display:flex;"><span>weight <span style="color:#719e07">=</span> <span style="color:#2aa198">1</span>
+</span></span><span style="display:flex;"><span>[[<span style="color:#268bd2">menu</span>.<span style="color:#268bd2">main</span>]]  <span style="color:#93a1a1;font-style:italic"># 主页的menu分栏 </span>
+</span></span><span style="display:flex;"><span><span style="color:#268bd2">name</span> = <span style="color:#2aa198">&#34;Home&#34;</span>  <span style="color:#93a1a1;font-style:italic"># name:menu 名称 url:存放路由 weight:展示顺序权重</span>
+</span></span><span style="display:flex;"><span><span style="color:#268bd2">url</span> = <span style="color:#2aa198">&#34;/&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#268bd2">weight</span> = <span style="color:#2aa198;font-weight:bold">1</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>[[menu<span style="color:#719e07">.</span>main]]
-</span></span><span style="display:flex;"><span>name <span style="color:#719e07">=</span> <span style="color:#2aa198">&#34;Blogs&#34;</span>
-</span></span><span style="display:flex;"><span>url <span style="color:#719e07">=</span> <span style="color:#2aa198">&#34;/posts&#34;</span>
-</span></span><span style="display:flex;"><span>weight <span style="color:#719e07">=</span> <span style="color:#2aa198">2</span>
+</span></span><span style="display:flex;"><span>[[<span style="color:#268bd2">menu</span>.<span style="color:#268bd2">main</span>]]
+</span></span><span style="display:flex;"><span><span style="color:#268bd2">name</span> = <span style="color:#2aa198">&#34;Blogs&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#268bd2">url</span> = <span style="color:#2aa198">&#34;/posts&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#268bd2">weight</span> = <span style="color:#2aa198;font-weight:bold">2</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>[[menu<span style="color:#719e07">.</span>main]]
-</span></span><span style="display:flex;"><span>name <span style="color:#719e07">=</span> <span style="color:#2aa198">&#34;About&#34;</span>
-</span></span><span style="display:flex;"><span>url <span style="color:#719e07">=</span> <span style="color:#2aa198">&#34;/about&#34;</span>
-</span></span><span style="display:flex;"><span>weight <span style="color:#719e07">=</span> <span style="color:#2aa198">4</span>
+</span></span><span style="display:flex;"><span>[[<span style="color:#268bd2">menu</span>.<span style="color:#268bd2">main</span>]]
+</span></span><span style="display:flex;"><span><span style="color:#268bd2">name</span> = <span style="color:#2aa198">&#34;About&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#268bd2">url</span> = <span style="color:#2aa198">&#34;/about&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#268bd2">weight</span> = <span style="color:#2aa198;font-weight:bold">4</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>[[menu<span style="color:#719e07">.</span>main]]
-</span></span><span style="display:flex;"><span>name <span style="color:#719e07">=</span> <span style="color:#2aa198">&#34;Tags&#34;</span>
-</span></span><span style="display:flex;"><span>url <span style="color:#719e07">=</span> <span style="color:#2aa198">&#34;/tags&#34;</span>
-</span></span><span style="display:flex;"><span>weight <span style="color:#719e07">=</span> <span style="color:#2aa198">3</span>
+</span></span><span style="display:flex;"><span>[[<span style="color:#268bd2">menu</span>.<span style="color:#268bd2">main</span>]]
+</span></span><span style="display:flex;"><span><span style="color:#268bd2">name</span> = <span style="color:#2aa198">&#34;Tags&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#268bd2">url</span> = <span style="color:#2aa198">&#34;/tags&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#268bd2">weight</span> = <span style="color:#2aa198;font-weight:bold">3</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>[[params<span style="color:#719e07">.</span>social]]
-</span></span><span style="display:flex;"><span>name <span style="color:#719e07">=</span> <span style="color:#2aa198">&#34;Github&#34;</span>
-</span></span><span style="display:flex;"><span>icon <span style="color:#719e07">=</span> <span style="color:#2aa198">&#34;github&#34;</span>
-</span></span><span style="display:flex;"><span>url <span style="color:#719e07">=</span> <span style="color:#2aa198">&#34;https://github.com/hzzhu92&#34;</span>
+</span></span><span style="display:flex;"><span>[[<span style="color:#268bd2">params</span>.<span style="color:#268bd2">social</span>]]
+</span></span><span style="display:flex;"><span><span style="color:#268bd2">name</span> = <span style="color:#2aa198">&#34;Github&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#268bd2">icon</span> = <span style="color:#2aa198">&#34;github&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#268bd2">url</span> = <span style="color:#2aa198">&#34;https://github.com/hzzhu92&#34;</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>[[params<span style="color:#719e07">.</span>social]]
-</span></span><span style="display:flex;"><span>name <span style="color:#719e07">=</span> <span style="color:#2aa198">&#34;Twitter&#34;</span>
-</span></span><span style="display:flex;"><span>icon <span style="color:#719e07">=</span> <span style="color:#2aa198">&#34;twitter&#34;</span>
-</span></span><span style="display:flex;"><span>url <span style="color:#719e07">=</span> <span style="color:#2aa198">&#34;https://twitter.com/pigzhu11&#34;</span>
+</span></span><span style="display:flex;"><span>[[<span style="color:#268bd2">params</span>.<span style="color:#268bd2">social</span>]]
+</span></span><span style="display:flex;"><span><span style="color:#268bd2">name</span> = <span style="color:#2aa198">&#34;Twitter&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#268bd2">icon</span> = <span style="color:#2aa198">&#34;twitter&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#268bd2">url</span> = <span style="color:#2aa198">&#34;https://twitter.com/pigzhu11&#34;</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>[[params<span style="color:#719e07">.</span>social]]
-</span></span><span style="display:flex;"><span>name <span style="color:#719e07">=</span> <span style="color:#2aa198">&#34;RSS&#34;</span>
-</span></span><span style="display:flex;"><span>icon <span style="color:#719e07">=</span> <span style="color:#2aa198">&#34;rss&#34;</span>
-</span></span><span style="display:flex;"><span>url <span style="color:#719e07">=</span> <span style="color:#2aa198">&#34;/index.xml&#34;</span>
+</span></span><span style="display:flex;"><span>[[<span style="color:#268bd2">params</span>.<span style="color:#268bd2">social</span>]]
+</span></span><span style="display:flex;"><span><span style="color:#268bd2">name</span> = <span style="color:#2aa198">&#34;RSS&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#268bd2">icon</span> = <span style="color:#2aa198">&#34;rss&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#268bd2">url</span> = <span style="color:#2aa198">&#34;/index.xml&#34;</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>[taxonomies]
-</span></span><span style="display:flex;"><span>   tag <span style="color:#719e07">=</span> <span style="color:#2aa198">&#34;tags&#34;</span>
+</span></span><span style="display:flex;"><span>[<span style="color:#268bd2">taxonomies</span>]
+</span></span><span style="display:flex;"><span>   <span style="color:#268bd2">tag</span> = <span style="color:#2aa198">&#34;tags&#34;</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>[params<span style="color:#719e07">.</span>gitalk]    <span style="color:#586e75"># gittalk配置</span>
-</span></span><span style="display:flex;"><span>    enable <span style="color:#719e07">=</span> true
-</span></span><span style="display:flex;"><span>    clientID <span style="color:#719e07">=</span> <span style="color:#2aa198">&#34;&#34;</span> <span style="color:#586e75"># Your client ID</span>
-</span></span><span style="display:flex;"><span>    clientSecret <span style="color:#719e07">=</span> <span style="color:#2aa198">&#34;&#34;</span> <span style="color:#586e75"># Your client secret</span>
-</span></span><span style="display:flex;"><span>    repo <span style="color:#719e07">=</span> <span style="color:#2aa198">&#34;hzzhu92.github.io&#34;</span> <span style="color:#586e75"># The repo to store comments</span>
-</span></span><span style="display:flex;"><span>    owner <span style="color:#719e07">=</span> <span style="color:#2aa198">&#34;hzzhu92&#34;</span> <span style="color:#586e75"># Your GitHub ID</span>
-</span></span><span style="display:flex;"><span>    admin<span style="color:#719e07">=</span> <span style="color:#2aa198">&#34;hzzhu92&#34;</span> <span style="color:#586e75"># Required. Github repository owner and collaborators. </span>
-</span></span><span style="display:flex;"><span>                     <span style="color:#586e75">#(Users who having write access to this repository)</span>
-</span></span><span style="display:flex;"><span>    id<span style="color:#719e07">=</span> <span style="color:#2aa198">&#34;location.pathname&#34;</span> <span style="color:#586e75"># The unique id of the page.</span>
-</span></span><span style="display:flex;"><span>    labels<span style="color:#719e07">=</span> <span style="color:#2aa198">&#34;gitalk&#34;</span> <span style="color:#586e75"># Github issue labels. If you used to use Gitment, you can change it</span>
-</span></span><span style="display:flex;"><span>    perPage<span style="color:#719e07">=</span> <span style="color:#2aa198">15</span> <span style="color:#586e75"># Pagination size, with maximum 100.</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#586e75"># Comment sorting direction, available values are &#39;last&#39; and &#39;first&#39;.</span>
-</span></span><span style="display:flex;"><span>    pagerDirection<span style="color:#719e07">=</span> <span style="color:#2aa198">&#34;last&#34;</span> 
-</span></span><span style="display:flex;"><span>    createIssueManually<span style="color:#719e07">=</span> false <span style="color:#586e75"># If it is &#39;false&#39;, it is auto to make a Github issue </span>
-</span></span><span style="display:flex;"><span>                               <span style="color:#586e75"># when the administrators login.</span>
-</span></span><span style="display:flex;"><span>    distractionFreeMode<span style="color:#719e07">=</span> false <span style="color:#586e75"># Enable hot key (cmd|ctrl + enter) submit comment.</span>
+</span></span><span style="display:flex;"><span>[<span style="color:#268bd2">params</span>.<span style="color:#268bd2">gitalk</span>]    <span style="color:#93a1a1;font-style:italic"># gittalk配置</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#268bd2">enable</span> = <span style="color:#859900;font-weight:bold">true</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#268bd2">clientID</span> = <span style="color:#2aa198">&#34;&#34;</span> <span style="color:#93a1a1;font-style:italic"># Your client ID</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#268bd2">clientSecret</span> = <span style="color:#2aa198">&#34;&#34;</span> <span style="color:#93a1a1;font-style:italic"># Your client secret</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#268bd2">repo</span> = <span style="color:#2aa198">&#34;hzzhu92.github.io&#34;</span> <span style="color:#93a1a1;font-style:italic"># The repo to store comments</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#268bd2">owner</span> = <span style="color:#2aa198">&#34;hzzhu92&#34;</span> <span style="color:#93a1a1;font-style:italic"># Your GitHub ID</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#268bd2">admin</span>= <span style="color:#2aa198">&#34;hzzhu92&#34;</span> <span style="color:#93a1a1;font-style:italic"># Required. Github repository owner and collaborators. </span>
+</span></span><span style="display:flex;"><span>                     <span style="color:#93a1a1;font-style:italic">#(Users who having write access to this repository)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#268bd2">id</span>= <span style="color:#2aa198">&#34;location.pathname&#34;</span> <span style="color:#93a1a1;font-style:italic"># The unique id of the page.</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#268bd2">labels</span>= <span style="color:#2aa198">&#34;gitalk&#34;</span> <span style="color:#93a1a1;font-style:italic"># Github issue labels. If you used to use Gitment, you can change it</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#268bd2">perPage</span>= <span style="color:#2aa198;font-weight:bold">15</span> <span style="color:#93a1a1;font-style:italic"># Pagination size, with maximum 100.</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#93a1a1;font-style:italic"># Comment sorting direction, available values are &#39;last&#39; and &#39;first&#39;.</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#268bd2">pagerDirection</span>= <span style="color:#2aa198">&#34;last&#34;</span> 
+</span></span><span style="display:flex;"><span>    <span style="color:#268bd2">createIssueManually</span>= <span style="color:#859900;font-weight:bold">false</span> <span style="color:#93a1a1;font-style:italic"># If it is &#39;false&#39;, it is auto to make a Github issue </span>
+</span></span><span style="display:flex;"><span>                               <span style="color:#93a1a1;font-style:italic"># when the administrators login.</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#268bd2">distractionFreeMode</span>= <span style="color:#859900;font-weight:bold">false</span> <span style="color:#93a1a1;font-style:italic"># Enable hot key (cmd|ctrl + enter) submit comment.</span>
 </span></span></code></pre></div><p>其中gitalk.html</p>
-<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span><span style="color:#586e75">&lt;!-- gittalk --&gt;</span>
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#268bd2">div</span> class<span style="color:#719e07">=</span><span style="color:#2aa198">&#34;doc_comments&#34;</span>&gt;
-</span></span><span style="display:flex;"><span>    &lt;<span style="color:#268bd2">div</span> id<span style="color:#719e07">=</span><span style="color:#2aa198">&#34;gitalk-container&#34;</span>&gt;&lt;/<span style="color:#268bd2">div</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#268bd2">div</span>&gt;
+<div class="highlight"><pre tabindex="0" style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span><span style="color:#93a1a1;font-style:italic">&lt;!-- gittalk --&gt;</span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#268bd2;font-weight:bold">div</span> <span style="color:#268bd2">class</span>=<span style="color:#2aa198">&#34;doc_comments&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#268bd2;font-weight:bold">div</span> <span style="color:#268bd2">id</span>=<span style="color:#2aa198">&#34;gitalk-container&#34;</span>&gt;&lt;/<span style="color:#268bd2;font-weight:bold">div</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#268bd2;font-weight:bold">div</span>&gt;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#586e75">&lt;!-- {{ if .Site.Params.enableGitalk }} --&gt;</span>
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#268bd2">link</span> rel<span style="color:#719e07">=</span><span style="color:#2aa198">&#34;stylesheet&#34;</span> href<span style="color:#719e07">=</span><span style="color:#2aa198">&#34;https://unpkg.com/gitalk@1.2.2/dist/gitalk.css&#34;</span>&gt;
-</span></span><span style="display:flex;"><span><span style="color:#586e75">&lt;!-- &lt;script src=&#34;/assets/js/gitalk.min.js&#34;&gt;&lt;/script&gt;  --&gt;</span>
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#268bd2">script</span> src<span style="color:#719e07">=</span><span style="color:#2aa198">&#34;https://unpkg.com/gitalk@latest/dist/gitalk.min.js&#34;</span>&gt;&lt;/<span style="color:#268bd2">script</span>&gt;
-</span></span><span style="display:flex;"><span><span style="color:#586e75">&lt;!-- &lt;script type=&#34;text/javascript&#34; src=&#34;/assets/js/md5.min.js&#34;&gt;&lt;/script&gt; --&gt;</span>
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#268bd2">script</span>&gt;
-</span></span><span style="display:flex;"><span>    <span style="color:#268bd2">const</span> gitalk <span style="color:#719e07">=</span> <span style="color:#719e07">new</span> Gitalk({
-</span></span><span style="display:flex;"><span>        clientID<span style="color:#719e07">:</span> <span style="color:#2aa198">&#39;{{ .Site.Params.gitalk.clientID }}&#39;</span>,
-</span></span><span style="display:flex;"><span>        clientSecret<span style="color:#719e07">:</span> <span style="color:#2aa198">&#39;{{ .Site.Params.gitalk.clientSecret }}&#39;</span>,
-</span></span><span style="display:flex;"><span>        repo<span style="color:#719e07">:</span> <span style="color:#2aa198">&#39;{{ .Site.Params.gitalk.repo }}&#39;</span>,
-</span></span><span style="display:flex;"><span>        owner<span style="color:#719e07">:</span> <span style="color:#2aa198">&#39;{{ .Site.Params.gitalk.owner }}&#39;</span>,
-</span></span><span style="display:flex;"><span>        admin<span style="color:#719e07">:</span> [<span style="color:#2aa198">&#39;{{ .Site.Params.gitalk.owner }}&#39;</span>],
-</span></span><span style="display:flex;"><span>        id<span style="color:#719e07">:</span> location.pathname, <span style="color:#586e75">// Ensure uniqueness and length less than 50
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>        distractionFreeMode<span style="color:#719e07">:</span> <span style="color:#cb4b16">false</span> <span style="color:#586e75">// Facebook-like distraction free mode
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>    });
-</span></span><span style="display:flex;"><span>    (<span style="color:#268bd2">function</span>() {
-</span></span><span style="display:flex;"><span>        <span style="color:#719e07">if</span> ([<span style="color:#2aa198">&#34;localhost&#34;</span>, <span style="color:#2aa198">&#34;127.0.0.1&#34;</span>].indexOf(<span style="color:#b58900">window</span>.location.hostname) <span style="color:#719e07">!=</span> <span style="color:#719e07">-</span><span style="color:#2aa198">1</span>) {
-</span></span><span style="display:flex;"><span>            <span style="color:#b58900">document</span>.getElementById(<span style="color:#2aa198">&#39;gitalk-container&#39;</span>).
-</span></span><span style="display:flex;"><span>            innerHTML <span style="color:#719e07">=</span> <span style="color:#2aa198">&#39;Gitalk comments not available by default\ 
+</span></span><span style="display:flex;"><span><span style="color:#93a1a1;font-style:italic">&lt;!-- {{ if .Site.Params.enableGitalk }} --&gt;</span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#268bd2;font-weight:bold">link</span> <span style="color:#268bd2">rel</span>=<span style="color:#2aa198">&#34;stylesheet&#34;</span> <span style="color:#268bd2">href</span>=<span style="color:#2aa198">&#34;https://unpkg.com/gitalk@1.2.2/dist/gitalk.css&#34;</span>&gt;
+</span></span><span style="display:flex;"><span><span style="color:#93a1a1;font-style:italic">&lt;!-- &lt;script src=&#34;/assets/js/gitalk.min.js&#34;&gt;&lt;/script&gt;  --&gt;</span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#268bd2;font-weight:bold">script</span> <span style="color:#268bd2">src</span>=<span style="color:#2aa198">&#34;https://unpkg.com/gitalk@latest/dist/gitalk.min.js&#34;</span>&gt;&lt;/<span style="color:#268bd2;font-weight:bold">script</span>&gt;
+</span></span><span style="display:flex;"><span><span style="color:#93a1a1;font-style:italic">&lt;!-- &lt;script type=&#34;text/javascript&#34; src=&#34;/assets/js/md5.min.js&#34;&gt;&lt;/script&gt; --&gt;</span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#268bd2;font-weight:bold">script</span>&gt;
+</span></span><span style="display:flex;"><span>    <span style="color:#859900">const</span> <span style="color:#268bd2">gitalk</span> = <span style="color:#859900">new</span> <span style="color:#268bd2">Gitalk</span>({
+</span></span><span style="display:flex;"><span>        <span style="color:#268bd2">clientID</span>: <span style="color:#2aa198">&#39;{{ .Site.Params.gitalk.clientID }}&#39;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#268bd2">clientSecret</span>: <span style="color:#2aa198">&#39;{{ .Site.Params.gitalk.clientSecret }}&#39;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#268bd2">repo</span>: <span style="color:#2aa198">&#39;{{ .Site.Params.gitalk.repo }}&#39;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#268bd2">owner</span>: <span style="color:#2aa198">&#39;{{ .Site.Params.gitalk.owner }}&#39;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#268bd2">admin</span>: [<span style="color:#2aa198">&#39;{{ .Site.Params.gitalk.owner }}&#39;</span>],
+</span></span><span style="display:flex;"><span>        <span style="color:#268bd2">id</span>: <span style="color:#268bd2">location</span>.<span style="color:#268bd2">pathname</span>, <span style="color:#93a1a1;font-style:italic">// Ensure uniqueness and length less than 50
+</span></span></span><span style="display:flex;"><span><span style="color:#93a1a1;font-style:italic"></span>        <span style="color:#268bd2">distractionFreeMode</span>: <span style="color:#859900;font-weight:bold">false</span> <span style="color:#93a1a1;font-style:italic">// Facebook-like distraction free mode
+</span></span></span><span style="display:flex;"><span><span style="color:#93a1a1;font-style:italic"></span>    });
+</span></span><span style="display:flex;"><span>    (<span style="color:#859900">function</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#859900">if</span> ([<span style="color:#2aa198">&#34;localhost&#34;</span>, <span style="color:#2aa198">&#34;127.0.0.1&#34;</span>].<span style="color:#268bd2">indexOf</span>(<span style="color:#cb4b16">window</span>.<span style="color:#268bd2">location</span>.<span style="color:#268bd2">hostname</span>) != -<span style="color:#2aa198;font-weight:bold">1</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#cb4b16">document</span>.<span style="color:#268bd2">getElementById</span>(<span style="color:#2aa198">&#39;gitalk-container&#39;</span>).
+</span></span><span style="display:flex;"><span>            <span style="color:#268bd2">innerHTML</span> = <span style="color:#2aa198">&#39;Gitalk comments not available by default\ 
 </span></span></span><span style="display:flex;"><span><span style="color:#2aa198">                         when the website is previewed locally.&#39;</span>;
-</span></span><span style="display:flex;"><span>            <span style="color:#719e07">return</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#859900">return</span>;
 </span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>        gitalk.render(<span style="color:#2aa198">&#39;gitalk-container&#39;</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#268bd2">gitalk</span>.<span style="color:#268bd2">render</span>(<span style="color:#2aa198">&#39;gitalk-container&#39;</span>);
 </span></span><span style="display:flex;"><span>    })();
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#268bd2">script</span>&gt;
-</span></span><span style="display:flex;"><span><span style="color:#586e75">&lt;!-- {{ end }} --&gt;</span>
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#268bd2;font-weight:bold">script</span>&gt;
+</span></span><span style="display:flex;"><span><span style="color:#93a1a1;font-style:italic">&lt;!-- {{ end }} --&gt;</span>
 </span></span></code></pre></div><p>其中gitalk在site.html中逻辑如下：</p>
 <p><strong>注意：</strong></p>
 <ul>
 <li>需要在config中设置enableGitalk=true</li>
 <li>在内容markdown中需要设置key并且key是唯一的字符串</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>{{- $.Scratch.Set &#34;isGitalk&#34; false -}}
+<div class="highlight"><pre tabindex="0" style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span>{{- $.<span style="color:#268bd2">Scratch</span>.<span style="color:#268bd2">Set</span> <span style="color:#2aa198">&#34;isGitalk&#34;</span> <span style="color:#859900;font-weight:bold">false</span> -}}
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#586e75">&lt;!-- Check if content has flag to enable/disable disqus explicitly --&gt;</span>
-</span></span><span style="display:flex;"><span>{{- if and (isset .Params &#34;key&#34;) (eq .Site.Params.enableGitalk true) -}}
-</span></span><span style="display:flex;"><span>{{- $.Scratch.Set &#34;isGitalk&#34; true -}}
-</span></span><span style="display:flex;"><span>{{- end -}}
-</span></span><span style="display:flex;"><span>{{- if eq ($.Scratch.Get &#34;isGitalk&#34;) true -}}
-</span></span><span style="display:flex;"><span>{{- partial &#34;gitalk.html&#34; . -}}
-</span></span><span style="display:flex;"><span>{{- end -}}
+</span></span><span style="display:flex;"><span>&lt;!-- <span style="color:#268bd2">Check</span> <span style="color:#859900">if</span> <span style="color:#268bd2">content</span> <span style="color:#268bd2">has</span> <span style="color:#268bd2">flag</span> <span style="color:#268bd2">to</span> <span style="color:#268bd2">enable</span>/<span style="color:#268bd2">disable</span> <span style="color:#268bd2">disqus</span> <span style="color:#268bd2">explicitly</span> --&gt;
+</span></span><span style="display:flex;"><span>{{- <span style="color:#859900">if</span> <span style="color:#268bd2">and</span> (<span style="color:#268bd2">isset</span> .<span style="color:#268bd2">Params</span> <span style="color:#2aa198">&#34;key&#34;</span>) (<span style="color:#268bd2">eq</span> .<span style="color:#268bd2">Site</span>.<span style="color:#268bd2">Params</span>.<span style="color:#268bd2">enableGitalk</span> <span style="color:#859900;font-weight:bold">true</span>) -}}
+</span></span><span style="display:flex;"><span>{{- $.<span style="color:#268bd2">Scratch</span>.<span style="color:#268bd2">Set</span> <span style="color:#2aa198">&#34;isGitalk&#34;</span> <span style="color:#859900;font-weight:bold">true</span> -}}
+</span></span><span style="display:flex;"><span>{{- <span style="color:#268bd2">end</span> -}}
+</span></span><span style="display:flex;"><span>{{- <span style="color:#859900">if</span> <span style="color:#268bd2">eq</span> ($.<span style="color:#268bd2">Scratch</span>.<span style="color:#268bd2">Get</span> <span style="color:#2aa198">&#34;isGitalk&#34;</span>) <span style="color:#859900;font-weight:bold">true</span> -}}
+</span></span><span style="display:flex;"><span>{{- <span style="color:#268bd2">partial</span> <span style="color:#2aa198">&#34;gitalk.html&#34;</span> . -}}
+</span></span><span style="display:flex;"><span>{{- <span style="color:#268bd2">end</span> -}}
 </span></span></code></pre></div><ol start="5">
 <li>启动本地hugo 服务</li>
 </ol>
-<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>hugo server
-</span></span><span style="display:flex;"><span><span style="color:#586e75"># 浏览器访问http://localhost:1313/</span>
-</span></span><span style="display:flex;"><span><span style="color:#586e75"># 注意本地无法启动gitalk，部署到github即可</span>
+<div class="highlight"><pre tabindex="0" style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>hugo server
+</span></span><span style="display:flex;"><span><span style="color:#93a1a1;font-style:italic"># 浏览器访问http://localhost:1313/</span>
+</span></span><span style="display:flex;"><span><span style="color:#93a1a1;font-style:italic"># 注意本地无法启动gitalk，部署到github即可</span>
+</span></span></code></pre></div><h2 id="emoji-表情">emoji 表情</h2>
+<p>需要在config.toml中增加：</p>
+<div class="highlight"><pre tabindex="0" style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>enableEmoji = true
+</span></span></code></pre></div><p>支持Github的emoji表情, 格式<code>:emoji代码:</code></p>
+<p>详细👉<a href="https://github.com/ikatyang/emoji-cheat-sheet/blob/master/README.md">github emoji</a></p>
+<h2 id="关于hugo-shortcodes">关于Hugo shortcodes</h2>
+<div class="highlight"><pre tabindex="0" style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#93a1a1;font-style:italic">#后续详细说明</span>
 </span></span></code></pre></div><h2 id="部署github-page">部署github page</h2>
 <ul>
 <li>建立github page repo, <a href="https://docs.github.com/cn/pages/getting-started-with-github-pages/creating-a-github-pages-site">详细参考</a></li>
 <li>关联本地站点到github page repo</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span><span style="color:#b58900">cd</span> awsomework_log
+<div class="highlight"><pre tabindex="0" style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span><span style="color:#cb4b16">cd</span> awsomework_log
 </span></span><span style="display:flex;"><span>mkdir public
-</span></span><span style="display:flex;"><span><span style="color:#b58900">cd</span> public
+</span></span><span style="display:flex;"><span><span style="color:#cb4b16">cd</span> public
 </span></span><span style="display:flex;"><span>git init .
 </span></span><span style="display:flex;"><span>git checkout -b main
 </span></span><span style="display:flex;"><span>git remote add origin git@github.com:xxx/xxx.io.git
 </span></span><span style="display:flex;"><span>git pull origin main 
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#586e75"># hugo 生成public命令</span>
-</span></span><span style="display:flex;"><span><span style="color:#586e75"># 其中--theme的值一定要和config中的theme值一致</span>
-</span></span><span style="display:flex;"><span><span style="color:#586e75"># --baseUrl 一定要要和自己的github page 的地址一致</span>
-</span></span><span style="display:flex;"><span><span style="color:#586e75"># 其实就是将public中配置对应字段进行替换</span>
-</span></span><span style="display:flex;"><span>hugo --theme<span style="color:#719e07">=</span>codemax --baseUrl<span style="color:#719e07">=</span><span style="color:#2aa198">&#34;https://hzzhu92.github.io/&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#93a1a1;font-style:italic"># hugo 生成public命令</span>
+</span></span><span style="display:flex;"><span><span style="color:#93a1a1;font-style:italic"># 其中--theme的值一定要和config中的theme值一致</span>
+</span></span><span style="display:flex;"><span><span style="color:#93a1a1;font-style:italic"># --baseUrl 一定要要和自己的github page 的地址一致</span>
+</span></span><span style="display:flex;"><span><span style="color:#93a1a1;font-style:italic"># 其实就是将public中配置对应字段进行替换</span>
+</span></span><span style="display:flex;"><span>hugo --theme=codemax --baseUrl=<span style="color:#2aa198">&#34;https://hzzhu92.github.io/&#34;</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#586e75"># git add .</span>
-</span></span><span style="display:flex;"><span><span style="color:#586e75"># git commit -m &#34;comment&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#586e75"># git push origin main</span>
+</span></span><span style="display:flex;"><span><span style="color:#93a1a1;font-style:italic"># git add .</span>
+</span></span><span style="display:flex;"><span><span style="color:#93a1a1;font-style:italic"># git commit -m &#34;comment&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#93a1a1;font-style:italic"># git push origin main</span>
 </span></span></code></pre></div><ul>
 <li>效果</li>
 </ul>
@@ -366,13 +373,12 @@
 </script>
 </div>
 	<div class="footer wrapper">
-	<nav class="nav">
-		<div> © Copyright CodeMax |  Built with <a href="https://gohugo.io">Hugo</a></div>
-	</nav>
+    <nav class="nav">
+        <div> © 2022 CodeMax |  Built with <a href="https://github.com/vividvilla/ezhil">ezhil</a></div>
+    </nav>
 </div>
 
-
-
+ 
 <script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
@@ -383,8 +389,9 @@ if (!doNotTrack) {
 }
 </script>
 <script async src='https://www.google-analytics.com/analytics.js'></script>
-
-<script>feather.replace()</script>
+ <script>
+    feather.replace()
+</script>
 	<script src="https://hzzhu92.github.io/js/jquery-3.5.1.min.js"></script><script type="text/javascript" async
     src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
         MathJax.Hub.Config({
