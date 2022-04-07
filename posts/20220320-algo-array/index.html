@@ -179,7 +179,7 @@
 </span></span><span style="display:flex;"><span>	}
 </span></span><span style="display:flex;"><span>	<span style="color:#859900">return</span> <span style="color:#268bd2">digits</span>
 </span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><h3 id="heading"></h3>
+</span></span></code></pre></div><h3 id="删除有序数组中的重复项">删除有序数组中的重复项</h3>
 <p>问题： 给定一个升序排列的数组nums，原地删除重复出现的元素，使每个元素只出现一次 ，返回删除后数组的新长度。
 元素的 相对顺序 应该保持 一致。</p>
 <div class="highlight"><pre tabindex="0" style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#859900">func</span> <span style="color:#268bd2">removeDuplicates</span>(<span style="color:#268bd2">nums</span> []<span style="color:#859900;font-weight:bold">int</span>) <span style="color:#859900;font-weight:bold">int</span> {
@@ -208,6 +208,34 @@
 </span></span><span style="display:flex;"><span>        }
 </span></span><span style="display:flex;"><span>	}
 </span></span><span style="display:flex;"><span>	<span style="color:#859900">return</span> <span style="color:#268bd2">loc</span>+<span style="color:#2aa198;font-weight:bold">1</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="移除元素">移除元素</h3>
+<p>问题：原地移除nums整数数组中等于val的元素，保证剩余元素的原有顺序。
+要求：不使用额外的数组空间，时间复杂度O(1)</p>
+<div class="highlight"><pre tabindex="0" style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#93a1a1;font-style:italic">// lp 记录不等于val的值从左往右的顺序位置以及记录不等于val值的个数
+</span></span></span><span style="display:flex;"><span><span style="color:#93a1a1;font-style:italic"></span><span style="color:#859900">func</span> <span style="color:#268bd2">removeElement</span>(<span style="color:#268bd2">nums</span> []<span style="color:#859900;font-weight:bold">int</span>, <span style="color:#268bd2">val</span> <span style="color:#859900;font-weight:bold">int</span>) <span style="color:#859900;font-weight:bold">int</span>, []<span style="color:#859900;font-weight:bold">int</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#268bd2">lp</span> := <span style="color:#2aa198;font-weight:bold">0</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#859900">for</span> <span style="color:#268bd2">i</span> := <span style="color:#859900">range</span> <span style="color:#268bd2">nums</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#859900">if</span> <span style="color:#268bd2">nums</span>[<span style="color:#268bd2">i</span>] != <span style="color:#268bd2">val</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#268bd2">nums</span>[<span style="color:#268bd2">lp</span>] = <span style="color:#268bd2">nums</span>[<span style="color:#268bd2">i</span>]
+</span></span><span style="display:flex;"><span>            <span style="color:#268bd2">lp</span>++
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#859900">return</span> <span style="color:#268bd2">lp</span>, <span style="color:#268bd2">nums</span>[:<span style="color:#268bd2">lp</span>]
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#93a1a1;font-style:italic">// 双指针 对折减小遍历数量
+</span></span></span><span style="display:flex;"><span><span style="color:#93a1a1;font-style:italic"></span><span style="color:#859900">func</span> <span style="color:#268bd2">removeElement</span>(<span style="color:#268bd2">nums</span> []<span style="color:#859900;font-weight:bold">int</span>, <span style="color:#268bd2">val</span> <span style="color:#859900;font-weight:bold">int</span>) <span style="color:#859900;font-weight:bold">int</span>, []<span style="color:#859900;font-weight:bold">int</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#268bd2">head</span>, <span style="color:#268bd2">tail</span> := <span style="color:#2aa198;font-weight:bold">0</span>, <span style="color:#cb4b16">len</span>(<span style="color:#268bd2">nums</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#859900">for</span> <span style="color:#268bd2">head</span> &lt; <span style="color:#268bd2">tail</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#859900">if</span> <span style="color:#268bd2">nums</span>[<span style="color:#268bd2">head</span>] == <span style="color:#268bd2">val</span> {
+</span></span><span style="display:flex;"><span>			<span style="color:#268bd2">nums</span>[<span style="color:#268bd2">head</span>] = <span style="color:#268bd2">nums</span>[<span style="color:#268bd2">tail</span>-<span style="color:#2aa198;font-weight:bold">1</span>]
+</span></span><span style="display:flex;"><span>			<span style="color:#268bd2">tail</span>--
+</span></span><span style="display:flex;"><span>		}<span style="color:#859900">else</span>{
+</span></span><span style="display:flex;"><span>			<span style="color:#268bd2">head</span>++
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#859900">return</span> <span style="color:#268bd2">head</span>, <span style="color:#268bd2">nums</span>[:<span style="color:#268bd2">head</span>]
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div>
 		</div>
