@@ -237,6 +237,64 @@
 </span></span><span style="display:flex;"><span>	}
 </span></span><span style="display:flex;"><span>	<span style="color:#859900">return</span> <span style="color:#268bd2">head</span>, <span style="color:#268bd2">nums</span>[:<span style="color:#268bd2">head</span>]
 </span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="binart-search-二分法">Binart Search 二分法</h3>
+<p>二分法是一种<code>解题思路</code>-逐渐缩小搜索范围。</p>
+<ol>
+<li>数组有序不是二分法的必要要求，二分法是思路</li>
+<li>避免死循环其他都好办</li>
+</ol>
+<ul>
+<li>Leetcode:704 二分查找</li>
+</ul>
+<p>问题：升序数组nums查找target。</p>
+<div class="highlight"><pre tabindex="0" style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#93a1a1;font-style:italic">// 二分法搜索
+</span></span></span><span style="display:flex;"><span><span style="color:#93a1a1;font-style:italic"></span><span style="color:#859900">func</span> <span style="color:#268bd2">searchBinary</span>(<span style="color:#268bd2">nums</span> []<span style="color:#859900;font-weight:bold">int</span>, <span style="color:#268bd2">target</span> <span style="color:#859900;font-weight:bold">int</span>) <span style="color:#859900;font-weight:bold">int</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#268bd2">ans</span> := -<span style="color:#2aa198;font-weight:bold">1</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#268bd2">left</span>, <span style="color:#268bd2">right</span> := <span style="color:#2aa198;font-weight:bold">0</span>, <span style="color:#cb4b16">len</span>(<span style="color:#268bd2">nums</span>)-<span style="color:#2aa198;font-weight:bold">1</span>   <span style="color:#93a1a1;font-style:italic">// 1 首尾
+</span></span></span><span style="display:flex;"><span><span style="color:#93a1a1;font-style:italic"></span>	<span style="color:#859900">for</span> <span style="color:#268bd2">left</span> &lt;= <span style="color:#268bd2">right</span> {             <span style="color:#93a1a1;font-style:italic">// 2 结束循环条件
+</span></span></span><span style="display:flex;"><span><span style="color:#93a1a1;font-style:italic"></span>		<span style="color:#268bd2">mid</span> := (<span style="color:#268bd2">right</span>-<span style="color:#268bd2">left</span>)&gt;&gt;<span style="color:#2aa198;font-weight:bold">1</span> + <span style="color:#268bd2">left</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#859900">if</span> <span style="color:#268bd2">target</span> &lt; <span style="color:#268bd2">nums</span>[<span style="color:#268bd2">mid</span>] {
+</span></span><span style="display:flex;"><span>			<span style="color:#268bd2">right</span> = <span style="color:#268bd2">mid</span> - <span style="color:#2aa198;font-weight:bold">1</span> <span style="color:#93a1a1;font-style:italic">// 3 向left缩小范围
+</span></span></span><span style="display:flex;"><span><span style="color:#93a1a1;font-style:italic"></span>		} <span style="color:#859900">else</span> <span style="color:#859900">if</span> <span style="color:#268bd2">target</span> &gt; <span style="color:#268bd2">nums</span>[<span style="color:#268bd2">mid</span>] {
+</span></span><span style="display:flex;"><span>			<span style="color:#268bd2">left</span> = <span style="color:#268bd2">mid</span> + <span style="color:#2aa198;font-weight:bold">1</span>  <span style="color:#93a1a1;font-style:italic">// 4 向right缩小范围
+</span></span></span><span style="display:flex;"><span><span style="color:#93a1a1;font-style:italic"></span>		} <span style="color:#859900">else</span> {
+</span></span><span style="display:flex;"><span>			<span style="color:#268bd2">ans</span> = <span style="color:#268bd2">mid</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#859900">break</span>
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#859900">return</span> <span style="color:#268bd2">ans</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><ul>
+<li>Leetcode:35 搜索插入位置</li>
+</ul>
+<p>问题：在有序数组中查找target的位置，如果不存在target返回其顺序插入的值。</p>
+<div class="highlight"><pre tabindex="0" style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#859900">func</span> <span style="color:#268bd2">searchInsert</span>(<span style="color:#268bd2">nums</span> []<span style="color:#859900;font-weight:bold">int</span>, <span style="color:#268bd2">target</span> <span style="color:#859900;font-weight:bold">int</span>) <span style="color:#859900;font-weight:bold">int</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#268bd2">n</span> := <span style="color:#cb4b16">len</span>(<span style="color:#268bd2">nums</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#268bd2">left</span>, <span style="color:#268bd2">right</span> := <span style="color:#2aa198;font-weight:bold">0</span>, <span style="color:#268bd2">n</span>-<span style="color:#2aa198;font-weight:bold">1</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#268bd2">ans</span> := <span style="color:#268bd2">n</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#859900">for</span> <span style="color:#268bd2">left</span> &lt;= <span style="color:#268bd2">right</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#268bd2">mid</span> := (<span style="color:#268bd2">right</span>-<span style="color:#268bd2">left</span>)&gt;&gt;<span style="color:#2aa198;font-weight:bold">1</span> + <span style="color:#268bd2">left</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#859900">if</span> <span style="color:#268bd2">target</span> &lt;= <span style="color:#268bd2">nums</span>[<span style="color:#268bd2">mid</span>] {
+</span></span><span style="display:flex;"><span>			<span style="color:#268bd2">ans</span> = <span style="color:#268bd2">mid</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#268bd2">right</span> = <span style="color:#268bd2">mid</span> - <span style="color:#2aa198;font-weight:bold">1</span>
+</span></span><span style="display:flex;"><span>		} <span style="color:#859900">else</span> {
+</span></span><span style="display:flex;"><span>			<span style="color:#268bd2">left</span> = <span style="color:#268bd2">mid</span> + <span style="color:#2aa198;font-weight:bold">1</span>
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#859900">return</span> <span style="color:#268bd2">ans</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><ul>
+<li>Leetcode:34 在排序数组中查找指定元素的第一个位置和最后一个位置</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#859900">func</span> <span style="color:#268bd2">searchRange</span>(<span style="color:#268bd2">nums</span> []<span style="color:#859900;font-weight:bold">int</span>, <span style="color:#268bd2">target</span> <span style="color:#859900;font-weight:bold">int</span>) []<span style="color:#859900;font-weight:bold">int</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#268bd2">posRange</span> := []<span style="color:#859900;font-weight:bold">int</span>{-<span style="color:#2aa198;font-weight:bold">1</span>, -<span style="color:#2aa198;font-weight:bold">1</span>}
+</span></span><span style="display:flex;"><span>	<span style="color:#268bd2">posLeft</span> := <span style="color:#268bd2">searchInsert</span>(<span style="color:#268bd2">nums</span>, <span style="color:#268bd2">target</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#268bd2">posRight</span> := <span style="color:#268bd2">searchInsert</span>(<span style="color:#268bd2">nums</span>, <span style="color:#268bd2">target</span>+<span style="color:#2aa198;font-weight:bold">1</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#859900">if</span> <span style="color:#268bd2">posLeft</span> &gt;= <span style="color:#cb4b16">len</span>(<span style="color:#268bd2">nums</span>) || <span style="color:#268bd2">nums</span>[<span style="color:#268bd2">posLeft</span>] != <span style="color:#268bd2">target</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#859900">return</span> <span style="color:#268bd2">posRange</span>
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#859900">return</span> []<span style="color:#859900;font-weight:bold">int</span>{<span style="color:#268bd2">posLeft</span>, <span style="color:#268bd2">posRight</span> - <span style="color:#2aa198;font-weight:bold">1</span>}
+</span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div>
 		</div>
 
@@ -257,7 +315,7 @@
 		</div></div>
 	<div class="footer wrapper">
     <nav class="nav">
-        <div> © 2022 CodeMax |  Built with <a href="https://github.com/vividvilla/ezhil">ezhil</a></div>
+        <div> © 2022 CodeMax |  Built with hugo <a href="https://github.com/vividvilla/ezhil">ezhil</a></div>
     </nav>
 </div>
 

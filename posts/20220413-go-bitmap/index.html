@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><title>基于go的Bitmap 序列化和反序列化 - CodeMax</title><link rel="icon" type="image/png" href=/images/favicon.ico /><meta name="viewport" content="width=device-width, initial-scale=1"> <meta property="og:title" content="基于go的Bitmap 序列化和反序列化" />
+<meta property="og:description" content="基于go的bitmap序列化和反序列化" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://hzzhu92.github.io/posts/20220413-go-bitmap/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-04-13T22:26:50+08:00" />
+<meta property="article:modified_time" content="2022-04-13T22:26:50+08:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="基于go的Bitmap 序列化和反序列化"/>
+<meta name="twitter:description" content="基于go的bitmap序列化和反序列化"/>
+<link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:200,300" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="https://hzzhu92.github.io/css/normalize.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="https://hzzhu92.github.io/css/main.css" /><link rel="stylesheet" type="text/css" href="https://hzzhu92.github.io/css/dark.css" media="(prefers-color-scheme: dark)"  /> <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script src="https://hzzhu92.github.io/js/main.js"></script>
+</head>
+<body>
+	<div class="container wrapper post">
+		<div class="header">
+	<base href="https://hzzhu92.github.io/">
+	<h1 class="site-title"><a href="https://hzzhu92.github.io/">CodeMax</a></h1>
+	<div class="site-description"><h2>Good Good Study, Day Day Up</h2><nav class="nav social">
+			<ul class="flat"><a href="https://github.com/hzzhu92" title="Github"><i data-feather="github"></i></a><a href="https://twitter.com/pigzhu11" title="Twitter"><i data-feather="twitter"></i></a><a href="/index.xml" title="RSS"><i data-feather="rss"></i></a></ul>
+		</nav>
+	</div>
+
+	<nav class="nav">
+		<ul class="flat">
+			
+			<li>
+				<a href="/">Home</a>
+			</li>
+			
+			<li>
+				<a href="/posts">Articles</a>
+			</li>
+			
+			<li>
+				<a href="/tags">Tags</a>
+			</li>
+			
+			<li>
+				<a href="/about">About</a>
+			</li>
+			
+		</ul>
+	</nav>
+</div>
+
+
+		<div class="post-header">
+			<h1 class="title">基于go的Bitmap 序列化和反序列化</h1>
+			<div class="meta">Posted at &mdash; Apr 13, 2022</div>
+		</div>
+
+		<div class="markdown">
+			<p>由于需要对较大数量的个体内容的出现进行记录、去重、查找和存储, 便于后续的统计分析。<br>
+考虑使用<code>bitmap</code>来实现对个体出现的记录和去重。</p>
+<h2 id="bitmap的基础知识"><code>bitmap</code>的基础知识</h2>
+<div class="highlight"><pre tabindex="0" style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#859900">var</span> (
+</span></span><span style="display:flex;"><span>	<span style="color:#268bd2">tA</span> = [<span style="color:#2aa198;font-weight:bold">8</span>]<span style="color:#859900;font-weight:bold">byte</span>{<span style="color:#2aa198;font-weight:bold">1</span>, <span style="color:#2aa198;font-weight:bold">2</span>, <span style="color:#2aa198;font-weight:bold">4</span>, <span style="color:#2aa198;font-weight:bold">8</span>, <span style="color:#2aa198;font-weight:bold">16</span>, <span style="color:#2aa198;font-weight:bold">32</span>, <span style="color:#2aa198;font-weight:bold">64</span>, <span style="color:#2aa198;font-weight:bold">128</span>}
+</span></span><span style="display:flex;"><span>	<span style="color:#268bd2">tB</span> = [<span style="color:#2aa198;font-weight:bold">8</span>]<span style="color:#859900;font-weight:bold">byte</span>{<span style="color:#2aa198;font-weight:bold">254</span>, <span style="color:#2aa198;font-weight:bold">253</span>, <span style="color:#2aa198;font-weight:bold">251</span>, <span style="color:#2aa198;font-weight:bold">247</span>, <span style="color:#2aa198;font-weight:bold">239</span>, <span style="color:#2aa198;font-weight:bold">223</span>, <span style="color:#2aa198;font-weight:bold">191</span>, <span style="color:#2aa198;font-weight:bold">127</span>}
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#93a1a1;font-style:italic">// newSlice creates a new byte slice with length l (in bits).
+</span></span></span><span style="display:flex;"><span><span style="color:#93a1a1;font-style:italic">// The actual size in bits might be up to 7 bits larger because
+</span></span></span><span style="display:flex;"><span><span style="color:#93a1a1;font-style:italic">// they are stored in a byte slice.
+</span></span></span><span style="display:flex;"><span><span style="color:#93a1a1;font-style:italic"></span><span style="color:#859900">func</span> <span style="color:#268bd2">newSlice</span>(<span style="color:#268bd2">l</span> <span style="color:#859900;font-weight:bold">int</span>) []<span style="color:#859900;font-weight:bold">byte</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#268bd2">remainder</span> := <span style="color:#268bd2">l</span> % <span style="color:#2aa198;font-weight:bold">8</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#859900">if</span> <span style="color:#268bd2">remainder</span> != <span style="color:#2aa198;font-weight:bold">0</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#268bd2">remainder</span> = <span style="color:#2aa198;font-weight:bold">1</span>
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#859900">return</span> <span style="color:#cb4b16">make</span>([]<span style="color:#859900;font-weight:bold">byte</span>, <span style="color:#268bd2">l</span>/<span style="color:#2aa198;font-weight:bold">8</span>+<span style="color:#268bd2">remainder</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#93a1a1;font-style:italic">// Get returns the value of bit i from map m.
+</span></span></span><span style="display:flex;"><span><span style="color:#93a1a1;font-style:italic">// It doesn&#39;t check the bounds of the slice.
+</span></span></span><span style="display:flex;"><span><span style="color:#93a1a1;font-style:italic"></span><span style="color:#859900">func</span> <span style="color:#268bd2">get</span>(<span style="color:#268bd2">m</span> []<span style="color:#859900;font-weight:bold">byte</span>, <span style="color:#268bd2">i</span> <span style="color:#859900;font-weight:bold">int</span>) <span style="color:#859900;font-weight:bold">bool</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#859900">return</span> <span style="color:#268bd2">m</span>[<span style="color:#268bd2">i</span>/<span style="color:#2aa198;font-weight:bold">8</span>]&amp;<span style="color:#268bd2">tA</span>[<span style="color:#268bd2">i</span>%<span style="color:#2aa198;font-weight:bold">8</span>] != <span style="color:#2aa198;font-weight:bold">0</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#93a1a1;font-style:italic">// Set sets bit i of map m to value v.
+</span></span></span><span style="display:flex;"><span><span style="color:#93a1a1;font-style:italic">// It doesn&#39;t check the bounds of the slice.
+</span></span></span><span style="display:flex;"><span><span style="color:#93a1a1;font-style:italic"></span><span style="color:#859900">func</span> <span style="color:#268bd2">set</span>(<span style="color:#268bd2">m</span> []<span style="color:#859900;font-weight:bold">byte</span>, <span style="color:#268bd2">i</span> <span style="color:#859900;font-weight:bold">int</span>, <span style="color:#268bd2">v</span> <span style="color:#859900;font-weight:bold">bool</span>) {
+</span></span><span style="display:flex;"><span>	<span style="color:#268bd2">index</span> := <span style="color:#268bd2">i</span> / <span style="color:#2aa198;font-weight:bold">8</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#268bd2">bit</span> := <span style="color:#268bd2">i</span> % <span style="color:#2aa198;font-weight:bold">8</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#859900">if</span> <span style="color:#268bd2">v</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#268bd2">m</span>[<span style="color:#268bd2">index</span>] = <span style="color:#268bd2">m</span>[<span style="color:#268bd2">index</span>] | <span style="color:#268bd2">tA</span>[<span style="color:#268bd2">bit</span>]
+</span></span><span style="display:flex;"><span>	} <span style="color:#859900">else</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#268bd2">m</span>[<span style="color:#268bd2">index</span>] = <span style="color:#268bd2">m</span>[<span style="color:#268bd2">index</span>] &amp; <span style="color:#268bd2">tB</span>[<span style="color:#268bd2">bit</span>]
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#93a1a1;font-style:italic">// Len returns the length (in bits) of the provided byteslice.
+</span></span></span><span style="display:flex;"><span><span style="color:#93a1a1;font-style:italic">// It will always be a multipile of 8 bits.
+</span></span></span><span style="display:flex;"><span><span style="color:#93a1a1;font-style:italic"></span><span style="color:#859900">func</span> <span style="color:#268bd2">length</span>(<span style="color:#268bd2">m</span> []<span style="color:#859900;font-weight:bold">byte</span>) <span style="color:#859900;font-weight:bold">int</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#859900">return</span> <span style="color:#cb4b16">len</span>(<span style="color:#268bd2">m</span>) * <span style="color:#2aa198;font-weight:bold">8</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#93a1a1;font-style:italic">// BitMap defines the stored message struct.
+</span></span></span><span style="display:flex;"><span><span style="color:#93a1a1;font-style:italic"></span><span style="color:#859900">type</span> <span style="color:#268bd2">BitMap</span> <span style="color:#859900">struct</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#268bd2">size</span> <span style="color:#859900;font-weight:bold">int</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#268bd2">bits</span> []<span style="color:#859900;font-weight:bold">byte</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#93a1a1;font-style:italic">// NewBitMap creates a new bitmap slice.
+</span></span></span><span style="display:flex;"><span><span style="color:#93a1a1;font-style:italic"></span><span style="color:#859900">func</span> <span style="color:#268bd2">NewBitMap</span>(<span style="color:#268bd2">l</span> <span style="color:#859900;font-weight:bold">int</span>) <span style="color:#268bd2">BitMap</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#859900">return</span> <span style="color:#268bd2">BitMap</span>{
+</span></span><span style="display:flex;"><span>		<span style="color:#268bd2">size</span>: <span style="color:#268bd2">l</span>,
+</span></span><span style="display:flex;"><span>		<span style="color:#268bd2">bits</span>: <span style="color:#268bd2">newSlice</span>(<span style="color:#268bd2">l</span>),
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#93a1a1;font-style:italic">// Size return bitmap used length.
+</span></span></span><span style="display:flex;"><span><span style="color:#93a1a1;font-style:italic"></span><span style="color:#859900">func</span> (<span style="color:#268bd2">b</span> *<span style="color:#268bd2">BitMap</span>) <span style="color:#268bd2">Size</span>() <span style="color:#859900;font-weight:bold">int</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#859900">return</span> <span style="color:#268bd2">b</span>.<span style="color:#268bd2">size</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#859900">func</span> (<span style="color:#268bd2">b</span> *<span style="color:#268bd2">BitMap</span>) <span style="color:#268bd2">CheckRange</span>(<span style="color:#268bd2">i</span> <span style="color:#859900;font-weight:bold">int</span>) <span style="color:#859900;font-weight:bold">bool</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#859900">if</span> <span style="color:#268bd2">i</span> &gt; <span style="color:#268bd2">b</span>.<span style="color:#268bd2">size</span> || <span style="color:#268bd2">i</span> &lt; <span style="color:#2aa198;font-weight:bold">1</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#859900">return</span> <span style="color:#859900;font-weight:bold">false</span>
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#859900">return</span> <span style="color:#859900;font-weight:bold">true</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#859900">func</span> (<span style="color:#268bd2">b</span> *<span style="color:#268bd2">BitMap</span>) <span style="color:#268bd2">Get</span>(<span style="color:#268bd2">i</span> <span style="color:#859900;font-weight:bold">int</span>) <span style="color:#859900;font-weight:bold">bool</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#859900">if</span> <span style="color:#268bd2">i</span> &lt;= <span style="color:#2aa198;font-weight:bold">0</span> || <span style="color:#268bd2">i</span> &gt; <span style="color:#268bd2">b</span>.<span style="color:#268bd2">size</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#859900">return</span> <span style="color:#859900;font-weight:bold">false</span>
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#268bd2">i</span>--
+</span></span><span style="display:flex;"><span>	<span style="color:#859900">return</span> <span style="color:#268bd2">get</span>(<span style="color:#268bd2">b</span>.<span style="color:#268bd2">bits</span>, <span style="color:#268bd2">i</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#859900">func</span> (<span style="color:#268bd2">b</span> *<span style="color:#268bd2">BitMap</span>) <span style="color:#268bd2">Set</span>(<span style="color:#268bd2">i</span> <span style="color:#859900;font-weight:bold">int</span>, <span style="color:#268bd2">v</span> <span style="color:#859900;font-weight:bold">bool</span>) {
+</span></span><span style="display:flex;"><span>	<span style="color:#859900">if</span> <span style="color:#268bd2">i</span> &lt;= <span style="color:#2aa198;font-weight:bold">0</span> || <span style="color:#268bd2">i</span> &gt; <span style="color:#268bd2">b</span>.<span style="color:#268bd2">size</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#859900">return</span>
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#268bd2">i</span>--
+</span></span><span style="display:flex;"><span>	<span style="color:#268bd2">set</span>(<span style="color:#268bd2">b</span>.<span style="color:#268bd2">bits</span>, <span style="color:#268bd2">i</span>, <span style="color:#268bd2">v</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#859900">func</span> (<span style="color:#268bd2">b</span> *<span style="color:#268bd2">BitMap</span>) <span style="color:#268bd2">SetRange</span>(<span style="color:#268bd2">start</span>, <span style="color:#268bd2">end</span> <span style="color:#859900;font-weight:bold">int</span>) {
+</span></span><span style="display:flex;"><span>	<span style="color:#859900">for</span> <span style="color:#268bd2">i</span> := <span style="color:#268bd2">start</span>; <span style="color:#268bd2">i</span> &lt;= <span style="color:#268bd2">end</span>; <span style="color:#268bd2">i</span>++ {
+</span></span><span style="display:flex;"><span>		<span style="color:#268bd2">b</span>.<span style="color:#268bd2">Set</span>(<span style="color:#268bd2">i</span>, <span style="color:#859900;font-weight:bold">true</span>)
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#859900">func</span> (<span style="color:#268bd2">b</span> *<span style="color:#268bd2">BitMap</span>) <span style="color:#268bd2">Count</span>() <span style="color:#859900;font-weight:bold">int</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#268bd2">count</span> := <span style="color:#2aa198;font-weight:bold">0</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#859900">for</span> <span style="color:#268bd2">i</span> := <span style="color:#2aa198;font-weight:bold">0</span>; <span style="color:#268bd2">i</span> &lt; <span style="color:#268bd2">b</span>.<span style="color:#268bd2">Size</span>(); <span style="color:#268bd2">i</span>++ {
+</span></span><span style="display:flex;"><span>		<span style="color:#859900">if</span> <span style="color:#268bd2">b</span>.<span style="color:#268bd2">Get</span>(<span style="color:#268bd2">i</span>) {
+</span></span><span style="display:flex;"><span>			<span style="color:#268bd2">count</span>++
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#859900">return</span> <span style="color:#268bd2">count</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="bitmap的序列化和反序列化"><code>bitmap</code>的序列化和反序列化</h2>
+<div class="highlight"><pre tabindex="0" style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#859900">func</span> (<span style="color:#268bd2">b</span> *<span style="color:#268bd2">BitMap</span>) <span style="color:#268bd2">ToString</span>() <span style="color:#859900;font-weight:bold">string</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#859900">var</span> <span style="color:#268bd2">sb</span> <span style="color:#268bd2">strings</span>.<span style="color:#268bd2">Builder</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#859900">for</span> <span style="color:#268bd2">i</span> := <span style="color:#2aa198;font-weight:bold">0</span>; <span style="color:#268bd2">i</span> &lt; <span style="color:#cb4b16">len</span>(<span style="color:#268bd2">b</span>.<span style="color:#268bd2">bits</span>); <span style="color:#268bd2">i</span>++ {
+</span></span><span style="display:flex;"><span>		<span style="color:#268bd2">sb</span>.<span style="color:#268bd2">WriteString</span>(<span style="color:#268bd2">strconv</span>.<span style="color:#268bd2">Itoa</span>(<span style="color:#cb4b16">int</span>(<span style="color:#268bd2">b</span>.<span style="color:#268bd2">bits</span>[<span style="color:#268bd2">i</span>])))
+</span></span><span style="display:flex;"><span>		<span style="color:#268bd2">sb</span>.<span style="color:#268bd2">WriteString</span>(<span style="color:#2aa198">&#34; &#34;</span>)
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#859900">return</span> <span style="color:#268bd2">sb</span>.<span style="color:#268bd2">String</span>()
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#586e75;background-color:#eee8d5;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#859900">func</span> <span style="color:#268bd2">FromString</span>(<span style="color:#268bd2">input</span> <span style="color:#859900;font-weight:bold">string</span>) <span style="color:#268bd2">BitMap</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#268bd2">inputSlice</span> := <span style="color:#268bd2">strings</span>.<span style="color:#268bd2">Split</span>(<span style="color:#268bd2">input</span>, <span style="color:#2aa198">&#34; &#34;</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#268bd2">bits</span> := <span style="color:#cb4b16">make</span>([]<span style="color:#859900;font-weight:bold">byte</span>, <span style="color:#2aa198;font-weight:bold">0</span>, <span style="color:#cb4b16">len</span>(<span style="color:#268bd2">inputSlice</span>))
+</span></span><span style="display:flex;"><span>	<span style="color:#859900">for</span> <span style="color:#268bd2">i</span> := <span style="color:#2aa198;font-weight:bold">0</span>; <span style="color:#268bd2">i</span> &lt; <span style="color:#cb4b16">len</span>(<span style="color:#268bd2">inputSlice</span>)-<span style="color:#2aa198;font-weight:bold">1</span>; <span style="color:#268bd2">i</span>++ {
+</span></span><span style="display:flex;"><span>		<span style="color:#268bd2">bitInt</span>, <span style="color:#268bd2">_</span> := <span style="color:#268bd2">strconv</span>.<span style="color:#268bd2">Atoi</span>(<span style="color:#268bd2">inputSlice</span>[<span style="color:#268bd2">i</span>])
+</span></span><span style="display:flex;"><span>		<span style="color:#268bd2">bits</span> = <span style="color:#cb4b16">append</span>(<span style="color:#268bd2">bits</span>, <span style="color:#cb4b16">uint8</span>(<span style="color:#268bd2">bitInt</span>))
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#859900">return</span> <span style="color:#268bd2">BitMap</span>{<span style="color:#268bd2">size</span>: <span style="color:#268bd2">length</span>(<span style="color:#268bd2">bits</span>), <span style="color:#268bd2">bits</span>: <span style="color:#268bd2">bits</span>}
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div>
+		</div>
+
+		<div class="post-tags">
+			
+				
+					<nav class="nav tags">
+							<ul class="flat">
+								
+								<li><a href="/tags/golang">golang</a></li>
+								
+								<li><a href="/tags/bitmap">bitmap</a></li>
+								
+							</ul>
+					</nav>
+				
+			
+		</div>
+<div class="doc_comments">
+    <div id="gitalk-container"></div>
+</div>
+
+
+<link rel="stylesheet" href="https://unpkg.com/gitalk@1.2.2/dist/gitalk.css">
+
+<script src="https://unpkg.com/gitalk@latest/dist/gitalk.min.js"></script>
+
+<script>
+    const gitalk = new Gitalk({
+        clientID: 'b8e0d5c59de9bd168d9d',
+        clientSecret: '5a5f35a7228e41b751165d43d5828464764036a3',
+        repo: 'hzzhu92.github.io',
+        owner: 'hzzhu92',
+        admin: ['hzzhu92'],
+        id: location.pathname, 
+        distractionFreeMode: false 
+    });
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('gitalk-container').innerHTML = 'Gitalk comments not available by default when the website is previewed locally.';
+            return;
+        }
+        gitalk.render('gitalk-container');
+    })();
+</script>
+</div>
+	<div class="footer wrapper">
+    <nav class="nav">
+        <div> © 2022 CodeMax |  Built with hugo <a href="https://github.com/vividvilla/ezhil">ezhil</a></div>
+    </nav>
+</div>
+
+ 
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-123-45', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+ <script>
+    feather.replace()
+</script>
+	<script src="https://hzzhu92.github.io/js/jquery-3.5.1.min.js"></script><script type="text/javascript" async
+    src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\[\[', '\]\]']],
+                processEscapes: true,
+                processEnvironments: true,
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+                TeX: {
+                    equationNumbers: { autoNumber: "AMS" },
+                    extensions: ["AMSmath.js", "AMSsymbols.js"]
+                }
+            }
+        });
+
+        MathJax.Hub.Queue(function () {
+            
+            
+            
+            var all = MathJax.Hub.getAllJax(), i;
+            for (i = 0; i < all.length; i += 1) {
+                all[i].SourceElement().parentNode.className += ' has-jax';
+            }
+        });
+    </script>
+
+<style>
+    code.has-jax {
+        font: inherit;
+        font-size: 100%;
+        background: inherit;
+        border: inherit;
+        color: #515151;
+    }
+</style> 
+</body>
+</html>
