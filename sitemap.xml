@@ -2,26 +2,38 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://hzzhu92.github.io/tags/bitmap/</loc>
-    <lastmod>2022-04-13T22:26:50+08:00</lastmod>
+    <loc>https://hzzhu92.github.io/tags/algorithm/</loc>
+    <lastmod>2022-04-24T22:29:10+08:00</lastmod>
   </url><url>
     <loc>https://hzzhu92.github.io/</loc>
+    <lastmod>2022-04-24T22:29:10+08:00</lastmod>
+  </url><url>
+    <loc>https://hzzhu92.github.io/posts/20220424-link-list/</loc>
+    <lastmod>2022-04-24T22:29:10+08:00</lastmod>
+  </url><url>
+    <loc>https://hzzhu92.github.io/tags/link-list/</loc>
+    <lastmod>2022-04-24T22:29:10+08:00</lastmod>
+  </url><url>
+    <loc>https://hzzhu92.github.io/posts/</loc>
+    <lastmod>2022-04-24T22:29:10+08:00</lastmod>
+  </url><url>
+    <loc>https://hzzhu92.github.io/tags/</loc>
+    <lastmod>2022-04-24T22:29:10+08:00</lastmod>
+  </url><url>
+    <loc>https://hzzhu92.github.io/tags/react/</loc>
+    <lastmod>2022-04-17T11:24:05+08:00</lastmod>
+  </url><url>
+    <loc>https://hzzhu92.github.io/posts/20220417-react-admin/</loc>
+    <lastmod>2022-04-17T11:24:05+08:00</lastmod>
+  </url><url>
+    <loc>https://hzzhu92.github.io/tags/bitmap/</loc>
     <lastmod>2022-04-13T22:26:50+08:00</lastmod>
   </url><url>
     <loc>https://hzzhu92.github.io/tags/golang/</loc>
     <lastmod>2022-04-13T22:26:50+08:00</lastmod>
   </url><url>
-    <loc>https://hzzhu92.github.io/posts/</loc>
-    <lastmod>2022-04-13T22:26:50+08:00</lastmod>
-  </url><url>
-    <loc>https://hzzhu92.github.io/tags/</loc>
-    <lastmod>2022-04-13T22:26:50+08:00</lastmod>
-  </url><url>
     <loc>https://hzzhu92.github.io/posts/20220413-go-bitmap/</loc>
     <lastmod>2022-04-13T22:26:50+08:00</lastmod>
-  </url><url>
-    <loc>https://hzzhu92.github.io/tags/algorithm/</loc>
-    <lastmod>2022-03-20T12:56:13+08:00</lastmod>
   </url><url>
     <loc>https://hzzhu92.github.io/posts/20220320-algo-array/</loc>
     <lastmod>2022-03-20T12:56:13+08:00</lastmod>

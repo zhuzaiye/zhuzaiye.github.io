@@ -7,7 +7,17 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>© 2022 CodeMax</copyright>
-    <lastBuildDate>Sun, 20 Mar 2022 12:56:13 +0800</lastBuildDate><atom:link href="https://hzzhu92.github.io/tags/algorithm/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 24 Apr 2022 22:29:10 +0800</lastBuildDate><atom:link href="https://hzzhu92.github.io/tags/algorithm/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Link-List</title>
+      <link>https://hzzhu92.github.io/posts/20220424-link-list/</link>
+      <pubDate>Sun, 24 Apr 2022 22:29:10 +0800</pubDate>
+      
+      <guid>https://hzzhu92.github.io/posts/20220424-link-list/</guid>
+      <description>关于链表数据接口的算法。
+ 链表的数据结构  // LinkNode 定义链表数据节点 type LinkNode struct { 	Data interface{} 	Next *LinkNode }  // NewLinkNode 初始化一个链表节点 func NewLinkNode() *LinkNode { 	return &amp;amp;LinkNode{} }  // AddNode 创建链表 func AddNode(node *LinkNode, data interface{}) { 	node.Next = NewLinkNode() 	node.Next.Data = data }  // CreateLink 将数组转换成链表 func CreateLink(node *LinkNode, arr .</description>
+    </item>
+    
     <item>
       <title>Algorithm: Array Series</title>
       <link>https://hzzhu92.github.io/posts/20220320-algo-array/</link>

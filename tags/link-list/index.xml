@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>link-list on CodeMax</title>
+    <link>https://hzzhu92.github.io/tags/link-list/</link>
+    <description>Recent content in link-list on CodeMax</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>© 2022 CodeMax</copyright>
+    <lastBuildDate>Sun, 24 Apr 2022 22:29:10 +0800</lastBuildDate><atom:link href="https://hzzhu92.github.io/tags/link-list/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Link-List</title>
+      <link>https://hzzhu92.github.io/posts/20220424-link-list/</link>
+      <pubDate>Sun, 24 Apr 2022 22:29:10 +0800</pubDate>
+      
+      <guid>https://hzzhu92.github.io/posts/20220424-link-list/</guid>
+      <description>关于链表数据接口的算法。
+ 链表的数据结构  // LinkNode 定义链表数据节点 type LinkNode struct { 	Data interface{} 	Next *LinkNode }  // NewLinkNode 初始化一个链表节点 func NewLinkNode() *LinkNode { 	return &amp;amp;LinkNode{} }  // AddNode 创建链表 func AddNode(node *LinkNode, data interface{}) { 	node.Next = NewLinkNode() 	node.Next.Data = data }  // CreateLink 将数组转换成链表 func CreateLink(node *LinkNode, arr .</description>
+    </item>
+    
+  </channel>
+</rss>
