@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>binary-tree on CodeMax</title>
+    <link>https://hzzhu92.github.io/tags/binary-tree/</link>
+    <description>Recent content in binary-tree on CodeMax</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>© 2022 CodeMax</copyright>
+    <lastBuildDate>Wed, 11 May 2022 19:44:20 +0800</lastBuildDate><atom:link href="https://hzzhu92.github.io/tags/binary-tree/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>BiaryTree 二叉树</title>
+      <link>https://hzzhu92.github.io/posts/20220511-biarytree/</link>
+      <pubDate>Wed, 11 May 2022 19:44:20 +0800</pubDate>
+      
+      <guid>https://hzzhu92.github.io/posts/20220511-biarytree/</guid>
+      <description>二叉树结构体 // BinaryNode 二叉树结点 type BinaryNode struct { 	Value interface{} // 结点数值 	LeftNode *BinaryNode // 左-子结点 	RightNode *BinaryNode // 右-子结点 } 遍历二叉树  前序遍历  // PreTraverseBinaryTree 前序遍历二叉树 根-左-右 [递归方法] func PreTraverseBinaryTree(root *BinaryNode) { 	if root == nil { 	return 	} 	fmt.Print(root.Value, &amp;#34; &amp;#34;) 	// 遍历左子树 	if root.</description>
+    </item>
+    
+  </channel>
+</rss>
