@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>rust on CodeMax</title>
+    <link>https://hzzhu92.github.io/tags/rust/</link>
+    <description>Recent content in rust on CodeMax</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>© 2022 CodeMax</copyright>
+    <lastBuildDate>Thu, 12 May 2022 21:27:45 +0800</lastBuildDate><atom:link href="https://hzzhu92.github.io/tags/rust/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Rust 学习笔记</title>
+      <link>https://hzzhu92.github.io/posts/20220512-rust/</link>
+      <pubDate>Thu, 12 May 2022 21:27:45 +0800</pubDate>
+      
+      <guid>https://hzzhu92.github.io/posts/20220512-rust/</guid>
+      <description>统一问题  系统和内存安全 性能优化和提升  Why Rust?  高性能web services WebAssembly 网络编程 嵌入式 系统编程 引擎开发  参考材料  Rust语言圣经  安装 windows+MinGW+Rust 安装
+ Windows安装MinGW 下载rustup-init.exe 设置CARGO_HOME=D:\program_lang\rust64\cargo; RUSTUP_HOME=D:\program_lang\rust64\rustup;D:\program_lang\rust64\cargo\bin加入到path 双击rustup-init.exe  urrent installation options:   default host triple: x86_64-pc-windows-msvc  default toolchain: stable (default)  profile: default  modify PATH variable: yes  1) Proceed with installation (default) 2) Customize installation 3) Cancel installation &amp;gt;2  I&amp;#39;m going to ask you the value of each of these installation options.</description>
+    </item>
+    
+  </channel>
+</rss>

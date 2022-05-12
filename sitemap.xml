@@ -2,6 +2,21 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://hzzhu92.github.io/</loc>
+    <lastmod>2022-05-12T21:27:45+08:00</lastmod>
+  </url><url>
+    <loc>https://hzzhu92.github.io/posts/</loc>
+    <lastmod>2022-05-12T21:27:45+08:00</lastmod>
+  </url><url>
+    <loc>https://hzzhu92.github.io/tags/rust/</loc>
+    <lastmod>2022-05-12T21:27:45+08:00</lastmod>
+  </url><url>
+    <loc>https://hzzhu92.github.io/posts/20220512-rust/</loc>
+    <lastmod>2022-05-12T21:27:45+08:00</lastmod>
+  </url><url>
+    <loc>https://hzzhu92.github.io/tags/</loc>
+    <lastmod>2022-05-12T21:27:45+08:00</lastmod>
+  </url><url>
     <loc>https://hzzhu92.github.io/tags/algorithm/</loc>
     <lastmod>2022-05-11T19:44:20+08:00</lastmod>
   </url><url>
@@ -9,15 +24,6 @@
     <lastmod>2022-05-11T19:44:20+08:00</lastmod>
   </url><url>
     <loc>https://hzzhu92.github.io/tags/binary-tree/</loc>
-    <lastmod>2022-05-11T19:44:20+08:00</lastmod>
-  </url><url>
-    <loc>https://hzzhu92.github.io/</loc>
-    <lastmod>2022-05-11T19:44:20+08:00</lastmod>
-  </url><url>
-    <loc>https://hzzhu92.github.io/posts/</loc>
-    <lastmod>2022-05-11T19:44:20+08:00</lastmod>
-  </url><url>
-    <loc>https://hzzhu92.github.io/tags/</loc>
     <lastmod>2022-05-11T19:44:20+08:00</lastmod>
   </url><url>
     <loc>https://hzzhu92.github.io/posts/20220424-link-list/</loc>
