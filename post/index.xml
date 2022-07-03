@@ -8,21 +8,21 @@
     <language>en</language>
     <lastBuildDate>Wed, 29 Jun 2022 21:49:29 +0800</lastBuildDate><atom:link href="https://hzzhu92.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>shell Language</title>
+      <title>Shell Language</title>
       <link>https://hzzhu92.github.io/post/20220629-shell/</link>
       <pubDate>Wed, 29 Jun 2022 21:49:29 +0800</pubDate>
       
       <guid>https://hzzhu92.github.io/post/20220629-shell/</guid>
-      <description>bash(Bourne Again Shel) bash shell 是一种脚本语言。 shell脚本 编写脚本 1 2 3 4 5 6 7 8 # 增加.sh后缀为了方便脚本类别识别 touch demo.sh vim demo.sh # &amp;#39;#&amp;#39;是注释，</description>
+      <description>Shell 是一个应用程序，它连接了用户和 Linux 内核，让用户能够更加高效、安全、低成本地使用 Linux 内核。 bash shell 是一种脚本语言。 通过shell命令操作和控制内核，</description>
     </item>
     
     <item>
-      <title>RustLang</title>
+      <title>Rust Language</title>
       <link>https://hzzhu92.github.io/post/20220512-rust/</link>
       <pubDate>Thu, 12 May 2022 21:27:45 +0800</pubDate>
       
       <guid>https://hzzhu92.github.io/post/20220512-rust/</guid>
-      <description>统一问题 系统和内存安全 性能优化和提升 Why Rust? 高性能web services WebAssembly 网络编程 嵌入式 系统编程 引擎开发 参考材料 Rust语言圣经 安装 windows+MinGW+Rust 安装 Windows安装M</description>
+      <description>Rust由Mozila开发，是一款免费开源的高级编程语言。 以高性能、高可靠性和高生产力著称。 可以用于系统编程、web编程、服务器开发和嵌入式</description>
     </item>
     
     <item>
@@ -44,7 +44,7 @@
     </item>
     
     <item>
-      <title>通过React-Admin的后台管理实现React的基本自由</title>
+      <title>React Admin实践</title>
       <link>https://hzzhu92.github.io/post/20220417-react-admin/</link>
       <pubDate>Sun, 17 Apr 2022 11:24:05 +0800</pubDate>
       
