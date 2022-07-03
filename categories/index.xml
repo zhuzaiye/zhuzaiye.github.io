@@ -5,6 +5,43 @@
     <link>https://hzzhu92.github.io/categories/</link>
     <description>Recent content in Categories on CodeMaxBlog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en</language><atom:link href="https://hzzhu92.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <language>en</language>
+    <lastBuildDate>Wed, 29 Jun 2022 21:49:29 +0800</lastBuildDate><atom:link href="https://hzzhu92.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Code Language</title>
+      <link>https://hzzhu92.github.io/categories/code-language/</link>
+      <pubDate>Wed, 29 Jun 2022 21:49:29 +0800</pubDate>
+      
+      <guid>https://hzzhu92.github.io/categories/code-language/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Algorithm</title>
+      <link>https://hzzhu92.github.io/categories/algorithm/</link>
+      <pubDate>Wed, 11 May 2022 19:44:20 +0800</pubDate>
+      
+      <guid>https://hzzhu92.github.io/categories/algorithm/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Javascript</title>
+      <link>https://hzzhu92.github.io/categories/javascript/</link>
+      <pubDate>Sun, 17 Apr 2022 11:24:05 +0800</pubDate>
+      
+      <guid>https://hzzhu92.github.io/categories/javascript/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Data structure</title>
+      <link>https://hzzhu92.github.io/categories/data-structure/</link>
+      <pubDate>Wed, 13 Apr 2022 22:26:50 +0800</pubDate>
+      
+      <guid>https://hzzhu92.github.io/categories/data-structure/</guid>
+      <description></description>
+    </item>
+    
   </channel>
 </rss>

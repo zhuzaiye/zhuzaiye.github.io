@@ -13,13 +13,11 @@
       <pubDate>Sun, 20 Aug 2017 21:38:52 +0800</pubDate>
       
       <guid>https://hzzhu92.github.io/about/</guid>
-      <description>Hugo is a static site engine written in Go.
-It makes use of a variety of open source projects including:
- Cobra Viper J Walter Weatherman Cast  Learn more and contribute on GitHub.</description>
+      <description>Nothing</description>
     </item>
     
     <item>
-      <title>shell 学习记录</title>
+      <title>shell Language</title>
       <link>https://hzzhu92.github.io/post/20220629-shell/</link>
       <pubDate>Wed, 29 Jun 2022 21:49:29 +0800</pubDate>
       
@@ -28,7 +26,7 @@ It makes use of a variety of open source projects including:
     </item>
     
     <item>
-      <title>Rust 学习笔记</title>
+      <title>RustLang</title>
       <link>https://hzzhu92.github.io/post/20220512-rust/</link>
       <pubDate>Thu, 12 May 2022 21:27:45 +0800</pubDate>
       
@@ -37,7 +35,7 @@ It makes use of a variety of open source projects including:
     </item>
     
     <item>
-      <title>BiaryTree 二叉树</title>
+      <title>BiaryTree[二叉树]</title>
       <link>https://hzzhu92.github.io/post/20220511-biarytree/</link>
       <pubDate>Wed, 11 May 2022 19:44:20 +0800</pubDate>
       
@@ -46,7 +44,7 @@ It makes use of a variety of open source projects including:
     </item>
     
     <item>
-      <title>Link-List</title>
+      <title>LinkList[链表]</title>
       <link>https://hzzhu92.github.io/post/20220424-link-list/</link>
       <pubDate>Sun, 24 Apr 2022 22:29:10 +0800</pubDate>
       

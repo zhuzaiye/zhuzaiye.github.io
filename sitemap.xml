@@ -9,6 +9,20 @@
   </url>
   
   <url>
+    <loc>https://hzzhu92.github.io/categories/</loc>
+    <lastmod>2022-06-29T21:49:29+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://hzzhu92.github.io/categories/code-language/</loc>
+    <lastmod>2022-06-29T21:49:29+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://hzzhu92.github.io/</loc>
     <lastmod>2022-06-29T21:49:29+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -23,7 +37,7 @@
   </url>
   
   <url>
-    <loc>https://hzzhu92.github.io/tags/shell/</loc>
+    <loc>https://hzzhu92.github.io/tags/rust/</loc>
     <lastmod>2022-06-29T21:49:29+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -44,13 +58,6 @@
   </url>
   
   <url>
-    <loc>https://hzzhu92.github.io/tags/rust/</loc>
-    <lastmod>2022-05-12T21:27:45+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>https://hzzhu92.github.io/post/20220512-rust/</loc>
     <lastmod>2022-05-12T21:27:45+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -58,7 +65,14 @@
   </url>
   
   <url>
-    <loc>https://hzzhu92.github.io/tags/algorithm/</loc>
+    <loc>https://hzzhu92.github.io/categories/algorithm/</loc>
+    <lastmod>2022-05-11T19:44:20+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://hzzhu92.github.io/tags/biarytree/</loc>
     <lastmod>2022-05-11T19:44:20+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -72,8 +86,8 @@
   </url>
   
   <url>
-    <loc>https://hzzhu92.github.io/tags/binary-tree/</loc>
-    <lastmod>2022-05-11T19:44:20+08:00</lastmod>
+    <loc>https://hzzhu92.github.io/tags/linklist/</loc>
+    <lastmod>2022-04-24T22:29:10+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -86,8 +100,8 @@
   </url>
   
   <url>
-    <loc>https://hzzhu92.github.io/tags/link-list/</loc>
-    <lastmod>2022-04-24T22:29:10+08:00</lastmod>
+    <loc>https://hzzhu92.github.io/categories/javascript/</loc>
+    <lastmod>2022-04-17T11:24:05+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -108,6 +122,13 @@
   
   <url>
     <loc>https://hzzhu92.github.io/tags/bitmap/</loc>
+    <lastmod>2022-04-13T22:26:50+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://hzzhu92.github.io/categories/data-structure/</loc>
     <lastmod>2022-04-13T22:26:50+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -137,12 +158,6 @@
   <url>
     <loc>https://hzzhu92.github.io/tags/array/</loc>
     <lastmod>2022-03-20T12:56:13+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://hzzhu92.github.io/categories/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
