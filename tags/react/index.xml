@@ -1,25 +1,19 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>react on CodeMax</title>
+    <title>react on CodeMaxBlog</title>
     <link>https://hzzhu92.github.io/tags/react/</link>
-    <description>Recent content in react on CodeMax</description>
+    <description>Recent content in react on CodeMaxBlog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <copyright>© 2022 CodeMax</copyright>
+    <language>en</language>
     <lastBuildDate>Sun, 17 Apr 2022 11:24:05 +0800</lastBuildDate><atom:link href="https://hzzhu92.github.io/tags/react/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>通过React-Admin的后台管理实现React的基本自由</title>
-      <link>https://hzzhu92.github.io/posts/20220417-react-admin/</link>
+      <link>https://hzzhu92.github.io/post/20220417-react-admin/</link>
       <pubDate>Sun, 17 Apr 2022 11:24:05 +0800</pubDate>
       
-      <guid>https://hzzhu92.github.io/posts/20220417-react-admin/</guid>
-      <description>本身是一个半路出家到IT的机械工科男，目前从事基于golang的后端开发工作。出家到互联网，存在两方面原因。一个是家里人主要从互联网工作，对该职业一直存在向往；另一个是从事研究生研究中利用python完成了主要科研工作，从而更加对编程充满热爱，对网页的开发自始自终都有着割舍不掉的情结。由于自己从一开始就没有系统学习前端知识，研究生期间也只是稀稀拉拉的了解，也只能简单解决一些问题，对于完整儿复杂的工程也只能望洋兴叹。
-所以，我选择通过React去实现一个后端开发者会经常DIY的管理端项目。我选择找一个基于React实现的后端管理项目，站在巨人的肩膀上一步一步实现一个。
-React环境搭建 关于React，没有文档更为直观的说明React是什么？能做什么？
-直接上手干，是掌握技术的最好的方式，最好再买一本书，目前参考的书是《深入React技术栈》。
-采用webpack构建React项目。
- 初始化项目  # 查看yarn的源 yarn config get registry # 设置yarn的源为国内源 yarn config set registry https://registry.npm.taobao.org/ # npx create 项目 mkdir react-demo cd react-demo # git 初始化 git init . # yarn初始化，如果yarn初始化失败，可以使用npm init yarn init # 创建src文件夹以及src.index.js的js主逻辑文件 mkdir src cd src touch index.js # 创建网页主入口文件index.</description>
+      <guid>https://hzzhu92.github.io/post/20220417-react-admin/</guid>
+      <description>本身是一个半路出家到IT的机械工科男，目前从事基于golang的后端开发工作。出家到互联网，存在两方面原因。一个是家里人主要从互联网工作，对</description>
     </item>
     
   </channel>

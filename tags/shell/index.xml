@@ -1,22 +1,19 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>shell on CodeMax</title>
+    <title>shell on CodeMaxBlog</title>
     <link>https://hzzhu92.github.io/tags/shell/</link>
-    <description>Recent content in shell on CodeMax</description>
+    <description>Recent content in shell on CodeMaxBlog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <copyright>© 2022 CodeMax</copyright>
+    <language>en</language>
     <lastBuildDate>Wed, 29 Jun 2022 21:49:29 +0800</lastBuildDate><atom:link href="https://hzzhu92.github.io/tags/shell/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>shell 学习记录</title>
-      <link>https://hzzhu92.github.io/posts/20220629-shell/</link>
+      <link>https://hzzhu92.github.io/post/20220629-shell/</link>
       <pubDate>Wed, 29 Jun 2022 21:49:29 +0800</pubDate>
       
-      <guid>https://hzzhu92.github.io/posts/20220629-shell/</guid>
-      <description>bash(Bourne Again Shel)
-  bash shell 是一种脚本语言。
- shell脚本  编写脚本  # 增加.sh后缀为了方便脚本类别识别 touch demo.sh vim demo.sh # &amp;#39;#&amp;#39;是注释，不会被shell解释 # &amp;#39;#!&amp;#39; 标记为 当前脚本需要怎样shell解释器执行 #!/bin/bash # echo 标准输出器后面的内容 echo &amp;#34;Hello shell&amp;#34;  执行shell脚本  # 给脚本文件增加执行权限 chmod +x demo.sh # 就在当前目录查找demo.sh并执行 # 除此之外，linux会从PATH中查找待执行脚本并执行 ./demo.sh # sh demo.sh  实践   printf格式化输出  # 格式化 %占位 最好用双引号将格式化模板包裹 # 参数列表使用空格分隔 # 如果参数数量不一致，后面将使用%后面对应默认数值返回 printf &amp;#34;%d %s\n&amp;#34; 10 &amp;#34;abc&amp;#34; read命令从输入设备读取内容  read arg echo &amp;#34;Hello ${arg}&amp;#34; 变量 ARG=&amp;#34;shell&amp;#34; # 声明并赋值 =号两边不要存在空格 echo ${ARG} # 通过${变量}解释变量名  readonly ARG # readonly将ARG定义为只读变量，不能被修改 unset ARG # 解绑变量或者理解删除变量  特殊变量     变量 含义     $0 当前脚本的文件名   $n 传递给脚本或函数的参数。n 是一个数字，表示第几个参数。例如，第一个参数是$1，第二个参数是$2。   $# 传递给脚本或函数的参数个数。   $* 传递给脚本或函数的所有参数。   $@ 传递给脚本或函数的所有参数。被双引号(&amp;quot; &amp;ldquo;)包含时，与 $* 将输入整个输出，$@还是逐个输出   $?</description>
+      <guid>https://hzzhu92.github.io/post/20220629-shell/</guid>
+      <description>bash(Bourne Again Shel) bash shell 是一种脚本语言。 shell脚本 编写脚本 1 2 3 4 5 6 7 8 # 增加.sh后缀为了方便脚本类别识别 touch demo.sh vim demo.sh # &amp;#39;#&amp;#39;是注释，</description>
     </item>
     
   </channel>
