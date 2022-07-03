@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Docx Html on CodeMaxBlog</title>
+    <link>https://hzzhu92.github.io/tags/docx-html/</link>
+    <description>Recent content in Docx Html on CodeMaxBlog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 03 Jul 2022 23:21:04 +0800</lastBuildDate><atom:link href="https://hzzhu92.github.io/tags/docx-html/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Docxtohtml</title>
+      <link>https://hzzhu92.github.io/post/docxtohtml/</link>
+      <pubDate>Sun, 03 Jul 2022 23:21:04 +0800</pubDate>
+      
+      <guid>https://hzzhu92.github.io/post/docxtohtml/</guid>
+      <description>由于从事教育行业，涉及到较多的资源处理。前期就遇到将office的word合并将合并的word转成Html5的任务。 需要处理的相关问题如下：</description>
+    </item>
+    
+  </channel>
+</rss>
