@@ -9,15 +9,50 @@
   </url>
   
   <url>
+    <loc>https://hzzhu92.github.io/post/gcc11tarce/</loc>
+    <lastmod>2022-07-04T22:36:24+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://hzzhu92.github.io/categories/</loc>
-    <lastmod>2022-07-03T23:21:04+08:00</lastmod>
+    <lastmod>2022-07-04T22:36:24+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://hzzhu92.github.io/tags/clang/</loc>
+    <lastmod>2022-07-04T22:36:24+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://hzzhu92.github.io/categories/code-language/</loc>
+    <lastmod>2022-07-04T22:36:24+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://hzzhu92.github.io/</loc>
-    <lastmod>2022-07-03T23:21:04+08:00</lastmod>
+    <lastmod>2022-07-04T22:36:24+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://hzzhu92.github.io/post/</loc>
+    <lastmod>2022-07-04T22:36:24+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://hzzhu92.github.io/tags/</loc>
+    <lastmod>2022-07-04T22:36:24+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -37,29 +72,8 @@
   </url>
   
   <url>
-    <loc>https://hzzhu92.github.io/post/</loc>
-    <lastmod>2022-07-03T23:21:04+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>https://hzzhu92.github.io/categories/python/</loc>
     <lastmod>2022-07-03T23:21:04+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://hzzhu92.github.io/tags/</loc>
-    <lastmod>2022-07-03T23:21:04+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://hzzhu92.github.io/categories/code-language/</loc>
-    <lastmod>2022-07-03T21:11:45+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>

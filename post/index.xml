@@ -6,7 +6,16 @@
     <description>Recent content in Posts on CodeMaxBlog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 03 Jul 2022 23:21:04 +0800</lastBuildDate><atom:link href="https://hzzhu92.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 04 Jul 2022 22:36:24 +0800</lastBuildDate><atom:link href="https://hzzhu92.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>C Trace</title>
+      <link>https://hzzhu92.github.io/post/gcc11tarce/</link>
+      <pubDate>Mon, 04 Jul 2022 22:36:24 +0800</pubDate>
+      
+      <guid>https://hzzhu92.github.io/post/gcc11tarce/</guid>
+      <description>C语言属于面向过程设计、支持结构化等编程特点，介于天堂(高级语言)和地狱(汇编语言)之间的人间语言。 C语言广泛用于系统和应用编程，著名的Un</description>
+    </item>
+    
     <item>
       <title>Docxtohtml</title>
       <link>https://hzzhu92.github.io/post/docxtohtml/</link>

@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>C Trace - CodeMaxBlog</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="CodeMax" /><meta name="description" content="C语言属于面向过程设计、支持结构化等编程特点，介于天堂(高级语言)和地狱(汇编语言)之间的人间语言。 C语言广泛用于系统和应用编程，著名的Un" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.95.0 with theme even" />
+
+
+<link rel="canonical" href="https://hzzhu92.github.io/post/gcc11tarce/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.0f713f65cc83eb50bc9d63af45d43f1d1877da36ca94a518ca1073a7a8f40059.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="C Trace" />
+<meta property="og:description" content="C语言属于面向过程设计、支持结构化等编程特点，介于天堂(高级语言)和地狱(汇编语言)之间的人间语言。 C语言广泛用于系统和应用编程，著名的Un" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://hzzhu92.github.io/post/gcc11tarce/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2022-07-04T22:36:24+08:00" />
+<meta property="article:modified_time" content="2022-07-04T22:36:24+08:00" />
+
+
+<meta itemprop="name" content="C Trace">
+<meta itemprop="description" content="C语言属于面向过程设计、支持结构化等编程特点，介于天堂(高级语言)和地狱(汇编语言)之间的人间语言。 C语言广泛用于系统和应用编程，著名的Un"><meta itemprop="datePublished" content="2022-07-04T22:36:24+08:00" />
+<meta itemprop="dateModified" content="2022-07-04T22:36:24+08:00" />
+<meta itemprop="wordCount" content="715">
+<meta itemprop="keywords" content="CLang," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="C Trace"/>
+<meta name="twitter:description" content="C语言属于面向过程设计、支持结构化等编程特点，介于天堂(高级语言)和地狱(汇编语言)之间的人间语言。 C语言广泛用于系统和应用编程，著名的Un"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">CodeMaxBlog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">CodeMaxBlog</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">C Trace</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2022-07-04 </span>
+        <div class="post-category">
+            <a href="/categories/code-language/"> Code Language </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#环境准备">环境准备</a></li>
+        <li><a href="#c语言基础">C语言基础</a>
+          <ul>
+            <li><a href="#注释">注释</a></li>
+            <li><a href="#gdb调试">gdb调试</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p><a href="https://zh.wikipedia.org/wiki/C%E8%AF%AD%E8%A8%80">C语言</a>属于面向过程设计、支持结构化等编程特点，介于天堂(高级语言)和地狱(汇编语言)之间的人间语言。
+C语言广泛用于系统和应用编程，著名的Unix操作系统、Nginx网络应用程序等都是C语言的杰作。</p>
+<p>Python帮助我完成硕士期间的动力学研究的主要计算，而且目前仍旧承担我工作中数据分析和快速工作的脚本任务。
+Golang帮助我完成从服务开发维护小白到菜鸟的转变，让我有幸接触到服务开发、云计算等有趣的东西。</p>
+<p>C语言一直在学习，但是，总觉得啥也不会，所有这次决定真正巩固深入C，并完成一些实践，所有都基于C11标准。</p>
+<div class='align-center'>
+<p><img src="/img/blog/c_lang_basement_map.jpg" alt="CLang Basement Map"></p>
+</div>
+<h2 id="环境准备">环境准备</h2>
+<p><code>minGW-64</code>+<code>vscode</code></p>
+<ul>
+<li><code>minGW</code>是GCC对windows操作系统的移植版，可以在windows环境下享受GCC编译器的功能。</li>
+<li><code>vscode</code>是强大的IDE, 开源免费且支持工具包众多，很好支持C语言的开发，测试等。</li>
+</ul>
+<p>关于环境，自己google折腾。</p>
+<h2 id="c语言基础">C语言基础</h2>
+<h3 id="注释">注释</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cm">/*
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * main.c
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * C程序主入口程序
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * Created By CodeMax At 2022/07/04 23:16
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cm">/* 单行注释 */</span> 
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="gdb调试">gdb调试</h3>
+<p><strong>DEBUG基本思想</strong>：<code>分析现象-&gt;假设错误原因-&gt;产生新的现象验证假设</code></p>
+<ul>
+<li>启动调试和一般调试命令</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># -g 选项 才能生成的可执行文件才能用于gdb进行源码级测试</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 作用：在可执行文件中加入源码的信息，将执行文件机器指令和源代码行号映射</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#       所以，gdb调试必须保证能找到源代码文件</span>
+</span></span><span class="line"><span class="cl">gcc -g demo.c -o demo
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 调试可执行文件</span>
+</span></span><span class="line"><span class="cl">gdb demo
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class='align-center'>
+<p><img src="/img/blog/clang_gdb_cmd.jpg" alt="CLang gdb cmd"></p>
+</div>
+<ul>
+<li>断点调试</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># 跟踪变量</span>
+</span></span><span class="line"><span class="cl">display sum
+</span></span><span class="line"><span class="cl"><span class="c1"># 取消跟踪 undisplay 变量编号</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 打断点 break</span>
+</span></span><span class="line"><span class="cl">b 源码行号
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 连续执行 continue</span>
+</span></span><span class="line"><span class="cl">c
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查看断点</span>
+</span></span><span class="line"><span class="cl">i breakpoints
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 删除断点</span>
+</span></span><span class="line"><span class="cl">delete breakpoints 断点编号
+</span></span><span class="line"><span class="cl"><span class="c1"># delete breakpoints 删除所有断点</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 暂时禁用断点</span>
+</span></span><span class="line"><span class="cl">disable breakpoints 断点编号
+</span></span><span class="line"><span class="cl"><span class="c1"># 启用断点</span>
+</span></span><span class="line"><span class="cl"><span class="nb">enable</span> 断点编号
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 条件断点</span>
+</span></span><span class="line"><span class="cl"><span class="nb">break</span> 源码行号 <span class="k">if</span> 条件变量 条件
+</span></span><span class="line"><span class="cl"><span class="c1"># break 9 if sum != 0</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class='align-center'>
+<p><img src="/img/blog/clang_gdb_breakpoint_cmd.png" alt="CLang gdb break cmd"></p>
+</div>
+<ul>
+<li>观察点调试</li>
+</ul>
+<div class='align-center'>
+<p><img src="/img/blog/clang_gdb_watch_cmd.jpg" alt="CLang gdb watch cmd"></p>
+</div>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">CodeMax</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2022-07-04
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/clang/">CLang</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/docxtohtml/">
+            <span class="next-text nav-default">Docxtohtml</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="hanzi_zhu@foxmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/pigzhu11" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/hzzhu92" class="iconfont icon-github" title="github"></a>
+  <a href="https://hzzhu92.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    powered by
+    <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    &copy; 
+    2021 - 
+    2022<span class="division"></span>
+    <span>CodeMax</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.64437849d125a2d603b3e71d6de5225d641a32d17168a58106e0b61852079683.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
