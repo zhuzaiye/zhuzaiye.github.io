@@ -2,35 +2,35 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Algorithm on CodeMaxBlog</title>
-    <link>https://hzzhu92.github.io/categories/algorithm/</link>
+    <link>https://zhuzaiye.github.io/categories/algorithm/</link>
     <description>Recent content in Algorithm on CodeMaxBlog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 11 May 2022 19:44:20 +0800</lastBuildDate><atom:link href="https://hzzhu92.github.io/categories/algorithm/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 11 May 2022 19:44:20 +0800</lastBuildDate><atom:link href="https://zhuzaiye.github.io/categories/algorithm/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>BiaryTree[二叉树]</title>
-      <link>https://hzzhu92.github.io/post/20220511-biarytree/</link>
+      <link>https://zhuzaiye.github.io/post/20220511-biarytree/</link>
       <pubDate>Wed, 11 May 2022 19:44:20 +0800</pubDate>
       
-      <guid>https://hzzhu92.github.io/post/20220511-biarytree/</guid>
+      <guid>https://zhuzaiye.github.io/post/20220511-biarytree/</guid>
       <description>二叉树结构体 1 2 3 4 5 6 // BinaryNode 二叉树结点 type BinaryNode struct { Value interface{} // 结点数值 LeftNode *BinaryNode // 左-子结点 RightNode *BinaryNode // 右-子结点 } 遍历二叉树 前序遍历 1 2 3 4 5 6 7 8 9 10 11 12 13 14</description>
     </item>
     
     <item>
       <title>LinkList[链表]</title>
-      <link>https://hzzhu92.github.io/post/20220424-link-list/</link>
+      <link>https://zhuzaiye.github.io/post/20220424-link-list/</link>
       <pubDate>Sun, 24 Apr 2022 22:29:10 +0800</pubDate>
       
-      <guid>https://hzzhu92.github.io/post/20220424-link-list/</guid>
+      <guid>https://zhuzaiye.github.io/post/20220424-link-list/</guid>
       <description>关于链表数据接口的算法。 链表的数据结构 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 // LinkNode 定义链表数据节点 type LinkNode struct { Data interface{} Next *LinkNode</description>
     </item>
     
     <item>
       <title>Algorithm: Array Series</title>
-      <link>https://hzzhu92.github.io/post/20220320-algo-array/</link>
+      <link>https://zhuzaiye.github.io/post/20220320-algo-array/</link>
       <pubDate>Sun, 20 Mar 2022 12:56:13 +0800</pubDate>
       
-      <guid>https://hzzhu92.github.io/post/20220320-algo-array/</guid>
+      <guid>https://zhuzaiye.github.io/post/20220320-algo-array/</guid>
       <description>关于Leetcode中Array数据和算法记录。 Algorithms 两数之和(Two Sum) 问题：给定一个整数数组 nums 和一个整数目标值 target，在该数组中找出 和为</description>
     </item>
     

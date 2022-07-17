@@ -1,197 +1,197 @@
-<?xml-stylesheet type="text/xsl" href="https://hzzhu92.github.io/sitemap.xsl"?>
+<?xml-stylesheet type="text/xsl" href="https://zhuzaiye.github.io/sitemap.xsl"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://hzzhu92.github.io/about/</loc>
+    <loc>https://zhuzaiye.github.io/about/</loc>
     <lastmod>2017-08-28T21:41:52+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://hzzhu92.github.io/post/gcc11tarce/</loc>
+    <loc>https://zhuzaiye.github.io/post/gcc11tarce/</loc>
     <lastmod>2022-07-04T22:36:24+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://hzzhu92.github.io/categories/</loc>
+    <loc>https://zhuzaiye.github.io/categories/</loc>
     <lastmod>2022-07-04T22:36:24+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://hzzhu92.github.io/tags/clang/</loc>
+    <loc>https://zhuzaiye.github.io/tags/clang/</loc>
     <lastmod>2022-07-04T22:36:24+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://hzzhu92.github.io/categories/code-language/</loc>
+    <loc>https://zhuzaiye.github.io/categories/code-language/</loc>
     <lastmod>2022-07-04T22:36:24+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://hzzhu92.github.io/</loc>
+    <loc>https://zhuzaiye.github.io/</loc>
     <lastmod>2022-07-04T22:36:24+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://hzzhu92.github.io/post/</loc>
+    <loc>https://zhuzaiye.github.io/post/</loc>
     <lastmod>2022-07-04T22:36:24+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://hzzhu92.github.io/tags/</loc>
+    <loc>https://zhuzaiye.github.io/tags/</loc>
     <lastmod>2022-07-04T22:36:24+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://hzzhu92.github.io/tags/docx-html/</loc>
+    <loc>https://zhuzaiye.github.io/tags/docx-html/</loc>
     <lastmod>2022-07-03T23:21:04+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://hzzhu92.github.io/post/docxtohtml/</loc>
+    <loc>https://zhuzaiye.github.io/post/docxtohtml/</loc>
     <lastmod>2022-07-03T23:21:04+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://hzzhu92.github.io/categories/python/</loc>
+    <loc>https://zhuzaiye.github.io/categories/python/</loc>
     <lastmod>2022-07-03T23:21:04+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://hzzhu92.github.io/tags/rust/</loc>
+    <loc>https://zhuzaiye.github.io/tags/rust/</loc>
     <lastmod>2022-07-03T21:11:45+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://hzzhu92.github.io/post/20220629-shell/</loc>
+    <loc>https://zhuzaiye.github.io/post/20220629-shell/</loc>
     <lastmod>2022-06-29T21:49:29+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://hzzhu92.github.io/post/20220512-rust/</loc>
+    <loc>https://zhuzaiye.github.io/post/20220512-rust/</loc>
     <lastmod>2022-07-03T21:11:45+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://hzzhu92.github.io/categories/algorithm/</loc>
+    <loc>https://zhuzaiye.github.io/categories/algorithm/</loc>
     <lastmod>2022-05-11T19:44:20+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://hzzhu92.github.io/tags/biarytree/</loc>
+    <loc>https://zhuzaiye.github.io/tags/biarytree/</loc>
     <lastmod>2022-05-11T19:44:20+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://hzzhu92.github.io/post/20220511-biarytree/</loc>
+    <loc>https://zhuzaiye.github.io/post/20220511-biarytree/</loc>
     <lastmod>2022-05-11T19:44:20+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://hzzhu92.github.io/tags/linklist/</loc>
+    <loc>https://zhuzaiye.github.io/tags/linklist/</loc>
     <lastmod>2022-04-24T22:29:10+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://hzzhu92.github.io/post/20220424-link-list/</loc>
+    <loc>https://zhuzaiye.github.io/post/20220424-link-list/</loc>
     <lastmod>2022-04-24T22:29:10+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://hzzhu92.github.io/categories/javascript/</loc>
+    <loc>https://zhuzaiye.github.io/categories/javascript/</loc>
     <lastmod>2022-04-17T11:24:05+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://hzzhu92.github.io/tags/react/</loc>
+    <loc>https://zhuzaiye.github.io/tags/react/</loc>
     <lastmod>2022-04-17T11:24:05+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://hzzhu92.github.io/post/20220417-react-admin/</loc>
+    <loc>https://zhuzaiye.github.io/post/20220417-react-admin/</loc>
     <lastmod>2022-04-17T11:24:05+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://hzzhu92.github.io/tags/bitmap/</loc>
+    <loc>https://zhuzaiye.github.io/tags/bitmap/</loc>
     <lastmod>2022-04-13T22:26:50+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://hzzhu92.github.io/categories/data-structure/</loc>
+    <loc>https://zhuzaiye.github.io/categories/data-structure/</loc>
     <lastmod>2022-04-13T22:26:50+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://hzzhu92.github.io/tags/golang/</loc>
+    <loc>https://zhuzaiye.github.io/tags/golang/</loc>
     <lastmod>2022-04-13T22:26:50+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://hzzhu92.github.io/post/20220413-go-bitmap/</loc>
+    <loc>https://zhuzaiye.github.io/post/20220413-go-bitmap/</loc>
     <lastmod>2022-04-13T22:26:50+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://hzzhu92.github.io/post/20220320-algo-array/</loc>
+    <loc>https://zhuzaiye.github.io/post/20220320-algo-array/</loc>
     <lastmod>2022-03-20T12:56:13+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://hzzhu92.github.io/tags/array/</loc>
+    <loc>https://zhuzaiye.github.io/tags/array/</loc>
     <lastmod>2022-03-20T12:56:13+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>

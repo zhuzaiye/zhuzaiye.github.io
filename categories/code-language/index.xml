@@ -2,35 +2,35 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Code Language on CodeMaxBlog</title>
-    <link>https://hzzhu92.github.io/categories/code-language/</link>
+    <link>https://zhuzaiye.github.io/categories/code-language/</link>
     <description>Recent content in Code Language on CodeMaxBlog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 04 Jul 2022 22:36:24 +0800</lastBuildDate><atom:link href="https://hzzhu92.github.io/categories/code-language/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 04 Jul 2022 22:36:24 +0800</lastBuildDate><atom:link href="https://zhuzaiye.github.io/categories/code-language/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>C Trace</title>
-      <link>https://hzzhu92.github.io/post/gcc11tarce/</link>
+      <link>https://zhuzaiye.github.io/post/gcc11tarce/</link>
       <pubDate>Mon, 04 Jul 2022 22:36:24 +0800</pubDate>
       
-      <guid>https://hzzhu92.github.io/post/gcc11tarce/</guid>
+      <guid>https://zhuzaiye.github.io/post/gcc11tarce/</guid>
       <description>C语言属于面向过程设计、支持结构化等编程特点，介于天堂(高级语言)和地狱(汇编语言)之间的人间语言。 C语言广泛用于系统和应用编程，著名的Un</description>
     </item>
     
     <item>
       <title>Shell Language</title>
-      <link>https://hzzhu92.github.io/post/20220629-shell/</link>
+      <link>https://zhuzaiye.github.io/post/20220629-shell/</link>
       <pubDate>Wed, 29 Jun 2022 21:49:29 +0800</pubDate>
       
-      <guid>https://hzzhu92.github.io/post/20220629-shell/</guid>
+      <guid>https://zhuzaiye.github.io/post/20220629-shell/</guid>
       <description>Shell 是一个应用程序，它连接了用户和 Linux 内核，让用户能够更加高效、安全、低成本地使用 Linux 内核。 bash shell 是一种脚本语言。 通过shell命令操作和控制内核，</description>
     </item>
     
     <item>
       <title>Rust Language</title>
-      <link>https://hzzhu92.github.io/post/20220512-rust/</link>
+      <link>https://zhuzaiye.github.io/post/20220512-rust/</link>
       <pubDate>Thu, 12 May 2022 21:27:45 +0800</pubDate>
       
-      <guid>https://hzzhu92.github.io/post/20220512-rust/</guid>
+      <guid>https://zhuzaiye.github.io/post/20220512-rust/</guid>
       <description>Rust由Mozila开发，是一款免费开源的高级编程语言。 以高性能、高可靠性和高生产力著称。 可以用于系统编程、web编程、服务器开发和嵌入式</description>
     </item>
     

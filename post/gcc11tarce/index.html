@@ -26,7 +26,7 @@
 <meta name="generator" content="Hugo 0.95.0 with theme even" />
 
 
-<link rel="canonical" href="https://hzzhu92.github.io/post/gcc11tarce/" />
+<link rel="canonical" href="https://zhuzaiye.github.io/post/gcc11tarce/" />
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -42,7 +42,7 @@
 <meta property="og:title" content="C Trace" />
 <meta property="og:description" content="C语言属于面向过程设计、支持结构化等编程特点，介于天堂(高级语言)和地狱(汇编语言)之间的人间语言。 C语言广泛用于系统和应用编程，著名的Un" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://hzzhu92.github.io/post/gcc11tarce/" /><meta property="article:section" content="post" />
+<meta property="og:url" content="https://zhuzaiye.github.io/post/gcc11tarce/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2022-07-04T22:36:24+08:00" />
 <meta property="article:modified_time" content="2022-07-04T22:36:24+08:00" />
 
@@ -50,7 +50,7 @@
 <meta itemprop="name" content="C Trace">
 <meta itemprop="description" content="C语言属于面向过程设计、支持结构化等编程特点，介于天堂(高级语言)和地狱(汇编语言)之间的人间语言。 C语言广泛用于系统和应用编程，著名的Un"><meta itemprop="datePublished" content="2022-07-04T22:36:24+08:00" />
 <meta itemprop="dateModified" content="2022-07-04T22:36:24+08:00" />
-<meta itemprop="wordCount" content="715">
+<meta itemprop="wordCount" content="1015">
 <meta itemprop="keywords" content="CLang," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="C Trace"/>
 <meta name="twitter:description" content="C语言属于面向过程设计、支持结构化等编程特点，介于天堂(高级语言)和地狱(汇编语言)之间的人间语言。 C语言广泛用于系统和应用编程，著名的Un"/>
@@ -153,6 +153,8 @@
           <ul>
             <li><a href="#注释">注释</a></li>
             <li><a href="#gdb调试">gdb调试</a></li>
+            <li><a href="#数据结构和算法">数据结构和算法</a></li>
+            <li><a href="#指针">指针</a></li>
           </ul>
         </li>
       </ul>
@@ -297,6 +299,109 @@ Golang帮助我完成从服务开发维护小白到菜鸟的转变，让我有�
 <div class='align-center'>
 <p><img src="/img/blog/clang_gdb_watch_cmd.jpg" alt="CLang gdb watch cmd"></p>
 </div>
+<h3 id="数据结构和算法">数据结构和算法</h3>
+<p>数据的组织方式包含了存储方式和访问方式，二者密不可分。</p>
+<ul>
+<li>堆栈</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="c1">// stack.c
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 栈的简单操作--DFS 深度优先搜索
+</span></span></span><span class="line"><span class="cl"><span class="c1">// Created By CodeMax At 2022/07/06/ 19:33
+</span></span></span><span class="line"><span class="cl"><span class="c1">// FILO
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="kt">char</span> <span class="n">stack</span><span class="p">[</span><span class="mi">512</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">top</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">push</span><span class="p">(</span><span class="kt">char</span> <span class="n">c</span><span class="p">)</span> <span class="p">{</span> <span class="n">stack</span><span class="p">[</span><span class="n">top</span><span class="o">++</span><span class="p">]</span> <span class="o">=</span> <span class="n">c</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">char</span> <span class="nf">pop</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">stack</span><span class="p">[</span><span class="o">--</span><span class="n">top</span><span class="p">];</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">is_empty</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">top</span> <span class="o">==</span> <span class="mi">0</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">push</span><span class="p">(</span><span class="sc">&#39;a&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">push</span><span class="p">(</span><span class="sc">&#39;b&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">push</span><span class="p">(</span><span class="sc">&#39;c&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="p">(</span><span class="o">!</span><span class="n">is_empty</span><span class="p">())</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">putchar</span><span class="p">(</span><span class="n">pop</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">        <span class="n">putchar</span><span class="p">(</span><span class="sc">&#39; &#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// c b a
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="指针">指针</h3>
+<ul>
+<li>指针和const</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">const</span> <span class="kt">int</span> <span class="o">*</span><span class="n">p</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="k">const</span> <span class="o">*</span><span class="n">p</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>指的是：p指向的<code>内存单元</code>不能改写，即<code>(*p)++</code>是不允许的, <code>p++</code>是可以的，说明p可指向其他内存单元。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">int</span> <span class="o">*</span><span class="k">const</span> <span class="n">p</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>指的是：p是一个指向int的const指针, <code>(*p)</code>可以改写， 但是p不能改写</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">int</span> <span class="k">const</span> <span class="o">*</span> <span class="k">const</span> <span class="n">p</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>指的是： p和*p都能被改写</p>
+<p>多用<code>const</code>对指针进显式限制，同时能够检查唯一性。</p>
 
     </div>
 
@@ -340,7 +445,7 @@ Golang帮助我完成从服务开发维护小白到菜鸟的转变，让我有�
       <a href="hanzi_zhu@foxmail.com" class="iconfont icon-email" title="email"></a>
       <a href="https://twitter.com/pigzhu11" class="iconfont icon-twitter" title="twitter"></a>
       <a href="https://github.com/hzzhu92" class="iconfont icon-github" title="github"></a>
-  <a href="https://hzzhu92.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+  <a href="https://zhuzaiye.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
 </div>
 
 <div class="copyright">

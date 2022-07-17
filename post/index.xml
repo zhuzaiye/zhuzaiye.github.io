@@ -2,89 +2,89 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on CodeMaxBlog</title>
-    <link>https://hzzhu92.github.io/post/</link>
+    <link>https://zhuzaiye.github.io/post/</link>
     <description>Recent content in Posts on CodeMaxBlog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 04 Jul 2022 22:36:24 +0800</lastBuildDate><atom:link href="https://hzzhu92.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 04 Jul 2022 22:36:24 +0800</lastBuildDate><atom:link href="https://zhuzaiye.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>C Trace</title>
-      <link>https://hzzhu92.github.io/post/gcc11tarce/</link>
+      <link>https://zhuzaiye.github.io/post/gcc11tarce/</link>
       <pubDate>Mon, 04 Jul 2022 22:36:24 +0800</pubDate>
       
-      <guid>https://hzzhu92.github.io/post/gcc11tarce/</guid>
+      <guid>https://zhuzaiye.github.io/post/gcc11tarce/</guid>
       <description>C语言属于面向过程设计、支持结构化等编程特点，介于天堂(高级语言)和地狱(汇编语言)之间的人间语言。 C语言广泛用于系统和应用编程，著名的Un</description>
     </item>
     
     <item>
       <title>Docxtohtml</title>
-      <link>https://hzzhu92.github.io/post/docxtohtml/</link>
+      <link>https://zhuzaiye.github.io/post/docxtohtml/</link>
       <pubDate>Sun, 03 Jul 2022 23:21:04 +0800</pubDate>
       
-      <guid>https://hzzhu92.github.io/post/docxtohtml/</guid>
+      <guid>https://zhuzaiye.github.io/post/docxtohtml/</guid>
       <description>由于从事教育行业，涉及到较多的资源处理。前期就遇到将office的word合并将合并的word转成Html5的任务。 需要处理的相关问题如下：</description>
     </item>
     
     <item>
       <title>Shell Language</title>
-      <link>https://hzzhu92.github.io/post/20220629-shell/</link>
+      <link>https://zhuzaiye.github.io/post/20220629-shell/</link>
       <pubDate>Wed, 29 Jun 2022 21:49:29 +0800</pubDate>
       
-      <guid>https://hzzhu92.github.io/post/20220629-shell/</guid>
+      <guid>https://zhuzaiye.github.io/post/20220629-shell/</guid>
       <description>Shell 是一个应用程序，它连接了用户和 Linux 内核，让用户能够更加高效、安全、低成本地使用 Linux 内核。 bash shell 是一种脚本语言。 通过shell命令操作和控制内核，</description>
     </item>
     
     <item>
       <title>Rust Language</title>
-      <link>https://hzzhu92.github.io/post/20220512-rust/</link>
+      <link>https://zhuzaiye.github.io/post/20220512-rust/</link>
       <pubDate>Thu, 12 May 2022 21:27:45 +0800</pubDate>
       
-      <guid>https://hzzhu92.github.io/post/20220512-rust/</guid>
+      <guid>https://zhuzaiye.github.io/post/20220512-rust/</guid>
       <description>Rust由Mozila开发，是一款免费开源的高级编程语言。 以高性能、高可靠性和高生产力著称。 可以用于系统编程、web编程、服务器开发和嵌入式</description>
     </item>
     
     <item>
       <title>BiaryTree[二叉树]</title>
-      <link>https://hzzhu92.github.io/post/20220511-biarytree/</link>
+      <link>https://zhuzaiye.github.io/post/20220511-biarytree/</link>
       <pubDate>Wed, 11 May 2022 19:44:20 +0800</pubDate>
       
-      <guid>https://hzzhu92.github.io/post/20220511-biarytree/</guid>
+      <guid>https://zhuzaiye.github.io/post/20220511-biarytree/</guid>
       <description>二叉树结构体 1 2 3 4 5 6 // BinaryNode 二叉树结点 type BinaryNode struct { Value interface{} // 结点数值 LeftNode *BinaryNode // 左-子结点 RightNode *BinaryNode // 右-子结点 } 遍历二叉树 前序遍历 1 2 3 4 5 6 7 8 9 10 11 12 13 14</description>
     </item>
     
     <item>
       <title>LinkList[链表]</title>
-      <link>https://hzzhu92.github.io/post/20220424-link-list/</link>
+      <link>https://zhuzaiye.github.io/post/20220424-link-list/</link>
       <pubDate>Sun, 24 Apr 2022 22:29:10 +0800</pubDate>
       
-      <guid>https://hzzhu92.github.io/post/20220424-link-list/</guid>
+      <guid>https://zhuzaiye.github.io/post/20220424-link-list/</guid>
       <description>关于链表数据接口的算法。 链表的数据结构 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 // LinkNode 定义链表数据节点 type LinkNode struct { Data interface{} Next *LinkNode</description>
     </item>
     
     <item>
       <title>React Admin实践</title>
-      <link>https://hzzhu92.github.io/post/20220417-react-admin/</link>
+      <link>https://zhuzaiye.github.io/post/20220417-react-admin/</link>
       <pubDate>Sun, 17 Apr 2022 11:24:05 +0800</pubDate>
       
-      <guid>https://hzzhu92.github.io/post/20220417-react-admin/</guid>
+      <guid>https://zhuzaiye.github.io/post/20220417-react-admin/</guid>
       <description>本身是一个半路出家到IT的机械工科男，目前从事基于golang的后端开发工作。出家到互联网，存在两方面原因。一个是家里人主要从互联网工作，对</description>
     </item>
     
     <item>
       <title>基于go的Bitmap 序列化和反序列化</title>
-      <link>https://hzzhu92.github.io/post/20220413-go-bitmap/</link>
+      <link>https://zhuzaiye.github.io/post/20220413-go-bitmap/</link>
       <pubDate>Wed, 13 Apr 2022 22:26:50 +0800</pubDate>
       
-      <guid>https://hzzhu92.github.io/post/20220413-go-bitmap/</guid>
+      <guid>https://zhuzaiye.github.io/post/20220413-go-bitmap/</guid>
       <description>由于需要对较大数量的个体内容的出现进行记录、去重、查找和存储, 便于后续的统计分析。 考虑使用bitmap来实现对个体出现的记录和去重。 bitm</description>
     </item>
     
     <item>
       <title>Algorithm: Array Series</title>
-      <link>https://hzzhu92.github.io/post/20220320-algo-array/</link>
+      <link>https://zhuzaiye.github.io/post/20220320-algo-array/</link>
       <pubDate>Sun, 20 Mar 2022 12:56:13 +0800</pubDate>
       
-      <guid>https://hzzhu92.github.io/post/20220320-algo-array/</guid>
+      <guid>https://zhuzaiye.github.io/post/20220320-algo-array/</guid>
       <description>关于Leetcode中Array数据和算法记录。 Algorithms 两数之和(Two Sum) 问题：给定一个整数数组 nums 和一个整数目标值 target，在该数组中找出 和为</description>
     </item>
     
