@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Code Language on CodeMaxBlog</title>
+    <title>Code Language on CodeDucker</title>
     <link>https://zhuzaiye.github.io/categories/code-language/</link>
-    <description>Recent content in Code Language on CodeMaxBlog</description>
+    <description>Recent content in Code Language on CodeDucker</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Mon, 04 Jul 2022 22:36:24 +0800</lastBuildDate><atom:link href="https://zhuzaiye.github.io/categories/code-language/index.xml" rel="self" type="application/rss+xml" />

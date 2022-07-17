@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>CodeMaxBlog</title>
+    <title>CodeDucker</title>
     <link>https://zhuzaiye.github.io/</link>
-    <description>Recent content on CodeMaxBlog</description>
+    <description>Recent content on CodeDucker</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Mon, 04 Jul 2022 22:36:24 +0800</lastBuildDate><atom:link href="https://zhuzaiye.github.io/index.xml" rel="self" type="application/rss+xml" />

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Python on CodeMaxBlog</title>
+    <title>Python on CodeDucker</title>
     <link>https://zhuzaiye.github.io/categories/python/</link>
-    <description>Recent content in Python on CodeMaxBlog</description>
+    <description>Recent content in Python on CodeDucker</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Sun, 03 Jul 2022 23:21:04 +0800</lastBuildDate><atom:link href="https://zhuzaiye.github.io/categories/python/index.xml" rel="self" type="application/rss+xml" />
