@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="CodeMax" /><meta name="description" content="本身是一个半路出家到IT的机械工科男，目前从事基于golang的后端开发工作。出家到互联网，存在两方面原因。一个是家里人主要从互联网工作，对" />
+<meta name="author" content="CodeDucker" /><meta name="description" content="前端是充满想象力的。从react开始。 todo: 做一个完整的admin管理后台，实现平时后台的服务和方法的集合。 所以，我选择通过React去实现一个" />
 
 
 
@@ -40,7 +40,7 @@
 
 
 <meta property="og:title" content="React Admin实践" />
-<meta property="og:description" content="本身是一个半路出家到IT的机械工科男，目前从事基于golang的后端开发工作。出家到互联网，存在两方面原因。一个是家里人主要从互联网工作，对" />
+<meta property="og:description" content="前端是充满想象力的。从react开始。 todo: 做一个完整的admin管理后台，实现平时后台的服务和方法的集合。 所以，我选择通过React去实现一个" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://zhuzaiye.github.io/post/20220417-react-admin/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2022-04-17T11:24:05+08:00" />
@@ -48,12 +48,12 @@
 
 
 <meta itemprop="name" content="React Admin实践">
-<meta itemprop="description" content="本身是一个半路出家到IT的机械工科男，目前从事基于golang的后端开发工作。出家到互联网，存在两方面原因。一个是家里人主要从互联网工作，对"><meta itemprop="datePublished" content="2022-04-17T11:24:05+08:00" />
+<meta itemprop="description" content="前端是充满想象力的。从react开始。 todo: 做一个完整的admin管理后台，实现平时后台的服务和方法的集合。 所以，我选择通过React去实现一个"><meta itemprop="datePublished" content="2022-04-17T11:24:05+08:00" />
 <meta itemprop="dateModified" content="2022-04-17T11:24:05+08:00" />
-<meta itemprop="wordCount" content="1879">
+<meta itemprop="wordCount" content="2286">
 <meta itemprop="keywords" content="React," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="React Admin实践"/>
-<meta name="twitter:description" content="本身是一个半路出家到IT的机械工科男，目前从事基于golang的后端开发工作。出家到互联网，存在两方面原因。一个是家里人主要从互联网工作，对"/>
+<meta name="twitter:description" content="前端是充满想象力的。从react开始。 todo: 做一个完整的admin管理后台，实现平时后台的服务和方法的集合。 所以，我选择通过React去实现一个"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -148,8 +148,24 @@
   <ul>
     <li>
       <ul>
-        <li><a href="#react环境搭建">React环境搭建</a></li>
-        <li><a href="#react基础">React基础</a></li>
+        <li><a href="#react参考资料">React参考资料</a></li>
+        <li><a href="#react开发环境">React开发环境</a>
+          <ul>
+            <li><a href="#基础环境准备">基础环境准备</a></li>
+            <li><a href="#初始化项目">初始化项目</a></li>
+            <li><a href="#webpackconfigjs">webpack.config.js</a></li>
+            <li><a href="#babelrc">babelrc</a></li>
+            <li><a href="#导入依赖">导入依赖</a></li>
+            <li><a href="#运行">运行</a></li>
+          </ul>
+        </li>
+        <li><a href="#react概念">React概念</a>
+          <ul>
+            <li><a href="#可变和不可变">可变和不可变</a></li>
+            <li><a href="#渲染和生命周期">渲染和生命周期</a></li>
+          </ul>
+        </li>
+        <li><a href="#react实践">React实践</a></li>
       </ul>
     </li>
   </ul>
@@ -157,15 +173,26 @@
   </div>
 </div>
     <div class="post-content">
-      <p>本身是一个半路出家到IT的机械工科男，目前从事基于golang的后端开发工作。出家到互联网，存在两方面原因。一个是家里人主要从互联网工作，对该职业一直存在向往；另一个是从事研究生研究中利用python完成了主要科研工作，从而更加对编程充满热爱，对网页的开发自始自终都有着割舍不掉的情结。由于自己从一开始就没有系统学习前端知识，研究生期间也只是稀稀拉拉的了解，也只能简单解决一些问题，对于完整儿复杂的工程也只能望洋兴叹。</p>
-<p>所以，我选择通过React去实现一个后端开发者会经常DIY的管理端项目。我选择找一个<a href="https://github.com/ltadpoles/web-document/blob/master/React/%E5%BF%AB%E9%80%9F%E6%89%93%E9%80%A0react%E5%90%8E%E5%8F%B0%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F.md">基于React实现的后端管理项目</a>，站在巨人的肩膀上一步一步实现一个。</p>
-<h2 id="react环境搭建">React环境搭建</h2>
-<p>关于<a href="https://zh-hans.reactjs.org/docs/getting-started.html">React</a>，没有文档更为直观的说明React是什么？能做什么？</p>
-<p>直接上手干，是掌握技术的最好的方式，最好再买一本书，目前参考的书是<a href="https://book.douban.com/subject/26918038/">《深入React技术栈》</a>。</p>
-<p>采用<a href="https://webpack.docschina.org/concepts/">webpack</a>构建React项目。</p>
-<ul>
-<li>初始化项目</li>
-</ul>
+      <blockquote>
+<p>前端是充满想象力的。从react开始。</p>
+</blockquote>
+<p>todo: 做一个完整的admin管理后台，实现平时后台的服务和方法的集合。</p>
+<p>所以，我选择通过React去实现一个后端开发者会经常DIY的管理端项目。</p>
+<p><a href="https://github.com/ltadpoles/web-document/blob/master/React/%E5%BF%AB%E9%80%9F%E6%89%93%E9%80%A0react%E5%90%8E%E5%8F%B0%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F.md">基于React实现的后端管理项目</a>，站在巨人的肩膀上一步一步实现一个。</p>
+<h2 id="react参考资料">React参考资料</h2>
+<ol>
+<li>参考网站 <a href="https://zh-hans.reactjs.org/docs/getting-started.html">React官网文档</a>。</li>
+<li>参考书籍<a href="https://book.douban.com/subject/26918038/">《深入React技术栈》</a></li>
+<li>参考书籍<a href="https://github.com/react-in-action/letters-social">《React in action》</a>。</li>
+</ol>
+<h2 id="react开发环境">React开发环境</h2>
+<p>采用<a href="https://webpack.docschina.org/concepts/">webpack</a>构建React开发环境。</p>
+<h3 id="基础环境准备">基础环境准备</h3>
+<ol>
+<li>安装<a href="https://nodejs.org/zh-cn/">nodejs</a>稳定版本</li>
+<li>nodejs安装<a href="https://yarnpkg.com/getting-started">yarn</a>的包管理工具</li>
+</ol>
+<h3 id="初始化项目">初始化项目</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -206,9 +233,10 @@
 </span></span><span class="line"><span class="cl">touch index.html
 </span></span></code></pre></td></tr></table>
 </div>
-</div><ul>
-<li>创建webpack.config.js的webpack逻辑文件</li>
-</ul>
+</div><h3 id="webpackconfigjs">webpack.config.js</h3>
+<blockquote>
+<p>webpack逻辑文件</p>
+</blockquote>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -276,9 +304,10 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><ul>
-<li>创建.babelrc，对react语法和jsx文件的转义</li>
-</ul>
+</div><h3 id="babelrc">babelrc</h3>
+<blockquote>
+<p>对react语法和jsx文件的转义</p>
+</blockquote>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -306,9 +335,7 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><ul>
-<li>导入依赖</li>
-</ul>
+</div><h3 id="导入依赖">导入依赖</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -331,9 +358,7 @@
 </span></span><span class="line"><span class="cl">yarn add react react-dom
 </span></span></code></pre></td></tr></table>
 </div>
-</div><ul>
-<li>运行</li>
-</ul>
+</div><h3 id="运行">运行</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -358,7 +383,301 @@
 </span></span><span class="line"><span class="cl">yarn add react@17.0.0 react-dom@17.0.0
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="react基础">React基础</h2>
+</div><h2 id="react概念">React概念</h2>
+<h3 id="可变和不可变">可变和不可变</h3>
+<p><code>可变</code>: 不可变的持久数据结构, 不能直接覆盖，存在版本，但是随着时间的变化存在多个版本</p>
+<p><code>不可变</code>: 可变的临时数据结构，可直接覆盖，不存在版本，随着时间变化只存在一个版本</p>
+<h3 id="渲染和生命周期">渲染和生命周期</h3>
+<div class='align-center'>
+<p><img src="/img/blog/react_life_cycle.png" alt="react life cycle"></p>
+</div>
+<p><code>will</code> 将执行 在一些事情发生前被调用</p>
+<p><code>did</code> 已完成 在一些事情发生后被调用</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span><span class="lnt">123
+</span><span class="lnt">124
+</span><span class="lnt">125
+</span><span class="lnt">126
+</span><span class="lnt">127
+</span><span class="lnt">128
+</span><span class="lnt">129
+</span><span class="lnt">130
+</span><span class="lnt">131
+</span><span class="lnt">132
+</span><span class="lnt">133
+</span><span class="lnt">134
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s2">&#34;react&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">PropTypes</span> <span class="nx">from</span> <span class="s2">&#34;prop-types&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">class</span> <span class="nx">ChildComponent</span> <span class="kr">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">static</span> <span class="nx">propTypes</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">name</span><span class="o">:</span> <span class="nx">PropTypes</span><span class="p">.</span><span class="nx">string</span>
+</span></span><span class="line"><span class="cl">  <span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kr">static</span> <span class="nx">defaultProps</span> <span class="o">=</span> <span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;ChildComponent : defaultProps&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">{};</span>
+</span></span><span class="line"><span class="cl">  <span class="p">})();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="nx">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">super</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;ChildComponent: state&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">name</span><span class="o">:</span> <span class="s2">&#34;Mark&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">};</span>
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="p">.</span><span class="nx">oops</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">oops</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="nx">componentWillMount</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;ChildComponent : componentWillMount&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="nx">componentDidMount</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;ChildComponent : componentDidMount&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="nx">componentWillReceiveProps</span><span class="p">(</span><span class="nx">nextProps</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;ChildComponent : componentWillReceiveProps()&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;nextProps: &#34;</span><span class="p">,</span> <span class="nx">nextProps</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="nx">shouldComponentUpdate</span><span class="p">(</span><span class="nx">nextProps</span><span class="p">,</span> <span class="nx">nextState</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;&lt;ChildComponent/&gt; - shouldComponentUpdate()&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;nextProps: &#34;</span><span class="p">,</span> <span class="nx">nextProps</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;nextState: &#34;</span><span class="p">,</span> <span class="nx">nextState</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="nx">componentWillUpdate</span><span class="p">(</span><span class="nx">nextProps</span><span class="p">,</span> <span class="nx">nextState</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;&lt;ChildComponent/&gt; - componentWillUpdate&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;nextProps: &#34;</span><span class="p">,</span> <span class="nx">nextProps</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;nextState: &#34;</span><span class="p">,</span> <span class="nx">nextState</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="nx">componentDidUpdate</span><span class="p">(</span><span class="nx">previousProps</span><span class="p">,</span> <span class="nx">previousState</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;ChildComponent: componentDidUpdate&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;previousProps:&#34;</span><span class="p">,</span> <span class="nx">previousProps</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;previousState:&#34;</span><span class="p">,</span> <span class="nx">previousState</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="nx">componentWillUnmount</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;ChildComponent: componentWillUnmount&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="nx">oops</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">({</span> <span class="nx">oops</span><span class="o">:</span> <span class="kc">true</span> <span class="p">}));</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">oops</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">&#34;Something went wrong&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;ChildComponent: render&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">      <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">key</span><span class="o">=</span><span class="s2">&#34;name&#34;</span><span class="o">&gt;</span><span class="nx">Name</span><span class="o">:</span> <span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">name</span><span class="p">}</span><span class="o">&lt;</span><span class="err">/div&gt;,</span>
+</span></span><span class="line"><span class="cl">      <span class="o">&lt;</span><span class="nx">button</span> <span class="nx">key</span><span class="o">=</span><span class="s2">&#34;error&#34;</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">oops</span><span class="p">}</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">Create</span> <span class="nx">error</span>
+</span></span><span class="line"><span class="cl">      <span class="o">&lt;</span><span class="err">/button&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">];</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">class</span> <span class="nx">ParentComponent</span> <span class="kr">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">static</span> <span class="nx">defaultProps</span> <span class="o">=</span> <span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;ParentComponent: defaultProps&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="kc">true</span><span class="o">:</span> <span class="kc">false</span>
+</span></span><span class="line"><span class="cl">    <span class="p">};</span>
+</span></span><span class="line"><span class="cl">  <span class="p">})();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="nx">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">super</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;ParentComponent: state&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">text</span><span class="o">:</span> <span class="s2">&#34;&#34;</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="p">.</span><span class="nx">onInputChange</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">onInputChange</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">componentWillMount</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;ParentComponent: componentWillMount&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">componentDidMount</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;ParentComponent: componentDidMount&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">componentWillUnmount</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;ParentComponent: componentWillUnmount&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">onInputChange</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">text</span> <span class="o">=</span> <span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">value</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">({</span> <span class="nx">text</span><span class="o">:</span> <span class="nx">text</span> <span class="p">}));</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">componentDidCatch</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">errorInfo</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;componentDidCatch&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">errorInfo</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">({</span> <span class="nx">err</span><span class="p">,</span> <span class="nx">errorInfo</span> <span class="p">}));</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;ParentComponent: render&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="o">&lt;</span><span class="nx">details</span> <span class="nx">style</span><span class="o">=</span><span class="p">{{</span> <span class="nx">whiteSpace</span><span class="o">:</span> <span class="s2">&#34;pre-wrap&#34;</span> <span class="p">}}</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">          <span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">error</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">error</span><span class="p">.</span><span class="nx">toString</span><span class="p">()}</span>
+</span></span><span class="line"><span class="cl">          <span class="o">&lt;</span><span class="nx">br</span> <span class="o">/&gt;</span>
+</span></span><span class="line"><span class="cl">          <span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">errorInfo</span><span class="p">.</span><span class="nx">componentStack</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="o">&lt;</span><span class="err">/details&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">      <span class="o">&lt;</span><span class="nx">h2</span> <span class="nx">key</span><span class="o">=</span><span class="s2">&#34;h2&#34;</span><span class="o">&gt;</span><span class="nx">Learn</span> <span class="nx">about</span> <span class="nx">rendering</span> <span class="nx">and</span> <span class="nx">lifecycle</span> <span class="nx">methods</span><span class="o">!&lt;</span><span class="err">/h2&gt;,</span>
+</span></span><span class="line"><span class="cl">      <span class="o">&lt;</span><span class="nx">input</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">key</span><span class="o">=</span><span class="s2">&#34;input&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">value</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">text</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">onChange</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">onInputChange</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="o">/&gt;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="o">&lt;</span><span class="nx">ChildComponent</span> <span class="nx">key</span><span class="o">=</span><span class="s2">&#34;ChildComponent&#34;</span> <span class="nx">name</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">text</span><span class="p">}</span> <span class="o">/&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">];</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="k">default</span> <span class="nx">ParentComponent</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>直到React在实际DOM中创建组件为止，组件只会存在于虚拟DOM中。</p>
+<p>挂载方法在组件生命周期的开始和结束只会被出发一次，组件只有一个开始和结束。</p>
+<div class='align-center'>
+<p><img src="/img/blog/react_life_mount.png" alt="react mount"></p>
+</div>
+<p>React-DOM负责组件的挂载和卸载。</p>
+<p>组件挂载是将组建插入实际DOM的过程。卸载是将组件从DOM中删除。</p>
+<div class='align-center'>
+<p><img src="/img/blog/react_component_mount.png" alt="react component mount"></p>
+</div>
+<h2 id="react实践">React实践</h2>
 <ul>
 <li>从<code>createElement</code>到<code>JSX</code></li>
 </ul>
@@ -670,44 +989,13 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><ul>
-<li>生命周期</li>
-</ul>
-<p><img src="/images/react_life.png" alt="react_life"></p>
-<blockquote>
-<p>原图地址: <a href="https://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/">https://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/</a></p>
-</blockquote>
-<ol>
-<li>组件初始化</li>
-</ol>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">class</span> <span class="nx">Hello</span> <span class="kr">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span><span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">){</span>  <span class="c1">// props 只可以读取
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kr">super</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span>     <span class="c1">// 调用基类的构造方法, 获取父组件的props
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1">// 初始化组件的状态值
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
 </div>
-</div><ol start="2">
-<li>Mounting 挂载</li>
-</ol>
-
     </div>
 
     <div class="post-copyright">
   <p class="copyright-item">
     <span class="item-title">Author</span>
-    <span class="item-content">CodeMax</span>
+    <span class="item-content">CodeDucker</span>
   </p>
   <p class="copyright-item">
     <span class="item-title">LastMod</span>
