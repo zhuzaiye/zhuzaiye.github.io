@@ -9,49 +9,98 @@
   </url>
   
   <url>
-    <loc>https://zhuzaiye.github.io/post/gcc11tarce/</loc>
-    <lastmod>2022-07-04T22:36:24+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>https://zhuzaiye.github.io/categories/</loc>
-    <lastmod>2022-07-04T22:36:24+08:00</lastmod>
+    <lastmod>2023-02-12T16:04:24+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://zhuzaiye.github.io/tags/clang/</loc>
-    <lastmod>2022-07-04T22:36:24+08:00</lastmod>
+    <lastmod>2023-02-12T16:04:24+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://zhuzaiye.github.io/categories/code-language/</loc>
-    <lastmod>2022-07-04T22:36:24+08:00</lastmod>
+    <lastmod>2023-02-12T16:04:24+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://zhuzaiye.github.io/</loc>
-    <lastmod>2022-07-04T22:36:24+08:00</lastmod>
+    <lastmod>2023-02-12T16:04:24+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuzaiye.github.io/post/20230212-cpp-hard-way/</loc>
+    <lastmod>2023-02-12T16:04:24+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://zhuzaiye.github.io/post/</loc>
-    <lastmod>2022-07-04T22:36:24+08:00</lastmod>
+    <lastmod>2023-02-12T16:04:24+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://zhuzaiye.github.io/tags/</loc>
+    <lastmod>2023-02-12T16:04:24+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuzaiye.github.io/categories/cloud/</loc>
+    <lastmod>2022-10-20T21:22:35+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuzaiye.github.io/tags/rpc/</loc>
+    <lastmod>2022-10-20T21:22:35+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuzaiye.github.io/post/20221020-rpc/</loc>
+    <lastmod>2022-10-20T21:22:35+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuzaiye.github.io/categories/vue/</loc>
+    <lastmod>2022-10-14T21:19:15+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuzaiye.github.io/tags/webview/</loc>
+    <lastmod>2022-10-14T21:19:15+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuzaiye.github.io/post/20221014-vue-admin/</loc>
+    <lastmod>2022-10-14T21:19:15+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuzaiye.github.io/post/20220704-c-hard-way/</loc>
     <lastmod>2022-07-04T22:36:24+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>

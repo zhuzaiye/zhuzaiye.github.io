@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>webview on CodeMax</title>
+    <link>https://zhuzaiye.github.io/tags/webview/</link>
+    <description>Recent content in webview on CodeMax</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 14 Oct 2022 21:19:15 +0800</lastBuildDate><atom:link href="https://zhuzaiye.github.io/tags/webview/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>从Vue到Admin</title>
+      <link>https://zhuzaiye.github.io/post/20221014-vue-admin/</link>
+      <pubDate>Fri, 14 Oct 2022 21:19:15 +0800</pubDate>
+      
+      <guid>https://zhuzaiye.github.io/post/20221014-vue-admin/</guid>
+      <description>从Vue文档开始 Vue.js: 采用模板语法来声明式通过数据响应式渲染DOM 实验场[非vue-cli] 1 2 3 4 5 6 7 . +--- asset +--- index.html +--- static | +--- css | +--- js | | +--- vue.js vue 声</description>
+    </item>
+    
+  </channel>
+</rss>

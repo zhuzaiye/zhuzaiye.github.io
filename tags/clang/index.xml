@@ -1,19 +1,28 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>CLang on CodeDucker</title>
+    <title>CLang on CodeMax</title>
     <link>https://zhuzaiye.github.io/tags/clang/</link>
-    <description>Recent content in CLang on CodeDucker</description>
+    <description>Recent content in CLang on CodeMax</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 04 Jul 2022 22:36:24 +0800</lastBuildDate><atom:link href="https://zhuzaiye.github.io/tags/clang/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 12 Feb 2023 16:04:24 +0800</lastBuildDate><atom:link href="https://zhuzaiye.github.io/tags/clang/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>C Trace</title>
-      <link>https://zhuzaiye.github.io/post/gcc11tarce/</link>
+      <title>CPP Hard Way</title>
+      <link>https://zhuzaiye.github.io/post/20230212-cpp-hard-way/</link>
+      <pubDate>Sun, 12 Feb 2023 16:04:24 +0800</pubDate>
+      
+      <guid>https://zhuzaiye.github.io/post/20230212-cpp-hard-way/</guid>
+      <description>常用命令 Option Desc -g 带有调试信息的编译 -o 指定编译后的输出文件 -O0 编译不进行优化处理 -O/-O1 编译优化处理 -O2 进一步优化 -O3 更进一步优化 包括inline函数 -Wall 编译</description>
+    </item>
+    
+    <item>
+      <title>C Hard Way</title>
+      <link>https://zhuzaiye.github.io/post/20220704-c-hard-way/</link>
       <pubDate>Mon, 04 Jul 2022 22:36:24 +0800</pubDate>
       
-      <guid>https://zhuzaiye.github.io/post/gcc11tarce/</guid>
-      <description>C语言属于面向过程设计、支持结构化等编程特点，介于天堂(高级语言)和地狱(汇编语言)之间的人间语言。 C语言广泛用于系统和应用编程，著名的Un</description>
+      <guid>https://zhuzaiye.github.io/post/20220704-c-hard-way/</guid>
+      <description>C的思维导图 目标 C的基本语法和编写习惯&amp;ndash;输出思维导图 编译, make文件和链接&amp;ndash;熟练使用Makefile 寻找和预防bu</description>
     </item>
     
   </channel>

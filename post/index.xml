@@ -1,19 +1,46 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts on CodeDucker</title>
+    <title>Posts on CodeMax</title>
     <link>https://zhuzaiye.github.io/post/</link>
-    <description>Recent content in Posts on CodeDucker</description>
+    <description>Recent content in Posts on CodeMax</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 04 Jul 2022 22:36:24 +0800</lastBuildDate><atom:link href="https://zhuzaiye.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 12 Feb 2023 16:04:24 +0800</lastBuildDate><atom:link href="https://zhuzaiye.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>C Trace</title>
-      <link>https://zhuzaiye.github.io/post/gcc11tarce/</link>
+      <title>CPP Hard Way</title>
+      <link>https://zhuzaiye.github.io/post/20230212-cpp-hard-way/</link>
+      <pubDate>Sun, 12 Feb 2023 16:04:24 +0800</pubDate>
+      
+      <guid>https://zhuzaiye.github.io/post/20230212-cpp-hard-way/</guid>
+      <description>常用命令 Option Desc -g 带有调试信息的编译 -o 指定编译后的输出文件 -O0 编译不进行优化处理 -O/-O1 编译优化处理 -O2 进一步优化 -O3 更进一步优化 包括inline函数 -Wall 编译</description>
+    </item>
+    
+    <item>
+      <title>RPC-&gt;gRPC</title>
+      <link>https://zhuzaiye.github.io/post/20221020-rpc/</link>
+      <pubDate>Thu, 20 Oct 2022 21:22:35 +0800</pubDate>
+      
+      <guid>https://zhuzaiye.github.io/post/20221020-rpc/</guid>
+      <description>rpc-远程服务调用, 用于分布式系统服务信息通信。 RPC基础 基于g的RPC-C/S实现 service: 服务端功能RPC服务开发 client: 客户端调用RPC服务开发 protocol:</description>
+    </item>
+    
+    <item>
+      <title>从Vue到Admin</title>
+      <link>https://zhuzaiye.github.io/post/20221014-vue-admin/</link>
+      <pubDate>Fri, 14 Oct 2022 21:19:15 +0800</pubDate>
+      
+      <guid>https://zhuzaiye.github.io/post/20221014-vue-admin/</guid>
+      <description>从Vue文档开始 Vue.js: 采用模板语法来声明式通过数据响应式渲染DOM 实验场[非vue-cli] 1 2 3 4 5 6 7 . +--- asset +--- index.html +--- static | +--- css | +--- js | | +--- vue.js vue 声</description>
+    </item>
+    
+    <item>
+      <title>C Hard Way</title>
+      <link>https://zhuzaiye.github.io/post/20220704-c-hard-way/</link>
       <pubDate>Mon, 04 Jul 2022 22:36:24 +0800</pubDate>
       
-      <guid>https://zhuzaiye.github.io/post/gcc11tarce/</guid>
-      <description>C语言属于面向过程设计、支持结构化等编程特点，介于天堂(高级语言)和地狱(汇编语言)之间的人间语言。 C语言广泛用于系统和应用编程，著名的Un</description>
+      <guid>https://zhuzaiye.github.io/post/20220704-c-hard-way/</guid>
+      <description>C的思维导图 目标 C的基本语法和编写习惯&amp;ndash;输出思维导图 编译, make文件和链接&amp;ndash;熟练使用Makefile 寻找和预防bu</description>
     </item>
     
     <item>
@@ -35,7 +62,7 @@
     </item>
     
     <item>
-      <title>Rust Language</title>
+      <title>Rust</title>
       <link>https://zhuzaiye.github.io/post/20220512-rust/</link>
       <pubDate>Thu, 12 May 2022 21:27:45 +0800</pubDate>
       

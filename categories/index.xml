@@ -1,18 +1,36 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Categories on CodeDucker</title>
+    <title>Categories on CodeMax</title>
     <link>https://zhuzaiye.github.io/categories/</link>
-    <description>Recent content in Categories on CodeDucker</description>
+    <description>Recent content in Categories on CodeMax</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 04 Jul 2022 22:36:24 +0800</lastBuildDate><atom:link href="https://zhuzaiye.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 12 Feb 2023 16:04:24 +0800</lastBuildDate><atom:link href="https://zhuzaiye.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Code Language</title>
       <link>https://zhuzaiye.github.io/categories/code-language/</link>
-      <pubDate>Mon, 04 Jul 2022 22:36:24 +0800</pubDate>
+      <pubDate>Sun, 12 Feb 2023 16:04:24 +0800</pubDate>
       
       <guid>https://zhuzaiye.github.io/categories/code-language/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>cloud</title>
+      <link>https://zhuzaiye.github.io/categories/cloud/</link>
+      <pubDate>Thu, 20 Oct 2022 21:22:35 +0800</pubDate>
+      
+      <guid>https://zhuzaiye.github.io/categories/cloud/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Vue</title>
+      <link>https://zhuzaiye.github.io/categories/vue/</link>
+      <pubDate>Fri, 14 Oct 2022 21:19:15 +0800</pubDate>
+      
+      <guid>https://zhuzaiye.github.io/categories/vue/</guid>
       <description></description>
     </item>
     

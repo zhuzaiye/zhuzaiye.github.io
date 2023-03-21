@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>C Hard Way - CodeMax</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="CodeMax" /><meta name="description" content="C的思维导图 目标 C的基本语法和编写习惯&amp;ndash;输出思维导图 编译, make文件和链接&amp;ndash;熟练使用Makefile 寻找和预防bu" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.95.0 with theme even" />
+
+
+<link rel="canonical" href="https://zhuzaiye.github.io/post/20220704-c-hard-way/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.0f713f65cc83eb50bc9d63af45d43f1d1877da36ca94a518ca1073a7a8f40059.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="C Hard Way" />
+<meta property="og:description" content="C的思维导图 目标 C的基本语法和编写习惯&ndash;输出思维导图 编译, make文件和链接&ndash;熟练使用Makefile 寻找和预防bu" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhuzaiye.github.io/post/20220704-c-hard-way/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2022-07-04T22:36:24+08:00" />
+<meta property="article:modified_time" content="2022-07-04T22:36:24+08:00" />
+
+
+<meta itemprop="name" content="C Hard Way">
+<meta itemprop="description" content="C的思维导图 目标 C的基本语法和编写习惯&ndash;输出思维导图 编译, make文件和链接&ndash;熟练使用Makefile 寻找和预防bu"><meta itemprop="datePublished" content="2022-07-04T22:36:24+08:00" />
+<meta itemprop="dateModified" content="2022-07-04T22:36:24+08:00" />
+<meta itemprop="wordCount" content="2972">
+<meta itemprop="keywords" content="CLang," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="C Hard Way"/>
+<meta name="twitter:description" content="C的思维导图 目标 C的基本语法和编写习惯&ndash;输出思维导图 编译, make文件和链接&ndash;熟练使用Makefile 寻找和预防bu"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">CodeMax</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">CodeMax</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">C Hard Way</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2022-07-04 </span>
+        <div class="post-category">
+            <a href="/categories/code-language/"> Code Language </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#目标">目标</a></li>
+        <li><a href="#技能">技能</a></li>
+        <li><a href="#环境配置">环境配置</a></li>
+        <li><a href="#参考书籍">参考书籍</a></li>
+        <li><a href="#c语言基础">C语言基础</a>
+          <ul>
+            <li><a href="#hello-c">hello-c</a></li>
+            <li><a href="#认识局部和全局">认识局部和全局</a></li>
+            <li><a href="#存储类型">存储类型</a></li>
+            <li><a href="#poniter">Poniter</a></li>
+          </ul>
+        </li>
+        <li><a href="#makefile">Makefile</a></li>
+        <li><a href="#gdb-debug">GDB-Debug</a></li>
+        <li><a href="#data--algorithm">Data &amp; Algorithm</a></li>
+        <li><a href="#管理内存memory">管理内存[memory]</a>
+          <ul>
+            <li><a href="#类型转换">类型转换</a></li>
+            <li><a href="#内存分配和释放">内存分配和释放</a></li>
+            <li><a href="#内存操作">内存操作</a></li>
+          </ul>
+        </li>
+        <li><a href="#实践">实践</a>
+          <ul>
+            <li><a href="#webbench"><a href="">WebBench</a></a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <div class='align-center'>
+<p><img src="/img/blog/c_lang_basement_map.jpg" alt="CLang Basement Map"></p>
+<p>C的思维导图</p>
+</div>
+<h2 id="目标">目标</h2>
+<ul>
+<li>C的基本语法和编写习惯&ndash;输出思维导图</li>
+<li>编译, make文件和链接&ndash;熟练使用Makefile</li>
+<li>寻找和预防bug&ndash;熟练使用gdb</li>
+<li>防御性编程实践&ndash;从问题预设思考编程</li>
+<li>使C的代码崩溃&ndash;形成崩溃式的代码思考方式</li>
+<li>编写基本的Unix系统软件&ndash;进入Unix/Linux的世界</li>
+</ul>
+<h2 id="技能">技能</h2>
+<ul>
+<li>阅读和编写代码能力</li>
+<li>专注细节</li>
+<li>定位差异</li>
+<li>规划和调试</li>
+</ul>
+<h2 id="环境配置">环境配置</h2>
+<p><code>minGW-64</code>+<code>vscode</code></p>
+<ul>
+<li><code>minGW</code>是GCC对windows操作系统的移植版，可以在windows环境下享受GCC编译器的功能。</li>
+<li><code>vscode</code>是强大的IDE, 开源免费且支持工具包众多，很好支持C语言的开发，测试等。</li>
+</ul>
+<p>关于环境，google折腾。</p>
+<p><code>Centos</code>+<code>vim</code></p>
+<p>涉及到<code>Linux</code>环境下的测试与开发，通过搭建VM环境或者租借云服务器。
+我是用VM搭建了<code>Centos 7 minimal</code>的linux环境, 远程通过<code>MobaXterm</code>。</p>
+<p><code>vim</code>的搭建是简单改造PowerVim。附上链接：<a href="https://github.com/youngyangyang04/PowerVim">PowerVim</a></p>
+<h2 id="参考书籍">参考书籍</h2>
+<p>《<a href="http://c.learncodethehardway.org/book/">Learn C The Hard Way</a>》<br>
+《<a href="https://wizardforcel.gitbooks.io/lcthw/content/">Learn C The Hard Way 中文版</a>》</p>
+<h2 id="c语言基础">C语言基础</h2>
+<h3 id="hello-c">hello-c</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cm">/* ************************************************************************
+</span></span></span><span class="line"><span class="cl"><span class="cm">&gt; File Name:     ex1.c
+</span></span></span><span class="line"><span class="cl"><span class="cm">&gt; Author:        hanzi_zhu
+</span></span></span><span class="line"><span class="cl"><span class="cm">&gt; Created Time:  Thu 15 Sep 2022 09:56:26 AM EDT
+</span></span></span><span class="line"><span class="cl"><span class="cm">&gt; Description:   The first C code
+</span></span></span><span class="line"><span class="cl"><span class="cm"> *********************************************************************** */</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[]){</span>
+</span></span><span class="line"><span class="cl">    <span class="n">puts</span><span class="p">(</span><span class="s">&#34;Hello C&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># 编译和运行</span>
+</span></span><span class="line"><span class="cl">make ex1
+</span></span><span class="line"><span class="cl"><span class="c1"># cc     ex1.c   -o ex1</span>
+</span></span><span class="line"><span class="cl"><span class="nv">CFLAGS</span><span class="o">=</span><span class="s2">&#34;-Wall&#34;</span> make ex1
+</span></span><span class="line"><span class="cl"><span class="c1"># cc -Wall    ex1.c   -o ex1</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ex1.c: In function ‘main’:</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ex1.c:9:5: warning: implicit declaration of function ‘puts’ [-Wimplicit-function-declaration]</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#      puts(&#34;Hello C&#34;);</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#      ^</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 应清除所有warning和error </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 此处“implicit declaration”是因为没有导入“puts”的引入声明，隐式声明</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 代码首行增加 #include &lt;stdio.h&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 关于make编译参数</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># -Wall：选项可以打印出编译时所有的错误或者警告信息, 编译必须带上</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># CFLAGS 表示用于 C 编译器的选项，CXXFLAGS 表示用于 C++ 编译器的选项</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># -O0： 表示编译时没有优化</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># -O1： 表示编译时使用默认优化</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># -O2： 表示编译时使用二级优化</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># -O3： 表示编译时使用最高级优化</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="认识局部和全局">认识局部和全局</h3>
+<p>变量的<code>作用范围</code>：</p>
+<ol>
+<li>局部变量&ndash;仅作用于函数内部逻辑区域, 离开则非法</li>
+<li>全局变量&ndash;不属于哪一个函数内部, 属于整个源程序</li>
+</ol>
+<h3 id="存储类型">存储类型</h3>
+<ul>
+<li>auto: 自动变量, 可省略不写, 生存周期上属于动态存储</li>
+<li>stati: 静态变量, 编译初期赋初值,存在默认值，生存周期上属于静态存储</li>
+<li>register: 寄存器变量,</li>
+<li>extern: 外部变量, 将函数内的变量提升至外部, 可供该函数执行后的函数使用</li>
+</ul>
+<h3 id="poniter">Poniter</h3>
+<ul>
+<li>指针和const</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">const</span> <span class="kt">int</span> <span class="o">*</span><span class="n">p</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="k">const</span> <span class="o">*</span><span class="n">p</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>指的是：p指向的<code>内存单元</code>不能改写，即<code>(*p)++</code>是不允许的, <code>p++</code>是可以的，说明p可指向其他内存单元。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">int</span> <span class="o">*</span><span class="k">const</span> <span class="n">p</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>指的是：p是一个指向int的const指针, <code>(*p)</code>可以改写， 但是p不能改写</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">int</span> <span class="k">const</span> <span class="o">*</span> <span class="k">const</span> <span class="n">p</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>指的是： p和*p都能被改写</p>
+<p>多用<code>const</code>对指针进显式限制，同时能够检查唯一性。</p>
+<h2 id="makefile">Makefile</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-makefile" data-lang="makefile"><span class="line"><span class="cl"><span class="nv">CFLAGS</span><span class="o">=</span>-Wall -g
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nf">clean</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    rm -f ex1
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># 清除原有ex1</span>
+</span></span><span class="line"><span class="cl">make clean
+</span></span><span class="line"><span class="cl"><span class="c1"># rm -f ex1</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 重新编译</span>
+</span></span><span class="line"><span class="cl">make ex1
+</span></span><span class="line"><span class="cl"><span class="c1"># cc -Wall -g    ex1.c   -o ex1</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="gdb-debug">GDB-Debug</h2>
+<blockquote>
+<p>Debug是较好的学习的方式。
+开发和测试全部在Linux环境</p>
+</blockquote>
+<p><strong>DEBUG基本思想</strong>：<code>分析现象-&gt;假设错误原因-&gt;产生新的现象验证假设</code></p>
+<ul>
+<li><code>gdb</code>版本查看</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">gdb -v
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># GNU gdb (GDB) Red Hat Enterprise Linux 7.6.1-120.el7</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li><code>gdb</code>常用命令</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>break xxx/ b xxx</td>
+<td>设置断点 xxx断点位置 行号或者函数名称</td>
+</tr>
+<tr>
+<td>backtrace / bt</td>
+<td>转存当前调用栈的回溯信息</td>
+</tr>
+<tr>
+<td>info break\info watch</td>
+<td>查看断点信息，监视断点</td>
+</tr>
+<tr>
+<td>run / r</td>
+<td>运行程序</td>
+</tr>
+<tr>
+<td>continue / c</td>
+<td>断点后可继续执行程序，直到下一个断点或者程序结束</td>
+</tr>
+<tr>
+<td>next / n</td>
+<td>一行一行的执行程序 ，当碰到函数会单步跳过  step over</td>
+</tr>
+<tr>
+<td>step / s</td>
+<td>下一行，当碰到函数时候会单步进入    step in</td>
+</tr>
+<tr>
+<td>print xxx / p xxx</td>
+<td>打印指定变量，xxx是变量名称</td>
+</tr>
+<tr>
+<td>list / l</td>
+<td>enter键可以看后续代码 列出接下来10行代码 加入“-”列出之前的10行源代码</td>
+</tr>
+<tr>
+<td>finish</td>
+<td>退出上一个gdb的状态，继续回到调试运行状态中</td>
+</tr>
+<tr>
+<td>quit / q</td>
+<td>退出gdb</td>
+</tr>
+<tr>
+<td>clean</td>
+<td>清除一处断点</td>
+</tr>
+<tr>
+<td>cd\pwd\make</td>
+<td>shell命令一致</td>
+</tr>
+<tr>
+<td>shell</td>
+<td>快速启动shell，便于在调试过程中做别的事情</td>
+</tr>
+<tr>
+<td>attach pid</td>
+<td>将GDB绑定在一个正在运行进程上，对其继续调试</td>
+</tr>
+<tr>
+<td>detach</td>
+<td>将GDB与进程解绑</td>
+</tr>
+</tbody>
+</table>
+<div class='align-center'>
+<p><img src="/img/blog/clang_gdb_cmd.jpg" alt="CLang gdb cmd"></p>
+</div>
+<ul>
+<li>启动调试</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># -g 选项 才能生成的可执行文件才能用于gdb进行源码级测试</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 作用：在可执行文件中加入源码的信息，将执行文件机器指令和源代码行号映射</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#       所以，gdb调试必须保证能找到源代码文件</span>
+</span></span><span class="line"><span class="cl">gcc -g demo.c -o demo
+</span></span><span class="line"><span class="cl"><span class="c1"># 或者通过make斤进行编译</span>
+</span></span><span class="line"><span class="cl">make demo 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 调试可执行文件，会出现提示信息</span>
+</span></span><span class="line"><span class="cl">gdb demo
+</span></span><span class="line"><span class="cl"><span class="c1"># 启动调试不显示调试信息</span>
+</span></span><span class="line"><span class="cl">gdb demo <span class="o">[</span>--slient<span class="p">|</span>--quit<span class="p">|</span>-q<span class="o">]</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>断点调试</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">display sum
+</span></span><span class="line"><span class="cl"><span class="c1"># 取消跟踪 undisplay 变量编号</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 打断点 break</span>
+</span></span><span class="line"><span class="cl">b line_num
+</span></span><span class="line"><span class="cl">b func_name
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 当前行号的前面或后面的offset行停住。offset为自然数</span>
+</span></span><span class="line"><span class="cl"><span class="nb">break</span> +offset
+</span></span><span class="line"><span class="cl"><span class="nb">break</span> -offset 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 连续执行 continue</span>
+</span></span><span class="line"><span class="cl">c
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查看断点</span>
+</span></span><span class="line"><span class="cl">i breakpoints
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 删除断点</span>
+</span></span><span class="line"><span class="cl">delete breakpoints 断点编号
+</span></span><span class="line"><span class="cl"><span class="c1"># delete breakpoints 删除所有断点</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 暂时禁用断点</span>
+</span></span><span class="line"><span class="cl">disable breakpoints 断点编号
+</span></span><span class="line"><span class="cl"><span class="c1"># 启用断点</span>
+</span></span><span class="line"><span class="cl"><span class="nb">enable</span> 断点编号
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 条件断点</span>
+</span></span><span class="line"><span class="cl"><span class="nb">break</span> 源码行号 <span class="k">if</span> 条件变量 条件
+</span></span><span class="line"><span class="cl"><span class="c1"># break 9 if sum != 0</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class='align-center'>
+<p><img src="/img/blog/clang_gdb_breakpoint_cmd.png" alt="CLang gdb break cmd"></p>
+</div>
+<ul>
+<li>观察点调试</li>
+</ul>
+<div class='align-center'>
+<p><img src="/img/blog/clang_gdb_watch_cmd.jpg" alt="CLang gdb watch cmd"></p>
+</div>
+<h2 id="data--algorithm">Data &amp; Algorithm</h2>
+<p>数据的组织方式包含了存储方式和访问方式，二者密不可分。</p>
+<ul>
+<li>堆栈</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="c1">// stack.c
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 栈的简单操作--DFS 深度优先搜索
+</span></span></span><span class="line"><span class="cl"><span class="c1">// Created By CodeMax At 2022/07/06/ 19:33
+</span></span></span><span class="line"><span class="cl"><span class="c1">// FILO
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="kt">char</span> <span class="n">stack</span><span class="p">[</span><span class="mi">512</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">top</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">push</span><span class="p">(</span><span class="kt">char</span> <span class="n">c</span><span class="p">)</span> <span class="p">{</span> <span class="n">stack</span><span class="p">[</span><span class="n">top</span><span class="o">++</span><span class="p">]</span> <span class="o">=</span> <span class="n">c</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">char</span> <span class="nf">pop</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">stack</span><span class="p">[</span><span class="o">--</span><span class="n">top</span><span class="p">];</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">is_empty</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">top</span> <span class="o">==</span> <span class="mi">0</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">push</span><span class="p">(</span><span class="sc">&#39;a&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">push</span><span class="p">(</span><span class="sc">&#39;b&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">push</span><span class="p">(</span><span class="sc">&#39;c&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="p">(</span><span class="o">!</span><span class="n">is_empty</span><span class="p">())</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">putchar</span><span class="p">(</span><span class="n">pop</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">        <span class="n">putchar</span><span class="p">(</span><span class="sc">&#39; &#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// c b a
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="管理内存memory">管理内存[memory]</h2>
+<blockquote>
+<p><a href="https://marek.vavrusa.com/memory/">What a C programmer should know about memory</a></p>
+</blockquote>
+<h3 id="类型转换">类型转换</h3>
+<ul>
+<li>问题1: 类型隐式转换原理是什么？为什么char short int long float等能够隐式转换？</li>
+<li>问题2: 强制转换的原理是什么？为什么编译器隐式转换不能替代强制转换？</li>
+</ul>
+<h3 id="内存分配和释放">内存分配和释放</h3>
+<ul>
+<li>动态内存分配：运行时分配，使用&lt;stdlib.h&gt;,&lt;malloc.h&gt;</li>
+<li>静态内存分配：编译时分配</li>
+</ul>
+<ol>
+<li>malloc() 按照字节大小为任何类型分配内存</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="c1">// tsdlib.h --&gt; size_t ==&gt; unsigned int
+</span></span></span><span class="line"><span class="cl"><span class="c1">// malloc 分配num字节的存储内存空间 返回第一个字节指针
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 如果num==0 则会返回NULL，而NULL可以认为是void*
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">void</span> <span class="o">*</span><span class="nf">malloc</span><span class="p">(</span><span class="n">size_t</span> <span class="n">num</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="2">
+<li>calloc() 分配一组对象</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="c1">// num 分配对象的个数
+</span></span></span><span class="line"><span class="cl"><span class="c1">// size 每个对象的大小，单位依旧是字节
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 成功分配内存，将清空所有分配的内存，返回指向第一个字节的指针
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 分配失败则返回，获取num\size为0，返回NULL
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">void</span> <span class="o">*</span><span class="nf">calloc</span><span class="p">(</span><span class="n">size_t</span> <span class="n">num</span><span class="p">,</span> <span class="n">size_t</span> <span class="n">size</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="3">
+<li>realloc() 修改已分配内存块的大小</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="c1">// ptr 指向原内存块的指针
+</span></span></span><span class="line"><span class="cl"><span class="c1">// size 新内存块大小(字节单位)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">void</span> <span class="o">*</span><span class="nf">realloc</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">ptr</span><span class="p">,</span> <span class="n">size_t</span> <span class="n">size</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 1. 存在足够内存空间扩大ptr指向内存块，realloc会分配额外的内存并返回ptr
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 2. 没有足够内存空间，realloc会重新分配size大小内存并拷贝原有ptr存储数据到新地址，释放原有ptr指向内存
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 3. ptr如果为NULL, realloc相当于malloc，分配size字节内存块并返回其地址
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 4. 如果size==0或者内存已不足用于扩大或者再分配，都会返回NULL，原内存不会被修改
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="4">
+<li>free() 释放分配动态内存池中可用内存的malloc\calloc\realloc申请的内存块</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="c1">// 如果ptr==NULL，不会有任何操作
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">void</span> <span class="nf">free</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">ptr</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 动态分配内存后，必须将其释放
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="内存操作">内存操作</h3>
+<ul>
+<li>内存设置为指定值</li>
+<li>内存拷贝或者转移</li>
+</ul>
+<ol>
+<li>memset 将所有字节的内存块设置为指定的值</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">void</span> <span class="o">*</span><span class="nf">memset</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">dest</span><span class="p">,</span> <span class="kt">int</span> <span class="n">c</span><span class="p">,</span> <span class="n">size_t</span> <span class="n">count</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// dest 指向待初始化的内存块
+</span></span></span><span class="line"><span class="cl"><span class="c1">// c是设置的值 被视为char 只能使用低位字节 即值区间是0~255
+</span></span></span><span class="line"><span class="cl"><span class="c1">// count是从dest开始设置的字节数
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="2">
+<li>memcpy 缓冲区间拷贝数据 逐字节的拷贝数据</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">void</span> <span class="o">*</span><span class="nf">memcpy</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">dest</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="n">src</span><span class="p">,</span> <span class="n">size_t</span> <span class="n">count</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// dest 目标内存块
+</span></span></span><span class="line"><span class="cl"><span class="c1">// src 源内存块
+</span></span></span><span class="line"><span class="cl"><span class="c1">// count 待拷贝的字节数
+</span></span></span><span class="line"><span class="cl"><span class="c1">// dest和src存在内存重叠，memcpy会出现异常
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="3">
+<li>memmove 将字节从一个内存块拷贝至另一个内存</li>
+</ol>
+<blockquote>
+<p>会处理重叠的内存块，建议使用memmove()替换memcpy()</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">void</span> <span class="o">*</span><span class="nf">memmove</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">dest</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="n">src</span><span class="p">,</span> <span class="n">size_t</span> <span class="n">count</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="实践">实践</h2>
+<h3 id="webbench"><a href="">WebBench</a></h3>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">CodeMax</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2022-07-04
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/clang/">CLang</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/20221014-vue-admin/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">从Vue到Admin</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/docxtohtml/">
+            <span class="next-text nav-default">Docxtohtml</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="hanzi_zhu@foxmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/pigzhu11" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/zhuzaiye" class="iconfont icon-github" title="github"></a>
+  <a href="https://zhuzaiye.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    powered by
+    <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    &copy; 
+    2022 - 
+    2023<span class="division"></span>
+    <span>CodeMax</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.64437849d125a2d603b3e71d6de5225d641a32d17168a58106e0b61852079683.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

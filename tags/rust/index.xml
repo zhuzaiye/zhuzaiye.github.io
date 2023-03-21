@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Rust on CodeDucker</title>
+    <title>Rust on CodeMax</title>
     <link>https://zhuzaiye.github.io/tags/rust/</link>
-    <description>Recent content in Rust on CodeDucker</description>
+    <description>Recent content in Rust on CodeMax</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Wed, 29 Jun 2022 21:49:29 +0800</lastBuildDate><atom:link href="https://zhuzaiye.github.io/tags/rust/index.xml" rel="self" type="application/rss+xml" />
@@ -17,7 +17,7 @@
     </item>
     
     <item>
-      <title>Rust Language</title>
+      <title>Rust</title>
       <link>https://zhuzaiye.github.io/post/20220512-rust/</link>
       <pubDate>Thu, 12 May 2022 21:27:45 +0800</pubDate>
       
