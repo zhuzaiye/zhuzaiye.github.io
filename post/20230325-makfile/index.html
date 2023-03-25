@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Makfile - CodeMax</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="CodeMax" /><meta name="description" content="Makefile是组织编译的命令脚本文件-构建生成可执行文件的依赖关系树. make根据makefile的规则关系树, 构建出编译可执行程序. 1" /><meta name="keywords" content="makfile" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.95.0 with theme even" />
+
+
+<link rel="canonical" href="https://zhuzaiye.github.io/post/20230325-makfile/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.aae033e7ae8bb1d5545d29503cc3be54cf22ff9b0b2bb15c168b7309f0f0f004.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Makfile" />
+<meta property="og:description" content="Makefile是组织编译的命令脚本文件-构建生成可执行文件的依赖关系树. make根据makefile的规则关系树, 构建出编译可执行程序. 1" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhuzaiye.github.io/post/20230325-makfile/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2023-03-25T09:18:53+08:00" />
+<meta property="article:modified_time" content="2023-03-25T09:18:53+08:00" />
+
+
+<meta itemprop="name" content="Makfile">
+<meta itemprop="description" content="Makefile是组织编译的命令脚本文件-构建生成可执行文件的依赖关系树. make根据makefile的规则关系树, 构建出编译可执行程序. 1"><meta itemprop="datePublished" content="2023-03-25T09:18:53+08:00" />
+<meta itemprop="dateModified" content="2023-03-25T09:18:53+08:00" />
+<meta itemprop="wordCount" content="1017">
+<meta itemprop="keywords" content="clang," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Makfile"/>
+<meta name="twitter:description" content="Makefile是组织编译的命令脚本文件-构建生成可执行文件的依赖关系树. make根据makefile的规则关系树, 构建出编译可执行程序. 1"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">CodeMax</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">CodeMax</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Makfile</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2023-03-25 </span>
+        <div class="post-category">
+            <a href="/categories/lang/"> lang </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#make指令">make指令</a></li>
+        <li><a href="#编译过程">编译过程</a></li>
+        <li><a href="#makefile">Makefile</a></li>
+        <li><a href="#参考">参考</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <blockquote>
+<p>Makefile是组织编译的命令脚本文件-构建生成可执行文件的依赖关系树.</p>
+<p><code>make</code>根据makefile的规则关系树, 构建出编译可执行程序.</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-makefile" data-lang="makefile"><span class="line"><span class="cl"><span class="c"># 目标: 目标依赖
+</span></span></span><span class="line"><span class="cl"><span class="c">#     命令
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="nf">a.out</span><span class="o">:</span> <span class="n">demo</span>.<span class="n">c</span>
+</span></span><span class="line"><span class="cl">    gcc -o <span class="nv">$@</span> $&lt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="make指令">make指令</h2>
+<blockquote>
+<p>windows 环境</p>
+</blockquote>
+<p>运行<code>make -v</code>会出现:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="s1">&#39;make&#39;</span> 不是内部命或外部命令, 也不是可余小宁的程序, 或批处理文件.
+</span></span><span class="line"><span class="cl"><span class="c1"># 系统在环境变量中找不到 make 命令执行文件</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>解决方法:</p>
+<ol>
+<li>找到<code>mingw</code>安装目录, 打开<code>bin</code>目录, 找到<code>mingw32-make.exe</code></li>
+<li>将<code>mingw32-make.exe</code>将该文件重命名为<code>make.exe</code></li>
+</ol>
+<h2 id="编译过程">编译过程</h2>
+<div class='align-center'>
+<p><img src="/img/blog/compiler.jpg" alt="cimpiler_processer"></p>
+<p>编译过程图</p>
+</div>
+<h2 id="makefile">Makefile</h2>
+<ul>
+<li>变量 使用 <code>$(val)</code> 获取<code>val</code>的值</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-makefile" data-lang="makefile"><span class="line"><span class="cl"><span class="nf">.PHONY</span><span class="o">:</span> <span class="n">clean</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">CC</span><span class="o">=</span>g++
+</span></span><span class="line"><span class="cl"><span class="nv">BIN</span><span class="o">=</span><span class="nb">exec</span>
+</span></span><span class="line"><span class="cl"><span class="nv">OBJS</span><span class="o">=</span>AddTwoSum.o utils.o
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nf">$(BIN)</span><span class="o">:</span> <span class="k">$(</span><span class="nv">OBJS</span><span class="k">)</span>
+</span></span><span class="line"><span class="cl">	@echo <span class="s2">&#34;start compiling...&#34;</span>
+</span></span><span class="line"><span class="cl">	@echo <span class="k">$(</span>CC<span class="k">)</span>
+</span></span><span class="line"><span class="cl">	<span class="k">$(</span>CC<span class="k">)</span> -o <span class="k">$(</span>BIN<span class="k">)</span> <span class="k">$(</span>OBJS<span class="k">)</span>
+</span></span><span class="line"><span class="cl">	@echo <span class="s2">&#34;compile done&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nf">AddTwoSum.o</span><span class="o">:</span> <span class="n">AddTwoSum</span>.<span class="n">cpp</span>
+</span></span><span class="line"><span class="cl">	<span class="k">$(</span>CC<span class="k">)</span> -c -o <span class="nv">$@</span> $&lt;
+</span></span><span class="line"><span class="cl"><span class="nf">utils.o</span><span class="o">:</span> <span class="n">utils</span>.<span class="n">cpp</span>
+</span></span><span class="line"><span class="cl">	<span class="k">$(</span>CC<span class="k">)</span> -c -o <span class="nv">$@</span> $&lt;
+</span></span><span class="line"><span class="cl"><span class="nf">clean</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	rm -f <span class="k">$(</span>BIN<span class="k">)</span> <span class="k">$(</span>OBJS<span class="k">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>条件复制</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-makefile" data-lang="makefile"><span class="line"><span class="cl"><span class="c">#条件赋值 ?=
+</span></span></span><span class="line"><span class="cl"><span class="c">#追加赋值 +=
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="nv">CC</span> <span class="o">=</span> g++
+</span></span><span class="line"><span class="cl"><span class="nv">CC</span> <span class="o">?=</span> gcc
+</span></span><span class="line"><span class="cl"><span class="nv">OBJS</span> <span class="o">=</span> AddTwoSum.o
+</span></span><span class="line"><span class="cl"><span class="nv">OBJS</span> <span class="o">+=</span> utils.o
+</span></span><span class="line"><span class="cl"><span class="nf">echo</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	@echo <span class="k">$(</span>CC<span class="k">)</span>
+</span></span><span class="line"><span class="cl">	@echo <span class="k">$(</span>OBJS<span class="k">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>立即变量和延迟变量</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-makefile" data-lang="makefile"><span class="line"><span class="cl"><span class="c"># 使用 := 赋值, 立即变量
+</span></span></span><span class="line"><span class="cl"><span class="c"># 使用 = 赋值, 延迟变量(关系变量)
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="nv">a</span> <span class="o">=</span> <span class="m">1</span>
+</span></span><span class="line"><span class="cl"><span class="nv">b</span> <span class="o">=</span> <span class="m">2</span>
+</span></span><span class="line"><span class="cl"><span class="nv">val_a</span> <span class="o">:=</span> <span class="k">$(</span>a<span class="k">)</span> <span class="c1"># val_a=1 解析即赋值 立即解析赋值</span>
+</span></span><span class="line"><span class="cl"><span class="nv">val_b</span> <span class="o">=</span> <span class="k">$(</span>b<span class="k">)</span>  <span class="c1"># val_b的值随着b的变化而变化 绑定变量关系</span>
+</span></span><span class="line"><span class="cl"><span class="nv">a</span> <span class="o">=</span> <span class="m">10</span>
+</span></span><span class="line"><span class="cl"><span class="c"># b = 20
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="nf">echo</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	@echo <span class="k">$(</span>val_a<span class="k">)</span>
+</span></span><span class="line"><span class="cl">	@echo <span class="k">$(</span>val_b<span class="k">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>自动变量</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-makefile" data-lang="makefile"><span class="line"><span class="cl"><span class="c"># 常用自动变量
+</span></span></span><span class="line"><span class="cl"><span class="c"># $@ 目标
+</span></span></span><span class="line"><span class="cl"><span class="c"># $^ 所有依赖项
+</span></span></span><span class="line"><span class="cl"><span class="c"># $&lt; 目标依赖项中的第一个
+</span></span></span><span class="line"><span class="cl"><span class="c"># $? 所有依赖项中被修改过的
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="nf">.PHONY</span><span class="o">:</span> <span class="n">clean</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">CC</span><span class="o">=</span>g++
+</span></span><span class="line"><span class="cl"><span class="nv">BIN</span><span class="o">=</span><span class="nb">exec</span>
+</span></span><span class="line"><span class="cl"><span class="nv">OBJS</span><span class="o">=</span>AddTwoSum.o utils.o
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nf">$(BIN)</span><span class="o">:</span> <span class="k">$(</span><span class="nv">OBJS</span><span class="k">)</span>
+</span></span><span class="line"><span class="cl">	@echo <span class="s2">&#34;start compiling...&#34;</span>
+</span></span><span class="line"><span class="cl">	@echo <span class="k">$(</span>CC<span class="k">)</span>
+</span></span><span class="line"><span class="cl">	<span class="k">$(</span>CC<span class="k">)</span> -o <span class="nv">$@</span> $^
+</span></span><span class="line"><span class="cl">	@echo <span class="s2">&#34;compile done&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nf">AddTwoSum.o</span><span class="o">:</span> <span class="n">AddTwoSum</span>.<span class="n">cpp</span>
+</span></span><span class="line"><span class="cl">	<span class="k">$(</span>CC<span class="k">)</span> -c -o <span class="nv">$@</span> $&lt;
+</span></span><span class="line"><span class="cl"><span class="nf">utils.o</span><span class="o">:</span> <span class="n">utils</span>.<span class="n">cpp</span>
+</span></span><span class="line"><span class="cl">	<span class="k">$(</span>CC<span class="k">)</span> -c -o <span class="nv">$@</span> $&lt;
+</span></span><span class="line"><span class="cl"><span class="nf">clean</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	rm -f <span class="k">$(</span>BIN<span class="k">)</span> <span class="k">$(</span>OBJS<span class="k">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>变量替换(模式匹配)</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-makefile" data-lang="makefile"><span class="line"><span class="cl"><span class="nf">.PHONY</span><span class="o">:</span> <span class="n">echo</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">SRC</span> <span class="o">=</span> demo.c demo1.c
+</span></span><span class="line"><span class="cl"><span class="nv">OBJ</span> <span class="o">=</span> <span class="k">$(</span>SRC:.c<span class="o">=</span>.o<span class="k">)</span>
+</span></span><span class="line"><span class="cl"><span class="nv">OBJ1</span> <span class="o">=</span> <span class="k">$(</span>SRC:%.c<span class="o">=</span>%.o<span class="k">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nf">echo</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	@echo <span class="s2">&#34;SRC=</span><span class="k">$(</span>SRC<span class="k">)</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">	@echo <span class="s2">&#34;OBJ=</span><span class="k">$(</span>OBJ<span class="k">)</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">	@echo <span class="s2">&#34;OBJ1=</span><span class="k">$(</span>OBJ1<span class="k">)</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># SRC=demo.c demo1.c
+</span></span></span><span class="line"><span class="cl"><span class="c"># OBJ=demo.o demo1.o
+</span></span></span><span class="line"><span class="cl"><span class="c"># OBJ1=demo.o demo1.o
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>环境变量</li>
+</ul>
+<p>环境变量运行时载入makefile. 如果有相同命名的变量, 系统环境变量会被覆盖.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-makefile" data-lang="makefile"><span class="line"><span class="cl"><span class="nf">.PHONY</span><span class="o">:</span> <span class="n">echo</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">CFLAGS</span> <span class="o">=</span> -g
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nf">echo</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	@echo <span class="s2">&#34;CFLAGS = </span><span class="k">$(</span>CFLAGS<span class="k">)</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">	@echo <span class="s2">&#34;SHELL = </span><span class="k">$(</span>SHELL<span class="k">)</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">	@echo <span class="s2">&#34;MAKE = </span><span class="k">$(</span>MAKE<span class="k">)</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">	@echo <span class="s2">&#34;HOSTNAME = </span><span class="k">$(</span>HOSTNAME<span class="k">)</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># CFLAGS = -g
+</span></span></span><span class="line"><span class="cl"><span class="c"># SHELL = D:/sortwares/Git/usr/bin/sh.exe
+</span></span></span><span class="line"><span class="cl"><span class="c"># MAKE = D:/sortwares/mingw64/bin/make
+</span></span></span><span class="line"><span class="cl"><span class="c"># HOSTNAME = TX-PC0N4UHP
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>
+</span></span><span class="line"><span class="cl"><span class="c"># 运行make 可以传值改变 export方式
+</span></span></span><span class="line"><span class="cl"><span class="c"># make HOSTNAME=CodeMax
+</span></span></span><span class="line"><span class="cl"><span class="c"># HOSTNAME = CodeMax
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>条件判断</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-makefile" data-lang="makefile"><span class="line"><span class="cl"><span class="c"># ifeq 判断相等
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="nv">mode</span> <span class="o">=</span> debug
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nf">echo</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl"><span class="err">ifeq</span> <span class="err">(</span><span class="k">$(</span><span class="nv">mode</span><span class="k">)</span><span class="err">,debug)</span>
+</span></span><span class="line"><span class="cl">	<span class="err">@echo</span> <span class="s2">&#34;debug mode&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="err">else</span>
+</span></span><span class="line"><span class="cl">	<span class="err">@echo</span> <span class="s2">&#34;release mode&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="err">endif</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># ifneq
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="nf">echo</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl"><span class="err">ifeq</span> <span class="err">(</span><span class="k">$(</span><span class="nv">mode</span><span class="k">)</span><span class="err">,)</span>
+</span></span><span class="line"><span class="cl">	<span class="err">@echo</span> <span class="s2">&#34;debug mode&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="err">else</span>
+</span></span><span class="line"><span class="cl">	<span class="err">@echo</span> <span class="s2">&#34;release mode&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="err">endif</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># ifdef
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="nf">echo</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl"><span class="err">ifdef</span> <span class="err">mode</span>
+</span></span><span class="line"><span class="cl">	<span class="err">@echo</span> <span class="s2">&#34;debug mode&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="err">else</span>
+</span></span><span class="line"><span class="cl">	<span class="err">@echo</span> <span class="s2">&#34;release mode&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="err">endif</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>函数</li>
+</ul>
+<ol>
+<li>自定义函数 通过call调用</li>
+<li>make内嵌函数  直接make调用</li>
+<li>函数与参数使用空格隔开 参数之间使用,隔开</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-makefile" data-lang="makefile"><span class="line"><span class="cl"><span class="c"># 内嵌函数
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="nv">SRC</span> <span class="o">=</span> <span class="k">$(</span>wildcard *.cpp<span class="k">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nf">echo</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	@echo <span class="s2">&#34;SRC = </span><span class="k">$(</span>SRC<span class="k">)</span><span class="s2">&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-makefile" data-lang="makefile"><span class="line"><span class="cl"><span class="c"># 自定义函数
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="err">define</span> <span class="err">func</span>
+</span></span><span class="line"><span class="cl">	<span class="err">@echo</span> <span class="s2">&#34;param1 = $(0)&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="err">@echo</span> <span class="s2">&#34;param = $(1)&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="err">endef</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nf">echo</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="k">$(</span>call func, hello world<span class="k">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>遍历 foreach</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-makefile" data-lang="makefile"><span class="line"><span class="cl"><span class="k">$(</span><span class="nv">foreach</span> <span class="nv">VAR</span>, <span class="nv">LIST</span>, <span class="nv">TEXT</span><span class="k">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ol>
+<li>VAR 将空格隔开的每一个选项赋值给VAR</li>
+<li>TEXT 处理VAR的脚本</li>
+</ol>
+<ul>
+<li>if 函数</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-makefile" data-lang="makefile"><span class="line"><span class="cl"><span class="c"># $(if(condition, then[, else]))
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="nv">install__path</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl"><span class="nv">install_path</span> <span class="o">=</span> <span class="k">$(if</span> <span class="k">$(</span>install__path<span class="k">)</span>, <span class="k">$(</span>install__path<span class="k">)</span>, /usr/local<span class="k">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nf">echo</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	@echo <span class="s2">&#34;</span><span class="k">$(</span>install_path<span class="k">)</span><span class="s2">&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>call 函数</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-makefile" data-lang="makefile"><span class="line"><span class="cl"><span class="c"># $(call def_func, &lt;parm1&gt;, &lt;param2&gt;...)
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>error warning 函数</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-makefile" data-lang="makefile"><span class="line"><span class="cl"><span class="c"># $(error TEXT...)
+</span></span></span><span class="line"><span class="cl"><span class="c"># $(warning TEXT...)
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="参考">参考</h2>
+<ul>
+<li><a href="https://www.zhaixue.cc/makefile/makefile-pattern.html">参考文档-1</a></li>
+</ul>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">CodeMax</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2023-03-25
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/clang/">clang</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/20230212-cpp-hard-way/">
+            <span class="next-text nav-default">CPP Hard Way</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://unpkg.com/gitalk@1.2.2/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://unpkg.com/gitalk@latest/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2023-03-25 09:18:53 \u002b0800 CST',
+        title: 'Makfile',
+        clientID: '9c36634fbb845c1d1d64',
+        clientSecret: '3d57254b5ffccf04f9d973cc42b1d84ecd48fd01',
+        repo: 'zhuzaiye.github.io',
+        owner: 'zhuzaiye',
+        admin: ['zhuzaiye'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      
+<div class="social-links">
+      <a href="hanzi_zhu@foxmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/pigzhu11" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/zhuzaiye" class="iconfont icon-github" title="github"></a>
+  <a href="https://zhuzaiye.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+
+<div class="copyright">
+  <span class="power-by">
+    powered by
+    <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    &copy; 
+    2022 - 
+    2023<span class="division"></span>
+    <span>CodeMax</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.64437849d125a2d603b3e71d6de5225d641a32d17168a58106e0b61852079683.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

@@ -6,7 +6,16 @@
     <description>Recent content in Posts on CodeMax</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 12 Feb 2023 16:04:24 +0800</lastBuildDate><atom:link href="https://zhuzaiye.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 25 Mar 2023 09:18:53 +0800</lastBuildDate><atom:link href="https://zhuzaiye.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Makfile</title>
+      <link>https://zhuzaiye.github.io/post/20230325-makfile/</link>
+      <pubDate>Sat, 25 Mar 2023 09:18:53 +0800</pubDate>
+      
+      <guid>https://zhuzaiye.github.io/post/20230325-makfile/</guid>
+      <description>Makefile是组织编译的命令脚本文件-构建生成可执行文件的依赖关系树. make根据makefile的规则关系树, 构建出编译可执行程序. 1</description>
+    </item>
+    
     <item>
       <title>CPP Hard Way</title>
       <link>https://zhuzaiye.github.io/post/20230212-cpp-hard-way/</link>
