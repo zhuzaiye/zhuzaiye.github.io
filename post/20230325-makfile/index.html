@@ -50,7 +50,7 @@
 <meta itemprop="name" content="Makfile">
 <meta itemprop="description" content="Makefile是组织编译的命令脚本文件-构建生成可执行文件的依赖关系树. make根据makefile的规则关系树, 构建出编译可执行程序. 1"><meta itemprop="datePublished" content="2023-03-25T09:18:53+08:00" />
 <meta itemprop="dateModified" content="2023-03-25T09:18:53+08:00" />
-<meta itemprop="wordCount" content="1017">
+<meta itemprop="wordCount" content="1301">
 <meta itemprop="keywords" content="clang," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Makfile"/>
 <meta name="twitter:description" content="Makefile是组织编译的命令脚本文件-构建生成可执行文件的依赖关系树. make根据makefile的规则关系树, 构建出编译可执行程序. 1"/>
@@ -151,6 +151,7 @@
         <li><a href="#make指令">make指令</a></li>
         <li><a href="#编译过程">编译过程</a></li>
         <li><a href="#makefile">Makefile</a></li>
+        <li><a href="#example">example</a></li>
         <li><a href="#参考">参考</a></li>
       </ul>
     </li>
@@ -605,9 +606,81 @@
 </span></span></span><span class="line"><span class="cl"><span class="c"># $(warning TEXT...)
 </span></span></span></code></pre></td></tr></table>
 </div>
+</div><h2 id="example">example</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-makefile" data-lang="makefile"><span class="line"><span class="cl"><span class="c"># 如果当前目录中，正好有一个文件叫做clean，那么这个命令不会执行。
+</span></span></span><span class="line"><span class="cl"><span class="c"># 因为Make发现clean文件已经存在，就认为没有必要重新构建了，就不会执行指定的rm命令
+</span></span></span><span class="line"><span class="cl"><span class="c"># 就有了下面的伪声明
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="nf">.PHONY</span><span class="o">:</span> <span class="n">clean</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># 编译Cpp
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="nv">CC</span> <span class="o">=</span> g++
+</span></span><span class="line"><span class="cl"><span class="c"># 设置编译参数设置
+</span></span></span><span class="line"><span class="cl"><span class="c"># -g表示编译时候加入调试信息,
+</span></span></span><span class="line"><span class="cl"><span class="c"># -DDEBUG表示编译debug版本
+</span></span></span><span class="line"><span class="cl"><span class="c"># -W -Wall表示输出所有警告
+</span></span></span><span class="line"><span class="cl"><span class="c"># -fPIC是生成dll时候用的
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="nv">CFLAGS</span> <span class="o">=</span> -g -DDEBUG -W -Wall -fPIC
+</span></span><span class="line"><span class="cl"><span class="c"># 头文件的目录为./ 当前目录
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="nv">HEADER</span>  <span class="o">=</span> -I./
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">ALGONAME</span> <span class="o">=</span> AddTwoSum
+</span></span><span class="line"><span class="cl"><span class="nv">TOOLNAME</span> <span class="o">=</span> utils
+</span></span><span class="line"><span class="cl"><span class="nv">OBJS</span><span class="o">=</span> <span class="k">$(</span>ALGONAME<span class="k">)</span>.o <span class="k">$(</span>TOOLNAME<span class="k">)</span>.o
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">TARGET</span> <span class="o">=</span> algo
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nf">$(TARGET)</span><span class="o">:</span> <span class="k">$(</span><span class="nv">OBJS</span><span class="k">)</span>
+</span></span><span class="line"><span class="cl">	@echo <span class="s2">&#34;start compiling...&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">$(</span>CC<span class="k">)</span> <span class="k">$(</span>CFLAGS<span class="k">)</span> -o <span class="nv">$@</span> $^
+</span></span><span class="line"><span class="cl">	@echo <span class="s2">&#34;compile done&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nf">$(ALGONAME).o</span><span class="o">:</span> <span class="k">$(</span><span class="nv">ALGONAME</span><span class="k">)</span>.<span class="n">cpp</span>
+</span></span><span class="line"><span class="cl">	<span class="k">$(</span>CC<span class="k">)</span> -c -o <span class="nv">$@</span> $&lt;
+</span></span><span class="line"><span class="cl"><span class="nf">$(TOOLNAME).o</span><span class="o">:</span> <span class="k">$(</span><span class="nv">TOOLNAME</span><span class="k">)</span>.<span class="n">cpp</span>
+</span></span><span class="line"><span class="cl">	<span class="k">$(</span>CC<span class="k">)</span> -c -o <span class="nv">$@</span> $&lt;
+</span></span><span class="line"><span class="cl"><span class="nf">clean</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	rm -f <span class="k">$(</span>TARGET<span class="k">)</span> <span class="k">$(</span>OBJS<span class="k">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
 </div><h2 id="参考">参考</h2>
 <ul>
 <li><a href="https://www.zhaixue.cc/makefile/makefile-pattern.html">参考文档-1</a></li>
+<li><a href="https://www.ruanyifeng.com/blog/2015/02/make.html">参考文档-2</a></li>
 </ul>
 
     </div>
