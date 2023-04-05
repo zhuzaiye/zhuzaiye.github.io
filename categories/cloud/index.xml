@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>cloud on CodeMax</title>
+    <title>Cloud on CodeMax</title>
     <link>https://zhuzaiye.github.io/categories/cloud/</link>
-    <description>Recent content in cloud on CodeMax</description>
+    <description>Recent content in Cloud on CodeMax</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Thu, 20 Oct 2022 21:22:35 +0800</lastBuildDate><atom:link href="https://zhuzaiye.github.io/categories/cloud/index.xml" rel="self" type="application/rss+xml" />
@@ -14,6 +14,15 @@
       
       <guid>https://zhuzaiye.github.io/post/20221020-rpc/</guid>
       <description>rpc-远程服务调用, 用于分布式系统服务信息通信。 RPC基础 基于g的RPC-C/S实现 service: 服务端功能RPC服务开发 client: 客户端调用RPC服务开发 protocol:</description>
+    </item>
+    
+    <item>
+      <title>Docker</title>
+      <link>https://zhuzaiye.github.io/post/20220322-dockers/</link>
+      <pubDate>Tue, 22 Mar 2022 22:50:23 +0800</pubDate>
+      
+      <guid>https://zhuzaiye.github.io/post/20220322-dockers/</guid>
+      <description>容器本身没有价值, 有价值的是&amp;quot;容器编排&amp;quot; From Dcoker To Kurbernets 安装docker 测试开发实验(centos7.x) 1 2 3 4 # 安装dock</description>
     </item>
     
   </channel>

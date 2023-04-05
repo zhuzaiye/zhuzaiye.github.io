@@ -1,0 +1,1443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Docker - CodeMax</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="CodeMax" /><meta name="description" content="容器本身没有价值, 有价值的是&amp;quot;容器编排&amp;quot; From Dcoker To Kurbernets 安装docker 测试开发实验(centos7.x) 1 2 3 4 # 安装dock" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.95.0 with theme even" />
+
+
+<link rel="canonical" href="https://zhuzaiye.github.io/post/20220322-dockers/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.aae033e7ae8bb1d5545d29503cc3be54cf22ff9b0b2bb15c168b7309f0f0f004.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Docker" />
+<meta property="og:description" content="容器本身没有价值, 有价值的是&quot;容器编排&quot; From Dcoker To Kurbernets 安装docker 测试开发实验(centos7.x) 1 2 3 4 # 安装dock" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhuzaiye.github.io/post/20220322-dockers/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2022-03-22T22:50:23+08:00" />
+<meta property="article:modified_time" content="2023-04-04T21:19:15+08:00" />
+
+
+<meta itemprop="name" content="Docker">
+<meta itemprop="description" content="容器本身没有价值, 有价值的是&quot;容器编排&quot; From Dcoker To Kurbernets 安装docker 测试开发实验(centos7.x) 1 2 3 4 # 安装dock"><meta itemprop="datePublished" content="2022-03-22T22:50:23+08:00" />
+<meta itemprop="dateModified" content="2023-04-04T21:19:15+08:00" />
+<meta itemprop="wordCount" content="6702">
+<meta itemprop="keywords" content="Docker," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Docker"/>
+<meta name="twitter:description" content="容器本身没有价值, 有价值的是&quot;容器编排&quot; From Dcoker To Kurbernets 安装docker 测试开发实验(centos7.x) 1 2 3 4 # 安装dock"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">CodeMax</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">CodeMax</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Docker</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2022-03-22 </span>
+        <div class="post-category">
+            <a href="/categories/cloud/"> Cloud </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#安装docker">安装docker</a></li>
+        <li><a href="#镜像理解">镜像理解</a></li>
+        <li><a href="#dockerfile">Dockerfile</a></li>
+        <li><a href="#docker-网络">Docker 网络</a>
+          <ul>
+            <li><a href="#常用命令">常用命令</a></li>
+          </ul>
+        </li>
+        <li><a href="#dcoker-数据卷">Dcoker 数据卷</a></li>
+        <li><a href="#docker-compose">Docker compose</a>
+          <ul>
+            <li><a href="#命令对象与格式">命令对象与格式</a></li>
+            <li><a href="#命令选项">命令选项</a></li>
+            <li><a href="#命令使用说明">命令使用说明</a></li>
+          </ul>
+        </li>
+        <li><a href="#常用命令-1">常用命令</a>
+          <ul>
+            <li><a href="#辅助命令">辅助命令</a></li>
+            <li><a href="#镜像命令">镜像命令</a></li>
+            <li><a href="#容器命令">容器命令</a></li>
+          </ul>
+        </li>
+        <li><a href="#docker镜像">docker镜像</a></li>
+        <li><a href="#进程--程序">进程 &amp; 程序</a></li>
+        <li><a href="#隔离--限制">隔离 &amp; 限制</a>
+          <ul>
+            <li><a href="#namepsace">Namepsace</a></li>
+            <li><a href="#cgroups">Cgroups</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <blockquote>
+<p>容器本身没有价值, 有价值的是&quot;容器编排&quot;</p>
+<p>From Dcoker To Kurbernets</p>
+</blockquote>
+<h2 id="安装docker">安装docker</h2>
+<ul>
+<li>测试开发实验(centos7.x)</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># 安装docker</span>
+</span></span><span class="line"><span class="cl">sudo curl -fsSL get.docker.com -o get-docker.sh
+</span></span><span class="line"><span class="cl"><span class="c1"># 指定国内mirror</span>
+</span></span><span class="line"><span class="cl">sudo sh get-docker.sh --mirror Aliyun
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>启动docker</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># systemd 是系统init程序,开启初始化系统</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 管理资源(.mount, .service, .target, .wants)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># systemctl 是其进程管理命令</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 如果需求开机自启,建议打开</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># sudo systemctl enable docker</span>
+</span></span><span class="line"><span class="cl">sudo systemctl start docker
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>配置科大镜像加速</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># centos 7.x</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 通过systemd进行操作  /etc/docker/daemon.json</span>
+</span></span><span class="line"><span class="cl">sudo mkdir -p /etc/docker
+</span></span><span class="line"><span class="cl"><span class="c1"># set paste</span>
+</span></span><span class="line"><span class="cl">sudo tee /etc/docker/daemon.json &lt;&lt;-<span class="s1">&#39;EOF&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;registry-mirrors&#34;</span>: <span class="o">[</span><span class="s2">&#34;https://docker.mirrors.ustc.edu.cn&#34;</span><span class="o">]</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># docker daemon-reload</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># docker restart</span>
+</span></span><span class="line"><span class="cl">sudo systemctl daemon-reload
+</span></span><span class="line"><span class="cl">sudo systemctl restart docker
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># docker info查看修改结果</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="镜像理解">镜像理解</h2>
+<blockquote>
+<p>镜像是一种轻量级的，可执行的独立软件包.</p>
+<p>用来打包软件运行环境和基于运行环境开发的软件，它包含运行某个软件所需的所有内容，包括代码、运行时所需的库、环境变量和配置文件。</p>
+</blockquote>
+<ul>
+<li>基于UnionFS的文件组织方式</li>
+<li>bootfs+rootfs</li>
+</ul>
+<h2 id="dockerfile">Dockerfile</h2>
+<blockquote>
+<p>用来构建Docker镜像, 由一系列命令和参数构成的脚本文件.</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>保留字</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>FROM</strong></td>
+<td><strong>当前镜像是基于哪个镜像的</strong> <code>第一个指令必须是FROM</code></td>
+</tr>
+<tr>
+<td>MAINTAINER</td>
+<td>镜像维护者的姓名和邮箱地址</td>
+</tr>
+<tr>
+<td><strong>RUN</strong></td>
+<td><strong>构建镜像时需要运行的指令</strong></td>
+</tr>
+<tr>
+<td><strong>EXPOSE</strong></td>
+<td><strong>当前容器对外暴露出的端口号</strong></td>
+</tr>
+<tr>
+<td><strong>WORKDIR</strong></td>
+<td><strong>指定在创建容器后，终端默认登录进来的工作目录，一个落脚点</strong></td>
+</tr>
+<tr>
+<td><strong>ENV</strong></td>
+<td><strong>用来在构建镜像过程中设置环境变量</strong></td>
+</tr>
+<tr>
+<td><strong>ADD</strong></td>
+<td><strong>将宿主机目录下的文件拷贝进镜像且ADD命令会自动处理URL和解压tar包</strong></td>
+</tr>
+<tr>
+<td><strong>COPY</strong></td>
+<td><strong>类似于ADD，拷贝文件和目录到镜像中<br/>将从构建上下文目录中&lt;原路径&gt;的文件/目录复制到新的一层的镜像内的&lt;目标路径&gt;位置</strong></td>
+</tr>
+<tr>
+<td><strong>VOLUME</strong></td>
+<td><strong>容器数据卷，用于数据保存和持久化工作</strong></td>
+</tr>
+<tr>
+<td><strong>CMD</strong></td>
+<td><strong>指定一个容器启动时要运行的命令<br/>Dockerfile中可以有多个CMD指令，但只有最后一个生效，CMD会被docker run之后的参数替换</strong></td>
+</tr>
+<tr>
+<td><strong>ENTRYPOINT</strong></td>
+<td><strong>指定一个容器启动时要运行的命令<br/>ENTRYPOINT的目的和CMD一样，都是在指定容器启动程序及其参数</strong></td>
+</tr>
+</tbody>
+</table>
+<h2 id="docker-网络">Docker 网络</h2>
+<div class='align-center'>
+<p><img src="/img/blog/docker_network_01.png" alt="docker_network"></p>
+</div>
+<ol>
+<li>Docker启动, 在宿主机初始化一个<code>docker0</code>的虚拟网桥</li>
+<li>Docker分配一个宿主机中未被占用的私有网段给<code>docker0</code>, 后面启动的容器也会自动分配同一网段地址</li>
+<li>创建容器,Docker同步创建<code>veth pair</code>的<strong>网络通道</strong>, 一个是<code>eth0</code>,在运行容器中,另一个挂载<code>docker0</code>的<code>vethXXX</code>.实现宿主机-容器,容器-容器间的虚拟共享网络.</li>
+</ol>
+<h3 id="常用命令">常用命令</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># 查看docker网络信息</span>
+</span></span><span class="line"><span class="cl">docker network ls
+</span></span><span class="line"><span class="cl"><span class="c1"># 创建新的网桥</span>
+</span></span><span class="line"><span class="cl">docker network create -d bridge 网桥名称
+</span></span><span class="line"><span class="cl"><span class="c1"># 删除一个网桥</span>
+</span></span><span class="line"><span class="cl">docker network rm 网桥名称
+</span></span><span class="line"><span class="cl"><span class="c1"># 指定容器使用网桥</span>
+</span></span><span class="line"><span class="cl">docker run -d -p 8890:80 --name nginx001 --network info nginx 
+</span></span><span class="line"><span class="cl">docker run -d -p 8891:80 --name nginx002 --network info nginx 
+</span></span><span class="line"><span class="cl"><span class="c1">#`注意:一旦指定网桥后--name指定名字就是主机名,多个容器指定在同一个网桥时,可以在任意一个容器中使用主机名与容器进行互通`</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># curl http://nginx001  在nginx002中即可通过http://container-name 与同一个网桥中的容器进行网络交互</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="dcoker-数据卷">Dcoker 数据卷</h2>
+<p><code>数据卷</code> 是一个可供一个或多个容器使用的特殊目录，它绕过 UFS，可以提供很多有用的特性：</p>
+<ul>
+<li><code>数据卷</code> 可以在容器之间共享和重用</li>
+<li>对 <code>数据卷</code> 的修改会立马生效</li>
+<li>对 <code>数据卷</code> 的更新，不会影响镜像</li>
+<li><code>数据卷</code> 默认会一直存在，即使容器被删除</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># 创建数据卷 默认在/var/lib/docker/volumes目录下创建 自动在my-vol目录下创建_data数据通道文件</span>
+</span></span><span class="line"><span class="cl">docker volume create my-vol
+</span></span><span class="line"><span class="cl"><span class="c1"># 查看my-vol详细</span>
+</span></span><span class="line"><span class="cl">docker volumn inspect my-vol
+</span></span><span class="line"><span class="cl"><span class="c1"># 挂在数据卷</span>
+</span></span><span class="line"><span class="cl">docker run -d -P --name web -v my-vol:/usr/share/nginx/html  nginx
+</span></span><span class="line"><span class="cl"><span class="c1"># 删除数据卷</span>
+</span></span><span class="line"><span class="cl">docker volume rm my-vol
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="docker-compose">Docker compose</h2>
+<h3 id="命令对象与格式">命令对象与格式</h3>
+<p>对于 Compose 来说，大部分命令的对象既可以是项目本身，也可以指定为项目中的服务或者容器。如果没有特别的说明，命令对象将是项目，这意味着项目中所有的服务都会受到命令影响。</p>
+<p>执行 <code>docker-compose [COMMAND] --help</code> 或者 <code>docker-compose help [COMMAND]</code> 可以查看具体某个命令的使用格式。</p>
+<p><code>docker-compose</code> 命令的基本的使用格式是</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker-compose <span class="o">[</span>-f<span class="o">=</span>&lt;arg&gt;...<span class="o">]</span> <span class="o">[</span>options<span class="o">]</span> <span class="o">[</span>COMMAND<span class="o">]</span> <span class="o">[</span>ARGS...<span class="o">]</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="命令选项">命令选项</h3>
+<ul>
+<li><code>-f, --file FILE</code> 指定使用的 Compose 模板文件，默认为 <code>docker-compose.yml</code>，可以多次指定。</li>
+<li><code>-p, --project-name NAME</code> 指定项目名称，默认将使用所在目录名称作为项目名。</li>
+<li><code>--x-networking</code> 使用 Docker 的可拔插网络后端特性</li>
+<li><code>--x-network-driver DRIVER</code> 指定网络后端的驱动，默认为 <code>bridge</code></li>
+<li><code>--verbose</code> 输出更多调试信息。</li>
+<li><code>-v, --version</code> 打印版本并退出。</li>
+</ul>
+<h3 id="命令使用说明">命令使用说明</h3>
+<h5 id="up"><code>up</code></h5>
+<p>格式为 <code>docker-compose up [options] [SERVICE...]</code>。</p>
+<ul>
+<li>
+<p>该命令十分强大，它将尝试自动完成包括构建镜像，（重新）创建服务，启动服务，并关联服务相关容器的一系列操作。</p>
+</li>
+<li>
+<p>链接的服务都将会被自动启动，除非已经处于运行状态。</p>
+</li>
+<li>
+<p>可以说，大部分时候都可以直接通过该命令来启动一个项目。</p>
+</li>
+<li>
+<p>默认情况，<code>docker-compose up</code> 启动的容器都在前台，控制台将会同时打印所有容器的输出信息，可以很方便进行调试。</p>
+</li>
+<li>
+<p>当通过 <code>Ctrl-C</code> 停止命令时，所有容器将会停止。</p>
+</li>
+<li>
+<p>如果使用 <code>docker-compose up -d</code>，将会在后台启动并运行所有的容器。一般推荐生产环境下使用该选项。</p>
+</li>
+<li>
+<p>默认情况，如果服务容器已经存在，<code>docker-compose up</code> 将会尝试停止容器，然后重新创建（保持使用 <code>volumes-from</code> 挂载的卷），以保证新启动的服务匹配 <code>docker-compose.yml</code> 文件的最新内容</p>
+</li>
+</ul>
+<h5 id="down"><code>down</code></h5>
+<ul>
+<li>此命令将会停止 <code>up</code> 命令所启动的容器，并移除网络</li>
+</ul>
+<h5 id="exec"><code>exec</code></h5>
+<ul>
+<li>进入指定的容器。</li>
+</ul>
+<h5 id="ps"><code>ps</code></h5>
+<p>格式为 <code>docker-compose ps [options] [SERVICE...]</code>。</p>
+<p>列出项目中目前的所有容器。</p>
+<p>选项：</p>
+<ul>
+<li><code>-q</code> 只打印容器的 ID 信息。</li>
+</ul>
+<h5 id="restart"><code>restart</code></h5>
+<p>格式为 <code>docker-compose restart [options] [SERVICE...]</code>。</p>
+<p>重启项目中的服务。</p>
+<p>选项：</p>
+<ul>
+<li><code>-t, --timeout TIMEOUT</code> 指定重启前停止容器的超时（默认为 10 秒）。</li>
+</ul>
+<h5 id="rm"><code>rm</code></h5>
+<p>格式为 <code>docker-compose rm [options] [SERVICE...]</code>。</p>
+<p>删除所有（停止状态的）服务容器。推荐先执行 <code>docker-compose stop</code> 命令来停止容器。</p>
+<p>选项：</p>
+<ul>
+<li><code>-f, --force</code> 强制直接删除，包括非停止状态的容器。一般尽量不要使用该选项。</li>
+<li><code>-v</code> 删除容器所挂载的数据卷。</li>
+</ul>
+<h5 id="start"><code>start</code></h5>
+<p>格式为 <code>docker-compose start [SERVICE...]</code>。</p>
+<p>启动已经存在的服务容器。</p>
+<h5 id="stop"><code>stop</code></h5>
+<p>格式为 <code>docker-compose stop [options] [SERVICE...]</code>。</p>
+<p>停止已经处于运行状态的容器，但不删除它。通过 <code>docker-compose start</code> 可以再次启动这些容器。</p>
+<p>选项：</p>
+<ul>
+<li><code>-t, --timeout TIMEOUT</code> 停止容器时候的超时（默认为 10 秒）。</li>
+</ul>
+<h5 id="top"><code>top</code></h5>
+<p>查看各个服务容器内运行的进程。</p>
+<h5 id="unpause"><code>unpause</code></h5>
+<p>格式为 <code>docker-compose unpause [SERVICE...]</code>。</p>
+<p>恢复处于暂停状态中的服务。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;3.2&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">services</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">tomcat01</span><span class="p">:</span><span class="w"> </span><span class="c">#服务名称</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l">tomcat01</span><span class="w"> </span><span class="c"># 相当于run 的 --name</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">tomcat:8.0-jre8</span><span class="w"> </span><span class="c">#使用哪个镜像  相当于run image</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w">  </span><span class="c">#用来完成host与容器的端口映射关系  相当于run -p</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="s2">&#34;8080:8080&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w"> </span><span class="c">#完成宿主机与容器中目录数据卷共享  相当于run -v</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="c">#- /root/apps:/usr/local/tomcat/webapps #使用自定义路径映射</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">tomcatwebapps01:/usr/local/tomcat/webapps</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">networks</span><span class="p">:</span><span class="w"> </span><span class="c">#代表当前服务使用哪个网络桥     相当于run --networ</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">hello</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">tomcat02</span><span class="p">:</span><span class="w"> </span><span class="c">#服务名称</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l">tomcat02</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">tomcat:8.0-jre8</span><span class="w"> </span><span class="c">#使用哪个镜像</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w">  </span><span class="c">#用来完成host与容器的端口映射关系</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="s2">&#34;8081:8080&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w"> </span><span class="c">#完成宿主机与容器中目录数据卷共享</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="c">#- /root/apps:/usr/local/tomcat/webapps #使用自定义路径映射</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">tomcatwebapps02:/usr/local/tomcat/webapps</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">networks</span><span class="p">:</span><span class="w"> </span><span class="c">#代表当前服务使用哪个网络桥</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">hello</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">mysql</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">mysql:5.7.32</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l">mysql</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="s2">&#34;3307:3306&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">mysqldata:/var/lib/mysql</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">mysqlconf:/etc/mysql</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">environment</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">MYSQL_ROOT_PASSWORD=root</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">networks</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">hello</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">redis</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">redis:5.0.10</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l">redis</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="s2">&#34;6379:6379&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">redisdata:/data</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">networks</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">hello</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;redis-server --appendonly yes&#34;</span><span class="w"> </span><span class="c">#run 镜像之后用来覆盖容器内容默认命令</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">volumes</span><span class="p">:</span><span class="w">  </span><span class="c">#声明上面服务所使用的自动创建的卷名</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">tomcatwebapps01</span><span class="p">:</span><span class="w"> </span><span class="c">#声明指令的卷名  compose自动创建该卷名但是会在之前加入项目名</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">external</span><span class="p">:</span><span class="w">    </span><span class="c">#使用自定义卷名</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="kc">false</span><span class="w">       </span><span class="c">#true确定使用指定卷名  注意:一旦使用外部自定义卷名启动服务之前必须手动创建</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">tomcatwebapps02</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">mysqldata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">mysqlconf</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">redisdata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">networks</span><span class="p">:</span><span class="w"> </span><span class="c">#定义服务用到桥</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">hello</span><span class="p">:</span><span class="w"> </span><span class="c">#定义上面的服务用到的网桥名称 默认创建就是 bridge</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">external</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="kc">true</span><span class="w">   </span><span class="c">#使用外部指定网桥  注意:网桥必须存在</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="常用命令-1">常用命令</h2>
+<h3 id="辅助命令">辅助命令</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-markdown" data-lang="markdown"><span class="line"><span class="cl"><span class="gh"># 1.安装完成辅助命令
+</span></span></span><span class="line"><span class="cl"><span class="gh"></span>    docker version	--------------------------	查看docker的信息
+</span></span><span class="line"><span class="cl">    docker info		--------------------------	查看更详细的信息
+</span></span><span class="line"><span class="cl">    docker --help	--------------------------	帮助命令
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="镜像命令">镜像命令</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-markdown" data-lang="markdown"><span class="line"><span class="cl"><span class="gh"># 1.查看本机中所有镜像
+</span></span></span><span class="line"><span class="cl"><span class="gh"></span>    docker images	--------------------------	列出本地所有镜像
+</span></span><span class="line"><span class="cl">        -a			列出所有镜像（包含中间映像层）
+</span></span><span class="line"><span class="cl">        -q			只显示镜像id
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="gh"># 2.搜索镜像
+</span></span></span><span class="line"><span class="cl"><span class="gh"></span>	docker search [options] 镜像名	-------------------	去dockerhub上查询当前镜像
+</span></span><span class="line"><span class="cl">        -s 指定值		列出收藏数不少于指定值的镜像
+</span></span><span class="line"><span class="cl">        --no-trunc	    显示完整的镜像信息
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="gh"># 3.从仓库下载镜像
+</span></span></span><span class="line"><span class="cl"><span class="gh"></span>	docker pull 镜像名[:TAG|@DIGEST]	----------------- 下载镜像
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="gh"># 4.删除镜像
+</span></span></span><span class="line"><span class="cl"><span class="gh"></span>	docker rmi 镜像名	--------------------------  删除镜像
+</span></span><span class="line"><span class="cl">		-f		强制删除
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="容器命令">容器命令</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-markdown" data-lang="markdown"><span class="line"><span class="cl"><span class="gh"># 1.运行容器
+</span></span></span><span class="line"><span class="cl"><span class="gh"></span>	docker run 镜像名	--------------------------	镜像名新建并启动容器
+</span></span><span class="line"><span class="cl">        --name 					别名为容器起一个名字
+</span></span><span class="line"><span class="cl">        -d							启动守护式容器（在后台启动容器）
+</span></span><span class="line"><span class="cl">        -p 							映射端口号：原始端口号		 指定端口号启动
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	例：docker run -it --name myTomcat -p 8888:8080 tomcat
+</span></span><span class="line"><span class="cl">   	 docker run -d --name myTomcat -P tomcat
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="gh"># 2.查看运行的容器
+</span></span></span><span class="line"><span class="cl"><span class="gh"></span>	docker ps					--------------------------	列出所有正在运行的容器
+</span></span><span class="line"><span class="cl">	-a			正在运行的和历史运行过的容器
+</span></span><span class="line"><span class="cl">	-q			静默模式，只显示容器编号
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="gh"># 3.停止|关闭|重启容器
+</span></span></span><span class="line"><span class="cl"><span class="gh"></span>	docker start   容器名字或者容器id  --------------- 开启容器
+</span></span><span class="line"><span class="cl">	docker restart 容器名或者容器id    --------------- 重启容器
+</span></span><span class="line"><span class="cl">	docker stop  容器名或者容器id 	    ------------------ 正常停止容器运行
+</span></span><span class="line"><span class="cl">	docker kill  容器名或者容器id      ------------------ 立即停止容器运行
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="gh"># 4.删除容器
+</span></span></span><span class="line"><span class="cl"><span class="gh"></span>	docker rm -f 容器id和容器名     
+</span></span><span class="line"><span class="cl">	docker rm -f $(docker ps -aq)		--------------------------	删除所有容器
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="gh"># 5.查看容器内进程
+</span></span></span><span class="line"><span class="cl"><span class="gh"></span>	docker top 容器id或者容器名 ------------------ 查看容器内的进程
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="gh"># 6.查看查看容器内部细节
+</span></span></span><span class="line"><span class="cl"><span class="gh"></span>	docker inspect 容器id 		------------------ 查看容器内部细节
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="gh"># 7.查看容器的运行日志
+</span></span></span><span class="line"><span class="cl"><span class="gh"></span>	docker logs [OPTIONS] 容器id或容器名	------------------ 查看容器日志
+</span></span><span class="line"><span class="cl">        -t			 加入时间戳
+</span></span><span class="line"><span class="cl">        -f			 跟随最新的日志打印
+</span></span><span class="line"><span class="cl">        --tail 	 数字	显示最后多少条
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="gh"># 8.进入容器内部
+</span></span></span><span class="line"><span class="cl"><span class="gh"></span>	docker exec [options] 容器id 容器内命令 ------------------ 进入容器执行命令
+</span></span><span class="line"><span class="cl">        -i		以交互模式运行容器，通常与-t一起使用
+</span></span><span class="line"><span class="cl">        -t		分配一个伪终端    shell窗口   bash 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="gh"># 9.容器和宿主机之间复制文件
+</span></span></span><span class="line"><span class="cl"><span class="gh"></span>	docker cp 文件|目录 容器id:容器路径           -----------------   将宿主机复制到容器内部
+</span></span><span class="line"><span class="cl">	docker cp 容器id:容器内资源路径 宿主机目录路径  -----------------   将容器内资源拷贝到主机上
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="gh"># 10.数据卷(volum)实现与宿主机共享目录
+</span></span></span><span class="line"><span class="cl"><span class="gh"></span>	docker run -v 宿主机的路径|任意别名:/容器内的路径 镜像名
+</span></span><span class="line"><span class="cl">		注意: 
+</span></span><span class="line"><span class="cl">				1.如果是宿主机路径必须是绝对路径,宿主机目录会覆盖容器内目录内容
+</span></span><span class="line"><span class="cl">				2.如果是别名则会在docker运行容器时自动在宿主机中创建一个目录,并将容器目录文件复制到宿主机中
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="gh"># 11.打包镜像
+</span></span></span><span class="line"><span class="cl"><span class="gh"></span>	docker save 镜像名 -o  名称.tar
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="gh"># 12.载入镜像
+</span></span></span><span class="line"><span class="cl"><span class="gh"></span>	docker load -i   名称.tar
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="gh"># 13.容器打包成新的镜像
+</span></span></span><span class="line"><span class="cl"><span class="gh"></span>	docker commit -m &#34;描述信息&#34; -a &#34;作者信息&#34;   （容器id或者名称）打包的镜像名称:标签
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="docker镜像">docker镜像</h2>
+<blockquote>
+<p>docker的镜像实际是由一层一层的文件系统组成。</p>
+</blockquote>
+<hr>
+<p>路线：进程 &ndash;&gt; Namespace&amp;Cgroup &ndash;&gt; rootfs &ndash;&gt; docker</p>
+<h2 id="进程--程序">进程 &amp; 程序</h2>
+<ul>
+<li><strong>程序:</strong> 用于组织和操作数据和设备的可执行指令的集合</li>
+<li><strong>进程:</strong> 程序运行起来后的动态的计算机执行要素的总和</li>
+</ul>
+<h2 id="隔离--限制">隔离 &amp; 限制</h2>
+<ul>
+<li>启动一个busybox的container</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 启动busybox镜像</span>
+</span></span><span class="line"><span class="cl">sudo docker run -it busybox /bin/sh
+</span></span><span class="line"><span class="cl"><span class="c1"># 查看当前busybox的container中的所有进程</span>
+</span></span><span class="line"><span class="cl">ps -a
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#   PID  USER     TIME   COMMAND</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#    1   root     0:00   /bin/sh</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#    7   root     0:00   ps -a</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>进入一个busybox的容器内，只存在启动命令进程<code>/bin/sh</code>和查看ps命令进程<code>ps -a</code>。
+并没有云主机的运行进程&ndash;container被宿主机隔离了。</p>
+<p><strong>container真的是独立自主的运行环境？</strong>&ndash;这个虚拟机还有什么区别？</p>
+<h3 id="namepsace">Namepsace</h3>
+<blockquote>
+<p><code>Namespace</code> 是<code>kernel</code>一个功能，隔离一系列的系统资源空间。用于将一个进程只能使用指定的内容。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Namespace类型</th>
+<th style="text-align:left">调用类型参数</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Mount Namespace</td>
+<td style="text-align:left">CLONE_NEWNS</td>
+<td style="text-align:left">隔离进程所能看到的挂载点视图</td>
+</tr>
+<tr>
+<td style="text-align:left">UTS Namespace</td>
+<td style="text-align:left">CLONE_NEWUTS</td>
+<td style="text-align:left">隔离nodename和domainname UTS 用于属于自己的hostname</td>
+</tr>
+<tr>
+<td style="text-align:left">IPC Namespace</td>
+<td style="text-align:left">CLONE_NEWIPC</td>
+<td style="text-align:left">隔离System V PIC和POSIX queues</td>
+</tr>
+<tr>
+<td style="text-align:left">PID Namesapce</td>
+<td style="text-align:left">CLONE_NEWPID</td>
+<td style="text-align:left">隔离进程PID</td>
+</tr>
+<tr>
+<td style="text-align:left">Network Namespace</td>
+<td style="text-align:left">CLONE_NEWNET</td>
+<td style="text-align:left">隔离网络设备、IP地址端口等网络Namespace</td>
+</tr>
+<tr>
+<td style="text-align:left">User Namespace</td>
+<td style="text-align:left">CLONE_NEWUSER</td>
+<td style="text-align:left">隔离用户组</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Namespace API</li>
+</ul>
+<ol>
+<li>clone()将host namespace克隆到虚拟namspace</li>
+<li>unshare()将进程移除namespace ？？</li>
+<li>setns()将进程加入namespace中 ？？</li>
+</ol>
+<ul>
+<li><code>Union File System</code> 把其他文件系统联合到一个联合挂载点的文件系统服务</li>
+</ul>
+<h4 id="uts-namespace">UTS Namespace</h4>
+<blockquote>
+<p>UTS NS 用于隔离nodename和domainname</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cm">/* ************************************************************************
+</span></span></span><span class="line"><span class="cl"><span class="cm">&gt; File Name:     main.go
+</span></span></span><span class="line"><span class="cl"><span class="cm">&gt; Author:        hanzi_zhu
+</span></span></span><span class="line"><span class="cl"><span class="cm">&gt; Created Time:  Wed 02 Nov 2022 09:46:31 AM EDT
+</span></span></span><span class="line"><span class="cl"><span class="cm">&gt; Description:   mydocker-UTS Namespace
+</span></span></span><span class="line"><span class="cl"><span class="cm"> *********************************************************************** */</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;os/exec&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;syscall&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;os&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;log&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 指定被fork出来的新进程内初始命令 默认sh来执行
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">cmd</span> <span class="o">:=</span> <span class="nx">exec</span><span class="p">.</span><span class="nf">Command</span><span class="p">(</span><span class="s">&#34;sh&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// syscall 调用clone 在sh环境通过CLONE_NEWUTS创建UTS Namespace
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">cmd</span><span class="p">.</span><span class="nx">SysProcAttr</span> <span class="p">=</span> <span class="o">&amp;</span><span class="nx">syscall</span><span class="p">.</span><span class="nx">SysProcAttr</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">Cloneflags</span><span class="p">:</span> <span class="nx">syscall</span><span class="p">.</span><span class="nx">CLONE_NEWUTS</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nx">cmd</span><span class="p">.</span><span class="nx">Stdin</span> <span class="p">=</span> <span class="nx">os</span><span class="p">.</span><span class="nx">Stdin</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">cmd</span><span class="p">.</span><span class="nx">Stdout</span> <span class="p">=</span> <span class="nx">os</span><span class="p">.</span><span class="nx">Stdout</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">cmd</span><span class="p">.</span><span class="nx">Stderr</span> <span class="p">=</span> <span class="nx">os</span><span class="p">.</span><span class="nx">Stderr</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">cmd</span><span class="p">.</span><span class="nf">Run</span><span class="p">();</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">log</span><span class="p">.</span><span class="nf">Fatal</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// go run main.go 通过sh，进入子UTS Namepsace 新进程
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 做两实验
+</span></span></span><span class="line"><span class="cl"><span class="c1">// pstree -pl [yum -y install psmisc]
+</span></span></span><span class="line"><span class="cl"><span class="c1">// sshd(1067)─┬─sshd(1601)─┬─bash(1608)───go(85015)─┬─main(85075)─┬─sh(85080)───pstree(85215)
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 其中main程序PID 85075
+</span></span></span><span class="line"><span class="cl"><span class="c1">// echo $$ [查看当前进程]
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 当前进程为85080 同新的进程sh
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">// readlink /proc/85075/ns/uts  [查看父进程main的uts] 
+</span></span></span><span class="line"><span class="cl"><span class="c1">// uts:[4026531838]
+</span></span></span><span class="line"><span class="cl"><span class="c1">// readlink /proc/85080/ns/uts  [查看sh新进程的uts]
+</span></span></span><span class="line"><span class="cl"><span class="c1">// uts:[4026532417]
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 父子进程的uts是不一致的
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">// hostname -b bird [5080 修改hostname]
+</span></span></span><span class="line"><span class="cl"><span class="c1">// hostname  [bird]
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 再到main父进程间查看hostname [MiWiFi-R4AC-srv]
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 子进程的操作不影响父进程 隔离开来
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="ipcpidmountuser-namespace">IPC/PID/MountUser Namespace</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cm">/* ************************************************************************
+</span></span></span><span class="line"><span class="cl"><span class="cm">&gt; File Name:     main.go
+</span></span></span><span class="line"><span class="cl"><span class="cm">&gt; Author:        hanzi_zhu
+</span></span></span><span class="line"><span class="cl"><span class="cm">&gt; Created Time:  Wed 02 Nov 2022 09:46:31 AM EDT
+</span></span></span><span class="line"><span class="cl"><span class="cm">&gt; Description:   mydocker main
+</span></span></span><span class="line"><span class="cl"><span class="cm"> *********************************************************************** */</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;os/exec&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;syscall&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;os&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;log&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 指定被fork出来的新进程内初始命令 默认sh来执行
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">cmd</span> <span class="o">:=</span> <span class="nx">exec</span><span class="p">.</span><span class="nf">Command</span><span class="p">(</span><span class="s">&#34;sh&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// syscall 调用clone 在sh环境通过CLONE_NEWUTS创建UTS Namespace
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">cmd</span><span class="p">.</span><span class="nx">SysProcAttr</span> <span class="p">=</span> <span class="o">&amp;</span><span class="nx">syscall</span><span class="p">.</span><span class="nx">SysProcAttr</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">Cloneflags</span><span class="p">:</span> <span class="nx">syscall</span><span class="p">.</span><span class="nx">CLONE_NEWUTS</span> <span class="p">|</span> <span class="nx">syscall</span><span class="p">.</span><span class="nx">CLONE_NEWIPC</span> <span class="p">|</span>
+</span></span><span class="line"><span class="cl">                    <span class="nx">syscall</span><span class="p">.</span><span class="nx">CLONE_NEWPID</span> <span class="p">|</span> <span class="nx">syscall</span><span class="p">.</span><span class="nx">CLONE_NEWNS</span> <span class="p">|</span>
+</span></span><span class="line"><span class="cl">                    <span class="nx">syscall</span><span class="p">.</span><span class="nx">CLONE_NEWUSER</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// cmd.SysProcAttr.Credential = &amp;syscall.Credential{Uid: uint32(1), Gid: uint32(1)} // 在linux 3.10中不能这样加入 否则报fork/exec /usr/bin/sh: operation not permitted
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">cmd</span><span class="p">.</span><span class="nx">Stdin</span> <span class="p">=</span> <span class="nx">os</span><span class="p">.</span><span class="nx">Stdin</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">cmd</span><span class="p">.</span><span class="nx">Stdout</span> <span class="p">=</span> <span class="nx">os</span><span class="p">.</span><span class="nx">Stdout</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">cmd</span><span class="p">.</span><span class="nx">Stderr</span> <span class="p">=</span> <span class="nx">os</span><span class="p">.</span><span class="nx">Stderr</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">cmd</span><span class="p">.</span><span class="nf">Run</span><span class="p">();</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">log</span><span class="p">.</span><span class="nf">Fatal</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nx">os</span><span class="p">.</span><span class="nf">Exit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 注意：
+</span></span></span><span class="line"><span class="cl"><span class="c1">// Centos 内核版本 3.10 需要手动开启user namesapce
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 不然运行go run main.go 报fork/exec /usr/bin/sh: invalid argument
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 解决方法：echo 640 &gt; /proc/sys/user/max_user_namespaces
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="network-namespace">Network namespace</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cm">/* ************************************************************************
+</span></span></span><span class="line"><span class="cl"><span class="cm">&gt; File Name:     main.go
+</span></span></span><span class="line"><span class="cl"><span class="cm">&gt; Author:        hanzi_zhu
+</span></span></span><span class="line"><span class="cl"><span class="cm">&gt; Created Time:  Wed 02 Nov 2022 09:46:31 AM EDT
+</span></span></span><span class="line"><span class="cl"><span class="cm">&gt; Description:   mydocker main
+</span></span></span><span class="line"><span class="cl"><span class="cm"> *********************************************************************** */</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;os/exec&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;syscall&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;os&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;log&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 指定被fork出来的新进程内初始命令 默认sh来执行
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">cmd</span> <span class="o">:=</span> <span class="nx">exec</span><span class="p">.</span><span class="nf">Command</span><span class="p">(</span><span class="s">&#34;sh&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// syscall 调用clone 在sh环境通过CLONE_NEWUTS创建UTS Namespace
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">cmd</span><span class="p">.</span><span class="nx">SysProcAttr</span> <span class="p">=</span> <span class="o">&amp;</span><span class="nx">syscall</span><span class="p">.</span><span class="nx">SysProcAttr</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">Cloneflags</span><span class="p">:</span> <span class="nx">syscall</span><span class="p">.</span><span class="nx">CLONE_NEWUTS</span> <span class="p">|</span> <span class="nx">syscall</span><span class="p">.</span><span class="nx">CLONE_NEWIPC</span> <span class="p">|</span>
+</span></span><span class="line"><span class="cl">                    <span class="nx">syscall</span><span class="p">.</span><span class="nx">CLONE_NEWPID</span> <span class="p">|</span> <span class="nx">syscall</span><span class="p">.</span><span class="nx">CLONE_NEWNS</span> <span class="p">|</span>
+</span></span><span class="line"><span class="cl">                    <span class="nx">syscall</span><span class="p">.</span><span class="nx">CLONE_NEWUSER</span> <span class="p">|</span> <span class="nx">syscall</span><span class="p">.</span><span class="nx">CLONE_NEWNET</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//cmd.SysProcAttr.Credential = &amp;syscall.Credential{Uid: uint32(1), Gid: uint32(1)}
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">cmd</span><span class="p">.</span><span class="nx">Stdin</span> <span class="p">=</span> <span class="nx">os</span><span class="p">.</span><span class="nx">Stdin</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">cmd</span><span class="p">.</span><span class="nx">Stdout</span> <span class="p">=</span> <span class="nx">os</span><span class="p">.</span><span class="nx">Stdout</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">cmd</span><span class="p">.</span><span class="nx">Stderr</span> <span class="p">=</span> <span class="nx">os</span><span class="p">.</span><span class="nx">Stderr</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">cmd</span><span class="p">.</span><span class="nf">Run</span><span class="p">();</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">log</span><span class="p">.</span><span class="nf">Fatal</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nx">os</span><span class="p">.</span><span class="nf">Exit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 对比host和main进程内net信息
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 命令：ip addr
+</span></span></span><span class="line"><span class="cl"><span class="c1">// host的net信息完整
+</span></span></span><span class="line"><span class="cl"><span class="c1">// main进程nei信息为空--该进程网络命名空间为隔离状态
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="cgroups">Cgroups</h3>
+<blockquote>
+<p><code>Cgroups</code>实现对<code>进程以及其子进程的资源限制、控制和统计能力</code>。这样就可以控制Namespace隔离空间的资源使用、监控和统计，使得进程之间合理使用用以宿主机的而基础设施。</p>
+</blockquote>
+<ol>
+<li>进程分组管理</li>
+<li>subsystem是一组资源控制模块，其关联指定的限制的cgroup，对Cgroup中的进程做相应的限制和控制
+例如blkio\cpu\cpuset\cpuacct\devices\freezer\memory\net_cls\net_prio\ns</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nb">cd</span> /sys/fs/cgroup
+</span></span><span class="line"><span class="cl">ll
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># drwxr-xr-x blkio  设置对块的输入输出的访问控制</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># lrwxrwxrwx cpu -&gt; cpu,cpuacct  进程cpu的调度策略</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># lrwxrwxrwx cpuacct -&gt; cpu,cpuacct 统计cgroup中进程的CPU占用</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># drwxr-xr-x cpu,cpuacct</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># drwxr-xr-x cpuset   多核机器中设置cgroup中进程可以使用cpu和内存</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># drwxr-xr-x devices  设备的访问</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># drwxr-xr-x freezer  用于挂起和恢复cgroup中进程</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># drwxr-xr-x hugetlb</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># drwxr-xr-x memory   控制cgroup进程的内存</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># lrwxrwxrwx net_cls -&gt; net_cls,net_prio  进程网络分类，便于区分进程的网络流量</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># drwxr-xr-x net_cls,net_prio  </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># lrwxrwxrwx net_prio -&gt; net_cls,net_prio  网络优先级</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># drwxr-xr-x perf_event</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># drwxr-xr-x pids</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># drwxr-xr-x systemd</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="3">
+<li>hierachy 实现Cgroup的树状结构，完成Cgroup的继承</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo docker run -itd busybox
+</span></span><span class="line"><span class="cl"><span class="c1"># b69f64965d0eef3efd533667c726e2c35997eff2673e9d563244b90300fa05b</span>
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> /sys/fs/cgroup/memory/b69f64965d0eef3efd533667c726e2c35997eff2673e9d563244b90300fa05b
+</span></span><span class="line"><span class="cl">ll
+</span></span><span class="line"><span class="cl"><span class="c1"># -rw-r--r-- 1 root root 0 Mar 23 22:47 cgroup.clone_children</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># --w--w--w- 1 root root 0 Mar 23 22:47 cgroup.event_control</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># -rw-r--r-- 1 root root 0 Mar 23 22:47 cgroup.procs</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># -rw-r--r-- 1 root root 0 Mar 23 22:47 tasks</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># -rw-r--r-- 1 root root 0 Mar 23 22:47 notify_on_release</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># -rw-r--r-- 1 root root 0 Mar 23 22:47 memory.failcnt</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># --w------- 1 root root 0 Mar 23 22:47 memory.force_empty</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># -rw-r--r-- 1 root root 0 Mar 23 22:47 memory.kmem.failcnt</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># -rw-r--r-- 1 root root 0 Mar 23 22:47 memory.kmem.limit_in_bytes</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># -rw-r--r-- 1 root root 0 Mar 23 22:47 memory.kmem.max_usage_in_bytes</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># -r--r--r-- 1 root root 0 Mar 23 22:47 memory.kmem.slabinfo</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># -rw-r--r-- 1 root root 0 Mar 23 22:47 memory.kmem.tcp.failcnt</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># -rw-r--r-- 1 root root 0 Mar 23 22:47 memory.kmem.tcp.limit_in_bytes</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># -rw-r--r-- 1 root root 0 Mar 23 22:47 memory.kmem.tcp.max_usage_in_bytes</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># -r--r--r-- 1 root root 0 Mar 23 22:47 memory.kmem.tcp.usage_in_bytes</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># -r--r--r-- 1 root root 0 Mar 23 22:47 memory.kmem.usage_in_bytes</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># -rw-r--r-- 1 root root 0 Mar 23 22:47 memory.limit_in_bytes</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># -rw-r--r-- 1 root root 0 Mar 23 22:47 memory.max_usage_in_bytes</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># -rw-r--r-- 1 root root 0 Mar 23 22:47 memory.memsw.failcnt</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># -rw-r--r-- 1 root root 0 Mar 23 22:47 memory.memsw.limit_in_bytes</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># -rw-r--r-- 1 root root 0 Mar 23 22:47 memory.memsw.max_usage_in_bytes</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># -r--r--r-- 1 root root 0 Mar 23 22:47 memory.memsw.usage_in_bytes</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># -rw-r--r-- 1 root root 0 Mar 23 22:47 memory.move_charge_at_immigrate</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># -r--r--r-- 1 root root 0 Mar 23 22:47 memory.numa_stat</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># -rw-r--r-- 1 root root 0 Mar 23 22:47 memory.oom_control</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ---------- 1 root root 0 Mar 23 22:47 memory.pressure_level</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># -rw-r--r-- 1 root root 0 Mar 23 22:47 memory.soft_limit_in_bytes</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># -r--r--r-- 1 root root 0 Mar 23 22:47 memory.stat</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># -rw-r--r-- 1 root root 0 Mar 23 22:47 memory.swappiness</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># -r--r--r-- 1 root root 0 Mar 23 22:47 memory.usage_in_bytes</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># -rw-r--r-- 1 root root 0 Mar 23 22:47 memory.use_hierarchy</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">cat memory.limit_in_bytes  <span class="c1"># 查看cgroup的内存限制</span>
+</span></span><span class="line"><span class="cl">cat memory.usage_in_bytes  <span class="c1"># 查看当前cgroup的内存使用大小</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">CodeMax</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2023-04-04
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/docker/">Docker</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/20220413-go-bitmap/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">基于go的Bitmap 序列化和反序列化</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/20220320-algo-array/">
+            <span class="next-text nav-default">Algorithm: Array Series</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://unpkg.com/gitalk@1.2.2/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://unpkg.com/gitalk@latest/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2022-03-22 22:50:23 \u002b0800 CST',
+        title: 'Docker',
+        clientID: '9c36634fbb845c1d1d64',
+        clientSecret: '3d57254b5ffccf04f9d973cc42b1d84ecd48fd01',
+        repo: 'zhuzaiye.github.io',
+        owner: 'zhuzaiye',
+        admin: ['zhuzaiye'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      
+<div class="social-links">
+      <a href="hanzi_zhu@foxmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/pigzhu11" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/zhuzaiye" class="iconfont icon-github" title="github"></a>
+  <a href="https://zhuzaiye.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+
+<div class="copyright">
+  <span class="power-by">
+    powered by
+    <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    &copy; 
+    2022 - 
+    2023<span class="division"></span>
+    <span>CodeMax</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.64437849d125a2d603b3e71d6de5225d641a32d17168a58106e0b61852079683.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

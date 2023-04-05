@@ -125,6 +125,15 @@
     </item>
     
     <item>
+      <title>Docker</title>
+      <link>https://zhuzaiye.github.io/post/20220322-dockers/</link>
+      <pubDate>Tue, 22 Mar 2022 22:50:23 +0800</pubDate>
+      
+      <guid>https://zhuzaiye.github.io/post/20220322-dockers/</guid>
+      <description>容器本身没有价值, 有价值的是&amp;quot;容器编排&amp;quot; From Dcoker To Kurbernets 安装docker 测试开发实验(centos7.x) 1 2 3 4 # 安装dock</description>
+    </item>
+    
+    <item>
       <title>Algorithm: Array Series</title>
       <link>https://zhuzaiye.github.io/post/20220320-algo-array/</link>
       <pubDate>Sun, 20 Mar 2022 12:56:13 +0800</pubDate>
