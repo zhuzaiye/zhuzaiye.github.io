@@ -16,21 +16,7 @@
   </url>
   
   <url>
-    <loc>https://zhuzaiye.github.io/tags/clang/</loc>
-    <lastmod>2023-03-25T09:18:53+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuzaiye.github.io/</loc>
-    <lastmod>2023-04-04T21:19:15+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuzaiye.github.io/categories/lang/</loc>
+    <loc>https://zhuzaiye.github.io/tags/makefile/</loc>
     <lastmod>2023-03-25T09:18:53+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -51,6 +37,13 @@
   </url>
   
   <url>
+    <loc>https://zhuzaiye.github.io/categories/script/</loc>
+    <lastmod>2023-03-25T09:18:53+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://zhuzaiye.github.io/tags/</loc>
     <lastmod>2023-04-04T21:19:15+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -58,22 +51,15 @@
   </url>
   
   <url>
-    <loc>https://zhuzaiye.github.io/categories/code-language/</loc>
-    <lastmod>2023-02-12T16:04:24+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuzaiye.github.io/post/20230212-cpp-hard-way/</loc>
-    <lastmod>2023-02-12T16:04:24+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuzaiye.github.io/categories/cloud/</loc>
+    <loc>https://zhuzaiye.github.io/</loc>
     <lastmod>2023-04-04T21:19:15+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuzaiye.github.io/categories/microservice/</loc>
+    <lastmod>2022-10-20T21:22:35+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -93,14 +79,7 @@
   </url>
   
   <url>
-    <loc>https://zhuzaiye.github.io/categories/vue/</loc>
-    <lastmod>2022-10-14T21:19:15+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuzaiye.github.io/tags/webview/</loc>
+    <loc>https://zhuzaiye.github.io/tags/vue/</loc>
     <lastmod>2022-10-14T21:19:15+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -114,6 +93,13 @@
   </url>
   
   <url>
+    <loc>https://zhuzaiye.github.io/categories/web/</loc>
+    <lastmod>2022-10-14T21:19:15+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://zhuzaiye.github.io/post/20220704-c-hard-way/</loc>
     <lastmod>2022-07-04T22:36:24+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -121,7 +107,14 @@
   </url>
   
   <url>
-    <loc>https://zhuzaiye.github.io/tags/docx-html/</loc>
+    <loc>https://zhuzaiye.github.io/categories/language/</loc>
+    <lastmod>2022-07-04T22:36:24+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuzaiye.github.io/tags/docx/</loc>
     <lastmod>2022-07-03T23:21:04+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -135,15 +128,29 @@
   </url>
   
   <url>
-    <loc>https://zhuzaiye.github.io/categories/python/</loc>
+    <loc>https://zhuzaiye.github.io/tags/html/</loc>
     <lastmod>2022-07-03T23:21:04+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://zhuzaiye.github.io/tags/rust/</loc>
-    <lastmod>2022-07-03T21:11:45+08:00</lastmod>
+    <loc>https://zhuzaiye.github.io/tags/python/</loc>
+    <lastmod>2022-07-03T23:21:04+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuzaiye.github.io/categories/utils/</loc>
+    <lastmod>2022-07-03T23:21:04+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuzaiye.github.io/tags/shell/</loc>
+    <lastmod>2022-06-29T21:49:29+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -151,6 +158,13 @@
   <url>
     <loc>https://zhuzaiye.github.io/post/20220629-shell/</loc>
     <lastmod>2022-06-29T21:49:29+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuzaiye.github.io/tags/rust/</loc>
+    <lastmod>2022-07-03T21:11:45+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -198,13 +212,6 @@
   </url>
   
   <url>
-    <loc>https://zhuzaiye.github.io/categories/javascript/</loc>
-    <lastmod>2022-04-17T11:24:05+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>https://zhuzaiye.github.io/tags/react/</loc>
     <lastmod>2022-04-17T11:24:05+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -226,22 +233,15 @@
   </url>
   
   <url>
-    <loc>https://zhuzaiye.github.io/categories/data-structure/</loc>
-    <lastmod>2022-04-13T22:26:50+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuzaiye.github.io/tags/golang/</loc>
-    <lastmod>2022-04-13T22:26:50+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>https://zhuzaiye.github.io/post/20220413-go-bitmap/</loc>
     <lastmod>2022-04-13T22:26:50+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuzaiye.github.io/categories/cloudnative/</loc>
+    <lastmod>2023-04-04T21:19:15+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -261,6 +261,13 @@
   </url>
   
   <url>
+    <loc>https://zhuzaiye.github.io/tags/array/</loc>
+    <lastmod>2022-03-20T12:56:13+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://zhuzaiye.github.io/post/20220320-algo-array/</loc>
     <lastmod>2022-03-20T12:56:13+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -268,8 +275,7 @@
   </url>
   
   <url>
-    <loc>https://zhuzaiye.github.io/tags/array/</loc>
-    <lastmod>2022-03-20T12:56:13+08:00</lastmod>
+    <loc>https://zhuzaiye.github.io/tags/c/c&#43;&#43;/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>

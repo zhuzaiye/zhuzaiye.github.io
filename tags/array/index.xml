@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>array on CodeMax</title>
+    <title>Array on zhuzaiye</title>
     <link>https://zhuzaiye.github.io/tags/array/</link>
-    <description>Recent content in array on CodeMax</description>
+    <description>Recent content in Array on zhuzaiye</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Sun, 20 Mar 2022 12:56:13 +0800</lastBuildDate><atom:link href="https://zhuzaiye.github.io/tags/array/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Algorithm: Array Series</title>
+      <title>数据与算法-Array</title>
       <link>https://zhuzaiye.github.io/post/20220320-algo-array/</link>
       <pubDate>Sun, 20 Mar 2022 12:56:13 +0800</pubDate>
       

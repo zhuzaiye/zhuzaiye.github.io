@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>BiaryTree on CodeMax</title>
+    <title>BiaryTree on zhuzaiye</title>
     <link>https://zhuzaiye.github.io/tags/biarytree/</link>
-    <description>Recent content in BiaryTree on CodeMax</description>
+    <description>Recent content in BiaryTree on zhuzaiye</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Wed, 11 May 2022 19:44:20 +0800</lastBuildDate><atom:link href="https://zhuzaiye.github.io/tags/biarytree/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>BiaryTree[二叉树]</title>
+      <title>数据与算法-BiaryTree</title>
       <link>https://zhuzaiye.github.io/post/20220511-biarytree/</link>
       <pubDate>Wed, 11 May 2022 19:44:20 +0800</pubDate>
       

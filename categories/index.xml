@@ -1,54 +1,54 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Categories on CodeMax</title>
+    <title>Categories on zhuzaiye</title>
     <link>https://zhuzaiye.github.io/categories/</link>
-    <description>Recent content in Categories on CodeMax</description>
+    <description>Recent content in Categories on zhuzaiye</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Sat, 25 Mar 2023 09:18:53 +0800</lastBuildDate><atom:link href="https://zhuzaiye.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>lang</title>
-      <link>https://zhuzaiye.github.io/categories/lang/</link>
+      <title>script</title>
+      <link>https://zhuzaiye.github.io/categories/script/</link>
       <pubDate>Sat, 25 Mar 2023 09:18:53 +0800</pubDate>
       
-      <guid>https://zhuzaiye.github.io/categories/lang/</guid>
+      <guid>https://zhuzaiye.github.io/categories/script/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Code Language</title>
-      <link>https://zhuzaiye.github.io/categories/code-language/</link>
-      <pubDate>Sun, 12 Feb 2023 16:04:24 +0800</pubDate>
-      
-      <guid>https://zhuzaiye.github.io/categories/code-language/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Cloud</title>
-      <link>https://zhuzaiye.github.io/categories/cloud/</link>
+      <title>Microservice</title>
+      <link>https://zhuzaiye.github.io/categories/microservice/</link>
       <pubDate>Thu, 20 Oct 2022 21:22:35 +0800</pubDate>
       
-      <guid>https://zhuzaiye.github.io/categories/cloud/</guid>
+      <guid>https://zhuzaiye.github.io/categories/microservice/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Vue</title>
-      <link>https://zhuzaiye.github.io/categories/vue/</link>
+      <title>Web</title>
+      <link>https://zhuzaiye.github.io/categories/web/</link>
       <pubDate>Fri, 14 Oct 2022 21:19:15 +0800</pubDate>
       
-      <guid>https://zhuzaiye.github.io/categories/vue/</guid>
+      <guid>https://zhuzaiye.github.io/categories/web/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Python</title>
-      <link>https://zhuzaiye.github.io/categories/python/</link>
+      <title>Language</title>
+      <link>https://zhuzaiye.github.io/categories/language/</link>
+      <pubDate>Mon, 04 Jul 2022 22:36:24 +0800</pubDate>
+      
+      <guid>https://zhuzaiye.github.io/categories/language/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Utils</title>
+      <link>https://zhuzaiye.github.io/categories/utils/</link>
       <pubDate>Sun, 03 Jul 2022 23:21:04 +0800</pubDate>
       
-      <guid>https://zhuzaiye.github.io/categories/python/</guid>
+      <guid>https://zhuzaiye.github.io/categories/utils/</guid>
       <description></description>
     </item>
     
@@ -62,20 +62,11 @@
     </item>
     
     <item>
-      <title>Javascript</title>
-      <link>https://zhuzaiye.github.io/categories/javascript/</link>
-      <pubDate>Sun, 17 Apr 2022 11:24:05 +0800</pubDate>
+      <title>CloudNative</title>
+      <link>https://zhuzaiye.github.io/categories/cloudnative/</link>
+      <pubDate>Tue, 22 Mar 2022 22:50:23 +0800</pubDate>
       
-      <guid>https://zhuzaiye.github.io/categories/javascript/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Data structure</title>
-      <link>https://zhuzaiye.github.io/categories/data-structure/</link>
-      <pubDate>Wed, 13 Apr 2022 22:26:50 +0800</pubDate>
-      
-      <guid>https://zhuzaiye.github.io/categories/data-structure/</guid>
+      <guid>https://zhuzaiye.github.io/categories/cloudnative/</guid>
       <description></description>
     </item>
     

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Language on zhuzaiye</title>
+    <link>https://zhuzaiye.github.io/categories/language/</link>
+    <description>Recent content in Language on zhuzaiye</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Mon, 04 Jul 2022 22:36:24 +0800</lastBuildDate><atom:link href="https://zhuzaiye.github.io/categories/language/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>C/C&#43;&#43;语言实践</title>
+      <link>https://zhuzaiye.github.io/post/20220704-c-hard-way/</link>
+      <pubDate>Mon, 04 Jul 2022 22:36:24 +0800</pubDate>
+      
+      <guid>https://zhuzaiye.github.io/post/20220704-c-hard-way/</guid>
+      <description>C的思维导图 目标 C的基本语法和编写习惯&amp;ndash;输出思维导图 编译, make文件和链接&amp;ndash;熟练使用Makefile 寻找和预防bu</description>
+    </item>
+    
+    <item>
+      <title>Rust实践</title>
+      <link>https://zhuzaiye.github.io/post/20220512-rust/</link>
+      <pubDate>Thu, 12 May 2022 21:27:45 +0800</pubDate>
+      
+      <guid>https://zhuzaiye.github.io/post/20220512-rust/</guid>
+      <description>Rust由Mozila开发，是一款免费开源的高级编程语言。 以高性能、高可靠性和高生产力著称。 可以用于系统编程、web编程、服务器开发和嵌入式</description>
+    </item>
+    
+  </channel>
+</rss>

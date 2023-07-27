@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Utils on zhuzaiye</title>
+    <link>https://zhuzaiye.github.io/categories/utils/</link>
+    <description>Recent content in Utils on zhuzaiye</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 03 Jul 2022 23:21:04 +0800</lastBuildDate><atom:link href="https://zhuzaiye.github.io/categories/utils/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Docxtohtml-word文档转html</title>
+      <link>https://zhuzaiye.github.io/post/docxtohtml/</link>
+      <pubDate>Sun, 03 Jul 2022 23:21:04 +0800</pubDate>
+      
+      <guid>https://zhuzaiye.github.io/post/docxtohtml/</guid>
+      <description>由于从事教育行业，涉及到较多的资源处理。前期就遇到将office的word合并将合并的word转成Html5的任务。 需要处理的相关问题如下：</description>
+    </item>
+    
+  </channel>
+</rss>

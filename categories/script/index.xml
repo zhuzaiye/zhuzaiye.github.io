@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>script on zhuzaiye</title>
+    <link>https://zhuzaiye.github.io/categories/script/</link>
+    <description>Recent content in script on zhuzaiye</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 25 Mar 2023 09:18:53 +0800</lastBuildDate><atom:link href="https://zhuzaiye.github.io/categories/script/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Makfile</title>
+      <link>https://zhuzaiye.github.io/post/20230325-makfile/</link>
+      <pubDate>Sat, 25 Mar 2023 09:18:53 +0800</pubDate>
+      
+      <guid>https://zhuzaiye.github.io/post/20230325-makfile/</guid>
+      <description>Makefile是组织编译的命令脚本文件-构建生成可执行文件的依赖关系树. make根据makefile的规则关系树, 构建出编译可执行程序. 1</description>
+    </item>
+    
+    <item>
+      <title>Shell实践</title>
+      <link>https://zhuzaiye.github.io/post/20220629-shell/</link>
+      <pubDate>Wed, 29 Jun 2022 21:49:29 +0800</pubDate>
+      
+      <guid>https://zhuzaiye.github.io/post/20220629-shell/</guid>
+      <description>Shell 是一个应用程序，它连接了用户和 Linux 内核，让用户能够更加高效、安全、低成本地使用 Linux 内核。 bash shell 是一种脚本语言。 通过shell命令操作和控制内核，</description>
+    </item>
+    
+  </channel>
+</rss>

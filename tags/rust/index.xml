@@ -1,23 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Rust on CodeMax</title>
+    <title>Rust on zhuzaiye</title>
     <link>https://zhuzaiye.github.io/tags/rust/</link>
-    <description>Recent content in Rust on CodeMax</description>
+    <description>Recent content in Rust on zhuzaiye</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 29 Jun 2022 21:49:29 +0800</lastBuildDate><atom:link href="https://zhuzaiye.github.io/tags/rust/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 12 May 2022 21:27:45 +0800</lastBuildDate><atom:link href="https://zhuzaiye.github.io/tags/rust/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Shell Language</title>
-      <link>https://zhuzaiye.github.io/post/20220629-shell/</link>
-      <pubDate>Wed, 29 Jun 2022 21:49:29 +0800</pubDate>
-      
-      <guid>https://zhuzaiye.github.io/post/20220629-shell/</guid>
-      <description>Shell 是一个应用程序，它连接了用户和 Linux 内核，让用户能够更加高效、安全、低成本地使用 Linux 内核。 bash shell 是一种脚本语言。 通过shell命令操作和控制内核，</description>
-    </item>
-    
-    <item>
-      <title>Rust</title>
+      <title>Rust实践</title>
       <link>https://zhuzaiye.github.io/post/20220512-rust/</link>
       <pubDate>Thu, 12 May 2022 21:27:45 +0800</pubDate>
       

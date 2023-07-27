@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>rpc on CodeMax</title>
+    <title>Rpc on zhuzaiye</title>
     <link>https://zhuzaiye.github.io/tags/rpc/</link>
-    <description>Recent content in rpc on CodeMax</description>
+    <description>Recent content in Rpc on zhuzaiye</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Thu, 20 Oct 2022 21:22:35 +0800</lastBuildDate><atom:link href="https://zhuzaiye.github.io/tags/rpc/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>RPC-&gt;gRPC</title>
+      <title>从RPC到微服务</title>
       <link>https://zhuzaiye.github.io/post/20221020-rpc/</link>
       <pubDate>Thu, 20 Oct 2022 21:22:35 +0800</pubDate>
       

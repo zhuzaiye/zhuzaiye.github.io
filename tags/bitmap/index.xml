@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>bitmap on CodeMax</title>
+    <title>Bitmap on zhuzaiye</title>
     <link>https://zhuzaiye.github.io/tags/bitmap/</link>
-    <description>Recent content in bitmap on CodeMax</description>
+    <description>Recent content in Bitmap on zhuzaiye</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Wed, 13 Apr 2022 22:26:50 +0800</lastBuildDate><atom:link href="https://zhuzaiye.github.io/tags/bitmap/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>基于go的Bitmap 序列化和反序列化</title>
+      <title>基于go的Bitmap序列化和反序列化</title>
       <link>https://zhuzaiye.github.io/post/20220413-go-bitmap/</link>
       <pubDate>Wed, 13 Apr 2022 22:26:50 +0800</pubDate>
       

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts on CodeMax</title>
+    <title>Posts on zhuzaiye</title>
     <link>https://zhuzaiye.github.io/post/</link>
-    <description>Recent content in Posts on CodeMax</description>
+    <description>Recent content in Posts on zhuzaiye</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Sat, 25 Mar 2023 09:18:53 +0800</lastBuildDate><atom:link href="https://zhuzaiye.github.io/post/index.xml" rel="self" type="application/rss+xml" />
@@ -17,16 +17,7 @@
     </item>
     
     <item>
-      <title>CPP Hard Way</title>
-      <link>https://zhuzaiye.github.io/post/20230212-cpp-hard-way/</link>
-      <pubDate>Sun, 12 Feb 2023 16:04:24 +0800</pubDate>
-      
-      <guid>https://zhuzaiye.github.io/post/20230212-cpp-hard-way/</guid>
-      <description>常用命令 Option Desc -g 带有调试信息的编译 -o 指定编译后的输出文件 -O0 编译不进行优化处理 -O/-O1 编译优化处理 -O2 进一步优化 -O3 更进一步优化 包括inline函数 -Wall 编译</description>
-    </item>
-    
-    <item>
-      <title>RPC-&gt;gRPC</title>
+      <title>从RPC到微服务</title>
       <link>https://zhuzaiye.github.io/post/20221020-rpc/</link>
       <pubDate>Thu, 20 Oct 2022 21:22:35 +0800</pubDate>
       
@@ -35,7 +26,7 @@
     </item>
     
     <item>
-      <title>从Vue到Admin</title>
+      <title>Vue在Admin上的实践</title>
       <link>https://zhuzaiye.github.io/post/20221014-vue-admin/</link>
       <pubDate>Fri, 14 Oct 2022 21:19:15 +0800</pubDate>
       
@@ -44,7 +35,7 @@
     </item>
     
     <item>
-      <title>C Hard Way</title>
+      <title>C/C&#43;&#43;语言实践</title>
       <link>https://zhuzaiye.github.io/post/20220704-c-hard-way/</link>
       <pubDate>Mon, 04 Jul 2022 22:36:24 +0800</pubDate>
       
@@ -53,7 +44,7 @@
     </item>
     
     <item>
-      <title>Docxtohtml</title>
+      <title>Docxtohtml-word文档转html</title>
       <link>https://zhuzaiye.github.io/post/docxtohtml/</link>
       <pubDate>Sun, 03 Jul 2022 23:21:04 +0800</pubDate>
       
@@ -62,7 +53,7 @@
     </item>
     
     <item>
-      <title>Shell Language</title>
+      <title>Shell实践</title>
       <link>https://zhuzaiye.github.io/post/20220629-shell/</link>
       <pubDate>Wed, 29 Jun 2022 21:49:29 +0800</pubDate>
       
@@ -71,7 +62,7 @@
     </item>
     
     <item>
-      <title>Rust</title>
+      <title>Rust实践</title>
       <link>https://zhuzaiye.github.io/post/20220512-rust/</link>
       <pubDate>Thu, 12 May 2022 21:27:45 +0800</pubDate>
       
@@ -80,7 +71,7 @@
     </item>
     
     <item>
-      <title>BiaryTree[二叉树]</title>
+      <title>数据与算法-BiaryTree</title>
       <link>https://zhuzaiye.github.io/post/20220511-biarytree/</link>
       <pubDate>Wed, 11 May 2022 19:44:20 +0800</pubDate>
       
@@ -89,7 +80,7 @@
     </item>
     
     <item>
-      <title>LinkList[链表]</title>
+      <title>数据与算法-LinkList</title>
       <link>https://zhuzaiye.github.io/post/20220424-link-list/</link>
       <pubDate>Sun, 24 Apr 2022 22:29:10 +0800</pubDate>
       
@@ -98,7 +89,7 @@
     </item>
     
     <item>
-      <title>React Admin实践</title>
+      <title>React在Admin上的实践</title>
       <link>https://zhuzaiye.github.io/post/20220417-react-admin/</link>
       <pubDate>Sun, 17 Apr 2022 11:24:05 +0800</pubDate>
       
@@ -107,7 +98,7 @@
     </item>
     
     <item>
-      <title>基于go的Bitmap 序列化和反序列化</title>
+      <title>基于go的Bitmap序列化和反序列化</title>
       <link>https://zhuzaiye.github.io/post/20220413-go-bitmap/</link>
       <pubDate>Wed, 13 Apr 2022 22:26:50 +0800</pubDate>
       
@@ -116,16 +107,16 @@
     </item>
     
     <item>
-      <title>Docker</title>
+      <title>Docker实践</title>
       <link>https://zhuzaiye.github.io/post/20220322-dockers/</link>
       <pubDate>Tue, 22 Mar 2022 22:50:23 +0800</pubDate>
       
       <guid>https://zhuzaiye.github.io/post/20220322-dockers/</guid>
-      <description>容器本身没有价值, 有价值的是&amp;quot;容器编排&amp;quot; From Dcoker To Kurbernets 安装docker 测试开发实验(centos7.x) 1 2 3 4 # 安装dock</description>
+      <description>容器本身没有价值, 有价值的是&amp;quot;容器编排&amp;quot; From Dcoker To Kurbernets Linux 容器: 一组联合挂载在 /var/lib/docker/aufs/mnt 上的 rootfs，这一部分我们称为“容器镜像”（</description>
     </item>
     
     <item>
-      <title>Algorithm: Array Series</title>
+      <title>数据与算法-Array</title>
       <link>https://zhuzaiye.github.io/post/20220320-algo-array/</link>
       <pubDate>Sun, 20 Mar 2022 12:56:13 +0800</pubDate>
       

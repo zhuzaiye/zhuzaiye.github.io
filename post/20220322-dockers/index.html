@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>Docker - CodeMax</title>
+  <title>Docker实践 - zhuzaiye</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="CodeMax" /><meta name="description" content="容器本身没有价值, 有价值的是&amp;quot;容器编排&amp;quot; From Dcoker To Kurbernets 安装docker 测试开发实验(centos7.x) 1 2 3 4 # 安装dock" />
+<meta name="author" content="zhuzaiye" /><meta name="description" content="容器本身没有价值, 有价值的是&amp;quot;容器编排&amp;quot; From Dcoker To Kurbernets Linux 容器: 一组联合挂载在 /var/lib/docker/aufs/mnt 上的 rootfs，这一部分我们称为“容器镜像”（" />
 
 
 
@@ -35,25 +35,25 @@
 
 
 
-<link href="/sass/main.min.aae033e7ae8bb1d5545d29503cc3be54cf22ff9b0b2bb15c168b7309f0f0f004.css" rel="stylesheet">
+<link href="/sass/main.min.4c69509e2bef5eac5f94e1a12f8cd80af3c4f4127832bf2a0e6103d38c5d892d.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
-<meta property="og:title" content="Docker" />
-<meta property="og:description" content="容器本身没有价值, 有价值的是&quot;容器编排&quot; From Dcoker To Kurbernets 安装docker 测试开发实验(centos7.x) 1 2 3 4 # 安装dock" />
+<meta property="og:title" content="Docker实践" />
+<meta property="og:description" content="容器本身没有价值, 有价值的是&quot;容器编排&quot; From Dcoker To Kurbernets Linux 容器: 一组联合挂载在 /var/lib/docker/aufs/mnt 上的 rootfs，这一部分我们称为“容器镜像”（" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://zhuzaiye.github.io/post/20220322-dockers/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2022-03-22T22:50:23+08:00" />
 <meta property="article:modified_time" content="2023-04-04T21:19:15+08:00" />
 
 
-<meta itemprop="name" content="Docker">
-<meta itemprop="description" content="容器本身没有价值, 有价值的是&quot;容器编排&quot; From Dcoker To Kurbernets 安装docker 测试开发实验(centos7.x) 1 2 3 4 # 安装dock"><meta itemprop="datePublished" content="2022-03-22T22:50:23+08:00" />
+<meta itemprop="name" content="Docker实践">
+<meta itemprop="description" content="容器本身没有价值, 有价值的是&quot;容器编排&quot; From Dcoker To Kurbernets Linux 容器: 一组联合挂载在 /var/lib/docker/aufs/mnt 上的 rootfs，这一部分我们称为“容器镜像”（"><meta itemprop="datePublished" content="2022-03-22T22:50:23+08:00" />
 <meta itemprop="dateModified" content="2023-04-04T21:19:15+08:00" />
-<meta itemprop="wordCount" content="6702">
+<meta itemprop="wordCount" content="7092">
 <meta itemprop="keywords" content="Docker," /><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Docker"/>
-<meta name="twitter:description" content="容器本身没有价值, 有价值的是&quot;容器编排&quot; From Dcoker To Kurbernets 安装docker 测试开发实验(centos7.x) 1 2 3 4 # 安装dock"/>
+<meta name="twitter:title" content="Docker实践"/>
+<meta name="twitter:description" content="容器本身没有价值, 有价值的是&quot;容器编排&quot; From Dcoker To Kurbernets Linux 容器: 一组联合挂载在 /var/lib/docker/aufs/mnt 上的 rootfs，这一部分我们称为“容器镜像”（"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -68,7 +68,7 @@
 <body>
   <div id="mobile-navbar" class="mobile-navbar">
   <div class="mobile-header-logo">
-    <a href="/" class="logo">CodeMax</a>
+    <a href="/" class="logo">zhuzaiye</a>
   </div>
   <div class="mobile-navbar-icon">
     <span></span>
@@ -99,7 +99,7 @@
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
-  <a href="/" class="logo">CodeMax</a>
+  <a href="/" class="logo">zhuzaiye</a>
 </div>
 
 
@@ -130,13 +130,15 @@
           <article class="post">
     
     <header class="post-header">
-      <h1 class="post-title">Docker</h1>
+      <h1 class="post-title">Docker实践</h1>
 
       <div class="post-meta">
         <span class="post-time"> 2022-03-22 </span>
         <div class="post-category">
-            <a href="/categories/cloud/"> Cloud </a>
+            <a href="/categories/cloudnative/"> CloudNative </a>
             </div>
+          <span class="more-meta"> 7092 words </span>
+          <span class="more-meta"> 15 mins read </span>
         
       </div>
     </header>
@@ -190,6 +192,11 @@
 <p>容器本身没有价值, 有价值的是&quot;容器编排&quot;</p>
 <p>From Dcoker To Kurbernets</p>
 </blockquote>
+<p>Linux 容器:</p>
+<ul>
+<li>一组联合挂载在 <code>/var/lib/docker/aufs/mnt</code> 上的 <code>rootfs</code>，这一部分我们称为“容器镜像”（Container Image），是<code>容器的静态视图</code>；</li>
+<li>一个由 Namespace+Cgroups 构成的隔离环境，这一部分我们称为“容器运行时”（Container Runtime），是<code>容器的动态视图</code>。</li>
+</ul>
 <h2 id="安装docker">安装docker</h2>
 <ul>
 <li>测试开发实验(centos7.x)</li>
@@ -335,6 +342,8 @@
 </tr>
 </tbody>
 </table>
+<p>其实, docker默认会维护一个<code>ENTRYPOINT</code>(<code>/bin/sh -c</code>), 所以, <code>ENTRYPOINT</code>+<code>CMD</code> (<code>/bin/sh -c &quot;python app.py&quot;</code>)
+从字面上快来看, <code>CMD</code>就是<code>shell</code>中<code>服务运行的指令</code>, <code>ENTRYPOINT</code>是系统启动<code>服务运行的指令</code>的</p>
 <h2 id="docker-网络">Docker 网络</h2>
 <div class='align-center'>
 <p><img src="/img/blog/docker_network_01.png" alt="docker_network"></p>
@@ -811,11 +820,16 @@
 <p>docker的镜像实际是由一层一层的文件系统组成。</p>
 </blockquote>
 <hr>
-<p>路线：进程 &ndash;&gt; Namespace&amp;Cgroup &ndash;&gt; rootfs &ndash;&gt; docker</p>
+<blockquote>
+<p>容器, 是一个特殊的进程.</p>
+</blockquote>
+<blockquote>
+<p>进程 &ndash;&gt; Namespace&amp;Cgroup &ndash;&gt; rootfs &ndash;&gt; docker</p>
+</blockquote>
 <h2 id="进程--程序">进程 &amp; 程序</h2>
 <ul>
 <li><strong>程序:</strong> 用于组织和操作数据和设备的可执行指令的集合</li>
-<li><strong>进程:</strong> 程序运行起来后的动态的计算机执行要素的总和</li>
+<li><strong>进程:</strong> 程序运行起来后的动态的计算机执行要素的总和,程序的动态组织运行的逻辑集合</li>
 </ul>
 <h2 id="隔离--限制">隔离 &amp; 限制</h2>
 <ul>
@@ -846,6 +860,14 @@
 </div><p>进入一个busybox的容器内，只存在启动命令进程<code>/bin/sh</code>和查看ps命令进程<code>ps -a</code>。
 并没有云主机的运行进程&ndash;container被宿主机隔离了。</p>
 <p><strong>container真的是独立自主的运行环境？</strong>&ndash;这个虚拟机还有什么区别？</p>
+<blockquote>
+<p>虚拟机虚拟了整个宿主操作系统的硬件系统, 一个用于主机的所有的镜像系统</p>
+<p>Docker 伪装了进程, 提供一个实现和维护进程的应用.</p>
+</blockquote>
+<ul>
+<li><code>Namespace</code>通过<code>clone</code>将宿主机中一个进程封装成一个<code>局域独立</code>的进程.</li>
+<li><code>Cgroups</code>则对这样一个进程进行运行时的资源使用限制,限制一个进程组能够使用的资源上限，包括 CPU、内存、磁盘、网络带宽等.</li>
+</ul>
 <h3 id="namepsace">Namepsace</h3>
 <blockquote>
 <p><code>Namespace</code> 是<code>kernel</code>一个功能，隔离一系列的系统资源空间。用于将一个进程只能使用指定的内容。</p>
@@ -860,32 +882,32 @@
 </thead>
 <tbody>
 <tr>
-<td style="text-align:left">Mount Namespace</td>
+<td style="text-align:left"><strong>Mount</strong> Namespace</td>
 <td style="text-align:left">CLONE_NEWNS</td>
 <td style="text-align:left">隔离进程所能看到的挂载点视图</td>
 </tr>
 <tr>
-<td style="text-align:left">UTS Namespace</td>
+<td style="text-align:left"><strong>UTS</strong> Namespace</td>
 <td style="text-align:left">CLONE_NEWUTS</td>
 <td style="text-align:left">隔离nodename和domainname UTS 用于属于自己的hostname</td>
 </tr>
 <tr>
-<td style="text-align:left">IPC Namespace</td>
+<td style="text-align:left"><strong>IPC</strong> Namespace</td>
 <td style="text-align:left">CLONE_NEWIPC</td>
 <td style="text-align:left">隔离System V PIC和POSIX queues</td>
 </tr>
 <tr>
-<td style="text-align:left">PID Namesapce</td>
+<td style="text-align:left"><strong>PID</strong> Namesapce</td>
 <td style="text-align:left">CLONE_NEWPID</td>
 <td style="text-align:left">隔离进程PID</td>
 </tr>
 <tr>
-<td style="text-align:left">Network Namespace</td>
+<td style="text-align:left"><strong>Network</strong> Namespace</td>
 <td style="text-align:left">CLONE_NEWNET</td>
 <td style="text-align:left">隔离网络设备、IP地址端口等网络Namespace</td>
 </tr>
 <tr>
-<td style="text-align:left">User Namespace</td>
+<td style="text-align:left"><strong>User</strong> Namespace</td>
 <td style="text-align:left">CLONE_NEWUSER</td>
 <td style="text-align:left">隔离用户组</td>
 </tr>
@@ -1336,7 +1358,7 @@
     <div class="post-copyright">
   <p class="copyright-item">
     <span class="item-title">Author</span>
-    <span class="item-content">CodeMax</span>
+    <span class="item-content">zhuzaiye</span>
   </p>
   <p class="copyright-item">
     <span class="item-title">LastMod</span>
@@ -1355,11 +1377,11 @@
       <nav class="post-nav">
         <a class="prev" href="/post/20220413-go-bitmap/">
             <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">基于go的Bitmap 序列化和反序列化</span>
+            <span class="prev-text nav-default">基于go的Bitmap序列化和反序列化</span>
             <span class="prev-text nav-mobile">Prev</span>
           </a>
         <a class="next" href="/post/20220320-algo-array/">
-            <span class="next-text nav-default">Algorithm: Array Series</span>
+            <span class="next-text nav-default">数据与算法-Array</span>
             <span class="next-text nav-mobile">Next</span>
             <i class="iconfont icon-right"></i>
           </a>
@@ -1373,7 +1395,7 @@
     <script type="text/javascript">
       var gitalk = new Gitalk({
         id: '2022-03-22 22:50:23 \u002b0800 CST',
-        title: 'Docker',
+        title: 'Docker实践',
         clientID: '9c36634fbb845c1d1d64',
         clientSecret: '3d57254b5ffccf04f9d973cc42b1d84ecd48fd01',
         repo: 'zhuzaiye.github.io',
@@ -1413,7 +1435,7 @@
     &copy; 
     2022 - 
     2023<span class="division"></span>
-    <span>CodeMax</span>
+    <span>zhuzaiye</span>
   </span>
 </div>
 
@@ -1434,7 +1456,21 @@
 
 
 
-
+<script id="baidu_push">
+  (function(){
+    if (window.location.hostname === 'localhost') return;
+    var bp = document.createElement('script'); bp.async = true;
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+      bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+      bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+  })();
+</script>
 
 
 

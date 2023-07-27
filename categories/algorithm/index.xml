@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Algorithm on CodeMax</title>
+    <title>Algorithm on zhuzaiye</title>
     <link>https://zhuzaiye.github.io/categories/algorithm/</link>
-    <description>Recent content in Algorithm on CodeMax</description>
+    <description>Recent content in Algorithm on zhuzaiye</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Wed, 11 May 2022 19:44:20 +0800</lastBuildDate><atom:link href="https://zhuzaiye.github.io/categories/algorithm/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>BiaryTree[二叉树]</title>
+      <title>数据与算法-BiaryTree</title>
       <link>https://zhuzaiye.github.io/post/20220511-biarytree/</link>
       <pubDate>Wed, 11 May 2022 19:44:20 +0800</pubDate>
       
@@ -17,7 +17,7 @@
     </item>
     
     <item>
-      <title>LinkList[链表]</title>
+      <title>数据与算法-LinkList</title>
       <link>https://zhuzaiye.github.io/post/20220424-link-list/</link>
       <pubDate>Sun, 24 Apr 2022 22:29:10 +0800</pubDate>
       
@@ -26,7 +26,16 @@
     </item>
     
     <item>
-      <title>Algorithm: Array Series</title>
+      <title>基于go的Bitmap序列化和反序列化</title>
+      <link>https://zhuzaiye.github.io/post/20220413-go-bitmap/</link>
+      <pubDate>Wed, 13 Apr 2022 22:26:50 +0800</pubDate>
+      
+      <guid>https://zhuzaiye.github.io/post/20220413-go-bitmap/</guid>
+      <description>由于需要对较大数量的个体内容的出现进行记录、去重、查找和存储, 便于后续的统计分析。 考虑使用bitmap来实现对个体出现的记录和去重。 bitm</description>
+    </item>
+    
+    <item>
+      <title>数据与算法-Array</title>
       <link>https://zhuzaiye.github.io/post/20220320-algo-array/</link>
       <pubDate>Sun, 20 Mar 2022 12:56:13 +0800</pubDate>
       
