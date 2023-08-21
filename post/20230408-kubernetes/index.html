@@ -1,0 +1,2686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Kubernetes - zhuzaiye</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="zhuzaiye" /><meta name="description" content="K8s[Kubernetes] 服务编排和控制技术. 二八原则 kubeadm部署k8s kubeadm token create &amp;ndash;print-join-command &amp;ndash;ttl=0 生成永久token 两台虚拟机 centos 7系统 二进制安装靠可用k8s集群 vm12 开启三个2核" /><meta name="keywords" content="Kubernetes" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.95.0 with theme even" />
+
+
+<link rel="canonical" href="https://zhuzaiye.github.io/post/20230408-kubernetes/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.4c69509e2bef5eac5f94e1a12f8cd80af3c4f4127832bf2a0e6103d38c5d892d.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Kubernetes" />
+<meta property="og:description" content="K8s[Kubernetes] 服务编排和控制技术. 二八原则 kubeadm部署k8s kubeadm token create &ndash;print-join-command &ndash;ttl=0 生成永久token 两台虚拟机 centos 7系统 二进制安装靠可用k8s集群 vm12 开启三个2核" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhuzaiye.github.io/post/20230408-kubernetes/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2023-04-08T09:20:36+08:00" />
+<meta property="article:modified_time" content="2023-04-08T09:20:36+08:00" />
+
+
+<meta itemprop="name" content="Kubernetes">
+<meta itemprop="description" content="K8s[Kubernetes] 服务编排和控制技术. 二八原则 kubeadm部署k8s kubeadm token create &ndash;print-join-command &ndash;ttl=0 生成永久token 两台虚拟机 centos 7系统 二进制安装靠可用k8s集群 vm12 开启三个2核"><meta itemprop="datePublished" content="2023-04-08T09:20:36+08:00" />
+<meta itemprop="dateModified" content="2023-04-08T09:20:36+08:00" />
+<meta itemprop="wordCount" content="8877">
+<meta itemprop="keywords" content="Kubernetes,k8s," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Kubernetes"/>
+<meta name="twitter:description" content="K8s[Kubernetes] 服务编排和控制技术. 二八原则 kubeadm部署k8s kubeadm token create &ndash;print-join-command &ndash;ttl=0 生成永久token 两台虚拟机 centos 7系统 二进制安装靠可用k8s集群 vm12 开启三个2核"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">zhuzaiye</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">zhuzaiye</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Kubernetes</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2023-04-08 </span>
+        <div class="post-category">
+            <a href="/categories/cloudnative/"> CloudNative </a>
+            </div>
+          <span class="more-meta"> 8877 words </span>
+          <span class="more-meta"> 18 mins read </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#kubeadm部署k8s">kubeadm部署k8s</a></li>
+        <li><a href="#二进制安装靠可用k8s集群">二进制安装靠可用k8s集群</a>
+          <ul>
+            <li><a href="#vm12-开启三个2核4g的虚拟机">vm12 开启三个2核4G的虚拟机</a></li>
+            <li><a href="#所有虚拟机节点配置网络">所有虚拟机节点配置网络</a></li>
+            <li><a href="#系统配置">系统配置</a></li>
+            <li><a href="#配置yum源">配置yum源</a></li>
+            <li><a href="#同步时间">同步时间</a></li>
+            <li><a href="#k8s-master配置登录密钥只在k8s中或多个管理节点">k8s-master配置登录密钥(只在k8s中或多个管理节点)</a></li>
+            <li><a href="#升级内核310-54所有节点">升级内核(3.10-&gt;5.4)(所有节点)</a></li>
+            <li><a href="#配置ipv所有节点">配置ipv(所有节点)</a></li>
+            <li><a href="#适配k8s的内核参数所有节点">适配k8s的内核参数(所有节点)</a></li>
+            <li><a href="#基础组件安装-docker所有节点">基础组件安装-docker(所有节点)</a></li>
+            <li><a href="#基础组件安装-k8s">基础组件安装-k8s</a></li>
+            <li><a href="#生成证书">生成证书</a></li>
+            <li><a href="#生成k8s证书">生成k8s证书</a></li>
+            <li><a href="#k8s-master生成私钥和公钥"><code>k8s-master</code>生成私钥和公钥</a></li>
+            <li><a href="#发送证书到其他节点-由于是单节点所有就不需要了">发送证书到其他节点-(由于是单节点所有就不需要了)</a></li>
+            <li><a href="#配置etcd">配置ETCD</a></li>
+            <li><a href="#k8s-master节点配置"><code>k8s-master</code>节点配置</a></li>
+          </ul>
+        </li>
+        <li><a href="#pod">pod</a></li>
+        <li><a href="#controller">controller</a></li>
+        <li><a href="#scheduler">scheduler</a></li>
+        <li><a href="#configmap">configMap</a></li>
+        <li><a href="#storage">storage</a></li>
+        <li><a href="#network">network</a></li>
+        <li><a href="#safety">safety</a></li>
+        <li><a href="#yaml文件">Yaml文件</a></li>
+        <li><a href="#statefulset">Statefulset</a>
+          <ul>
+            <li><a href="#拓扑状态">拓扑状态</a></li>
+            <li><a href="#存储状态">存储状态</a></li>
+            <li><a href="#状态实践">状态实践</a></li>
+          </ul>
+        </li>
+        <li><a href="#持久化存储状态volume和persistent-volume">持久化存储状态(volume和Persistent Volume)</a></li>
+        <li><a href="#网络">网络</a></li>
+        <li><a href="#runtimecri">[runtimeCRI]</a>
+          <ul>
+            <li><a href="#kubelet">kubelet</a></li>
+          </ul>
+        </li>
+        <li><a href="#监控和日志">监控和日志</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <blockquote>
+<p>K8s[Kubernetes] 服务编排和控制技术.</p>
+<p>二八原则</p>
+</blockquote>
+<h2 id="kubeadm部署k8s">kubeadm部署k8s</h2>
+<blockquote>
+<p>kubeadm token create &ndash;print-join-command &ndash;ttl=0 生成永久token</p>
+</blockquote>
+<p>两台虚拟机 centos 7系统</p>
+<h2 id="二进制安装靠可用k8s集群">二进制安装靠可用k8s集群</h2>
+<h3 id="vm12-开启三个2核4g的虚拟机">vm12 开启三个2核4G的虚拟机</h3>
+<h3 id="所有虚拟机节点配置网络">所有虚拟机节点配置网络</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># vi /etc/sysconfig/network</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt; NETWORKING=yes</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt; HOSTNAME=master</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>配置ens, 请查看虚拟机网关和分别设置主节点和work节点的ens(32或者33)</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># vi /etc/sysconfig/network-scripts/ifcfg-ens33</span>
+</span></span><span class="line"><span class="cl"><span class="nv">TYPE</span><span class="o">=</span>Ethernet
+</span></span><span class="line"><span class="cl"><span class="nv">PROXY_METHOD</span><span class="o">=</span>none
+</span></span><span class="line"><span class="cl"><span class="nv">BROWSER_ONLY</span><span class="o">=</span>no
+</span></span><span class="line"><span class="cl"><span class="nv">BOOTPROTO</span><span class="o">=</span>static  <span class="c1"># 修改BOOTPROTO=dchp改成static, 静态IP</span>
+</span></span><span class="line"><span class="cl"><span class="nv">DEFROUTE</span><span class="o">=</span>yes
+</span></span><span class="line"><span class="cl"><span class="nv">IPV4_FAILURE_FATAL</span><span class="o">=</span>no
+</span></span><span class="line"><span class="cl"><span class="nv">IPV6INIT</span><span class="o">=</span>yes
+</span></span><span class="line"><span class="cl"><span class="nv">IPV6_AUTOCONF</span><span class="o">=</span>yes
+</span></span><span class="line"><span class="cl"><span class="nv">IPV6_DEFROUTE</span><span class="o">=</span>yes
+</span></span><span class="line"><span class="cl"><span class="nv">IPV6_FAILURE_FATAL</span><span class="o">=</span>no
+</span></span><span class="line"><span class="cl"><span class="nv">IPV6_ADDR_GEN_MODE</span><span class="o">=</span>stable-privacy
+</span></span><span class="line"><span class="cl"><span class="c1"># UUID=XXXX-XXXX-XXXX # 删除 </span>
+</span></span><span class="line"><span class="cl"><span class="nv">ONBOOT</span><span class="o">=</span>yes  <span class="c1"># 修改ONBOOT=no 开机自启</span>
+</span></span><span class="line"><span class="cl"><span class="nv">IPADDR</span><span class="o">=</span>192.168.163.100 <span class="c1"># k8s-master IP地址</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># IPADDR=192.168.163.101 # k8s-node1 IP地址</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># IPADDR=192.168.163.101 # k8s-node2 IP地址</span>
+</span></span><span class="line"><span class="cl"><span class="nv">NETMASK</span><span class="o">=</span>255.255.255.0 <span class="c1"># 增加</span>
+</span></span><span class="line"><span class="cl"><span class="nv">GATEWAY</span><span class="o">=</span>192.168.163.2 <span class="c1"># 增加 NAT分配的子网地址可在编辑→虚拟网络编辑器中查看</span>
+</span></span><span class="line"><span class="cl"><span class="nv">NAME</span><span class="o">=</span>ens33
+</span></span><span class="line"><span class="cl"><span class="nv">DEVICE</span><span class="o">=</span>ens33
+</span></span><span class="line"><span class="cl"><span class="nv">DNS1</span><span class="o">=</span>192.168.163.2 <span class="c1"># 增加</span>
+</span></span><span class="line"><span class="cl"><span class="nv">DNS2</span><span class="o">=</span>114.114.114.114 <span class="c1"># 增加</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>配置hosts</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># vi /etc/hosts</span>
+</span></span><span class="line"><span class="cl">127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+</span></span><span class="line"><span class="cl">::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">192.168.163.100 k8s-master
+</span></span><span class="line"><span class="cl">192.168.163.101 k8s-node1
+</span></span><span class="line"><span class="cl">192.168.163.102 k8s-node2
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>重启</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">reboot
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="系统配置">系统配置</h3>
+<p>关闭防火墙</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># service iptables stop</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># systemctl disable iptables</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>禁用selinux</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># 查看selinux</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># getenforce</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 关闭selinux</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># vi /etc/selinux/config</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt; SELINUX=disabled</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>禁用防火墙</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># systemctl stop firewalld</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># systemctl disable firewalld</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>关闭swap</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># swapoff -a</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># sed -ie &#39;/swap/ s/^/# /&#39; /etc/fstab</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 查看关闭情况</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># free -m</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="配置yum源">配置yum源</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># curl -o /etc/yum.repos.d/CentOS-Base.repo https://mirrors.aliyun.com/repo/Centos-7.repo</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># yum makecache</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># yum intsall -y vim</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="同步时间">同步时间</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># yum install ntp</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 开启服务</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># service ntpd start</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 开启自启</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># systemctl enable ntpd</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="k8s-master配置登录密钥只在k8s中或多个管理节点">k8s-master配置登录密钥(只在k8s中或多个管理节点)</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># vim /etc/ssh/sshd_config</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt; UseDNS no</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt; PermitRootLogin yes #允许root登录</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt; PermitEmptyPasswords no #不允许空密码登录</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt; PasswordAuthentication yes # 设置是否使用口令验证</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 实现免密登录</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ssh-keygen -t rsa</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># for i in k8s-node1 k8s-node2; do ssh-copy-id -i .ssh/id_rsa.pub $i; done</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ssh root@k8s-node1</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ssh root@k8s-node2</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="升级内核310-54所有节点">升级内核(3.10-&gt;5.4)(所有节点)</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># 通过rpm包管理系统升级</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查看现有内核</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># uname -r </span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt; 3.10.0-1160.92.1.el7.x86_64 </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># cat /etc/centos-release 或者 cat /proc/version 查看系统版本及内核版本</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt; CentOS Linux release 7.9.2009 (Core)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 下载新版内核的rpm包</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># cd /root</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># wget https://mirrors.aliyun.com/elrepo/kernel/el7/x86_64/RPMS/kernel-lt-5.4.250-1.el7.elrepo.x86_64.rpm</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># wget https://mirrors.aliyun.com/elrepo/kernel/el7/x86_64/RPMS/kernel-lt-devel-5.4.250-1.el7.elrepo.x86_64.rpm</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 分发rpm到其他node</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># for i in k8s-node1 k8s-node2;do scp kernel-lt-5.4.250-1.el7.elrepo.x86_64.rpm kernel-lt-devel-5.4.250-1.el7.elrepo.x86_64.rpm $i:/root/;done</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 安装新的kernel的rpm</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># cd /root &amp;&amp; yum localinstall -y kernel-lt*</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查看系统上所有内核</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># awk -F\&#39; &#39;$1==&#34;menuentry &#34; {print i++ &#34; : &#34; $2}&#39; /etc/grub2.cfg</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt; 0 : CentOS Linux (5.4.250-1.el7.elrepo.x86_64) 7 (Core)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt; 1 : CentOS Linux (3.10.0-1160.92.1.el7.x86_64) 7 (Core)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt; 2 : CentOS Linux (3.10.0-1160.el7.x86_64) 7 (Core)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt; 3 : CentOS Linux (0-rescue-6a9496cb258542439f69c61bbf8a903b) 7 (Core)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 通过 grub2-set-default 0 命令或编辑 /etc/default/grub进行设置启动加载内核</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># grub2-set-default 0</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># vim /etc/default/grub</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt; GRUB_TIMEOUT=5</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt; GRUB_DISTRIBUTOR=&#34;$(sed &#39;s, release .*$,,g&#39; /etc/system-release)&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt; GRUB_DEFAULT=0  ## 设置为 awk 查看的内核序号</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt; GRUB_DISABLE_SUBMENU=true</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt; GRUB_TERMINAL_OUTPUT=&#34;console&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt; GRUB_CMDLINE_LINUX=&#34;crashkernel=auto spectre_v2=retpoline rd.lvm.lv=centos/root rd.lvm.lv=centos/swap rhgb quiet&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt; GRUB_DISABLE_RECOVERY=&#34;true&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 生成grub配置文件并重启</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># grub2-mkconfig -o /boot/grub2/grub.cfg</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># reboot</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查看系统现有默认内核版本</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># grubby --default-kernel</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt; /boot/vmlinuz-5.4.250-1.el7.elrepo.x86_64</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查看系统中全部内核rpm信息</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># rpm -qa | grep kernel</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt; kernel-tools-3.10.0-1160.92.1.el7.x86_64</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt; kernel-tools-libs-3.10.0-1160.92.1.el7.x86_64</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt; kernel-lt-devel-5.4.250-1.el7.elrepo.x86_64</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt; kernel-3.10.0-1160.92.1.el7.x86_64</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt; kernel-3.10.0-1160.el7.x86_64</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt; kernel-lt-5.4.250-1.el7.elrepo.x86_64</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 删除旧内核的rpm</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># yum remove kernel-tools-3.10.0-1160.92.1.el7.x86_64 kernel-tools-libs-3.10.0-1160.92.1.el7.x86_64 kernel-3.10.0-1160.92.1.el7.x86_64 kernel-3.10.0-1160.el7.x86_64</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 通过yum-utils工具计形清除旧的rpm信息</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># package-cleanup --oldkernels</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="配置ipv所有节点">配置ipv(所有节点)</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># 详细了解ipvs请看:https://icloudnative.io/posts/ipvs-how-kubernetes-services-direct-traffic-to-pods/</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 安装ipvs</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># yum install ipvsadm ipset sysstat conntrack libseccomp -y</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># vim /etc/modules-load.d/ipvs.conf</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 加入以下内容</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt; ip_vs</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt; ip_vs_lc</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt; ip_vs_wlc</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt; ip_vs_rr</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt; ip_vs_wrr</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt; ip_vs_lblc</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt; ip_vs_lblcr</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt; ip_vs_dh</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt; ip_vs_sh</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt; ip_vs_fo</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt; ip_vs_nq</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt; ip_vs_sed</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt; ip_vs_ftp</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt; ip_vs_sh</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt; nf_conntrack</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt; ip_tables</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt; ip_set</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt; xt_set</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt; ipt_set</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt; ipt_rpfilter</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt; ipt_REJECT</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt; ipip</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># ipv配置生效</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># systemctl enable --now systemd-modules-load.service</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="适配k8s的内核参数所有节点">适配k8s的内核参数(所有节点)</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># vim /etc/sysctl.d/k8s.conf</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt; net.ipv4.ip_forward = 1</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt; net.bridge.bridge-nf-call-iptables = 1</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt; net.bridge.bridge-nf-call-ip6tables = 1</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt; fs.may_detach_mounts = 1</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt; net.ipv4.conf.all.route_localnet = 1</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt; vm.overcommit_memory=1</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt; vm.panic_on_oom=0</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt; fs.inotify.max_user_watches=89100</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt; fs.file-max=52706963</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt; fs.nr_open=52706963</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt; net.netfilter.nf_conntrack_max=2310720</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt; </span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt; net.ipv4.tcp_keepalive_time = 600</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt; net.ipv4.tcp_keepalive_probes = 3</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt; net.ipv4.tcp_keepalive_intvl =15</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt; net.ipv4.tcp_max_tw_buckets = 36000</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt; net.ipv4.tcp_tw_reuse = 1</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt; net.ipv4.tcp_max_orphans = 327680</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt; net.ipv4.tcp_orphan_retries = 3</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt; net.ipv4.tcp_syncookies = 1</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt; net.ipv4.tcp_max_syn_backlog = 16384</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt; net.ipv4.ip_conntrack_max = 65536</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt; net.ipv4.tcp_max_syn_backlog = 16384</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt; net.ipv4.tcp_timestamps = 0</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt; net.core.somaxconn = 16384</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 启用</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># sysctl --system</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 重启</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># reboot</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># lsmod | grep --color=auto -e ip_vs -e nf_conntrack</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>net.ipv4.ip_forward：允许系统在网络接口之间转发IP数据包</li>
+<li>net.bridge.bridge-nf-call-iptables：启用iptables处理桥接的网络流量</li>
+<li>net.bridge.bridge-nf-call-ip6tables：启用ip6tables处理桥接的网络流量</li>
+<li>fs.may_detach_mounts：允许在使用时卸载文件系统</li>
+<li>net.ipv4.conf.all.route_localnet：允许本地源IP地址的数据包路由</li>
+<li>vm.overcommit_memory：控制内存分配的过度提交行为</li>
+<li>vm.panic_on_oom：控制当发生内存不足条件时内核崩溃的行为</li>
+<li>fs.inotify.max_user_watches：指定每个用户的最大inotify监视数</li>
+<li>fs.file-max：指定最大打开文件数</li>
+<li>fs.nr_open：指定可打开的文件句柄的最大数</li>
+<li>net.netfilter.nf_conntrack_max：指定最大跟踪连接数</li>
+<li>net.ipv4.tcp_keepalive_time：指定TCP keepalive探测之间的间隔时间</li>
+<li>net.ipv4.tcp_keepalive_probes：指定可以发送的TCP keepalive探测的数量</li>
+<li>net.ipv4.tcp_keepalive_intvl：指定TCP keepalive探测之间的间隔时间</li>
+<li>net.ipv4.tcp_max_tw_buckets：指定timewait套接字的最大数量</li>
+<li>net.ipv4.tcp_tw_reuse：控制timewait套接字是否可以被重用</li>
+<li>net.ipv4.tcp_max_orphans：指定最大孤立套接字数量</li>
+<li>net.ipv4.tcp_orphan_retries：指定孤立套接字的重试次数</li>
+<li>net.ipv4.tcp_syncookies：启用TCP syncookies以防止SYN洪泛攻击</li>
+<li>net.ipv4.tcp_max_syn_backlog：指定侦听队列的最大大小</li>
+<li>net.ipv4.ip_conntrack_max：指定最大跟踪连接数</li>
+<li>net.ipv4.tcp_max_syn_backlog：指定侦听队列的最大大小</li>
+<li>net.ipv4.tcp_timestamps：启用TCP时间戳以进行性能优化</li>
+<li>net.core.somaxconn：指定侦听队列中的最大连接数</li>
+</ul>
+<h3 id="基础组件安装-docker所有节点">基础组件安装-docker(所有节点)</h3>
+<blockquote>
+<ol>
+<li><code>Containerd</code>作为<code>runtime</code>&ndash;k8s-1.24以上最好使用</li>
+<li><code>Docker</code>作为<code>runtime</code></li>
+</ol>
+</blockquote>
+<p>使用<code>Docker</code>作为<code>Runtime</code>, 安装<code>docker-ce-20.10</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># yum install -y docker-ce-20.10.* docker-ce-cli-20.10.*</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>新版<code>kubelet</code>建议使用<code>systemd</code>, <code>Docker</code>的<code>native.cgroupdriver</code>设置为<code>systemd</code>
+并配置<code>docker hub</code>的镜像</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># mkdir /etc/docker</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># vim /etc/docker/daemon.json</span>
+</span></span><span class="line"><span class="cl"><span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;exec-opts&#34;</span>: <span class="o">[</span><span class="s2">&#34;native.cgroupdriver=systemd&#34;</span><span class="o">]</span>,
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;registry-mirrors&#34;</span>: <span class="o">[</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;https://hub-mirror.c.163.com&#34;</span>,
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;https://docker.mirrors.ustc.edu.cn&#34;</span>,
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;https://registry.docker-cn.com&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="o">]</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>所有节点启动<code>docker</code>并设置开机自启</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># systemctl daemon-reload &amp;&amp; systemctl enable --now docker</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="基础组件安装-k8s">基础组件安装-k8s</h3>
+<p>所有节点启动<code>docker</code>并设置开机自启</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># k8s-master节点</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 下载k8安装包</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># wget https://dl.k8s.io/v1.22.0/kubernetes-server-linux-amd64.tar.gz</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 下载etcd安装包</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># wget https://github.com/etcd-io/etcd/releases/download/v3.4.27/etcd-v3.4.27-linux-amd64.tar.gz</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 解压k8s到bin目录下进行安装</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># tar -xf kubernetes-server-linux-amd64.tar.gz  --strip-components=3 -C /usr/local/bin kubernetes/server/bin/kube{let,ctl,-apiserver,-controller-manager,-scheduler,-proxy}</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># tar -zxvf etcd-v3.4.27-linux-amd64.tar.gz --strip-components=1 -C /usr/local/bin etcd-v3.4.27-linux-amd64/etcd{,ctl}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>分发安装</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># 高可用master分发安装包</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># MasterNodes=&#39;k8s-master2 k8s-master3&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># for NODE in $MasterNodes; do echo $NODE; scp /usr/local/bin/kube{let,ctl,-apiserver,-controller-manager,-scheduler,-proxy} $NODE:/usr/local/bin/; scp /usr/local/bin/etcd* $NODE:/usr/local/bin/; done</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 分发work节点</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># for NODE in k8s-node1 k8s-node2;do scp /usr/local/bin/kube{let,-proxy} $NODE:/usr/local/bin/ ;done</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>所有节点创建/opt/cni/bin目录</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># mkdir -p /opt/cni/bin</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="生成证书">生成证书</h3>
+<p>使用<code>CFSSL</code>工具生成证书, 只需要在<code>k8s-master</code>进行操作.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># wget &#34;https://pkg.cfssl.org/R1.2/cfssl_linux-amd64&#34; -o /usr/local/bin/cfssl</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># wget &#34;https://pkg.cfssl.org/R1.2/cfssljson_linux-amd64&#34; -o /usr/local/bin/cfssljson</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># chmod +x /usr/local/bin/cfssl /usr/local/bin/cfssljson</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 如果下载失败, 请手动下载, 并放在指定地方并修改名称</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># mv cfssl_linux-amd64 cfssl</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># mv cfssljson_linux-amd64 cfssljson</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 检验是否安装成功</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># cfssl version</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt; Version: 1.2.0</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt; Revision: dev</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt; Runtime: go1.6</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>ETCD</code>证书&ndash;mster节点需要</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># mkdir -p /etc/etcd/ssl</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>K8s</code>证书&ndash;所有节点</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># mkdir -p /etc/kubernetes/pki</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>参考<code>https://github.com/dotbalo/k8s-ha-install/tree/manual-installation-v1.22.x</code>内容,</li>
+<li>参考<code>https://www.cnblogs.com/machangwei-8/p/16840481.html#_label3</code>内容</li>
+</ul>
+<p>主要用于手动安装<code>k8s</code>环境需要的配置文件等</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># mkdir -p /root/k8s-ha</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># vim ca-config.json</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt; {</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt;   &#34;signing&#34;: {</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt;     &#34;default&#34;: {</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt;       &#34;expiry&#34;: &#34;876000h&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt;     },</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt;     &#34;profiles&#34;: {</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt;       &#34;kubernetes&#34;: {</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt;         &#34;usages&#34;: [</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt;             &#34;signing&#34;,</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt;             &#34;key encipherment&#34;,</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt;             &#34;server auth&#34;,</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt;             &#34;client auth&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt;         ],</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt;         &#34;expiry&#34;: &#34;876000h&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt;       }</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt;     }</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt;   }</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt; }</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># vim /root/k8s-ha/etcd-ca-csr.json</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt; {</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt;   &#34;CN&#34;: &#34;etcd&#34;,</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt;   &#34;key&#34;: {</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt;     &#34;algo&#34;: &#34;rsa&#34;,</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt;     &#34;size&#34;: 2048</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt;   },</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt;   &#34;names&#34;: [</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt;     {</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt;       &#34;C&#34;: &#34;CN&#34;,</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt;       &#34;ST&#34;: &#34;Beijing&#34;,</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt;       &#34;L&#34;: &#34;Beijing&#34;,</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt;       &#34;O&#34;: &#34;etcd&#34;,</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt;       &#34;OU&#34;: &#34;Etcd Security&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt;     }</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt;   ],</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt;   &#34;ca&#34;: {</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt;     &#34;expiry&#34;: &#34;876000h&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt;   }</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt; }</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># vim /root/k8s-ha/etcd-csr.json</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt; {</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt;   &#34;CN&#34;: &#34;etcd&#34;,</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt;   &#34;key&#34;: {</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt;     &#34;algo&#34;: &#34;rsa&#34;,</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt;     &#34;size&#34;: 2048</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt;   },</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt;   &#34;names&#34;: [</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt;     {</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt;       &#34;C&#34;: &#34;CN&#34;,</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt;       &#34;ST&#34;: &#34;Beijing&#34;,</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt;       &#34;L&#34;: &#34;Beijing&#34;,</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt;       &#34;O&#34;: &#34;etcd&#34;,</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt;       &#34;OU&#34;: &#34;Etcd Security&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt;     }</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt;   ]</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt; }</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 生成etcd CA证书</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># cfssl gencert -initca etcd-ca-csr.json | cfssljson -bare /etc/etcd/ssl/etcd-ca</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt; 2023/08/19 22:47:44 [INFO] generating a new CA key and certificate from CSR</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt; 2023/08/19 22:47:44 [INFO] generate received request</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt; 2023/08/19 22:47:44 [INFO] received CSR</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt; 2023/08/19 22:47:44 [INFO] generating key: rsa-2048</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt; 2023/08/19 22:47:44 [INFO] encoded CSR</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt; 2023/08/19 22:47:44 [INFO] signed certificate with serial number 602044406162881782857402889892933919790484871979</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># ll /etc/etcd/ssl/</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt; -rw-r--r-- 1 root root 1005 Aug 19 22:47 etcd-ca.csr</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt; -rw------- 1 root root 1679 Aug 19 22:47 etcd-ca-key.pem</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt; -rw-r--r-- 1 root root 1367 Aug 19 22:47 etcd-ca.pem</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 生成etcd CA证书的key, -hostname loc_ip, master集群名称和对应IP addr, 使用,隔开</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># cfssl gencert -ca=/etc/etcd/ssl/etcd-ca.pem -ca-key=/etc/etcd/ssl/etcd-ca-key.pem -config=ca-config.json -hostname=127.0.0.1,k8s-master,192.168.163.100  -profile=kubernetes etcd-csr.json | cfssljson -bare /etc/etcd/ssl/etcd</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="生成k8s证书">生成k8s证书</h3>
+<ul>
+<li><code>kube-apiserver</code>的证书</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># vim /root/k8s-ha/ca-csr.json</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt; {</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt;   &#34;CN&#34;: &#34;kubernetes&#34;,</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt;   &#34;key&#34;: {</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt;     &#34;algo&#34;: &#34;rsa&#34;,</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt;     &#34;size&#34;: 2048</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt;   },</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt;   &#34;names&#34;: [</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt;     {</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt;       &#34;C&#34;: &#34;CN&#34;,</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt;       &#34;ST&#34;: &#34;Beijing&#34;,</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt;       &#34;L&#34;: &#34;Beijing&#34;,</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt;       &#34;O&#34;: &#34;Kubernetes&#34;,</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt;       &#34;OU&#34;: &#34;Kubernetes-manual&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt;     }</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt;   ],</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt;   &#34;ca&#34;: {</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt;     &#34;expiry&#34;: &#34;876000h&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt;   }</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt; }</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># cfssl gencert -initca ca-csr.json | cfssljson -bare /etc/kubernetes/pki/ca</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 生成10.96.0.1是k8s service网段证书。如果不是高可用集群虚拟VIP地址：192.168.163.100更改为k8s-master1主机IP地址, </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># cfssl gencert -ca=/etc/kubernetes/pki/ca.pem -ca-key=/etc/kubernetes/pki/ca-key.pem  -config=ca-config.json -hostname=10.96.0.1,192.168.163.100,127.0.0.1,kubernetes,kubernetes.default,kubernetes.default.svc,kubernetes.default.svc.cluster,kubernetes.default.svc.cluster.local,192.168.163.100,192.168.163.101,192.168.163.102   -profile=kubernetes apiserver-csr.json | cfssljson -bare /etc/kubernetes/pki/apiserver</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>生成聚合证书, 用于扩展CRD请求验证</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># vim front-proxy-ca-csr.json</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># vim front-proxy-client-csr.json</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># cfssl gencert -initca front-proxy-ca-csr.json | cfssljson -bare /etc/kubernetes/pki/front-proxy-ca</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># cfssl gencert -ca=/etc/kubernetes/pki/front-proxy-ca.pem -ca-key=/etc/kubernetes/pki/front-proxy-ca-key.pem  -config=ca-config.json -profile=kubernetes front-proxy-client-csr.json | cfssljson -bare /etc/kubernetes/pki/front-proxy-client</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>生成<code>Controller Manager</code>证书</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># vim manager-csr.json</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># cfssl gencert -ca=/etc/kubernetes/pki/ca.pem -ca-key=/etc/kubernetes/pki/ca-key.pem -config=ca-config.json -profile=kubernetes manager-csr.json | cfssljson -bare /etc/kubernetes/pki/controller-manager</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 使用Kubectl生成一个Controller Manager所用的kubeconfig</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Controller Manager需要和APIServer进行通信，此时可以使用kubeconfig配置链接APIServer的信息，比如需要用到的证书、APIServer的地址等</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 单节点Master时, --server指定为k8s-matser-ip:16443, 默认端口是6443</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># kubectl config set-cluster kubernetes  --certificate-authority=/etc/kubernetes/pki/ca.pem --embed-certs=true --server=https://192.168.163.100:16443  --kubeconfig=/etc/kubernetes/controller-manager.kubeconfig</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt; Cluster &#34;kubernetes&#34; set.</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 为该kubeconfig文件设置一个上下文环境</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># kubectl config set-context system:kube-controller-manager@kubernetes  --cluster=kubernetes --user=system:kube-controller-manager --kubeconfig=/etc/kubernetes/controller-manager.kubeconfig</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt; Context &#34;system:kube-controller-manager@kubernetes&#34; created.</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 为该kubeconfig设置一个用户项</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># kubectl config set-credentials system:kube-controller-manager --client-certificate=/etc/kubernetes/pki/controller-manager.pem --client-key=/etc/kubernetes/pki/controller-manager-key.pem --embed-certs=true --kubeconfig=/etc/kubernetes/controller-manager.kubeconfig</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt; User &#34;system:kube-controller-manager&#34; set.</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 使用system:kube-controller-manager@kubernetes环境作为默认环境</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># kubectl config use-context system:kube-controller-manager@kubernetes --kubeconfig=/etc/kubernetes/controller-manager.kubeconfig</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt; Switched to context &#34;system:kube-controller-manager@kubernetes&#34;.</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>生成<code>Scheduler</code>证书</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># vim scheduler-csr.json</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 生成证书</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># cfssl gencert -ca=/etc/kubernetes/pki/ca.pem -ca-key=/etc/kubernetes/pki/ca-key.pem -config=ca-config.json -profile=kubernetes scheduler-csr.json | cfssljson -bare /etc/kubernetes/pki/scheduler</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 生成scheduler的kubeconfig文件</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># kubectl config set-cluster kubernetes  --certificate-authority=/etc/kubernetes/pki/ca.pem --embed-certs=true --server=https://192.168.163.100:16443  --kubeconfig=/etc/kubernetes/scheduler.kubeconfig</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt; Cluster &#34;kubernetes&#34; set.</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># kubectl config set-credentials system:kube-scheduler --client-certificate=/etc/kubernetes/pki/scheduler.pem --client-key=/etc/kubernetes/pki/scheduler-key.pem --embed-certs=true --kubeconfig=/etc/kubernetes/scheduler.kubeconfig</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt; User &#34;system:kube-scheduler&#34; set.</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># kubectl config set-context system:kube-scheduler@kubernetes --cluster=kubernetes --user=system:kube-scheduler --kubeconfig=/etc/kubernetes/scheduler.kubeconfig</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt; Context &#34;system:kube-scheduler@kubernetes&#34; created.</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># kubectl config use-context system:kube-scheduler@kubernetes --kubeconfig=/etc/kubernetes/scheduler.kubeconfig</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt; Switched to context &#34;system:kube-scheduler@kubernetes&#34;.</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>生成一个Kubectl连接API Server的kubeconfig</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># vim admin-csr.json</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 生成管理员用户的证书文件</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># cfssl gencert -ca=/etc/kubernetes/pki/ca.pem -ca-key=/etc/kubernetes/pki/ca-key.pem -config=ca-config.json -profile=kubernetes admin-csr.json | cfssljson -bare /etc/kubernetes/pki/admin</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># kubectl config set-cluster kubernetes --certificate-authority=/etc/kubernetes/pki/ca.pem --embed-certs=true     --server=https://192.168.163.100:16443  --kubeconfig=/etc/kubernetes/admin.kubeconfig</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt; Cluster &#34;kubernetes&#34; set.</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># kubectl config set-credentials kubernetes-admin --client-certificate=/etc/kubernetes/pki/admin.pem --client-key=/etc/kubernetes/pki/admin-key.pem --embed-certs=true --kubeconfig=/etc/kubernetes/admin.kubeconfig</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt; User &#34;kubernetes-admin&#34; set.</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># kubectl config set-context kubernetes-admin@kubernetes --cluster=kubernetes --user=kubernetes-admin --kubeconfig=/etc/kubernetes/admin.kubeconfig</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt; Context &#34;kubernetes-admin@kubernetes&#34; created.</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># kubectl config use-context kubernetes-admin@kubernetes --kubeconfig=/etc/kubernetes/admin.kubeconfig</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt; Switched to context &#34;kubernetes-admin@kubernetes&#34;.</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="k8s-master生成私钥和公钥"><code>k8s-master</code>生成私钥和公钥</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># openssl genrsa -out /etc/kubernetes/pki/sa.key 2048</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># openssl rsa -in /etc/kubernetes/pki/sa.key -pubout -out /etc/kubernetes/pki/sa.pub</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt; writing RSA key</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="发送证书到其他节点-由于是单节点所有就不需要了">发送证书到其他节点-(由于是单节点所有就不需要了)</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># 多master节点</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># for NODE in k8s-master1 k8s-master03;do for FILE in $(ls /etc/kubernetes/pki | grep -v etcd);do scp /etc/kubernetes/pki/${FILE} $NODE:/etc/kubernetes/pki/${FILE};done; for FILE in admin.kubeconfig controller-manager.kubeconfig scheduler.kubeconfig;do scp /etc/kubernetes/${FILE} $NODE:/etc/kubernetes/${FILE};done;fone</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="配置etcd">配置ETCD</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># vim /etc/etcd/etcd.config.yml</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;k8s-master1&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">data-dir</span><span class="p">:</span><span class="w"> </span><span class="l">/var/lib/etcd</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">wal-dir</span><span class="p">:</span><span class="w"> </span><span class="l">/var/lib/etcd/wal</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">snapshot-count</span><span class="p">:</span><span class="w"> </span><span class="m">5000</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">heartbeat-interval</span><span class="p">:</span><span class="w"> </span><span class="m">100</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">election-timeout</span><span class="p">:</span><span class="w"> </span><span class="m">1000</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">quota-backend-bytes</span><span class="p">:</span><span class="w"> </span><span class="m">0</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">listen-peer-urls</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;https://192.168.163.100:2380&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">listen-client-urls</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;https://192.168.163.100:2379,http://127.0.0.1:2379&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">max-snapshots</span><span class="p">:</span><span class="w"> </span><span class="m">3</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">max-wals</span><span class="p">:</span><span class="w"> </span><span class="m">5</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">cors</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">initial-advertise-peer-urls</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;https://192.168.163.100:2380&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">advertise-client-urls</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;https://192.168.163.100:2379&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">discovery</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">discovery-fallback</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;proxy&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">discovery-proxy</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">discovery-srv</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">initial-cluster</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;k8s-master1=https://192.168.163.100:2380&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">initial-cluster-token</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;etcd-k8s-cluster&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">initial-cluster-state</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;new&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">strict-reconfig-check</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">enable-v2</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">enable-pprof</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">proxy</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;off&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">proxy-failure-wait</span><span class="p">:</span><span class="w"> </span><span class="m">5000</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">proxy-refresh-interval</span><span class="p">:</span><span class="w"> </span><span class="m">30000</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">proxy-dial-timeout</span><span class="p">:</span><span class="w"> </span><span class="m">1000</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">proxy-write-timeout</span><span class="p">:</span><span class="w"> </span><span class="m">5000</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">proxy-read-timeout</span><span class="p">:</span><span class="w"> </span><span class="m">0</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">client-transport-security</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">cert-file</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;/etc/kubernetes/pki/etcd/etcd.pem&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">key-file</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;/etc/kubernetes/pki/etcd/etcd-key.pem&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">client-cert-auth</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">trusted-ca-file</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;/etc/kubernetes/pki/etcd/etcd-ca.pem&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">auto-tls</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">peer-transport-security</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">cert-file</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;/etc/kubernetes/pki/etcd/etcd.pem&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">key-file</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;/etc/kubernetes/pki/etcd/etcd-key.pem&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">peer-client-cert-auth</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">trusted-ca-file</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;/etc/kubernetes/pki/etcd/etcd-ca.pem&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">auto-tls</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">debug</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">log-package-levels</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">log-outputs</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">default]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">force-new-cluster</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>k8s-master</code>创建<code>etcd</code>service并启动</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># vim /usr/lib/systemd/system/etcd.service</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="k">[Unit]</span>
+</span></span><span class="line"><span class="cl"><span class="na">Description</span><span class="o">=</span><span class="s">Etcd Service</span>
+</span></span><span class="line"><span class="cl"><span class="na">Documentation</span><span class="o">=</span><span class="s">https://coreos.com/etcd/docs/latest/</span>
+</span></span><span class="line"><span class="cl"><span class="na">After</span><span class="o">=</span><span class="s">network.target</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">[Service]</span>
+</span></span><span class="line"><span class="cl"><span class="na">Type</span><span class="o">=</span><span class="s">notify</span>
+</span></span><span class="line"><span class="cl"><span class="na">ExecStart</span><span class="o">=</span><span class="s">/usr/local/bin/etcd --config-file=/etc/etcd/etcd.config.yml</span>
+</span></span><span class="line"><span class="cl"><span class="na">Restart</span><span class="o">=</span><span class="s">on-failure</span>
+</span></span><span class="line"><span class="cl"><span class="na">RestartSec</span><span class="o">=</span><span class="s">10</span>
+</span></span><span class="line"><span class="cl"><span class="na">LimitNOFILE</span><span class="o">=</span><span class="s">65536</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">[Install]</span>
+</span></span><span class="line"><span class="cl"><span class="na">WantedBy</span><span class="o">=</span><span class="s">multi-user.target</span>
+</span></span><span class="line"><span class="cl"><span class="na">Alias</span><span class="o">=</span><span class="s">etcd3.service</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>创建<code>k8s-master</code>的<code>etcd</code>证书</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># mkdir /etc/kubernetes/pki/etcd</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ln -s /etc/etcd/ssl/* /etc/kubernetes/pki/etcd/</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># systemctl daemon-reload</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 开机便启动etcd</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># systemctl enable --now etcd</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 测试</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># etcdctl --endpoints=&#34;192.168.163.100:2379&#34; --cacert=/etc/kubernetes/pki/etcd/etcd-ca.pem --cert=/etc/kubernetes/pki/etcd/etcd.pem --key=/etc/kubernetes/pki/etcd/etcd-key.pem  endpoint health</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&gt;&gt; 192.168.163.100:2379 is healthy: successfully committed proposal: took = 7.792763ms</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="k8s-master节点配置"><code>k8s-master</code>节点配置</h3>
+<ul>
+<li>APIServer</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># vim /usr/lib/systemd/system/kube-apiserver.service</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">## service 网段 10.96.0.0/16</span>
+</span></span><span class="line"><span class="cl"><span class="c1">## node 网段 192.168.163.0</span>
+</span></span><span class="line"><span class="cl"><span class="c1">## pod 网段 172.16.0.0/12</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="k">[Unit]</span>
+</span></span><span class="line"><span class="cl"><span class="na">Description</span><span class="o">=</span><span class="s">Kubernetes API Server</span>
+</span></span><span class="line"><span class="cl"><span class="na">Documentation</span><span class="o">=</span><span class="s">https://github.com/kubernetes/kubernetes</span>
+</span></span><span class="line"><span class="cl"><span class="na">After</span><span class="o">=</span><span class="s">network.target</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">[Service]</span>
+</span></span><span class="line"><span class="cl"><span class="na">ExecStart</span><span class="o">=</span><span class="s">/usr/local/bin/kube-apiserver \
+</span></span></span><span class="line"><span class="cl"><span class="s">      --v=2  \
+</span></span></span><span class="line"><span class="cl"><span class="s">      --logtostderr=true  \
+</span></span></span><span class="line"><span class="cl"><span class="s">      --allow-privileged=true  \
+</span></span></span><span class="line"><span class="cl"><span class="s">      --bind-address=0.0.0.0 \
+</span></span></span><span class="line"><span class="cl"><span class="s">      --secure-port=16443  \
+</span></span></span><span class="line"><span class="cl"><span class="s">      --insecure-port=0  \
+</span></span></span><span class="line"><span class="cl"><span class="s">      --advertise-address=192.168.163.100 \
+</span></span></span><span class="line"><span class="cl"><span class="s">      --service-cluster-ip-range=10.96.0.0/16  \
+</span></span></span><span class="line"><span class="cl"><span class="s">      --service-node-port-range=30000-32767  \
+</span></span></span><span class="line"><span class="cl"><span class="s">      --etcd-servers=https://192.168.163.100:2379 \
+</span></span></span><span class="line"><span class="cl"><span class="s">      --etcd-cafile=/etc/etcd/ssl/etcd-ca.pem  \
+</span></span></span><span class="line"><span class="cl"><span class="s">      --etcd-certfile=/etc/etcd/ssl/etcd.pem  \
+</span></span></span><span class="line"><span class="cl"><span class="s">      --etcd-keyfile=/etc/etcd/ssl/etcd-key.pem  \
+</span></span></span><span class="line"><span class="cl"><span class="s">      --client-ca-file=/etc/kubernetes/pki/ca.pem  \
+</span></span></span><span class="line"><span class="cl"><span class="s">      --tls-cert-file=/etc/kubernetes/pki/apiserver.pem  \
+</span></span></span><span class="line"><span class="cl"><span class="s">      --tls-private-key-file=/etc/kubernetes/pki/apiserver-key.pem  \
+</span></span></span><span class="line"><span class="cl"><span class="s">      --kubelet-client-certificate=/etc/kubernetes/pki/apiserver.pem  \
+</span></span></span><span class="line"><span class="cl"><span class="s">      --kubelet-client-key=/etc/kubernetes/pki/apiserver-key.pem  \
+</span></span></span><span class="line"><span class="cl"><span class="s">      --service-account-key-file=/etc/kubernetes/pki/sa.pub  \
+</span></span></span><span class="line"><span class="cl"><span class="s">      --service-account-signing-key-file=/etc/kubernetes/pki/sa.key  \
+</span></span></span><span class="line"><span class="cl"><span class="s">      --service-account-issuer=https://kubernetes.default.svc.cluster.local \
+</span></span></span><span class="line"><span class="cl"><span class="s">      --kubelet-preferred-address-types=InternalIP,ExternalIP,Hostname  \
+</span></span></span><span class="line"><span class="cl"><span class="s">      --enable-admission-plugins=NamespaceLifecycle,LimitRanger,ServiceAccount,DefaultStorageClass,DefaultTolerationSeconds,NodeRestriction,ResourceQuota  \
+</span></span></span><span class="line"><span class="cl"><span class="s">      --authorization-mode=RBAC,Node \
+</span></span></span><span class="line"><span class="cl"><span class="s">      --enable-bootstrap-token-auth=true  \
+</span></span></span><span class="line"><span class="cl"><span class="s">      --requestheader-client-ca-file=/etc/kubernetes/pki/front-proxy-ca.pem  \
+</span></span></span><span class="line"><span class="cl"><span class="s">      --proxy-client-cert-file=/etc/kubernetes/pki/front-proxy-client.pem  \
+</span></span></span><span class="line"><span class="cl"><span class="s">      --proxy-client-key-file=/etc/kubernetes/pki/front-proxy-client-key.pem  \
+</span></span></span><span class="line"><span class="cl"><span class="s">      --requestheader-allowed-names=aggregator  \
+</span></span></span><span class="line"><span class="cl"><span class="s">      --requestheader-group-headers=X-Remote-Group  \
+</span></span></span><span class="line"><span class="cl"><span class="s">      --requestheader-extra-headers-prefix=X-Remote-Extra-  \
+</span></span></span><span class="line"><span class="cl"><span class="s">      --requestheader-username-headers=X-Remote-User</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="na">Restart</span><span class="o">=</span><span class="s">on-failure</span>
+</span></span><span class="line"><span class="cl"><span class="na">RestartSec</span><span class="o">=</span><span class="s">10s</span>
+</span></span><span class="line"><span class="cl"><span class="na">LimitNOFILE</span><span class="o">=</span><span class="s">65535</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">[Install]</span>
+</span></span><span class="line"><span class="cl"><span class="na">WantedBy</span><span class="o">=</span><span class="s">multi-user.target</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>&ndash;secure-port=16443</strong>   一定要前后一致, 否则<code>kube-controller-manager</code>和<code>kube-scheduler</code>都会报<code>dial tcp 192.168.163.100:16443: connect: connection refused</code>错误.
+<strong>&ndash;insecure-port=0</strong> 默认为8080端口, <code>The connection to the server localhost:8080 was refused - did you specify the right host or port?</code>报这个错, 就是说明<code>没有把master节点加入k8s集群</code>需要以下操作:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># mkdir -p /root/.kube</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># cp /etc/kubernetes/admin.kubeconfig /root/.kube/config</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>启动ApiServer并查看ApiServer状态</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># systemctl daemon-reload &amp;&amp; systemctl enable --now kube-apiserver</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># systemctl status kube-apiserver</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 如果修改了启动配置, 需要重新加载守护程序并重新启动服务</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># systemctl daemon-reload &amp;&amp; systemctl restart kube-apiserver</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">● kube-apiserver.service - Kubernetes API Server
+</span></span><span class="line"><span class="cl">   Loaded: loaded <span class="o">(</span>/usr/lib/systemd/system/kube-apiserver.service<span class="p">;</span> enabled<span class="p">;</span> vendor preset: disabled<span class="o">)</span>
+</span></span><span class="line"><span class="cl">   Active: active <span class="o">(</span>running<span class="o">)</span> since Mon 2023-08-21 01:22:17 CST<span class="p">;</span> 7s ago
+</span></span><span class="line"><span class="cl">     Docs: https://github.com/kubernetes/kubernetes
+</span></span><span class="line"><span class="cl"> Main PID: <span class="m">57006</span> <span class="o">(</span>kube-apiserver<span class="o">)</span>
+</span></span><span class="line"><span class="cl">    Tasks: <span class="m">7</span>
+</span></span><span class="line"><span class="cl">   Memory: 367.8M
+</span></span><span class="line"><span class="cl">   CGroup: /system.slice/kube-apiserver.service
+</span></span><span class="line"><span class="cl">           └─57006 /usr/local/bin/kube-apiserver --v<span class="o">=</span><span class="m">2</span> --logtostderr<span class="o">=</span><span class="nb">true</span> --allow-privileged<span class="o">=</span><span class="nb">true</span> --bind-address<span class="o">=</span>0.0.0.0 --secure-port<span class="o">=</span><span class="m">6443</span> --insecure-p...
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Aug <span class="m">21</span> 01:22:21 k8s-master kube-apiserver<span class="o">[</span>57006<span class="o">]</span>: W0821 01:22:21.516083   <span class="m">57006</span> genericapiserver.go:455<span class="o">]</span> Skipping API apps/v1beta2 because it ha...sources.
+</span></span><span class="line"><span class="cl">Aug <span class="m">21</span> 01:22:21 k8s-master kube-apiserver<span class="o">[</span>57006<span class="o">]</span>: W0821 01:22:21.516137   <span class="m">57006</span> genericapiserver.go:455<span class="o">]</span> Skipping API apps/v1beta1 because it ha...sources.
+</span></span><span class="line"><span class="cl">Aug <span class="m">21</span> 01:22:21 k8s-master kube-apiserver<span class="o">[</span>57006<span class="o">]</span>: W0821 01:22:21.538251   <span class="m">57006</span> genericapiserver.go:455<span class="o">]</span> Skipping API admissionregistration.k8s....sources.
+</span></span><span class="line"><span class="cl">Aug <span class="m">21</span> 01:22:21 k8s-master kube-apiserver<span class="o">[</span>57006<span class="o">]</span>: I0821 01:22:21.563399   <span class="m">57006</span> plugins.go:158<span class="o">]</span> Loaded <span class="m">12</span> mutating admission controller<span class="o">(</span>s<span class="o">)</span> successfully ...
+</span></span><span class="line"><span class="cl">Aug <span class="m">21</span> 01:22:21 k8s-master kube-apiserver<span class="o">[</span>57006<span class="o">]</span>: I0821 01:22:21.563445   <span class="m">57006</span> plugins.go:161<span class="o">]</span> Loaded <span class="m">11</span> validating admission controller<span class="o">(</span>s<span class="o">)</span> successfull...
+</span></span><span class="line"><span class="cl">Aug <span class="m">21</span> 01:22:21 k8s-master kube-apiserver<span class="o">[</span>57006<span class="o">]</span>: I0821 01:22:21.576508   <span class="m">57006</span> store.go:1434<span class="o">]</span> <span class="s2">&#34;Monitoring resource count at path&#34;</span> <span class="nv">resource</span><span class="o">=</span><span class="s2">&#34;api...ervices&#34;</span>
+</span></span><span class="line"><span class="cl">Aug <span class="m">21</span> 01:22:21 k8s-master kube-apiserver<span class="o">[</span>57006<span class="o">]</span>: I0821 01:22:21.642371   <span class="m">57006</span> cacher.go:406<span class="o">]</span> cacher <span class="o">(</span>*apiregistration.APIService<span class="o">)</span>: initialized
+</span></span><span class="line"><span class="cl">Aug <span class="m">21</span> 01:22:21 k8s-master kube-apiserver<span class="o">[</span>57006<span class="o">]</span>: W0821 01:22:21.684472   <span class="m">57006</span> genericapiserver.go:455<span class="o">]</span> Skipping API apiregistration.k8s.io/v1b...sources.
+</span></span><span class="line"><span class="cl">Aug <span class="m">21</span> 01:22:21 k8s-master kube-apiserver<span class="o">[</span>57006<span class="o">]</span>: I0821 01:22:21.686377   <span class="m">57006</span> dynamic_serving_content.go:110<span class="o">]</span> <span class="s2">&#34;Loaded a new cert/key pair&#34;</span> nam...key.pem<span class="s2">&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">Aug 21 01:22:24 k8s-master kube-apiserver[57006]: I0821 01:22:24.342243   57006 aggregator.go:109] Building initial OpenAPI spec
+</span></span></span><span class="line"><span class="cl"><span class="s2">Hint: Some lines were ellipsized, use -l to show in full.
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>ControllerManager</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># vim /usr/lib/systemd/system/kube-controller-manager.service</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">[Unit]
+</span></span><span class="line"><span class="cl">Description=Kubernetes Controller Manager
+</span></span><span class="line"><span class="cl">Documentation=https://github.com/kubernetes/kubernetes
+</span></span><span class="line"><span class="cl">After=network.target
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">[Service]
+</span></span><span class="line"><span class="cl">ExecStart=/usr/local/bin/kube-controller-manager \
+</span></span><span class="line"><span class="cl">      --v=2 \
+</span></span><span class="line"><span class="cl">      --logtostderr=true \
+</span></span><span class="line"><span class="cl">      --address=127.0.0.1 \
+</span></span><span class="line"><span class="cl">      --root-ca-file=/etc/kubernetes/pki/ca.pem \
+</span></span><span class="line"><span class="cl">      --cluster-signing-cert-file=/etc/kubernetes/pki/ca.pem \
+</span></span><span class="line"><span class="cl">      --cluster-signing-key-file=/etc/kubernetes/pki/ca-key.pem \
+</span></span><span class="line"><span class="cl">      --service-account-private-key-file=/etc/kubernetes/pki/sa.key \
+</span></span><span class="line"><span class="cl">      --kubeconfig=/etc/kubernetes/controller-manager.kubeconfig \
+</span></span><span class="line"><span class="cl">      --leader-elect=true \
+</span></span><span class="line"><span class="cl">      --use-service-account-credentials=true \
+</span></span><span class="line"><span class="cl">      --node-monitor-grace-period=40s \
+</span></span><span class="line"><span class="cl">      --node-monitor-period=5s \
+</span></span><span class="line"><span class="cl">      --pod-eviction-timeout=2m0s \
+</span></span><span class="line"><span class="cl">      --controllers=*,bootstrapsigner,tokencleaner \
+</span></span><span class="line"><span class="cl">      --allocate-node-cidrs=true \
+</span></span><span class="line"><span class="cl">      --cluster-cidr=172.16.0.0/12 \
+</span></span><span class="line"><span class="cl">      --requestheader-client-ca-file=/etc/kubernetes/pki/front-proxy-ca.pem \
+</span></span><span class="line"><span class="cl">      --node-cidr-mask-size=24
+</span></span><span class="line"><span class="cl">      
+</span></span><span class="line"><span class="cl">Restart=always
+</span></span><span class="line"><span class="cl">RestartSec=10s
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">[Install]
+</span></span><span class="line"><span class="cl">WantedBy=multi-user.target
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>启动并查看状态</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># systemctl daemon-reload &amp;&amp; systemctl enable --now kube-controller-manager</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># systemctl status kube-controller-manager</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">● kube-controller-manager.service - Kubernetes Controller Manager
+</span></span><span class="line"><span class="cl">   Loaded: loaded (/usr/lib/systemd/system/kube-controller-manager.service; enabled; vendor preset: disabled)
+</span></span><span class="line"><span class="cl">   Active: active (running) since Mon 2023-08-21 01:28:31 CST; 7s ago
+</span></span><span class="line"><span class="cl">     Docs: https://github.com/kubernetes/kubernetes
+</span></span><span class="line"><span class="cl"> Main PID: 59613 (kube-controller)
+</span></span><span class="line"><span class="cl">    Tasks: 5
+</span></span><span class="line"><span class="cl">   Memory: 129.3M
+</span></span><span class="line"><span class="cl">   CGroup: /system.slice/kube-controller-manager.service
+</span></span><span class="line"><span class="cl">           └─59613 /usr/local/bin/kube-controller-manager --v=2 --logtostderr=true --address=127.0.0.1 --root-ca-file=/etc/kubernetes/pki/ca.pem --clust...
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Aug 21 01:28:33 k8s-master kube-controller-manager[59613]: I0821 01:28:33.582770   59613 controllermanager.go:186] Version: v1.22.0
+</span></span><span class="line"><span class="cl">Aug 21 01:28:33 k8s-master kube-controller-manager[59613]: I0821 01:28:33.584593   59613 tlsconfig.go:178] &#34;Loaded client CA&#34; index=0 certName=&#34;request-...
+</span></span><span class="line"><span class="cl">Aug 21 01:28:33 k8s-master kube-controller-manager[59613]: I0821 01:28:33.584804   59613 tlsconfig.go:200] &#34;Loaded serving cert&#34; certName=&#34;Generated sel...
+</span></span><span class="line"><span class="cl">Aug 21 01:28:33 k8s-master kube-controller-manager[59613]: I0821 01:28:33.585009   59613 named_certificates.go:53] &#34;Loaded SNI cert&#34; index=0 certName=&#34;s...
+</span></span><span class="line"><span class="cl">Aug 21 01:28:33 k8s-master kube-controller-manager[59613]: I0821 01:28:33.585126   59613 secure_serving.go:195] Serving securely on [::]:10257
+</span></span><span class="line"><span class="cl">Aug 21 01:28:33 k8s-master kube-controller-manager[59613]: I0821 01:28:33.585846   59613 leaderelection.go:248] attempting to acquire leader leas...ager...
+</span></span><span class="line"><span class="cl">Aug 21 01:28:33 k8s-master kube-controller-manager[59613]: I0821 01:28:33.586297   59613 tlsconfig.go:240] &#34;Starting DynamicServingCertificateController&#34;
+</span></span><span class="line"><span class="cl">Aug 21 01:28:33 k8s-master kube-controller-manager[59613]: I0821 01:28:33.586566   59613 dynamic_cafile_content.go:155] &#34;Starting controller&#34; nam...ca.pem&#34;
+</span></span><span class="line"><span class="cl">Aug 21 01:28:33 k8s-master kube-controller-manager[59613]: E0821 01:28:33.587271   59613 leaderelection.go:330] error retrieving resource lock kube-syst...
+</span></span><span class="line"><span class="cl">Aug 21 01:28:35 k8s-master kube-controller-manager[59613]: E0821 01:28:35.635266   59613 leaderelection.go:330] error retrieving resource lock kube-syst...
+</span></span><span class="line"><span class="cl">Hint: Some lines were ellipsized, use -l to show in full.
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>Scheduler</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># vim /usr/lib/systemd/system/kube-scheduler.service</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">[Unit]
+</span></span><span class="line"><span class="cl">Description=Kubernetes Scheduler
+</span></span><span class="line"><span class="cl">Documentation=https://github.com/kubernetes/kubernetes
+</span></span><span class="line"><span class="cl">After=network.target
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">[Service]
+</span></span><span class="line"><span class="cl">ExecStart=/usr/local/bin/kube-scheduler \
+</span></span><span class="line"><span class="cl">      --v=2 \
+</span></span><span class="line"><span class="cl">      --logtostderr=true \
+</span></span><span class="line"><span class="cl">      --address=127.0.0.1 \
+</span></span><span class="line"><span class="cl">      --leader-elect=true \
+</span></span><span class="line"><span class="cl">      --kubeconfig=/etc/kubernetes/scheduler.kubeconfig
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Restart=always
+</span></span><span class="line"><span class="cl">RestartSec=10s
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">[Install]
+</span></span><span class="line"><span class="cl">WantedBy=multi-user.target
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl"># systemctl daemon-reload
+</span></span><span class="line"><span class="cl"># systemctl enable --now kube-scheduler
+</span></span><span class="line"><span class="cl"># systemctl status kube-scheduler
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">● kube-scheduler.service - Kubernetes Scheduler
+</span></span><span class="line"><span class="cl">   Loaded: loaded (/usr/lib/systemd/system/kube-scheduler.service; enabled; vendor preset: disabled)
+</span></span><span class="line"><span class="cl">   Active: active (running) since Mon 2023-08-21 03:32:05 CST; 1min 2s ago
+</span></span><span class="line"><span class="cl">     Docs: https://github.com/kubernetes/kubernetes
+</span></span><span class="line"><span class="cl"> Main PID: 110089 (kube-scheduler)
+</span></span><span class="line"><span class="cl">    Tasks: 7
+</span></span><span class="line"><span class="cl">   Memory: 18.7M
+</span></span><span class="line"><span class="cl">   CGroup: /system.slice/kube-scheduler.service
+</span></span><span class="line"><span class="cl">           └─110089 /usr/local/bin/kube-scheduler --v=2 --logtostderr=true --address=127.0.0.1 --leader-elect=true --kubeconfig=/etc/kubernetes/schedule...
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Aug 21 03:32:06 k8s-master kube-scheduler[110089]: I0821 03:32:06.555051  110089 server.go:140] &#34;Starting Kubernetes Scheduler version&#34; version=&#34;v1.22.0&#34;
+</span></span><span class="line"><span class="cl">Aug 21 03:32:06 k8s-master kube-scheduler[110089]: W0821 03:32:06.556020  110089 authorization.go:47] Authorization is disabled
+</span></span><span class="line"><span class="cl">Aug 21 03:32:06 k8s-master kube-scheduler[110089]: W0821 03:32:06.556033  110089 authentication.go:47] Authentication is disabled
+</span></span><span class="line"><span class="cl">Aug 21 03:32:06 k8s-master kube-scheduler[110089]: I0821 03:32:06.556042  110089 deprecated_insecure_serving.go:51] Serving healthz insecurely o....1:10251
+</span></span><span class="line"><span class="cl">Aug 21 03:32:06 k8s-master kube-scheduler[110089]: I0821 03:32:06.557216  110089 tlsconfig.go:200] &#34;Loaded serving cert&#34; certName=&#34;Generated self signed...
+</span></span><span class="line"><span class="cl">Aug 21 03:32:06 k8s-master kube-scheduler[110089]: I0821 03:32:06.557365  110089 named_certificates.go:53] &#34;Loaded SNI cert&#34; index=0 certName=&#34;self-sign...
+</span></span><span class="line"><span class="cl">Aug 21 03:32:06 k8s-master kube-scheduler[110089]: I0821 03:32:06.557416  110089 secure_serving.go:195] Serving securely on [::]:10259
+</span></span><span class="line"><span class="cl">Aug 21 03:32:06 k8s-master kube-scheduler[110089]: I0821 03:32:06.557542  110089 tlsconfig.go:240] &#34;Starting DynamicServingCertificateController&#34;
+</span></span><span class="line"><span class="cl">Aug 21 03:32:06 k8s-master kube-scheduler[110089]: I0821 03:32:06.659530  110089 leaderelection.go:248] attempting to acquire leader lease kube-...duler...
+</span></span><span class="line"><span class="cl">Aug 21 03:32:06 k8s-master kube-scheduler[110089]: I0821 03:32:06.674955  110089 leaderelection.go:258] successfully acquired lease kube-system/...cheduler
+</span></span><span class="line"><span class="cl">Hint: Some lines were ellipsized, use -l to show in full.
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>kube-controller-manager</strong>和<strong>kube-scheduler</strong>如果报错: 1. <code>kube-apiserver</code>有问题 2. <code>授权</code>有问题
+因为, 请参考下图:</p>
+<div class='align-center'>
+<p><img src="/img/blog/k8s-base-frame.png" alt="k8s-base-frame"></p>
+</div>
+<h2 id="pod">pod</h2>
+<blockquote>
+<p>Pod 是共享资源的进程的逻辑管理单元.
+底层还是依赖于linux的namespace和cgroup技术.</p>
+</blockquote>
+<ul>
+<li>网络资源共享: pod第一个创建infra容器, 作为网络共享容器, <code>--net==container</code>方式, 实现namespace网络共享.</li>
+<li>存储资源共享: pod顶层声明一个volume, 需要共享的container挂载这个pod级别的volume, 实现存储资源共享.</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c"># host path: sidecar模式 较常用容器日志收集</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Pod</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">counter</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">volumes</span><span class="p">:</span><span class="w">  </span><span class="c"># pod级别 顶层声明volume</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">varlog</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">hostPath</span><span class="p">:</span><span class="w">  </span><span class="c"># 采用hostpath方式</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">/root/log/counter </span><span class="w"> </span><span class="c"># volume在host主机上的存储位置(没有会自动创建) 目录</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">containers</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">count</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">busybox</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">args</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="l">/bin/sh</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- -<span class="l">c</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="l">&gt; </span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="l">i=0;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="l">while true;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="l">do</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="l">echo &#34;$i: $(date)&#34; &gt;&gt; /var/log/1.log;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="l">i=$((i+1));</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="l">sleep 1;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="l">done</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">volumeMounts</span><span class="p">:</span><span class="w">  </span><span class="c"># pod管理的container声明挂载pod顶层声明的volume</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">varlog</span><span class="w"> </span><span class="c"># hostpath 中pods声明的volume的名称</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="l">/var/log </span><span class="w"> </span><span class="c"># 当前container中需要挂载映射的目录</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">count-log</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">busybox</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">args</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">/bin/sh, -c, &#39;tail -n+1 -f /var/log/1.log&#39;]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">volumeMounts</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">varlog</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="l">/var/log</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="controller">controller</h2>
+<h2 id="scheduler">scheduler</h2>
+<h2 id="configmap">configMap</h2>
+<h2 id="storage">storage</h2>
+<h2 id="network">network</h2>
+<h2 id="safety">safety</h2>
+<h2 id="yaml文件">Yaml文件</h2>
+<blockquote>
+<p>云平台的服务配置和管理</p>
+<p>控制声明 + 被控对象声明</p>
+</blockquote>
+<ul>
+<li>缩进的空格数目不重要，只要相同层级的元素左侧对齐即可</li>
+<li><code>- - -</code> 为可选的分隔符 ，当需要在一个文件中定义多个结构的时候需要使用</li>
+</ul>
+<ol>
+<li>Maps</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c"># 键值对</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">apps/v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">pod</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># map 组(多层map嵌套, 同一缩进, 属于同一key下的map)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">demo</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">labels</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l">nginx</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="2">
+<li>List</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">containers</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">front-end</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">nginx</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">containerPort</span><span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">flaskapp-demo</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">jcdemo/flaskapp</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w"> </span><span class="m">8080</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># 转义</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># containers = [{name: front-end, image:nginx, ports: [{containerPort:80}]},</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c">#               {name:flaskapp-demo, image:cdemo/flaskapp, ports: 8080}] </span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>常用字段属性</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>filed</th>
+<th>desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>apiVersion</td>
+<td>API版本</td>
+</tr>
+<tr>
+<td>kind</td>
+<td>资源类型</td>
+</tr>
+<tr>
+<td>metadata</td>
+<td>资源元数据</td>
+</tr>
+<tr>
+<td>spec</td>
+<td>资源规格</td>
+</tr>
+<tr>
+<td>replicas</td>
+<td>副本数量</td>
+</tr>
+<tr>
+<td>selector</td>
+<td>标签选择器</td>
+</tr>
+<tr>
+<td>template</td>
+<td>Pod模板</td>
+</tr>
+<tr>
+<td>metadata</td>
+<td>Pod元数据</td>
+</tr>
+<tr>
+<td>spec</td>
+<td>Pod规格</td>
+</tr>
+<tr>
+<td>containers</td>
+<td>容器配置</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>apiVersion</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># kubectl api-versions</span>
+</span></span><span class="line"><span class="cl">admissionregistration.k8s.io/v1
+</span></span><span class="line"><span class="cl">apiextensions.k8s.io/v1
+</span></span><span class="line"><span class="cl">apiregistration.k8s.io/v1
+</span></span><span class="line"><span class="cl">apps/v1  <span class="c1">#  包含一些通用的应用层的api组合，如：Deployments, RollingUpdates, and ReplicaSets</span>
+</span></span><span class="line"><span class="cl">authentication.k8s.io/v1
+</span></span><span class="line"><span class="cl">authorization.k8s.io/v1
+</span></span><span class="line"><span class="cl">autoscaling/v1  <span class="c1"># 允许根据不同的资源使用指标自动调整容器</span>
+</span></span><span class="line"><span class="cl">autoscaling/v2
+</span></span><span class="line"><span class="cl">batch/v1  <span class="c1"># 包含与批处理和类似作业的任务相关的对象，如：job、cronjob</span>
+</span></span><span class="line"><span class="cl">certificates.k8s.io/v1
+</span></span><span class="line"><span class="cl">coordination.k8s.io/v1
+</span></span><span class="line"><span class="cl">crd.projectcalico.org/v1
+</span></span><span class="line"><span class="cl">discovery.k8s.io/v1
+</span></span><span class="line"><span class="cl">events.k8s.io/v1
+</span></span><span class="line"><span class="cl">flowcontrol.apiserver.k8s.io/v1beta2
+</span></span><span class="line"><span class="cl">flowcontrol.apiserver.k8s.io/v1beta3
+</span></span><span class="line"><span class="cl">networking.k8s.io/v1  <span class="c1"># 用于Ingress</span>
+</span></span><span class="line"><span class="cl">node.k8s.io/v1
+</span></span><span class="line"><span class="cl">policy/v1
+</span></span><span class="line"><span class="cl">rbac.authorization.k8s.io/v1  <span class="c1"># 用于RBAC</span>
+</span></span><span class="line"><span class="cl">scheduling.k8s.io/v1
+</span></span><span class="line"><span class="cl">storage.k8s.io/v1
+</span></span><span class="line"><span class="cl">storage.k8s.io/v1beta1
+</span></span><span class="line"><span class="cl">v1  <span class="c1"># Kubernetes API的稳定版本，包含很多核心对象：pod、service等</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>spec</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w"> </span><span class="c">#必选，版本号，例如v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Pod</span><span class="w"> </span><span class="c">#必选，Pod </span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w"> </span><span class="c">#必选，元数据 </span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">nginx</span><span class="w"> </span><span class="c">#必选，Pod名称 </span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">labels</span><span class="p">:</span><span class="w"> </span><span class="c">#自定义标签 </span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l">nginx</span><span class="w"> </span><span class="c">#自定义标签名字 </span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w"> </span><span class="c">#必选，Pod中容器的详细定义 </span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">containers</span><span class="p">:</span><span class="w"> </span><span class="c">#必选，Pod中容器列表，一个pod里会有多个容器 </span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">nginx</span><span class="w"> </span><span class="c">#必选，容器名称 </span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">nginx</span><span class="w"> </span><span class="c">#必选，容器的镜像名称 </span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">imagePullPolicy</span><span class="p">:</span><span class="w"> </span><span class="l">IfNotPresent # [Always | Never | IfNotPresent]</span><span class="w"> </span><span class="c">#获取镜像的策略 Alawys表示下载镜像 IfnotPresent表示优先使用本地镜像，否则下载镜像，Nerver表示仅使用本地镜像 </span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">ports</span><span class="p">:</span><span class="w"> </span><span class="c">#需要暴露的端口库号列表 </span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span>- <span class="nt">containerPort</span><span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w"> </span><span class="c">#容器需要监听的端口号 </span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">restartPolicy</span><span class="p">:</span><span class="w"> </span><span class="l">Always</span><span class="w"> </span><span class="c"># [Always | Never | OnFailure]#Pod的重启策略，Always表示一旦不管以何种方式终止运行，kubelet都将重启，OnFailure表示只有Pod以非0退出码退出才重启，Nerver表示不再重启该Pod </span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nn">---</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="statefulset">Statefulset</h2>
+<h3 id="拓扑状态">拓扑状态</h3>
+<h3 id="存储状态">存储状态</h3>
+<h3 id="状态实践">状态实践</h3>
+<h2 id="持久化存储状态volume和persistent-volume">持久化存储状态(volume和Persistent Volume)</h2>
+<blockquote>
+<p>volume, pv, pvc, StoreClass</p>
+</blockquote>
+<ul>
+<li>[volume]</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nn">---</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># volume empty_dir k8s 1.26</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Pod</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">producer-consumer</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">labels</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">producer-consumer</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">containers</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">producer</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">busybox</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">volumeMounts</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="l">/producer_dir</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">shared-volume</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">args</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="l">/bin/sh</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- -<span class="l">c</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="l">echo &#34;hello world&#34; &gt; /producer_dir/hello; sleep 30000</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">consumer</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">busybox</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">volumeMounts</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="l">/consumer_dir</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">shared-volume</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">args</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="l">/bin/sh</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- -<span class="l">c</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="l">cat /consumer_dir/hello; sleep 30000</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">shared-volume</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">emptyDir</span><span class="p">:</span><span class="w"> </span>{}<span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>[pv&amp;pvc]</li>
+</ul>
+<p><code>PV</code>: 持久化数据卷. 持久化在宿主机上的目录.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c"># pv创建 k8s1.26</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">PersistentVolume </span><span class="w"> </span><span class="c"># pv资源属性名称</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">nfs-pv</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">storageClassName</span><span class="p">:</span><span class="w"> </span><span class="l">nfs-scn</span><span class="w"> </span><span class="c"># storageCalss注册</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">capacity</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">storage</span><span class="p">:</span><span class="w"> </span><span class="l">1Gi</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">accessModes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="l">ReadWriteMany</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">nfs</span><span class="p">:</span><span class="w"> </span><span class="c"># pv 类型</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">server</span><span class="p">:</span><span class="w"> </span><span class="m">12.345.1.1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;/&#34;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>PVC</code>: Pod期望使用的持久化存储的描述(要求), 如大小,读写权限等</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nn">---</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># pvc绑定pv k8s1.26</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">PersistentVolumeClaim</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">nfs-pvc</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">accessModes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="l">ReadWriteMany</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">storageClassName</span><span class="p">:</span><span class="w"> </span><span class="l">nfs-scn </span><span class="w"> </span><span class="c"># pvc要和pv同属同一个storageClass</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">resources</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">requests</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">storage</span><span class="p">:</span><span class="w"> </span><span class="l">1Gi </span><span class="w"> </span><span class="c"># pvc申请存储大小绑定的pv需要满足</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>[pod使用pv]</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Pod</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">labels</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">role</span><span class="p">:</span><span class="w"> </span><span class="l">web-fronted</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">sepc</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">containers</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">web</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">nginx:1.7.9</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">ports</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">web</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">containerPort</span><span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w">  </span><span class="c"># pod中container的port</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">volumeMounts</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">nfs</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;/user/share/nginx/html&#34;</span><span class="w">  </span><span class="c"># container web 自身映射出去的文件</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">nfs</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">persistentVolumeClaim</span><span class="p">:</span><span class="w">  </span><span class="c"># 映射pvc的挂载</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">claimName</span><span class="p">:</span><span class="w"> </span><span class="l">nfs-pvc </span><span class="w"> </span><span class="c"># pod创建后, kubelet根据pvc绑定的pv,挂载这个容器指定的内部目录上  </span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>pvc 是pv 的volume的接口, 只负责pod绑定pv, 而真正处理存储持久化的是pv</code>.</p>
+<p><code>pod</code> 是脆弱的, 一旦有一个申明不对或者不存在,不匹配, 宁可失败也不要启动,做一些无法控制的事情.</p>
+<ul>
+<li><code>Volume Controller-&gt;PersistentVolumeController</code></li>
+</ul>
+<p><code>PersistentVolumeController</code> 负责用户提交的pvc, 只要出现合适pv, 迅速完成绑定.</p>
+<ul>
+<li>[StorageClass]</li>
+</ul>
+<blockquote>
+<p><code>storageClass</code>看作是创建<code>pv</code>的模板</p>
+</blockquote>
+<ol>
+<li>声明PV的要求, 如类型,大小等</li>
+<li>创建PV需要用到的存储插件, 如Ceph等</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">storage.k8s.io/v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">StorageClass</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">block-service</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">provisioner</span><span class="p">:</span><span class="w"> </span><span class="l">kubernetes.io/gec-pd </span><span class="w"> </span><span class="c"># GCE PD插件</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">parameters</span><span class="p">:</span><span class="w">  </span><span class="c"># PV 参数</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">pd-ssd </span><span class="w"> </span><span class="c"># SSD格式化的GCE远程磁盘</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="网络">网络</h2>
+<blockquote>
+<p>网络栈[请求和响应]</p>
+<ol>
+<li>网卡 Network Interface</li>
+<li>回环设备 Loopback Device</li>
+<li>路由表 Routing Table</li>
+<li>iptables 规则</li>
+</ol>
+</blockquote>
+<p><code>Docker</code>会在宿主机上创建<code>docker0</code>的网桥, 连接到<code>docker0</code>的网桥上容器, 都可通过<code>docker0</code>网桥进行通信.</p>
+<p><code>Veth Pair</code>通过<code>Veth Peer</code>实现不同<code>Network Namespace</code>进行<code>通信</code>.
+，被限制在 Network Namespace 里的容器进程，实际上是通过 Veth Pair 设备 + 宿主机网桥的方式，实现了跟同其他容器的数据交换。</p>
+<ul>
+<li>[flannel]</li>
+<li>[calico]</li>
+<li>[ingress]</li>
+</ul>
+<blockquote>
+<p>代理不同后端Service的负载均衡服务, 即Ingress
+Service中的<code>Service</code></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nn">---</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># Ingress </span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">extensions/v1beta1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Ingress</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">cafe-ingress</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">tls</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">hosts</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">cafe.example.com</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">secretName</span><span class="p">:</span><span class="w"> </span><span class="l">cafe-secret</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">rules</span><span class="p">:</span><span class="w">  </span><span class="c"># IngressRule</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="l">cafe.example.com </span><span class="w"> </span><span class="c"># 必须是标准格式的域名地址 不能是IP地址</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">http</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">paths</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span>- <span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">/tea </span><span class="w"> </span><span class="c"># relative rouoter for service</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">backend</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="nt">serviceNmae</span><span class="p">:</span><span class="w"> </span><span class="l">tea-svc </span><span class="w"> </span><span class="c"># 指定后端service</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="nt">servicePort</span><span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w">  </span><span class="c"># service 端口</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span>- <span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">/coffee</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">backend</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="nt">serviceName</span><span class="p">:</span><span class="w"> </span><span class="l">coffee-svc</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="nt">servicePort</span><span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>Ingress</code>上述对象, 本质就是<code>Kubernetes</code>项目的<strong>反向代理</strong>的抽象. 可以对比<code>nginx</code>实现细节. 该对象有<code>Ingress Controller</code>实现和控制.</p>
+<h2 id="runtimecri">[runtimeCRI]</h2>
+<div class='align-center'>
+<p><img src="/img/blog/k8s-CRI.webp" alt="k8s-CRI"></p>
+<p>CRI Work Flow</p>
+</div>
+<h3 id="kubelet">kubelet</h3>
+<blockquote>
+<p><code>SIG-Node</code>和<code>kubelet</code>编排系统跟<code>容器</code>交互的核心场所.</p>
+</blockquote>
+<p><code>kubelet</code>的核心工作如下:</p>
+<ol>
+<li>Pod 更新事件</li>
+<li>Pod 生命周期变化</li>
+<li>kubelet 本身设置的执行周期</li>
+<li>定时的清理事件</li>
+</ol>
+<p><code>CRIshim</code> 完成kubelet和容器间交互操作.</p>
+<blockquote>
+<p>“Dockershim removed from Kubernetes
+As of Kubernetes 1.24, Dockershim is no longer included in Kubernetes. ”</p>
+</blockquote>
+<p><code>CRI</code>功能两组:</p>
+<ul>
+<li><code>RuntimeService</code>, 主要跟容器相关. 如创建,启动容器等</li>
+<li><code>ImageService</code>, 主要和容器镜像相关. 如拉取,删除镜像等</li>
+</ul>
+<blockquote>
+<p>Pod是编排概念, 而不是运行概念.</p>
+</blockquote>
+<div class='align-center'>
+<p><img src="/img/blog/k8s-CRI-pod-container.webp" alt="k8s-CRI-pod-docker"></p>
+<p>kubectl run&hellip;</p>
+</div>
+<h2 id="监控和日志">监控和日志</h2>
+<blockquote>
+<p>以<code>Prometheus</code>为核心的监控和日志系统.</p>
+</blockquote>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">zhuzaiye</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2023-04-08
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/kubernetes/">Kubernetes</a>
+          <a href="/tags/k8s/">k8s</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/20230325-makfile/">
+            <span class="next-text nav-default">Makfile</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://unpkg.com/gitalk@1.2.2/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://unpkg.com/gitalk@latest/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2023-04-08 09:20:36 \u002b0800 CST',
+        title: 'Kubernetes',
+        clientID: '9c36634fbb845c1d1d64',
+        clientSecret: '3d57254b5ffccf04f9d973cc42b1d84ecd48fd01',
+        repo: 'zhuzaiye.github.io',
+        owner: 'zhuzaiye',
+        admin: ['zhuzaiye'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      
+<div class="social-links">
+      <a href="hanzi_zhu@foxmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/pigzhu11" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/zhuzaiye" class="iconfont icon-github" title="github"></a>
+  <a href="https://zhuzaiye.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+
+<div class="copyright">
+  <span class="power-by">
+    powered by
+    <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    &copy; 
+    2022 - 
+    2023<span class="division"></span>
+    <span>zhuzaiye</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.64437849d125a2d603b3e71d6de5225d641a32d17168a58106e0b61852079683.js"></script>
+
+
+
+<script id="baidu_push">
+  (function(){
+    if (window.location.hostname === 'localhost') return;
+    var bp = document.createElement('script'); bp.async = true;
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+      bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+      bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+  })();
+</script>
+
+
+
+
+</body>
+</html>

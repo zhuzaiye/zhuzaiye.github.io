@@ -6,7 +6,7 @@
     <description>Recent content on zhuzaiye</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 25 Mar 2023 09:18:53 +0800</lastBuildDate><atom:link href="https://zhuzaiye.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 08 Apr 2023 09:20:36 +0800</lastBuildDate><atom:link href="https://zhuzaiye.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>About</title>
       <link>https://zhuzaiye.github.io/about/</link>
@@ -14,6 +14,15 @@
       
       <guid>https://zhuzaiye.github.io/about/</guid>
       <description>Nothing</description>
+    </item>
+    
+    <item>
+      <title>Kubernetes</title>
+      <link>https://zhuzaiye.github.io/post/20230408-kubernetes/</link>
+      <pubDate>Sat, 08 Apr 2023 09:20:36 +0800</pubDate>
+      
+      <guid>https://zhuzaiye.github.io/post/20230408-kubernetes/</guid>
+      <description>K8s[Kubernetes] 服务编排和控制技术. 二八原则 kubeadm部署k8s kubeadm token create &amp;ndash;print-join-command &amp;ndash;ttl=0 生成永久token 两台虚拟机 centos 7系统 二进制安装靠可用k8s集群 vm12 开启三个2核</description>
     </item>
     
     <item>
