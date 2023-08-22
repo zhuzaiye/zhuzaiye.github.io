@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="zhuzaiye" /><meta name="description" content="K8s[Kubernetes] 服务编排和控制技术. 二八原则 kubeadm部署k8s kubeadm token create &amp;ndash;print-join-command &amp;ndash;ttl=0 生成永久token 两台虚拟机 centos 7系统 二进制安装靠可用k8s集群 vm12 开启三个2核" /><meta name="keywords" content="Kubernetes" />
+<meta name="author" content="zhuzaiye" /><meta name="description" content="二进制安装靠可用k8s集群 service 网段 10.96.0.0/16 node 网段 192.168.163.0 pod 网段 172.16.0.0/12 vm12 开启三个2核4G的虚拟机 所有虚拟机节点配置网络 1 2 3 # vi /etc/sysconfig/network #&amp;gt;&amp;gt; NETWORKING=yes #&amp;gt;&amp;gt; HOSTNAME=master 配置ens, 请查看虚拟" /><meta name="keywords" content="Kubernetes" />
 
 
 
@@ -40,7 +40,7 @@
 
 
 <meta property="og:title" content="Kubernetes" />
-<meta property="og:description" content="K8s[Kubernetes] 服务编排和控制技术. 二八原则 kubeadm部署k8s kubeadm token create &ndash;print-join-command &ndash;ttl=0 生成永久token 两台虚拟机 centos 7系统 二进制安装靠可用k8s集群 vm12 开启三个2核" />
+<meta property="og:description" content="二进制安装靠可用k8s集群 service 网段 10.96.0.0/16 node 网段 192.168.163.0 pod 网段 172.16.0.0/12 vm12 开启三个2核4G的虚拟机 所有虚拟机节点配置网络 1 2 3 # vi /etc/sysconfig/network #&gt;&gt; NETWORKING=yes #&gt;&gt; HOSTNAME=master 配置ens, 请查看虚拟" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://zhuzaiye.github.io/post/20230408-kubernetes/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2023-04-08T09:20:36+08:00" />
@@ -48,12 +48,12 @@
 
 
 <meta itemprop="name" content="Kubernetes">
-<meta itemprop="description" content="K8s[Kubernetes] 服务编排和控制技术. 二八原则 kubeadm部署k8s kubeadm token create &ndash;print-join-command &ndash;ttl=0 生成永久token 两台虚拟机 centos 7系统 二进制安装靠可用k8s集群 vm12 开启三个2核"><meta itemprop="datePublished" content="2023-04-08T09:20:36+08:00" />
+<meta itemprop="description" content="二进制安装靠可用k8s集群 service 网段 10.96.0.0/16 node 网段 192.168.163.0 pod 网段 172.16.0.0/12 vm12 开启三个2核4G的虚拟机 所有虚拟机节点配置网络 1 2 3 # vi /etc/sysconfig/network #&gt;&gt; NETWORKING=yes #&gt;&gt; HOSTNAME=master 配置ens, 请查看虚拟"><meta itemprop="datePublished" content="2023-04-08T09:20:36+08:00" />
 <meta itemprop="dateModified" content="2023-04-08T09:20:36+08:00" />
-<meta itemprop="wordCount" content="8877">
+<meta itemprop="wordCount" content="9831">
 <meta itemprop="keywords" content="Kubernetes,k8s," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Kubernetes"/>
-<meta name="twitter:description" content="K8s[Kubernetes] 服务编排和控制技术. 二八原则 kubeadm部署k8s kubeadm token create &ndash;print-join-command &ndash;ttl=0 生成永久token 两台虚拟机 centos 7系统 二进制安装靠可用k8s集群 vm12 开启三个2核"/>
+<meta name="twitter:description" content="二进制安装靠可用k8s集群 service 网段 10.96.0.0/16 node 网段 192.168.163.0 pod 网段 172.16.0.0/12 vm12 开启三个2核4G的虚拟机 所有虚拟机节点配置网络 1 2 3 # vi /etc/sysconfig/network #&gt;&gt; NETWORKING=yes #&gt;&gt; HOSTNAME=master 配置ens, 请查看虚拟"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -137,8 +137,8 @@
         <div class="post-category">
             <a href="/categories/cloudnative/"> CloudNative </a>
             </div>
-          <span class="more-meta"> 8877 words </span>
-          <span class="more-meta"> 18 mins read </span>
+          <span class="more-meta"> 9831 words </span>
+          <span class="more-meta"> 20 mins read </span>
         
       </div>
     </header>
@@ -150,7 +150,6 @@
   <ul>
     <li>
       <ul>
-        <li><a href="#kubeadm部署k8s">kubeadm部署k8s</a></li>
         <li><a href="#二进制安装靠可用k8s集群">二进制安装靠可用k8s集群</a>
           <ul>
             <li><a href="#vm12-开启三个2核4g的虚拟机">vm12 开启三个2核4G的虚拟机</a></li>
@@ -170,6 +169,9 @@
             <li><a href="#发送证书到其他节点-由于是单节点所有就不需要了">发送证书到其他节点-(由于是单节点所有就不需要了)</a></li>
             <li><a href="#配置etcd">配置ETCD</a></li>
             <li><a href="#k8s-master节点配置"><code>k8s-master</code>节点配置</a></li>
+            <li><a href="#tls-bootstrapping配置">TLS Bootstrapping配置</a></li>
+            <li><a href="#node节点配置">node节点配置</a></li>
+            <li><a href="#calico">calico</a></li>
           </ul>
         </li>
         <li><a href="#pod">pod</a></li>
@@ -202,16 +204,12 @@
   </div>
 </div>
     <div class="post-content">
-      <blockquote>
-<p>K8s[Kubernetes] 服务编排和控制技术.</p>
-<p>二八原则</p>
-</blockquote>
-<h2 id="kubeadm部署k8s">kubeadm部署k8s</h2>
+      <h2 id="二进制安装靠可用k8s集群">二进制安装靠可用k8s集群</h2>
 <blockquote>
-<p>kubeadm token create &ndash;print-join-command &ndash;ttl=0 生成永久token</p>
+<p>service 网段 10.96.0.0/16
+node 网段 192.168.163.0
+pod 网段 172.16.0.0/12</p>
 </blockquote>
-<p>两台虚拟机 centos 7系统</p>
-<h2 id="二进制安装靠可用k8s集群">二进制安装靠可用k8s集群</h2>
 <h3 id="vm12-开启三个2核4g的虚拟机">vm12 开启三个2核4G的虚拟机</h3>
 <h3 id="所有虚拟机节点配置网络">所有虚拟机节点配置网络</h3>
 <div class="highlight"><div class="chroma">
@@ -1914,7 +1912,739 @@
 <div class='align-center'>
 <p><img src="/img/blog/k8s-base-frame.png" alt="k8s-base-frame"></p>
 </div>
-<h2 id="pod">pod</h2>
+<h3 id="tls-bootstrapping配置">TLS Bootstrapping配置</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># 配置bootstarp权限</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># kubectl config set-cluster kubernetes  --certificate-authority=/etc/kubernetes/pki/ca.pem --embed-certs=true --server=https://192.168.163.100:16443  --kubeconfig=/etc/kubernetes/bootstrap-kubelet.kubeconfig</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># kubectl config set-credentials tls-bootstrap-token-user --token=c8ad9d.2e4d610cf3e7426f --kubeconfig=/etc/kubernetes/bootstrap-kubelet.kubeconfig</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># kubectl config set-context tls-bootstrap-token-user@kubernetes --cluster=kubernetes --user=tls-bootstrap-token-user     --kubeconfig=/etc/kubernetes/bootstrap-kubelet.kubeconfig</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># kubectl config use-context tls-bootstrap-token-user@kubernetes --kubeconfig=/etc/kubernetes/bootstrap-kubelet.kubeconfig</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>bootstrap.secret.yaml</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span><span class="lnt">84
+</span><span class="lnt">85
+</span><span class="lnt">86
+</span><span class="lnt">87
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Secret</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">bootstrap-token-c8ad9d</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">kube-system</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">bootstrap.kubernetes.io/token</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">stringData</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;The default bootstrap token generated by &#39;kubelet &#39;.&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">token-id</span><span class="p">:</span><span class="w"> </span><span class="l">c8ad9d</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">token-secret</span><span class="p">:</span><span class="w"> </span><span class="l">2e4d610cf3e7426f</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">usage-bootstrap-authentication</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;true&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">usage-bootstrap-signing</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;true&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">auth-extra-groups</span><span class="p">:</span><span class="w">  </span><span class="l">system:bootstrappers:default-node-token,system:bootstrappers:worker,system:bootstrappers:ingress</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nn">---</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">rbac.authorization.k8s.io/v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">ClusterRoleBinding</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">kubelet-bootstrap</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">roleRef</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">apiGroup</span><span class="p">:</span><span class="w"> </span><span class="l">rbac.authorization.k8s.io</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">ClusterRole</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">system:node-bootstrapper</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">subjects</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span>- <span class="nt">apiGroup</span><span class="p">:</span><span class="w"> </span><span class="l">rbac.authorization.k8s.io</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Group</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">system:bootstrappers:default-node-token</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nn">---</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">rbac.authorization.k8s.io/v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">ClusterRoleBinding</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">node-autoapprove-bootstrap</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">roleRef</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">apiGroup</span><span class="p">:</span><span class="w"> </span><span class="l">rbac.authorization.k8s.io</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">ClusterRole</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">system:certificates.k8s.io:certificatesigningrequests:nodeclient</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">subjects</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span>- <span class="nt">apiGroup</span><span class="p">:</span><span class="w"> </span><span class="l">rbac.authorization.k8s.io</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Group</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">system:bootstrappers:default-node-token</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nn">---</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">rbac.authorization.k8s.io/v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">ClusterRoleBinding</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">node-autoapprove-certificate-rotation</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">roleRef</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">apiGroup</span><span class="p">:</span><span class="w"> </span><span class="l">rbac.authorization.k8s.io</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">ClusterRole</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">system:certificates.k8s.io:certificatesigningrequests:selfnodeclient</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">subjects</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span>- <span class="nt">apiGroup</span><span class="p">:</span><span class="w"> </span><span class="l">rbac.authorization.k8s.io</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Group</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">system:nodes</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nn">---</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">rbac.authorization.k8s.io/v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">ClusterRole</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">annotations</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">rbac.authorization.kubernetes.io/autoupdate</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;true&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">labels</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">kubernetes.io/bootstrapping</span><span class="p">:</span><span class="w"> </span><span class="l">rbac-defaults</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">system:kube-apiserver-to-kubelet</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">rules</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">apiGroups</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="s2">&#34;&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">resources</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">nodes/proxy</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">nodes/stats</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">nodes/log</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">nodes/spec</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">nodes/metrics</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">verbs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="s2">&#34;*&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nn">---</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">rbac.authorization.k8s.io/v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">ClusterRoleBinding</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">system:kube-apiserver</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">roleRef</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">apiGroup</span><span class="p">:</span><span class="w"> </span><span class="l">rbac.authorization.k8s.io</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">ClusterRole</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">system:kube-apiserver-to-kubelet</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">subjects</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">apiGroup</span><span class="p">:</span><span class="w"> </span><span class="l">rbac.authorization.k8s.io</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">User</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">kube-apiserver</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># kubectl create -f bootstrap.secret.yaml</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">secret/bootstrap-token-c8ad9d created
+</span></span><span class="line"><span class="cl">clusterrolebinding.rbac.authorization.k8s.io/kubelet-bootstrap created
+</span></span><span class="line"><span class="cl">clusterrolebinding.rbac.authorization.k8s.io/node-autoapprove-bootstrap created
+</span></span><span class="line"><span class="cl">clusterrolebinding.rbac.authorization.k8s.io/node-autoapprove-certificate-rotation created
+</span></span><span class="line"><span class="cl">clusterrole.rbac.authorization.k8s.io/system:kube-apiserver-to-kubelet created
+</span></span><span class="line"><span class="cl">clusterrolebinding.rbac.authorization.k8s.io/system:kube-apiserver created
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="node节点配置">node节点配置</h3>
+<ul>
+<li>复制证书</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># cd /etc/kubernetes/</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># for NODE in k8s-node1 k8s-node2; do    </span>
+</span></span><span class="line"><span class="cl">     <span class="k">for</span> FILE in pki/ca.pem pki/ca-key.pem pki/front-proxy-ca.pem bootstrap-kubelet.kubeconfig<span class="p">;</span> <span class="k">do</span>
+</span></span><span class="line"><span class="cl">       scp /etc/kubernetes/<span class="nv">$FILE</span> <span class="nv">$NODE</span>:/etc/kubernetes/<span class="si">${</span><span class="nv">FILE</span><span class="si">}</span>
+</span></span><span class="line"><span class="cl">     <span class="k">done</span>
+</span></span><span class="line"><span class="cl"> <span class="k">done</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li><code>kubelet</code>配置</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># 所有节点</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># mkdir -p /var/lib/kubelet /var/log/kubernetes /etc/systemd/system/kubelet.service.d /etc/kubernetes/manifests/</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>vim /usr/lib/systemd/system/kubelet.service</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="k">[Unit]</span>
+</span></span><span class="line"><span class="cl"><span class="na">Description</span><span class="o">=</span><span class="s">Kubernetes Kubelet</span>
+</span></span><span class="line"><span class="cl"><span class="na">Documentation</span><span class="o">=</span><span class="s">https://github.com/kubernetes/kubernetes</span>
+</span></span><span class="line"><span class="cl"><span class="na">After</span><span class="o">=</span><span class="s">docker.service</span>
+</span></span><span class="line"><span class="cl"><span class="na">Requires</span><span class="o">=</span><span class="s">docker.service</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">[Service]</span>
+</span></span><span class="line"><span class="cl"><span class="na">ExecStart</span><span class="o">=</span><span class="s">/usr/local/bin/kubelet</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="na">Restart</span><span class="o">=</span><span class="s">always</span>
+</span></span><span class="line"><span class="cl"><span class="na">StartLimitInterval</span><span class="o">=</span><span class="s">0</span>
+</span></span><span class="line"><span class="cl"><span class="na">RestartSec</span><span class="o">=</span><span class="s">10</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">[Install]</span>
+</span></span><span class="line"><span class="cl"><span class="na">WantedBy</span><span class="o">=</span><span class="s">multi-user.target</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>Runtime为Docker，请使用如下Kubelet的配置</strong></p>
+<p><strong>vim /etc/systemd/system/kubelet.service.d/10-kubelet.conf</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">[Service]
+</span></span><span class="line"><span class="cl">Environment=&#34;KUBELET_KUBECONFIG_ARGS=--bootstrap-kubeconfig=/etc/kubernetes/bootstrap-kubelet.kubeconfig --kubeconfig=/etc/kubernetes/kubelet.kubeconfig&#34;
+</span></span><span class="line"><span class="cl">Environment=&#34;KUBELET_SYSTEM_ARGS=--network-plugin=cni --cni-conf-dir=/etc/cni/net.d --cni-bin-dir=/opt/cni/bin&#34;
+</span></span><span class="line"><span class="cl">Environment=&#34;KUBELET_CONFIG_ARGS=--config=/etc/kubernetes/kubelet-conf.yml --pod-infra-container-image=registry.cn-hangzhou.aliyuncs.com/google_containers/pause:3.5&#34;
+</span></span><span class="line"><span class="cl">Environment=&#34;KUBELET_EXTRA_ARGS=--node-labels=node.kubernetes.io/node=&#39;&#39; &#34;
+</span></span><span class="line"><span class="cl">ExecStart=
+</span></span><span class="line"><span class="cl">ExecStart=/usr/local/bin/kubelet $KUBELET_KUBECONFIG_ARGS $KUBELET_CONFIG_ARGS $KUBELET_SYSTEM_ARGS $KUBELET_EXTRA_ARGS
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>vim /etc/kubernetes/kubelet-conf.yml</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">kubelet.config.k8s.io/v1beta1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">KubeletConfiguration</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">address</span><span class="p">:</span><span class="w"> </span><span class="m">0.0.0.0</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="m">10250</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">readOnlyPort</span><span class="p">:</span><span class="w"> </span><span class="m">10255</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">authentication</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">anonymous</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">webhook</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">cacheTTL</span><span class="p">:</span><span class="w"> </span><span class="l">2m0s</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">x509</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">clientCAFile</span><span class="p">:</span><span class="w"> </span><span class="l">/etc/kubernetes/pki/ca.pem</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">authorization</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="l">Webhook</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">webhook</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">cacheAuthorizedTTL</span><span class="p">:</span><span class="w"> </span><span class="l">5m0s</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">cacheUnauthorizedTTL</span><span class="p">:</span><span class="w"> </span><span class="l">30s</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">cgroupDriver</span><span class="p">:</span><span class="w"> </span><span class="l">systemd</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">cgroupsPerQOS</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">clusterDNS</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span>- <span class="m">10.96.0.10</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">clusterDomain</span><span class="p">:</span><span class="w"> </span><span class="l">cluster.local</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">containerLogMaxFiles</span><span class="p">:</span><span class="w"> </span><span class="m">5</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">containerLogMaxSize</span><span class="p">:</span><span class="w"> </span><span class="l">10Mi</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">contentType</span><span class="p">:</span><span class="w"> </span><span class="l">application/vnd.kubernetes.protobuf</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">cpuCFSQuota</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">cpuManagerPolicy</span><span class="p">:</span><span class="w"> </span><span class="l">none</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">cpuManagerReconcilePeriod</span><span class="p">:</span><span class="w"> </span><span class="l">10s</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">enableControllerAttachDetach</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">enableDebuggingHandlers</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">enforceNodeAllocatable</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span>- <span class="l">pods</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">eventBurst</span><span class="p">:</span><span class="w"> </span><span class="m">10</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">eventRecordQPS</span><span class="p">:</span><span class="w"> </span><span class="m">5</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">evictionHard</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">imagefs.available</span><span class="p">:</span><span class="w"> </span><span class="m">15</span><span class="l">%</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">memory.available</span><span class="p">:</span><span class="w"> </span><span class="l">100Mi</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">nodefs.available</span><span class="p">:</span><span class="w"> </span><span class="m">10</span><span class="l">%</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">nodefs.inodesFree</span><span class="p">:</span><span class="w"> </span><span class="m">5</span><span class="l">%</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">evictionPressureTransitionPeriod</span><span class="p">:</span><span class="w"> </span><span class="l">5m0s</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">failSwapOn</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">fileCheckFrequency</span><span class="p">:</span><span class="w"> </span><span class="l">20s</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">hairpinMode</span><span class="p">:</span><span class="w"> </span><span class="l">promiscuous-bridge</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">healthzBindAddress</span><span class="p">:</span><span class="w"> </span><span class="m">127.0.0.1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">healthzPort</span><span class="p">:</span><span class="w"> </span><span class="m">10248</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">httpCheckFrequency</span><span class="p">:</span><span class="w"> </span><span class="l">20s</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">imageGCHighThresholdPercent</span><span class="p">:</span><span class="w"> </span><span class="m">85</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">imageGCLowThresholdPercent</span><span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">imageMinimumGCAge</span><span class="p">:</span><span class="w"> </span><span class="l">2m0s</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">iptablesDropBit</span><span class="p">:</span><span class="w"> </span><span class="m">15</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">iptablesMasqueradeBit</span><span class="p">:</span><span class="w"> </span><span class="m">14</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kubeAPIBurst</span><span class="p">:</span><span class="w"> </span><span class="m">10</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kubeAPIQPS</span><span class="p">:</span><span class="w"> </span><span class="m">5</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">makeIPTablesUtilChains</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">maxOpenFiles</span><span class="p">:</span><span class="w"> </span><span class="m">1000000</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">maxPods</span><span class="p">:</span><span class="w"> </span><span class="m">110</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">nodeStatusUpdateFrequency</span><span class="p">:</span><span class="w"> </span><span class="l">10s</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">oomScoreAdj</span><span class="p">:</span><span class="w"> </span>-<span class="m">999</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">podPidsLimit</span><span class="p">:</span><span class="w"> </span>-<span class="m">1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">registryBurst</span><span class="p">:</span><span class="w"> </span><span class="m">10</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">registryPullQPS</span><span class="p">:</span><span class="w"> </span><span class="m">5</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">resolvConf</span><span class="p">:</span><span class="w"> </span><span class="l">/etc/resolv.conf</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">rotateCertificates</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">runtimeRequestTimeout</span><span class="p">:</span><span class="w"> </span><span class="l">2m0s</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">serializeImagePulls</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">staticPodPath</span><span class="p">:</span><span class="w"> </span><span class="l">/etc/kubernetes/manifests</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">streamingConnectionIdleTimeout</span><span class="p">:</span><span class="w"> </span><span class="l">4h0m0s</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">syncFrequency</span><span class="p">:</span><span class="w"> </span><span class="l">1m0s</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">volumeStatsAggPeriod</span><span class="p">:</span><span class="w"> </span><span class="l">1m0s</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># systemctl daemon-reload &amp;&amp; systemctl enable --now kubelet</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># kubectl get node</span>
+</span></span><span class="line"><span class="cl">NAME         STATUS     ROLES    AGE   VERSION
+</span></span><span class="line"><span class="cl">k8s-master   NotReady   &lt;none&gt;   85s   v1.22.0
+</span></span><span class="line"><span class="cl">k8s-node1    NotReady   &lt;none&gt;   81s   v1.22.0
+</span></span><span class="line"><span class="cl">k8s-node2    NotReady   &lt;none&gt;   77s   v1.22.0
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 所有节点查看系统日志是否有报错信息 (忽略CNI错误)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># tail -f /var/log/messages</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li><code>kube-proxy</code></li>
+</ul>
+<p>签发证书&ndash;k8s-master节点操作, 只操作一次</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># kubectl -n kube-system create serviceaccount kube-proxy</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># kubectl create clusterrolebinding system:kube-proxy --clusterrole system:node-proxier --serviceaccount kube-system:kube-proxy</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># SECRET=$(kubectl -n kube-system get sa/kube-proxy --output=jsonpath=&#39;{.secrets[0].name}&#39;)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># JWT_TOKEN=$(kubectl -n kube-system get secret/$SECRET --output=jsonpath=&#39;{.data.token}&#39; | base64 -d)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># PKI_DIR=/etc/kubernetes/pki</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># K8S_DIR=/etc/kubernetes</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># kubectl config set-cluster kubernetes --certificate-authority=/etc/kubernetes/pki/ca.pem  --embed-certs=true --server=https://192.168.163.100:16443 --kubeconfig=${K8S_DIR}/kube-proxy.kubeconfig</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># kubectl config set-credentials kubernetes --token=${JWT_TOKEN} --kubeconfig=/etc/kubernetes/kube-proxy.kubeconfig</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># kubectl config set-context kubernetes --cluster=kubernetes --user=kubernetes --kubeconfig=/etc/kubernetes/kube-proxy.kubeconfig</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># kubectl config use-context kubernetes --kubeconfig=/etc/kubernetes/kube-proxy.kubeconfig</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>分发<code>kube-config</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="k">for</span> NODE in k8s-node1 k8s-node2<span class="p">;</span> <span class="k">do</span>
+</span></span><span class="line"><span class="cl">     scp /etc/kubernetes/kube-proxy.kubeconfig <span class="nv">$NODE</span>:/etc/kubernetes/kube-proxy.kubeconfig
+</span></span><span class="line"><span class="cl"><span class="k">done</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>所有节点配置</p>
+<p><strong>vim /usr/lib/systemd/system/kube-proxy.service</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">[Unit]
+</span></span><span class="line"><span class="cl">Description=Kubernetes Kube Proxy
+</span></span><span class="line"><span class="cl">Documentation=https://github.com/kubernetes/kubernetes
+</span></span><span class="line"><span class="cl">After=network.target
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">[Service]
+</span></span><span class="line"><span class="cl">ExecStart=/usr/local/bin/kube-proxy \
+</span></span><span class="line"><span class="cl">  --config=/etc/kubernetes/kube-proxy.yaml \
+</span></span><span class="line"><span class="cl">  --v=2
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Restart=always
+</span></span><span class="line"><span class="cl">RestartSec=10s
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">[Install]
+</span></span><span class="line"><span class="cl">WantedBy=multi-user.target
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>vim /etc/kubernetes/kube-proxy.yaml</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">kubeproxy.config.k8s.io/v1alpha1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">bindAddress</span><span class="p">:</span><span class="w"> </span><span class="m">0.0.0.0</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">clientConnection</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">acceptContentTypes</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">burst</span><span class="p">:</span><span class="w"> </span><span class="m">10</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">contentType</span><span class="p">:</span><span class="w"> </span><span class="l">application/vnd.kubernetes.protobuf</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">kubeconfig</span><span class="p">:</span><span class="w"> </span><span class="l">/etc/kubernetes/kube-proxy.kubeconfig</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">qps</span><span class="p">:</span><span class="w"> </span><span class="m">5</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">clusterCIDR</span><span class="p">:</span><span class="w"> </span><span class="m">172.16.0.0</span><span class="l">/12 </span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">configSyncPeriod</span><span class="p">:</span><span class="w"> </span><span class="l">15m0s</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">conntrack</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">max</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">maxPerCore</span><span class="p">:</span><span class="w"> </span><span class="m">32768</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">min</span><span class="p">:</span><span class="w"> </span><span class="m">131072</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">tcpCloseWaitTimeout</span><span class="p">:</span><span class="w"> </span><span class="l">1h0m0s</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">tcpEstablishedTimeout</span><span class="p">:</span><span class="w"> </span><span class="l">24h0m0s</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">enableProfiling</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">healthzBindAddress</span><span class="p">:</span><span class="w"> </span><span class="m">0.0.0.0</span><span class="p">:</span><span class="m">10256</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">hostnameOverride</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">iptables</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">masqueradeAll</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">masqueradeBit</span><span class="p">:</span><span class="w"> </span><span class="m">14</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">minSyncPeriod</span><span class="p">:</span><span class="w"> </span><span class="l">0s</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">syncPeriod</span><span class="p">:</span><span class="w"> </span><span class="l">30s</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">ipvs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">masqueradeAll</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">minSyncPeriod</span><span class="p">:</span><span class="w"> </span><span class="l">5s</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">scheduler</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;rr&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">syncPeriod</span><span class="p">:</span><span class="w"> </span><span class="l">30s</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">KubeProxyConfiguration</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metricsBindAddress</span><span class="p">:</span><span class="w"> </span><span class="m">127.0.0.1</span><span class="p">:</span><span class="m">10249</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;ipvs&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">nodePortAddresses</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">oomScoreAdj</span><span class="p">:</span><span class="w"> </span>-<span class="m">999</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">portRange</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">udpIdleTimeout</span><span class="p">:</span><span class="w"> </span><span class="l">250ms</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># systemctl daemon-reload &amp;&amp; systemctl enable --now kube-proxy</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># systemctl status kube-proxy</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># 错误1 -- 检查授权, JWT-token重新申城, 注册kube-config, 分发, systemctl daemon-reload &amp;&amp; systemctl restart kube-proxy</span>
+</span></span><span class="line"><span class="cl">kube-proxy k8s.io/client-go/informers/factory.go:134: Failed to watch *v1.EndpointSlice: failed to list *v1.EndpointSlice: endpointslices.discovery.k8s.io is forbidden: User <span class="s2">&#34;system:anonymous&#34;</span> cannot list resource <span class="s2">&#34;endpointslices&#34;</span> in API group <span class="s2">&#34;discovery.k8s.io&#34;</span> at the cluster scope
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 错误2 https://github.com/kubernetes/kubernetes/issues/104394</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 安装calico后再看</span>
+</span></span><span class="line"><span class="cl">Aug <span class="m">21</span> 11:17:58 k8s-master kube-proxy<span class="o">[</span>39513<span class="o">]</span>: E0821 11:17:58.679327   <span class="m">39513</span> event_broadcaster.go:253<span class="o">]</span> Server rejected event <span class="s1">&#39;&amp;v1.Event{TypeMeta:v1.TypeMeta{Kind:&#34;&#34;, APIVersion:&#34;&#34;}, ObjectMeta:v1.ObjectMeta{Name:&#34;k8s-master.177d47b53b7c49ed&#34;, GenerateName:&#34;&#34;, Namespace:&#34;default&#34;, SelfLink:&#34;&#34;, UID:&#34;&#34;, ResourceVersion:&#34;&#34;, Generation:0, CreationTimestamp:v1.Time{Time:time.Time{wall:0x0, ext:0, loc:(*time.Location)(nil)}}, DeletionTimestamp:(*v1.Time)(nil), DeletionGracePeriodSeconds:(*int64)(nil), Labels:map[string]string(nil), Annotations:map[string]string(nil), OwnerReferences:[]v1.OwnerReference(nil), Finalizers:[]string(nil), ClusterName:&#34;&#34;, ManagedFields:[]v1.ManagedFieldsEntry(nil)}, EventTime:v1.MicroTime{Time:time.Time{wall:0xc130d3b9a829c7b1, ext:70300376, loc:(*time.Location)(0x2d81340)}}, Series:(*v1.EventSeries)(nil), ReportingController:&#34;kube-proxy&#34;, ReportingInstance:&#34;kube-proxy-k8s-master&#34;, Action:&#34;StartKubeProxy&#34;, Reason:&#34;Starting&#34;, Regarding:v1.ObjectReference{Kind:&#34;Node&#34;, Namespace:&#34;&#34;, Name:&#34;k8s-master&#34;, UID:&#34;k8s-master&#34;, APIVersion:&#34;&#34;, ResourceVersion:&#34;&#34;, FieldPath:&#34;&#34;}, Related:(*v1.ObjectReference)(nil), Note:&#34;&#34;, Type:&#34;Normal&#34;, DeprecatedSource:v1.EventSource{Component:&#34;&#34;, Host:&#34;&#34;}, DeprecatedFirstTimestamp:v1.Time{Time:time.Time{wall:0x0, ext:0, loc:(*time.Location)(nil)}}, DeprecatedLastTimestamp:v1.Time{Time:time.Time{wall:0x0, ext:0, loc:(*time.Location)(nil)}}, DeprecatedCount:0}&#39;</span>: <span class="s1">&#39;Event &#34;k8s-master.177d47b53b7c49ed&#34; is invalid: involvedObject.namespace: Invalid value: &#34;&#34;: does not match event.namespace&#39;</span> <span class="o">(</span>will not retry!<span class="o">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="calico">calico</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># calico.yaml--&gt;https://github.com/dotbalo/k8s-ha-install/blob/manual-installation-v1.22.x/calico/calico.yaml</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 修改网段</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># sed -i &#34;s#POD_CIDR#172.16.0.0/12#g&#34; calico.yaml</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查看</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># sed -i &#34;s#POD_CIDR#172.16.0.0/12#g&#34; calico.yaml</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 启动</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># kubectl apply -f calico.yaml</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查看</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># kubectl get po -n kube-system</span>
+</span></span><span class="line"><span class="cl">calico-kube-controllers-66686fdb54-29v7n   0/1     ContainerCreating   <span class="m">0</span>          112s
+</span></span><span class="line"><span class="cl">calico-node-65sqh                          0/1     Running             <span class="m">0</span>          112s
+</span></span><span class="line"><span class="cl">calico-node-6vl2x                          0/1     Running             <span class="m">0</span>          112s
+</span></span><span class="line"><span class="cl">calico-node-j6bx4                          0/1     Running             <span class="m">0</span>          112s
+</span></span><span class="line"><span class="cl">calico-typha-67c6dc57d6-85gnd              0/1     Running             <span class="m">0</span>          112s
+</span></span><span class="line"><span class="cl">calico-typha-67c6dc57d6-fr9mr              0/1     Running             <span class="m">0</span>          112s
+</span></span><span class="line"><span class="cl">calico-typha-67c6dc57d6-l24p9              0/1     Running             <span class="m">0</span>          112s
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="pod">pod</h2>
 <blockquote>
 <p>Pod 是共享资源的进程的逻辑管理单元.
 底层还是依赖于linux的namespace和cgroup技术.</p>
