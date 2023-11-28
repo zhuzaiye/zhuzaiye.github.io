@@ -143,7 +143,25 @@
       </div>
     </header>
 
-    
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#pandas211读取excel的默认引擎问题"><code>pandas==2.1.1</code>读取excel的默认引擎问题</a></li>
+        <li><a href="#bcrypt401在aws-lambda中做层失败问题"><code>bcrypt==4.0.1</code>在<code>AWS Lambda</code>中做层失败问题</a></li>
+        <li><a href="#使用docker搭建python-311开发测试环境">使用<code>Docker</code>搭建<code>python 3.11</code>开发测试环境</a></li>
+        <li><a href="#fatal-error-concurrent-map-read-and-map-write"><code>fatal error: concurrent map read and map write</code></a></li>
+        <li><a href="#mysql-20200601-222957-packetsgo122-closing-bad-idle-connection-eof"><code>[mysql] 2020/06/01 22:29:57 packets.go:122: closing bad idle connection: EOF</code></a></li>
+        <li><a href="#ip的漂移和aws-lambda缓存问题综合"><code>IP</code>的漂移和<code>AWS Lambda</code>缓存问题[综合]</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
     <div class="post-content">
       <p>如何在日常工作中遇到的问题学到些什么? 这是我开启<code>杂记-FAQ</code>的初衷.<br>
 其次就是不时去看一下, 当时理解或者求索是否正确, 常看常新.</p>
@@ -875,7 +893,23 @@
     </footer>
   </article>
         </div>
-        
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://unpkg.com/gitalk@1.2.2/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://unpkg.com/gitalk@latest/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2023-11-28 21:03:22 \u002b0800 CST',
+        title: 'FAQ_01',
+        clientID: '9c36634fbb845c1d1d64',
+        clientSecret: '3d57254b5ffccf04f9d973cc42b1d84ecd48fd01',
+        repo: 'zhuzaiye.github.io',
+        owner: 'zhuzaiye',
+        admin: ['zhuzaiye'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
 
       </div>
     </main>
