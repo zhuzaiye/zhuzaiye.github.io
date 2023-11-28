@@ -10,7 +10,49 @@
   
   <url>
     <loc>https://zhuzaiye.github.io/categories/</loc>
-    <lastmod>2023-04-08T09:20:36+08:00</lastmod>
+    <lastmod>2023-11-28T21:03:22+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuzaiye.github.io/tags/faq/</loc>
+    <lastmod>2023-11-28T21:03:22+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuzaiye.github.io/categories/faq/</loc>
+    <lastmod>2023-11-28T21:03:22+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuzaiye.github.io/post/20231128-faq01/</loc>
+    <lastmod>2023-11-28T21:03:22+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuzaiye.github.io/post/</loc>
+    <lastmod>2023-11-28T21:03:22+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuzaiye.github.io/tags/</loc>
+    <lastmod>2023-11-28T21:03:22+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuzaiye.github.io/</loc>
+    <lastmod>2023-11-28T21:03:22+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -38,27 +80,6 @@
   
   <url>
     <loc>https://zhuzaiye.github.io/post/20230408-kubernetes/</loc>
-    <lastmod>2023-04-08T09:20:36+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuzaiye.github.io/post/</loc>
-    <lastmod>2023-04-08T09:20:36+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuzaiye.github.io/tags/</loc>
-    <lastmod>2023-04-08T09:20:36+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuzaiye.github.io/</loc>
     <lastmod>2023-04-08T09:20:36+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>

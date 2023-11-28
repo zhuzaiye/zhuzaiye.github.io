@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>FAQ on zhuzaiye</title>
+    <link>https://zhuzaiye.github.io/tags/faq/</link>
+    <description>Recent content in FAQ on zhuzaiye</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 28 Nov 2023 21:03:22 +0800</lastBuildDate><atom:link href="https://zhuzaiye.github.io/tags/faq/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>FAQ_01</title>
+      <link>https://zhuzaiye.github.io/post/20231128-faq01/</link>
+      <pubDate>Tue, 28 Nov 2023 21:03:22 +0800</pubDate>
+      
+      <guid>https://zhuzaiye.github.io/post/20231128-faq01/</guid>
+      <description>如何在日常工作中遇到的问题学到些什么? 这是我开启杂记-FAQ的初衷. 其次就是不时去看一下, 当时理解或者求索是否正确, 常看常新. 不积跬步无以至</description>
+    </item>
+    
+  </channel>
+</rss>

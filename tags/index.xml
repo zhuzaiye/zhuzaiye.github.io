@@ -6,7 +6,16 @@
     <description>Recent content in Tags on zhuzaiye</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 08 Apr 2023 09:20:36 +0800</lastBuildDate><atom:link href="https://zhuzaiye.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 28 Nov 2023 21:03:22 +0800</lastBuildDate><atom:link href="https://zhuzaiye.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>FAQ</title>
+      <link>https://zhuzaiye.github.io/tags/faq/</link>
+      <pubDate>Tue, 28 Nov 2023 21:03:22 +0800</pubDate>
+      
+      <guid>https://zhuzaiye.github.io/tags/faq/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>k8s</title>
       <link>https://zhuzaiye.github.io/tags/k8s/</link>
