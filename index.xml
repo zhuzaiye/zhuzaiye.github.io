@@ -22,7 +22,7 @@
       <pubDate>Sat, 08 Apr 2023 09:20:36 +0800</pubDate>
       
       <guid>https://zhuzaiye.github.io/post/20230408-kubernetes/</guid>
-      <description>二进制安装靠可用k8s集群 service 网段 10.96.0.0/16 node 网段 192.168.163.0 pod 网段 172.16.0.0/12 vm12 开启三个2核4G的虚拟机 所有虚拟机节点配置网络 1 2 3 # vi /etc/sysconfig/network #&amp;gt;&amp;gt; NETWORKING=yes #&amp;gt;&amp;gt; HOSTNAME=master 配置ens, 请查看虚拟</description>
+      <description>应用部署在哪里? 应用在哪里运行? 应用应如何访问? 问题该如何排查? 应用该如何监控? pod Pod 是共享资源的进程的逻辑管理单元. 底层还是依赖于linux</description>
     </item>
     
     <item>
@@ -89,24 +89,6 @@
     </item>
     
     <item>
-      <title>数据与算法-BiaryTree</title>
-      <link>https://zhuzaiye.github.io/post/20220511-biarytree/</link>
-      <pubDate>Wed, 11 May 2022 19:44:20 +0800</pubDate>
-      
-      <guid>https://zhuzaiye.github.io/post/20220511-biarytree/</guid>
-      <description>二叉树结构体 1 2 3 4 5 6 // BinaryNode 二叉树结点 type BinaryNode struct { Value interface{} // 结点数值 LeftNode *BinaryNode // 左-子结点 RightNode *BinaryNode // 右-子结点 } 遍历二叉树 前序遍历 1 2 3 4 5 6 7 8 9 10 11 12 13 14</description>
-    </item>
-    
-    <item>
-      <title>数据与算法-LinkList</title>
-      <link>https://zhuzaiye.github.io/post/20220424-link-list/</link>
-      <pubDate>Sun, 24 Apr 2022 22:29:10 +0800</pubDate>
-      
-      <guid>https://zhuzaiye.github.io/post/20220424-link-list/</guid>
-      <description>关于链表数据接口的算法。 链表的数据结构 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 // LinkNode 定义链表数据节点 type LinkNode struct { Data interface{} Next *LinkNode</description>
-    </item>
-    
-    <item>
       <title>React在Admin上的实践</title>
       <link>https://zhuzaiye.github.io/post/20220417-react-admin/</link>
       <pubDate>Sun, 17 Apr 2022 11:24:05 +0800</pubDate>
@@ -134,12 +116,12 @@
     </item>
     
     <item>
-      <title>数据与算法-Array</title>
-      <link>https://zhuzaiye.github.io/post/20220320-algo-array/</link>
+      <title>数据结构与算法</title>
+      <link>https://zhuzaiye.github.io/post/20220320-algo-struct/</link>
       <pubDate>Sun, 20 Mar 2022 12:56:13 +0800</pubDate>
       
-      <guid>https://zhuzaiye.github.io/post/20220320-algo-array/</guid>
-      <description>关于Leetcode中Array数据和算法记录。 Algorithms 两数之和(Two Sum) 问题：给定一个整数数组 nums 和一个整数目标值 target，在该数组中找出 和为</description>
+      <guid>https://zhuzaiye.github.io/post/20220320-algo-struct/</guid>
+      <description>数据结构和算法. 参考: Hello算法 Leetcode 贪心算法 贪心算法属于局部优化算法, 无法保证找到全局最优解(如果需要请考虑动态规划) 贪心算法适合以下两种</description>
     </item>
     
   </channel>

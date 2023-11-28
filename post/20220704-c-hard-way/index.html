@@ -50,7 +50,7 @@
 <meta itemprop="name" content="C/C&#43;&#43;语言实践">
 <meta itemprop="description" content="C的思维导图 目标 C的基本语法和编写习惯&ndash;输出思维导图 编译, make文件和链接&ndash;熟练使用Makefile 寻找和预防bu"><meta itemprop="datePublished" content="2022-07-04T22:36:24+08:00" />
 <meta itemprop="dateModified" content="2022-07-04T22:36:24+08:00" />
-<meta itemprop="wordCount" content="2972">
+<meta itemprop="wordCount" content="4112">
 <meta itemprop="keywords" content="C/C&#43;&#43;," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="C/C&#43;&#43;语言实践"/>
 <meta name="twitter:description" content="C的思维导图 目标 C的基本语法和编写习惯&ndash;输出思维导图 编译, make文件和链接&ndash;熟练使用Makefile 寻找和预防bu"/>
@@ -137,8 +137,8 @@
         <div class="post-category">
             <a href="/categories/language/"> Language </a>
             </div>
-          <span class="more-meta"> 2972 words </span>
-          <span class="more-meta"> 6 mins read </span>
+          <span class="more-meta"> 4112 words </span>
+          <span class="more-meta"> 9 mins read </span>
         
       </div>
     </header>
@@ -172,9 +172,9 @@
             <li><a href="#内存操作">内存操作</a></li>
           </ul>
         </li>
-        <li><a href="#实践">实践</a>
+        <li><a href="#cpp">CPP</a>
           <ul>
-            <li><a href="#webbench"><a href="">WebBench</a></a></li>
+            <li><a href="#类">类</a></li>
           </ul>
         </li>
       </ul>
@@ -798,9 +798,526 @@
 <pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">void</span> <span class="o">*</span><span class="nf">memmove</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">dest</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="n">src</span><span class="p">,</span> <span class="n">size_t</span> <span class="n">count</span><span class="p">);</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="实践">实践</h2>
-<h3 id="webbench"><a href="">WebBench</a></h3>
-
+</div><h2 id="cpp">CPP</h2>
+<h3 id="类">类</h3>
+<p><strong>拷贝构造函数</strong></p>
+<blockquote>
+<p>使用同一个类型的实例化对象创建新的同类对象.</p>
+<p>场景:</p>
+<ol>
+<li>使用对象创建新的对象</li>
+<li>复制对象作为参数传递</li>
+</ol>
+<p>何时创建?</p>
+<ol>
+<li>不显式定义,编译器会默认定义一个</li>
+<li>类型带有动态分配内存的指针变量, 必须显式构造拷贝构造函数</li>
+</ol>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Line</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">void</span> <span class="n">setLength</span><span class="p">(</span><span class="kt">double</span> <span class="n">len</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">double</span> <span class="nf">getLength</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">double</span> <span class="nf">getLength2</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Line</span><span class="p">(</span><span class="kt">double</span> <span class="n">len</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Line</span><span class="p">(</span><span class="k">const</span> <span class="n">Line</span> <span class="o">&amp;</span><span class="n">o</span><span class="p">);</span> <span class="c1">// 拷贝构造函数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="o">~</span><span class="n">Line</span><span class="p">();</span>  <span class="c1">// 析构函数会跟随每一个该类型对象(包括拷贝对象)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        
+</span></span><span class="line"><span class="cl">    <span class="k">private</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">double</span> <span class="n">length</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">int</span> <span class="o">*</span><span class="n">ptr</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">Line</span><span class="o">::</span><span class="n">Line</span><span class="p">(</span><span class="kt">double</span> <span class="n">len</span><span class="p">)</span><span class="o">:</span><span class="n">length</span><span class="p">(</span><span class="n">len</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ptr</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">*</span><span class="n">ptr</span> <span class="o">=</span> <span class="n">len</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Object is being created&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">Line</span><span class="o">::</span><span class="n">Line</span><span class="p">(</span><span class="k">const</span> <span class="n">Line</span> <span class="o">&amp;</span><span class="n">b</span><span class="p">)</span><span class="o">:</span><span class="n">length</span><span class="p">(</span><span class="n">b</span><span class="p">.</span><span class="n">length</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// length = b.length;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">ptr</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">*</span><span class="n">ptr</span> <span class="o">=</span> <span class="o">*</span><span class="n">b</span><span class="p">.</span><span class="n">ptr</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Object is being copy created&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">Line</span><span class="o">::~</span><span class="n">Line</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Object is being deleted&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">delete</span> <span class="n">ptr</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">Line</span><span class="o">::</span><span class="n">setLength</span><span class="p">(</span><span class="kt">double</span> <span class="n">len</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">length</span> <span class="o">=</span> <span class="n">len</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">double</span> <span class="n">Line</span><span class="o">::</span><span class="n">getLength</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">length</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">double</span> <span class="n">Line</span><span class="o">::</span><span class="n">getLength2</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="o">*</span><span class="n">ptr</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">display</span><span class="p">(</span><span class="n">Line</span> <span class="n">j</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Line 大小1: &#34;</span> <span class="o">&lt;&lt;</span> <span class="n">j</span><span class="p">.</span><span class="n">getLength</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Line 大小2: &#34;</span> <span class="o">&lt;&lt;</span> <span class="n">j</span><span class="p">.</span><span class="n">getLength2</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Line</span> <span class="n">line</span><span class="p">(</span><span class="mf">6.0</span><span class="p">);</span> <span class="c1">// create line
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">Line</span> <span class="n">line1</span> <span class="o">=</span> <span class="n">line</span><span class="p">;</span> <span class="c1">// copy-create line1  line.length+1=13=line1.length
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    
+</span></span><span class="line"><span class="cl">    <span class="n">display</span><span class="p">(</span><span class="n">line</span><span class="p">);</span> <span class="c1">// copy-create display-obj-line, then delete display-obj-line line.length+1=13
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">display</span><span class="p">(</span><span class="n">line1</span><span class="p">);</span> <span class="c1">// copy-create display-obj-line1 then delete display-obj-line1 line1.length+1=14
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    
+</span></span><span class="line"><span class="cl">    <span class="c1">// then delete line1
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// then delete line
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Object is being created
+</span></span></span><span class="line"><span class="cl"><span class="c1">// Object is being copy created
+</span></span></span><span class="line"><span class="cl"><span class="c1">// Object is being copy created
+</span></span></span><span class="line"><span class="cl"><span class="c1">// Line 大小1: 13
+</span></span></span><span class="line"><span class="cl"><span class="c1">// Line 大小2: 6
+</span></span></span><span class="line"><span class="cl"><span class="c1">// Object is being deleted
+</span></span></span><span class="line"><span class="cl"><span class="c1">// Object is being copy created
+</span></span></span><span class="line"><span class="cl"><span class="c1">// Line 大小1: 14
+</span></span></span><span class="line"><span class="cl"><span class="c1">// Line 大小2: 6
+</span></span></span><span class="line"><span class="cl"><span class="c1">// Object is being deleted
+</span></span></span><span class="line"><span class="cl"><span class="c1">// Object is being deleted
+</span></span></span><span class="line"><span class="cl"><span class="c1">// Object is being deleted
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>友元函数/类</strong></p>
+<blockquote>
+<p>逃逸类限制的无限制的操作</p>
+<p>可以访问类的 private 和 protected 成员</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Box</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">double</span> <span class="n">width</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">friend</span> <span class="kt">void</span> <span class="n">printWidth</span><span class="p">(</span><span class="n">Box</span> <span class="n">box</span><span class="p">);</span>  <span class="c1">// 友元函数 printWidth
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">friend</span> <span class="k">class</span> <span class="nc">BigBox</span><span class="p">;</span>  <span class="c1">// 友元类 BigBox
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kt">void</span> <span class="nf">setWidth</span><span class="p">(</span><span class="kt">double</span> <span class="n">wid</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">BigBox</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">void</span> <span class="n">print</span><span class="p">(</span><span class="kt">double</span> <span class="n">width</span><span class="p">,</span> <span class="n">Box</span> <span class="o">&amp;</span><span class="n">box</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">box</span><span class="p">.</span><span class="n">setWidth</span><span class="p">(</span><span class="n">width</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">// BigBox作为Box友元类,可以直接访问Box对象的任何权限成员
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Width of friend class box: &#34;</span> <span class="o">&lt;&lt;</span> <span class="n">box</span><span class="p">.</span><span class="n">width</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">Box</span><span class="o">::</span><span class="n">setWidth</span><span class="p">(</span><span class="kt">double</span> <span class="n">wid</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">width</span> <span class="o">=</span> <span class="n">wid</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 独立函数定义
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">void</span> <span class="nf">printWidth</span><span class="p">(</span><span class="n">Box</span> <span class="n">box</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// printWidth作为Box友元函数,可直接访问Box对象的任何权限成员
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Width of friend func box: &#34;</span> <span class="o">&lt;&lt;</span> <span class="n">box</span><span class="p">.</span><span class="n">width</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Box</span> <span class="n">box</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">BigBox</span> <span class="n">big</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="n">box</span><span class="p">.</span><span class="n">setWidth</span><span class="p">(</span><span class="mf">10.0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="n">printWidth</span><span class="p">(</span><span class="n">box</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="n">big</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="mf">20.0</span><span class="p">,</span> <span class="n">box</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>  
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>继承</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Shape</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="n">setWidth</span><span class="p">(</span><span class="kt">int</span> <span class="n">w</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">width</span> <span class="o">=</span> <span class="n">w</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="nf">setHeight</span><span class="p">(</span><span class="kt">int</span> <span class="n">h</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">height</span> <span class="o">=</span> <span class="n">h</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl"><span class="k">protected</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">width</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">height</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">PainCost</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">getCost</span><span class="p">(</span><span class="kt">int</span> <span class="n">area</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">area</span> <span class="o">*</span> <span class="mi">70</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Rectangle</span><span class="o">:</span> <span class="k">public</span> <span class="n">Shape</span><span class="p">,</span><span class="k">public</span> <span class="n">PainCost</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// accessType BaseClass1, accessType BaseClass1
+</span></span></span><span class="line"><span class="cl"><span class="c1">// accessType 基类的权限会在派生类继承的时候修改基类的权限,权限趋向限制
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">getArea</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="p">(</span><span class="n">width</span> <span class="o">*</span> <span class="n">height</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>   
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Rectangle</span> <span class="n">Rect</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">area</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="n">Rect</span><span class="p">.</span><span class="n">setWidth</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Rect</span><span class="p">.</span><span class="n">setHeight</span><span class="p">(</span><span class="mi">7</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="n">area</span> <span class="o">=</span>  <span class="n">Rect</span><span class="p">.</span><span class="n">getArea</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Total area of rectangle: &#34;</span> <span class="o">&lt;&lt;</span> <span class="n">area</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Total paint cost of rectangle: $&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">Rect</span><span class="p">.</span><span class="n">getCost</span><span class="p">(</span><span class="n">area</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>重载</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 重载函数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">class</span> <span class="nc">PrintData</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="n">print</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Integer:  &#34;</span> <span class="o">&lt;&lt;</span> <span class="n">i</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="nf">print</span><span class="p">(</span><span class="kt">double</span> <span class="n">f</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Float: &#34;</span> <span class="o">&lt;&lt;</span> <span class="n">f</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="nf">print</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">c</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;String: &#34;</span> <span class="o">&lt;&lt;</span> <span class="n">c</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Box</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">double</span> <span class="n">getVolume</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">length</span> <span class="o">*</span> <span class="n">breadth</span> <span class="o">*</span> <span class="n">height</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="nf">setLength</span><span class="p">(</span><span class="kt">double</span> <span class="n">len</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">length</span> <span class="o">=</span> <span class="n">len</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="nf">setBreadth</span><span class="p">(</span><span class="kt">double</span> <span class="n">bre</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">breadth</span> <span class="o">=</span> <span class="n">bre</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="nf">setHeight</span><span class="p">(</span><span class="kt">double</span> <span class="n">hei</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">height</span> <span class="o">=</span> <span class="n">hei</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 运算符重载 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// operator符号(const 类&amp; var)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// 运算符的重新定义
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">Box</span> <span class="k">operator</span><span class="o">+</span><span class="p">(</span><span class="k">const</span> <span class="n">Box</span><span class="o">&amp;</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Box</span> <span class="n">box</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">box</span><span class="p">.</span><span class="n">length</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">length</span> <span class="o">+</span> <span class="n">b</span><span class="p">.</span><span class="n">length</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">box</span><span class="p">.</span><span class="n">breadth</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">breadth</span> <span class="o">+</span> <span class="n">b</span><span class="p">.</span><span class="n">breadth</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">box</span><span class="p">.</span><span class="n">height</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">length</span> <span class="o">+</span> <span class="n">b</span><span class="p">.</span><span class="n">length</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">box</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl"><span class="k">private</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">double</span> <span class="n">length</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">double</span> <span class="n">breadth</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">double</span> <span class="n">height</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">PrintData</span> <span class="n">pd</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="n">pd</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">pd</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="mf">500.123</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">c</span> <span class="o">=</span> <span class="s">&#34;Hello c++&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">pd</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="n">c</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div>
     </div>
 
     <div class="post-copyright">

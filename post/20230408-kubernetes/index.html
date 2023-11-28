@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="zhuzaiye" /><meta name="description" content="二进制安装靠可用k8s集群 service 网段 10.96.0.0/16 node 网段 192.168.163.0 pod 网段 172.16.0.0/12 vm12 开启三个2核4G的虚拟机 所有虚拟机节点配置网络 1 2 3 # vi /etc/sysconfig/network #&amp;gt;&amp;gt; NETWORKING=yes #&amp;gt;&amp;gt; HOSTNAME=master 配置ens, 请查看虚拟" /><meta name="keywords" content="Kubernetes" />
+<meta name="author" content="zhuzaiye" /><meta name="description" content="应用部署在哪里? 应用在哪里运行? 应用应如何访问? 问题该如何排查? 应用该如何监控? pod Pod 是共享资源的进程的逻辑管理单元. 底层还是依赖于linux" /><meta name="keywords" content="Kubernetes" />
 
 
 
@@ -40,7 +40,7 @@
 
 
 <meta property="og:title" content="Kubernetes" />
-<meta property="og:description" content="二进制安装靠可用k8s集群 service 网段 10.96.0.0/16 node 网段 192.168.163.0 pod 网段 172.16.0.0/12 vm12 开启三个2核4G的虚拟机 所有虚拟机节点配置网络 1 2 3 # vi /etc/sysconfig/network #&gt;&gt; NETWORKING=yes #&gt;&gt; HOSTNAME=master 配置ens, 请查看虚拟" />
+<meta property="og:description" content="应用部署在哪里? 应用在哪里运行? 应用应如何访问? 问题该如何排查? 应用该如何监控? pod Pod 是共享资源的进程的逻辑管理单元. 底层还是依赖于linux" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://zhuzaiye.github.io/post/20230408-kubernetes/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2023-04-08T09:20:36+08:00" />
@@ -48,12 +48,12 @@
 
 
 <meta itemprop="name" content="Kubernetes">
-<meta itemprop="description" content="二进制安装靠可用k8s集群 service 网段 10.96.0.0/16 node 网段 192.168.163.0 pod 网段 172.16.0.0/12 vm12 开启三个2核4G的虚拟机 所有虚拟机节点配置网络 1 2 3 # vi /etc/sysconfig/network #&gt;&gt; NETWORKING=yes #&gt;&gt; HOSTNAME=master 配置ens, 请查看虚拟"><meta itemprop="datePublished" content="2023-04-08T09:20:36+08:00" />
+<meta itemprop="description" content="应用部署在哪里? 应用在哪里运行? 应用应如何访问? 问题该如何排查? 应用该如何监控? pod Pod 是共享资源的进程的逻辑管理单元. 底层还是依赖于linux"><meta itemprop="datePublished" content="2023-04-08T09:20:36+08:00" />
 <meta itemprop="dateModified" content="2023-04-08T09:20:36+08:00" />
-<meta itemprop="wordCount" content="9831">
+<meta itemprop="wordCount" content="10086">
 <meta itemprop="keywords" content="Kubernetes,k8s," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Kubernetes"/>
-<meta name="twitter:description" content="二进制安装靠可用k8s集群 service 网段 10.96.0.0/16 node 网段 192.168.163.0 pod 网段 172.16.0.0/12 vm12 开启三个2核4G的虚拟机 所有虚拟机节点配置网络 1 2 3 # vi /etc/sysconfig/network #&gt;&gt; NETWORKING=yes #&gt;&gt; HOSTNAME=master 配置ens, 请查看虚拟"/>
+<meta name="twitter:description" content="应用部署在哪里? 应用在哪里运行? 应用应如何访问? 问题该如何排查? 应用该如何监控? pod Pod 是共享资源的进程的逻辑管理单元. 底层还是依赖于linux"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -137,8 +137,8 @@
         <div class="post-category">
             <a href="/categories/cloudnative/"> CloudNative </a>
             </div>
-          <span class="more-meta"> 9831 words </span>
-          <span class="more-meta"> 20 mins read </span>
+          <span class="more-meta"> 10086 words </span>
+          <span class="more-meta"> 21 mins read </span>
         
       </div>
     </header>
@@ -150,6 +150,17 @@
   <ul>
     <li>
       <ul>
+        <li><a href="#pod">pod</a></li>
+        <li><a href="#deployment-无状态应用管理">Deployment [无状态应用管理]</a></li>
+        <li><a href="#yaml文件">Yaml文件</a></li>
+        <li><a href="#持久化存储状态volume和persistent-volume">持久化存储状态(volume和Persistent Volume)</a></li>
+        <li><a href="#网络">网络</a></li>
+        <li><a href="#runtimecri">[runtimeCRI]</a>
+          <ul>
+            <li><a href="#kubelet">kubelet</a></li>
+          </ul>
+        </li>
+        <li><a href="#监控和日志">监控和日志</a></li>
         <li><a href="#二进制安装靠可用k8s集群">二进制安装靠可用k8s集群</a>
           <ul>
             <li><a href="#vm12-开启三个2核4g的虚拟机">vm12 开启三个2核4G的虚拟机</a></li>
@@ -174,29 +185,6 @@
             <li><a href="#calico">calico</a></li>
           </ul>
         </li>
-        <li><a href="#pod">pod</a></li>
-        <li><a href="#controller">controller</a></li>
-        <li><a href="#scheduler">scheduler</a></li>
-        <li><a href="#configmap">configMap</a></li>
-        <li><a href="#storage">storage</a></li>
-        <li><a href="#network">network</a></li>
-        <li><a href="#safety">safety</a></li>
-        <li><a href="#yaml文件">Yaml文件</a></li>
-        <li><a href="#statefulset">Statefulset</a>
-          <ul>
-            <li><a href="#拓扑状态">拓扑状态</a></li>
-            <li><a href="#存储状态">存储状态</a></li>
-            <li><a href="#状态实践">状态实践</a></li>
-          </ul>
-        </li>
-        <li><a href="#持久化存储状态volume和persistent-volume">持久化存储状态(volume和Persistent Volume)</a></li>
-        <li><a href="#网络">网络</a></li>
-        <li><a href="#runtimecri">[runtimeCRI]</a>
-          <ul>
-            <li><a href="#kubelet">kubelet</a></li>
-          </ul>
-        </li>
-        <li><a href="#监控和日志">监控和日志</a></li>
       </ul>
     </li>
   </ul>
@@ -204,7 +192,750 @@
   </div>
 </div>
     <div class="post-content">
-      <h2 id="二进制安装靠可用k8s集群">二进制安装靠可用k8s集群</h2>
+      <blockquote>
+<ol>
+<li>应用部署在哪里?</li>
+<li>应用在哪里运行?</li>
+<li>应用应如何访问?</li>
+<li>问题该如何排查?</li>
+<li>应用该如何监控?</li>
+</ol>
+</blockquote>
+<h2 id="pod">pod</h2>
+<blockquote>
+<p>Pod 是共享资源的进程的逻辑管理单元.
+底层还是依赖于linux的namespace和cgroup技术.</p>
+</blockquote>
+<ul>
+<li>网络资源共享: pod第一个创建infra容器, 作为网络共享容器, <code>--net==container</code>方式, 实现namespace网络共享.</li>
+<li>存储资源共享: pod顶层声明一个volume, 需要共享的container挂载这个pod级别的volume, 实现存储资源共享.</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c"># host path: sidecar模式 较常用容器日志收集</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Pod</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">counter</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">volumes</span><span class="p">:</span><span class="w">  </span><span class="c"># pod级别 顶层声明volume</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">varlog</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">hostPath</span><span class="p">:</span><span class="w">  </span><span class="c"># 采用hostpath方式</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">/root/log/counter </span><span class="w"> </span><span class="c"># volume在host主机上的存储位置(没有会自动创建) 目录</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">containers</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">count</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">busybox</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">args</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="l">/bin/sh</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- -<span class="l">c</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="l">&gt; </span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="l">i=0;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="l">while true;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="l">do</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="l">echo &#34;$i: $(date)&#34; &gt;&gt; /var/log/1.log;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="l">i=$((i+1));</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="l">sleep 1;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="l">done</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">volumeMounts</span><span class="p">:</span><span class="w">  </span><span class="c"># pod管理的container声明挂载pod顶层声明的volume</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">varlog</span><span class="w"> </span><span class="c"># hostpath 中pods声明的volume的名称</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="l">/var/log </span><span class="w"> </span><span class="c"># 当前container中需要挂载映射的目录</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">count-log</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">busybox</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">args</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">/bin/sh, -c, &#39;tail -n+1 -f /var/log/1.log&#39;]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">volumeMounts</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">varlog</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="l">/var/log</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>Replication Controller (RC 复制控制器)<br>
+Replica Set (RS 复制集)</p>
+</blockquote>
+<p><code>Replication Controller</code>保证多个节点的多个pod按照期望数量运行, 协调创建,删除和更新pod.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">ReplicationController</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">nginx-rc</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c"># rc 没有标签选择器</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">replicas</span><span class="p">:</span><span class="w"> </span><span class="m">3</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">selector</span><span class="p">:</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l">nginx</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">template</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">nginx</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">labels</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l">nginx</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">containers</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">nginx</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">nginx</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">ports</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span>- <span class="nt">containerPort</span><span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="deployment-无状态应用管理">Deployment [无状态应用管理]</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">apps/v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Deployment</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">nginx-deployment</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">selector</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">matchLabels</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l">nginx</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">replicas</span><span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="c"># 告知 Deployment 运行 2 个与该模板匹配的 Pod</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">template</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">labels</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l">nginx</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">containers</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">nginx</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">nginx:1.14.2</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">ports</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">containerPort</span><span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="yaml文件">Yaml文件</h2>
+<blockquote>
+<p>云平台的服务配置和管理</p>
+<p>控制声明 + 被控对象声明</p>
+</blockquote>
+<ul>
+<li>缩进的空格数目不重要，只要相同层级的元素左侧对齐即可</li>
+<li><code>- - -</code> 为可选的分隔符 ，当需要在一个文件中定义多个结构的时候需要使用</li>
+</ul>
+<ol>
+<li>Maps</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c"># 键值对</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">apps/v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">pod</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># map 组(多层map嵌套, 同一缩进, 属于同一key下的map)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">demo</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">labels</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l">nginx</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="2">
+<li>List</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">containers</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">front-end</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">nginx</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">containerPort</span><span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">flaskapp-demo</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">jcdemo/flaskapp</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w"> </span><span class="m">8080</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># 转义</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># containers = [{name: front-end, image:nginx, ports: [{containerPort:80}]},</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c">#               {name:flaskapp-demo, image:cdemo/flaskapp, ports: 8080}] </span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>常用字段属性</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>filed</th>
+<th>desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>apiVersion</td>
+<td>API版本</td>
+</tr>
+<tr>
+<td>kind</td>
+<td>资源类型</td>
+</tr>
+<tr>
+<td>metadata</td>
+<td>资源元数据</td>
+</tr>
+<tr>
+<td>spec</td>
+<td>资源规格</td>
+</tr>
+<tr>
+<td>replicas</td>
+<td>副本数量</td>
+</tr>
+<tr>
+<td>selector</td>
+<td>标签选择器</td>
+</tr>
+<tr>
+<td>template</td>
+<td>Pod模板</td>
+</tr>
+<tr>
+<td>metadata</td>
+<td>Pod元数据</td>
+</tr>
+<tr>
+<td>spec</td>
+<td>Pod规格</td>
+</tr>
+<tr>
+<td>containers</td>
+<td>容器配置</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>apiVersion</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># kubectl api-versions</span>
+</span></span><span class="line"><span class="cl">admissionregistration.k8s.io/v1
+</span></span><span class="line"><span class="cl">apiextensions.k8s.io/v1
+</span></span><span class="line"><span class="cl">apiregistration.k8s.io/v1
+</span></span><span class="line"><span class="cl">apps/v1  <span class="c1">#  包含一些通用的应用层的api组合，如：Deployments, RollingUpdates, and ReplicaSets</span>
+</span></span><span class="line"><span class="cl">authentication.k8s.io/v1
+</span></span><span class="line"><span class="cl">authorization.k8s.io/v1
+</span></span><span class="line"><span class="cl">autoscaling/v1  <span class="c1"># 允许根据不同的资源使用指标自动调整容器</span>
+</span></span><span class="line"><span class="cl">autoscaling/v2
+</span></span><span class="line"><span class="cl">batch/v1  <span class="c1"># 包含与批处理和类似作业的任务相关的对象，如：job、cronjob</span>
+</span></span><span class="line"><span class="cl">certificates.k8s.io/v1
+</span></span><span class="line"><span class="cl">coordination.k8s.io/v1
+</span></span><span class="line"><span class="cl">crd.projectcalico.org/v1
+</span></span><span class="line"><span class="cl">discovery.k8s.io/v1
+</span></span><span class="line"><span class="cl">events.k8s.io/v1
+</span></span><span class="line"><span class="cl">flowcontrol.apiserver.k8s.io/v1beta2
+</span></span><span class="line"><span class="cl">flowcontrol.apiserver.k8s.io/v1beta3
+</span></span><span class="line"><span class="cl">networking.k8s.io/v1  <span class="c1"># 用于Ingress</span>
+</span></span><span class="line"><span class="cl">node.k8s.io/v1
+</span></span><span class="line"><span class="cl">policy/v1
+</span></span><span class="line"><span class="cl">rbac.authorization.k8s.io/v1  <span class="c1"># 用于RBAC</span>
+</span></span><span class="line"><span class="cl">scheduling.k8s.io/v1
+</span></span><span class="line"><span class="cl">storage.k8s.io/v1
+</span></span><span class="line"><span class="cl">storage.k8s.io/v1beta1
+</span></span><span class="line"><span class="cl">v1  <span class="c1"># Kubernetes API的稳定版本，包含很多核心对象：pod、service等</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>spec</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w"> </span><span class="c">#必选，版本号，例如v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Pod</span><span class="w"> </span><span class="c">#必选，Pod </span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w"> </span><span class="c">#必选，元数据 </span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">nginx</span><span class="w"> </span><span class="c">#必选，Pod名称 </span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">labels</span><span class="p">:</span><span class="w"> </span><span class="c">#自定义标签 </span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l">nginx</span><span class="w"> </span><span class="c">#自定义标签名字 </span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w"> </span><span class="c">#必选，Pod中容器的详细定义 </span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">containers</span><span class="p">:</span><span class="w"> </span><span class="c">#必选，Pod中容器列表，一个pod里会有多个容器 </span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">nginx</span><span class="w"> </span><span class="c">#必选，容器名称 </span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">nginx</span><span class="w"> </span><span class="c">#必选，容器的镜像名称 </span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">imagePullPolicy</span><span class="p">:</span><span class="w"> </span><span class="l">IfNotPresent # [Always | Never | IfNotPresent]</span><span class="w"> </span><span class="c">#获取镜像的策略 Alawys表示下载镜像 IfnotPresent表示优先使用本地镜像，否则下载镜像，Nerver表示仅使用本地镜像 </span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">ports</span><span class="p">:</span><span class="w"> </span><span class="c">#需要暴露的端口库号列表 </span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span>- <span class="nt">containerPort</span><span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w"> </span><span class="c">#容器需要监听的端口号 </span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">restartPolicy</span><span class="p">:</span><span class="w"> </span><span class="l">Always</span><span class="w"> </span><span class="c"># [Always | Never | OnFailure]#Pod的重启策略，Always表示一旦不管以何种方式终止运行，kubelet都将重启，OnFailure表示只有Pod以非0退出码退出才重启，Nerver表示不再重启该Pod </span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nn">---</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="持久化存储状态volume和persistent-volume">持久化存储状态(volume和Persistent Volume)</h2>
+<blockquote>
+<p>volume, pv, pvc, StoreClass</p>
+</blockquote>
+<ul>
+<li>[volume]</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nn">---</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># volume empty_dir k8s 1.26</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Pod</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">producer-consumer</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">labels</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">producer-consumer</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">containers</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">producer</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">busybox</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">volumeMounts</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="l">/producer_dir</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">shared-volume</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">args</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="l">/bin/sh</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- -<span class="l">c</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="l">echo &#34;hello world&#34; &gt; /producer_dir/hello; sleep 30000</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">consumer</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">busybox</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">volumeMounts</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="l">/consumer_dir</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">shared-volume</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">args</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="l">/bin/sh</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- -<span class="l">c</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="l">cat /consumer_dir/hello; sleep 30000</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">shared-volume</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">emptyDir</span><span class="p">:</span><span class="w"> </span>{}<span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>[pv&amp;pvc]</li>
+</ul>
+<p><code>PV</code>: 持久化数据卷. 持久化在宿主机上的目录.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c"># pv创建 k8s1.26</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">PersistentVolume </span><span class="w"> </span><span class="c"># pv资源属性名称</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">nfs-pv</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">storageClassName</span><span class="p">:</span><span class="w"> </span><span class="l">nfs-scn</span><span class="w"> </span><span class="c"># storageCalss注册</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">capacity</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">storage</span><span class="p">:</span><span class="w"> </span><span class="l">1Gi</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">accessModes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="l">ReadWriteMany</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">nfs</span><span class="p">:</span><span class="w"> </span><span class="c"># pv 类型</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">server</span><span class="p">:</span><span class="w"> </span><span class="m">12.345.1.1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;/&#34;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>PVC</code>: Pod期望使用的持久化存储的描述(要求), 如大小,读写权限等</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nn">---</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># pvc绑定pv k8s1.26</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">PersistentVolumeClaim</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">nfs-pvc</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">accessModes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="l">ReadWriteMany</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">storageClassName</span><span class="p">:</span><span class="w"> </span><span class="l">nfs-scn </span><span class="w"> </span><span class="c"># pvc要和pv同属同一个storageClass</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">resources</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">requests</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">storage</span><span class="p">:</span><span class="w"> </span><span class="l">1Gi </span><span class="w"> </span><span class="c"># pvc申请存储大小绑定的pv需要满足</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>[pod使用pv]</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Pod</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">labels</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">role</span><span class="p">:</span><span class="w"> </span><span class="l">web-fronted</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">sepc</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">containers</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">web</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">nginx:1.7.9</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">ports</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">web</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">containerPort</span><span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w">  </span><span class="c"># pod中container的port</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">volumeMounts</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">nfs</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;/user/share/nginx/html&#34;</span><span class="w">  </span><span class="c"># container web 自身映射出去的文件</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">nfs</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">persistentVolumeClaim</span><span class="p">:</span><span class="w">  </span><span class="c"># 映射pvc的挂载</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">claimName</span><span class="p">:</span><span class="w"> </span><span class="l">nfs-pvc </span><span class="w"> </span><span class="c"># pod创建后, kubelet根据pvc绑定的pv,挂载这个容器指定的内部目录上  </span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>pvc 是pv 的volume的接口, 只负责pod绑定pv, 而真正处理存储持久化的是pv</code>.</p>
+<p><code>pod</code> 是脆弱的, 一旦有一个申明不对或者不存在,不匹配, 宁可失败也不要启动,做一些无法控制的事情.</p>
+<ul>
+<li><code>Volume Controller-&gt;PersistentVolumeController</code></li>
+</ul>
+<p><code>PersistentVolumeController</code> 负责用户提交的pvc, 只要出现合适pv, 迅速完成绑定.</p>
+<ul>
+<li>[StorageClass]</li>
+</ul>
+<blockquote>
+<p><code>storageClass</code>看作是创建<code>pv</code>的模板</p>
+</blockquote>
+<ol>
+<li>声明PV的要求, 如类型,大小等</li>
+<li>创建PV需要用到的存储插件, 如Ceph等</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">storage.k8s.io/v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">StorageClass</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">block-service</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">provisioner</span><span class="p">:</span><span class="w"> </span><span class="l">kubernetes.io/gec-pd </span><span class="w"> </span><span class="c"># GCE PD插件</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">parameters</span><span class="p">:</span><span class="w">  </span><span class="c"># PV 参数</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">pd-ssd </span><span class="w"> </span><span class="c"># SSD格式化的GCE远程磁盘</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="网络">网络</h2>
+<blockquote>
+<p>网络栈[请求和响应]</p>
+<ol>
+<li>网卡 Network Interface</li>
+<li>回环设备 Loopback Device</li>
+<li>路由表 Routing Table</li>
+<li>iptables 规则</li>
+</ol>
+</blockquote>
+<p><code>Docker</code>会在宿主机上创建<code>docker0</code>的网桥, 连接到<code>docker0</code>的网桥上容器, 都可通过<code>docker0</code>网桥进行通信.</p>
+<p><code>Veth Pair</code>通过<code>Veth Peer</code>实现不同<code>Network Namespace</code>进行<code>通信</code>.
+，被限制在 Network Namespace 里的容器进程，实际上是通过 Veth Pair 设备 + 宿主机网桥的方式，实现了跟同其他容器的数据交换。</p>
+<ul>
+<li>[flannel]</li>
+<li>[calico]</li>
+<li>[ingress]</li>
+</ul>
+<blockquote>
+<p>代理不同后端Service的负载均衡服务, 即Ingress
+Service中的<code>Service</code></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nn">---</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># Ingress </span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">extensions/v1beta1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Ingress</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">cafe-ingress</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">tls</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">hosts</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">cafe.example.com</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">secretName</span><span class="p">:</span><span class="w"> </span><span class="l">cafe-secret</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">rules</span><span class="p">:</span><span class="w">  </span><span class="c"># IngressRule</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="l">cafe.example.com </span><span class="w"> </span><span class="c"># 必须是标准格式的域名地址 不能是IP地址</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">http</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">paths</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span>- <span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">/tea </span><span class="w"> </span><span class="c"># relative rouoter for service</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">backend</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="nt">serviceNmae</span><span class="p">:</span><span class="w"> </span><span class="l">tea-svc </span><span class="w"> </span><span class="c"># 指定后端service</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="nt">servicePort</span><span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w">  </span><span class="c"># service 端口</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span>- <span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">/coffee</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">backend</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="nt">serviceName</span><span class="p">:</span><span class="w"> </span><span class="l">coffee-svc</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="nt">servicePort</span><span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>Ingress</code>上述对象, 本质就是<code>Kubernetes</code>项目的<strong>反向代理</strong>的抽象. 可以对比<code>nginx</code>实现细节. 该对象有<code>Ingress Controller</code>实现和控制.</p>
+<h2 id="runtimecri">[runtimeCRI]</h2>
+<div class='align-center'>
+<p><img src="/img/blog/k8s-CRI.webp" alt="k8s-CRI"></p>
+<p>CRI Work Flow</p>
+</div>
+<h3 id="kubelet">kubelet</h3>
+<blockquote>
+<p><code>SIG-Node</code>和<code>kubelet</code>编排系统跟<code>容器</code>交互的核心场所.</p>
+</blockquote>
+<p><code>kubelet</code>的核心工作如下:</p>
+<ol>
+<li>Pod 更新事件</li>
+<li>Pod 生命周期变化</li>
+<li>kubelet 本身设置的执行周期</li>
+<li>定时的清理事件</li>
+</ol>
+<p><code>CRIshim</code> 完成kubelet和容器间交互操作.</p>
+<blockquote>
+<p>“Dockershim removed from Kubernetes
+As of Kubernetes 1.24, Dockershim is no longer included in Kubernetes. ”</p>
+</blockquote>
+<p><code>CRI</code>功能两组:</p>
+<ul>
+<li><code>RuntimeService</code>, 主要跟容器相关. 如创建,启动容器等</li>
+<li><code>ImageService</code>, 主要和容器镜像相关. 如拉取,删除镜像等</li>
+</ul>
+<blockquote>
+<p>Pod是编排概念, 而不是运行概念.</p>
+</blockquote>
+<div class='align-center'>
+<p><img src="/img/blog/k8s-CRI-pod-container.webp" alt="k8s-CRI-pod-docker"></p>
+<p>kubectl run&hellip;</p>
+</div>
+<h2 id="监控和日志">监控和日志</h2>
+<blockquote>
+<p>以<code>Prometheus</code>为核心的监控和日志系统.</p>
+</blockquote>
+<h2 id="二进制安装靠可用k8s集群">二进制安装靠可用k8s集群</h2>
 <blockquote>
 <p>service 网段 10.96.0.0/16
 node 网段 192.168.163.0
@@ -2644,655 +3375,7 @@ pod 网段 172.16.0.0/12</p>
 </span></span><span class="line"><span class="cl">calico-typha-67c6dc57d6-l24p9              0/1     Running             <span class="m">0</span>          112s
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="pod">pod</h2>
-<blockquote>
-<p>Pod 是共享资源的进程的逻辑管理单元.
-底层还是依赖于linux的namespace和cgroup技术.</p>
-</blockquote>
-<ul>
-<li>网络资源共享: pod第一个创建infra容器, 作为网络共享容器, <code>--net==container</code>方式, 实现namespace网络共享.</li>
-<li>存储资源共享: pod顶层声明一个volume, 需要共享的container挂载这个pod级别的volume, 实现存储资源共享.</li>
-</ul>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c"># host path: sidecar模式 较常用容器日志收集</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Pod</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">counter</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">volumes</span><span class="p">:</span><span class="w">  </span><span class="c"># pod级别 顶层声明volume</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">varlog</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">hostPath</span><span class="p">:</span><span class="w">  </span><span class="c"># 采用hostpath方式</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">/root/log/counter </span><span class="w"> </span><span class="c"># volume在host主机上的存储位置(没有会自动创建) 目录</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">containers</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">count</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">busybox</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">args</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="l">/bin/sh</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- -<span class="l">c</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="l">&gt; </span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="l">i=0;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="l">while true;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="l">do</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="l">echo &#34;$i: $(date)&#34; &gt;&gt; /var/log/1.log;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="l">i=$((i+1));</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="l">sleep 1;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="l">done</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">volumeMounts</span><span class="p">:</span><span class="w">  </span><span class="c"># pod管理的container声明挂载pod顶层声明的volume</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">varlog</span><span class="w"> </span><span class="c"># hostpath 中pods声明的volume的名称</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="l">/var/log </span><span class="w"> </span><span class="c"># 当前container中需要挂载映射的目录</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">count-log</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">busybox</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">args</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">/bin/sh, -c, &#39;tail -n+1 -f /var/log/1.log&#39;]</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">volumeMounts</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">varlog</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="l">/var/log</span><span class="w">
-</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="controller">controller</h2>
-<h2 id="scheduler">scheduler</h2>
-<h2 id="configmap">configMap</h2>
-<h2 id="storage">storage</h2>
-<h2 id="network">network</h2>
-<h2 id="safety">safety</h2>
-<h2 id="yaml文件">Yaml文件</h2>
-<blockquote>
-<p>云平台的服务配置和管理</p>
-<p>控制声明 + 被控对象声明</p>
-</blockquote>
-<ul>
-<li>缩进的空格数目不重要，只要相同层级的元素左侧对齐即可</li>
-<li><code>- - -</code> 为可选的分隔符 ，当需要在一个文件中定义多个结构的时候需要使用</li>
-</ul>
-<ol>
-<li>Maps</li>
-</ol>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c"># 键值对</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">apps/v1</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">pod</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># map 组(多层map嵌套, 同一缩进, 属于同一key下的map)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">demo</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">labels</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l">nginx</span><span class="w">
-</span></span></span></code></pre></td></tr></table>
-</div>
-</div><ol start="2">
-<li>List</li>
-</ol>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">containers</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">front-end</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">nginx</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">containerPort</span><span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">flaskapp-demo</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">jcdemo/flaskapp</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w"> </span><span class="m">8080</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># 转义</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># containers = [{name: front-end, image:nginx, ports: [{containerPort:80}]},</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c">#               {name:flaskapp-demo, image:cdemo/flaskapp, ports: 8080}] </span><span class="w">
-</span></span></span></code></pre></td></tr></table>
-</div>
-</div><ul>
-<li>常用字段属性</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>filed</th>
-<th>desc</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>apiVersion</td>
-<td>API版本</td>
-</tr>
-<tr>
-<td>kind</td>
-<td>资源类型</td>
-</tr>
-<tr>
-<td>metadata</td>
-<td>资源元数据</td>
-</tr>
-<tr>
-<td>spec</td>
-<td>资源规格</td>
-</tr>
-<tr>
-<td>replicas</td>
-<td>副本数量</td>
-</tr>
-<tr>
-<td>selector</td>
-<td>标签选择器</td>
-</tr>
-<tr>
-<td>template</td>
-<td>Pod模板</td>
-</tr>
-<tr>
-<td>metadata</td>
-<td>Pod元数据</td>
-</tr>
-<tr>
-<td>spec</td>
-<td>Pod规格</td>
-</tr>
-<tr>
-<td>containers</td>
-<td>容器配置</td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li>apiVersion</li>
-</ul>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># kubectl api-versions</span>
-</span></span><span class="line"><span class="cl">admissionregistration.k8s.io/v1
-</span></span><span class="line"><span class="cl">apiextensions.k8s.io/v1
-</span></span><span class="line"><span class="cl">apiregistration.k8s.io/v1
-</span></span><span class="line"><span class="cl">apps/v1  <span class="c1">#  包含一些通用的应用层的api组合，如：Deployments, RollingUpdates, and ReplicaSets</span>
-</span></span><span class="line"><span class="cl">authentication.k8s.io/v1
-</span></span><span class="line"><span class="cl">authorization.k8s.io/v1
-</span></span><span class="line"><span class="cl">autoscaling/v1  <span class="c1"># 允许根据不同的资源使用指标自动调整容器</span>
-</span></span><span class="line"><span class="cl">autoscaling/v2
-</span></span><span class="line"><span class="cl">batch/v1  <span class="c1"># 包含与批处理和类似作业的任务相关的对象，如：job、cronjob</span>
-</span></span><span class="line"><span class="cl">certificates.k8s.io/v1
-</span></span><span class="line"><span class="cl">coordination.k8s.io/v1
-</span></span><span class="line"><span class="cl">crd.projectcalico.org/v1
-</span></span><span class="line"><span class="cl">discovery.k8s.io/v1
-</span></span><span class="line"><span class="cl">events.k8s.io/v1
-</span></span><span class="line"><span class="cl">flowcontrol.apiserver.k8s.io/v1beta2
-</span></span><span class="line"><span class="cl">flowcontrol.apiserver.k8s.io/v1beta3
-</span></span><span class="line"><span class="cl">networking.k8s.io/v1  <span class="c1"># 用于Ingress</span>
-</span></span><span class="line"><span class="cl">node.k8s.io/v1
-</span></span><span class="line"><span class="cl">policy/v1
-</span></span><span class="line"><span class="cl">rbac.authorization.k8s.io/v1  <span class="c1"># 用于RBAC</span>
-</span></span><span class="line"><span class="cl">scheduling.k8s.io/v1
-</span></span><span class="line"><span class="cl">storage.k8s.io/v1
-</span></span><span class="line"><span class="cl">storage.k8s.io/v1beta1
-</span></span><span class="line"><span class="cl">v1  <span class="c1"># Kubernetes API的稳定版本，包含很多核心对象：pod、service等</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><ul>
-<li>spec</li>
-</ul>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w"> </span><span class="c">#必选，版本号，例如v1</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Pod</span><span class="w"> </span><span class="c">#必选，Pod </span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w"> </span><span class="c">#必选，元数据 </span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">nginx</span><span class="w"> </span><span class="c">#必选，Pod名称 </span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">labels</span><span class="p">:</span><span class="w"> </span><span class="c">#自定义标签 </span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l">nginx</span><span class="w"> </span><span class="c">#自定义标签名字 </span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w"> </span><span class="c">#必选，Pod中容器的详细定义 </span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">containers</span><span class="p">:</span><span class="w"> </span><span class="c">#必选，Pod中容器列表，一个pod里会有多个容器 </span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">nginx</span><span class="w"> </span><span class="c">#必选，容器名称 </span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">nginx</span><span class="w"> </span><span class="c">#必选，容器的镜像名称 </span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">imagePullPolicy</span><span class="p">:</span><span class="w"> </span><span class="l">IfNotPresent # [Always | Never | IfNotPresent]</span><span class="w"> </span><span class="c">#获取镜像的策略 Alawys表示下载镜像 IfnotPresent表示优先使用本地镜像，否则下载镜像，Nerver表示仅使用本地镜像 </span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">ports</span><span class="p">:</span><span class="w"> </span><span class="c">#需要暴露的端口库号列表 </span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">            </span>- <span class="nt">containerPort</span><span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w"> </span><span class="c">#容器需要监听的端口号 </span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">restartPolicy</span><span class="p">:</span><span class="w"> </span><span class="l">Always</span><span class="w"> </span><span class="c"># [Always | Never | OnFailure]#Pod的重启策略，Always表示一旦不管以何种方式终止运行，kubelet都将重启，OnFailure表示只有Pod以非0退出码退出才重启，Nerver表示不再重启该Pod </span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nn">---</span><span class="w">
-</span></span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="statefulset">Statefulset</h2>
-<h3 id="拓扑状态">拓扑状态</h3>
-<h3 id="存储状态">存储状态</h3>
-<h3 id="状态实践">状态实践</h3>
-<h2 id="持久化存储状态volume和persistent-volume">持久化存储状态(volume和Persistent Volume)</h2>
-<blockquote>
-<p>volume, pv, pvc, StoreClass</p>
-</blockquote>
-<ul>
-<li>[volume]</li>
-</ul>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nn">---</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># volume empty_dir k8s 1.26</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Pod</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">producer-consumer</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">labels</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">producer-consumer</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">containers</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">producer</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">busybox</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">volumeMounts</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="l">/producer_dir</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">shared-volume</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">args</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="l">/bin/sh</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- -<span class="l">c</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="l">echo &#34;hello world&#34; &gt; /producer_dir/hello; sleep 30000</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">consumer</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">busybox</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">volumeMounts</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="l">/consumer_dir</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">shared-volume</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">args</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="l">/bin/sh</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- -<span class="l">c</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="l">cat /consumer_dir/hello; sleep 30000</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">shared-volume</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">emptyDir</span><span class="p">:</span><span class="w"> </span>{}<span class="w">
-</span></span></span></code></pre></td></tr></table>
-</div>
-</div><ul>
-<li>[pv&amp;pvc]</li>
-</ul>
-<p><code>PV</code>: 持久化数据卷. 持久化在宿主机上的目录.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c"># pv创建 k8s1.26</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">PersistentVolume </span><span class="w"> </span><span class="c"># pv资源属性名称</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">nfs-pv</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">storageClassName</span><span class="p">:</span><span class="w"> </span><span class="l">nfs-scn</span><span class="w"> </span><span class="c"># storageCalss注册</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">capacity</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">storage</span><span class="p">:</span><span class="w"> </span><span class="l">1Gi</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">accessModes</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="l">ReadWriteMany</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">nfs</span><span class="p">:</span><span class="w"> </span><span class="c"># pv 类型</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">server</span><span class="p">:</span><span class="w"> </span><span class="m">12.345.1.1</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;/&#34;</span><span class="w">
-</span></span></span></code></pre></td></tr></table>
-</div>
-</div><p><code>PVC</code>: Pod期望使用的持久化存储的描述(要求), 如大小,读写权限等</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nn">---</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># pvc绑定pv k8s1.26</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">PersistentVolumeClaim</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">nfs-pvc</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">accessModes</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="l">ReadWriteMany</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">storageClassName</span><span class="p">:</span><span class="w"> </span><span class="l">nfs-scn </span><span class="w"> </span><span class="c"># pvc要和pv同属同一个storageClass</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">resources</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">requests</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">storage</span><span class="p">:</span><span class="w"> </span><span class="l">1Gi </span><span class="w"> </span><span class="c"># pvc申请存储大小绑定的pv需要满足</span><span class="w">
-</span></span></span></code></pre></td></tr></table>
-</div>
-</div><ul>
-<li>[pod使用pv]</li>
-</ul>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Pod</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">labels</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">role</span><span class="p">:</span><span class="w"> </span><span class="l">web-fronted</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">sepc</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">containers</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">web</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">nginx:1.7.9</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">ports</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">web</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">containerPort</span><span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w">  </span><span class="c"># pod中container的port</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">volumeMounts</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">nfs</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;/user/share/nginx/html&#34;</span><span class="w">  </span><span class="c"># container web 自身映射出去的文件</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">nfs</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">persistentVolumeClaim</span><span class="p">:</span><span class="w">  </span><span class="c"># 映射pvc的挂载</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">claimName</span><span class="p">:</span><span class="w"> </span><span class="l">nfs-pvc </span><span class="w"> </span><span class="c"># pod创建后, kubelet根据pvc绑定的pv,挂载这个容器指定的内部目录上  </span><span class="w">
-</span></span></span></code></pre></td></tr></table>
-</div>
-</div><p><code>pvc 是pv 的volume的接口, 只负责pod绑定pv, 而真正处理存储持久化的是pv</code>.</p>
-<p><code>pod</code> 是脆弱的, 一旦有一个申明不对或者不存在,不匹配, 宁可失败也不要启动,做一些无法控制的事情.</p>
-<ul>
-<li><code>Volume Controller-&gt;PersistentVolumeController</code></li>
-</ul>
-<p><code>PersistentVolumeController</code> 负责用户提交的pvc, 只要出现合适pv, 迅速完成绑定.</p>
-<ul>
-<li>[StorageClass]</li>
-</ul>
-<blockquote>
-<p><code>storageClass</code>看作是创建<code>pv</code>的模板</p>
-</blockquote>
-<ol>
-<li>声明PV的要求, 如类型,大小等</li>
-<li>创建PV需要用到的存储插件, 如Ceph等</li>
-</ol>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">storage.k8s.io/v1</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">StorageClass</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">block-service</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">provisioner</span><span class="p">:</span><span class="w"> </span><span class="l">kubernetes.io/gec-pd </span><span class="w"> </span><span class="c"># GCE PD插件</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">parameters</span><span class="p">:</span><span class="w">  </span><span class="c"># PV 参数</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">pd-ssd </span><span class="w"> </span><span class="c"># SSD格式化的GCE远程磁盘</span><span class="w">
-</span></span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="网络">网络</h2>
-<blockquote>
-<p>网络栈[请求和响应]</p>
-<ol>
-<li>网卡 Network Interface</li>
-<li>回环设备 Loopback Device</li>
-<li>路由表 Routing Table</li>
-<li>iptables 规则</li>
-</ol>
-</blockquote>
-<p><code>Docker</code>会在宿主机上创建<code>docker0</code>的网桥, 连接到<code>docker0</code>的网桥上容器, 都可通过<code>docker0</code>网桥进行通信.</p>
-<p><code>Veth Pair</code>通过<code>Veth Peer</code>实现不同<code>Network Namespace</code>进行<code>通信</code>.
-，被限制在 Network Namespace 里的容器进程，实际上是通过 Veth Pair 设备 + 宿主机网桥的方式，实现了跟同其他容器的数据交换。</p>
-<ul>
-<li>[flannel]</li>
-<li>[calico]</li>
-<li>[ingress]</li>
-</ul>
-<blockquote>
-<p>代理不同后端Service的负载均衡服务, 即Ingress
-Service中的<code>Service</code></p>
-</blockquote>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nn">---</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># Ingress </span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">extensions/v1beta1</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Ingress</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">cafe-ingress</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">tls</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">hosts</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">cafe.example.com</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">secretName</span><span class="p">:</span><span class="w"> </span><span class="l">cafe-secret</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">rules</span><span class="p">:</span><span class="w">  </span><span class="c"># IngressRule</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="l">cafe.example.com </span><span class="w"> </span><span class="c"># 必须是标准格式的域名地址 不能是IP地址</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">http</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">paths</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">          </span>- <span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">/tea </span><span class="w"> </span><span class="c"># relative rouoter for service</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">backend</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="nt">serviceNmae</span><span class="p">:</span><span class="w"> </span><span class="l">tea-svc </span><span class="w"> </span><span class="c"># 指定后端service</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="nt">servicePort</span><span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w">  </span><span class="c"># service 端口</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">          </span>- <span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">/coffee</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">backend</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="nt">serviceName</span><span class="p">:</span><span class="w"> </span><span class="l">coffee-svc</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="nt">servicePort</span><span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w">
-</span></span></span></code></pre></td></tr></table>
-</div>
-</div><p><code>Ingress</code>上述对象, 本质就是<code>Kubernetes</code>项目的<strong>反向代理</strong>的抽象. 可以对比<code>nginx</code>实现细节. 该对象有<code>Ingress Controller</code>实现和控制.</p>
-<h2 id="runtimecri">[runtimeCRI]</h2>
-<div class='align-center'>
-<p><img src="/img/blog/k8s-CRI.webp" alt="k8s-CRI"></p>
-<p>CRI Work Flow</p>
-</div>
-<h3 id="kubelet">kubelet</h3>
-<blockquote>
-<p><code>SIG-Node</code>和<code>kubelet</code>编排系统跟<code>容器</code>交互的核心场所.</p>
-</blockquote>
-<p><code>kubelet</code>的核心工作如下:</p>
-<ol>
-<li>Pod 更新事件</li>
-<li>Pod 生命周期变化</li>
-<li>kubelet 本身设置的执行周期</li>
-<li>定时的清理事件</li>
-</ol>
-<p><code>CRIshim</code> 完成kubelet和容器间交互操作.</p>
-<blockquote>
-<p>“Dockershim removed from Kubernetes
-As of Kubernetes 1.24, Dockershim is no longer included in Kubernetes. ”</p>
-</blockquote>
-<p><code>CRI</code>功能两组:</p>
-<ul>
-<li><code>RuntimeService</code>, 主要跟容器相关. 如创建,启动容器等</li>
-<li><code>ImageService</code>, 主要和容器镜像相关. 如拉取,删除镜像等</li>
-</ul>
-<blockquote>
-<p>Pod是编排概念, 而不是运行概念.</p>
-</blockquote>
-<div class='align-center'>
-<p><img src="/img/blog/k8s-CRI-pod-container.webp" alt="k8s-CRI-pod-docker"></p>
-<p>kubectl run&hellip;</p>
-</div>
-<h2 id="监控和日志">监控和日志</h2>
-<blockquote>
-<p>以<code>Prometheus</code>为核心的监控和日志系统.</p>
-</blockquote>
-
     </div>
 
     <div class="post-copyright">
