@@ -50,7 +50,7 @@
 <meta itemprop="name" content="Rust实践">
 <meta itemprop="description" content="Rust Rust Rust"><meta itemprop="datePublished" content="2022-05-12T21:27:45+08:00" />
 <meta itemprop="dateModified" content="2022-07-03T21:11:45+08:00" />
-<meta itemprop="wordCount" content="1755">
+<meta itemprop="wordCount" content="2176">
 <meta itemprop="keywords" content="Rust," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Rust实践"/>
 <meta name="twitter:description" content="Rust Rust Rust"/>
@@ -137,8 +137,8 @@
         <div class="post-category">
             <a href="/categories/language/"> Language </a>
             </div>
-          <span class="more-meta"> 1755 words </span>
-          <span class="more-meta"> 4 mins read </span>
+          <span class="more-meta"> 2176 words </span>
+          <span class="more-meta"> 5 mins read </span>
         
       </div>
     </header>
@@ -155,6 +155,15 @@
         <li><a href="#参考材料">参考材料</a></li>
         <li><a href="#安装">安装</a></li>
         <li><a href="#cargo包管理">cargo包管理</a></li>
+        <li><a href="#计算机基础">计算机基础</a>
+          <ul>
+            <li><a href="#内存">内存</a></li>
+            <li><a href="#程序操作对象-数据-值类型指针引用">程序操作对象: 数据 [值/类型/指针/引用]</a></li>
+            <li><a href="#程序运行主体-代码-函数方法闭包接口虚表">程序运行主体: 代码 [函数/方法/闭包/接口/虚表]</a></li>
+            <li><a href="#程序执行效率-运行方式-并发并行同步异步">程序执行效率: 运行方式 [并发/并行/同步/异步]</a></li>
+            <li><a href="#程序结构质量-编程范式-泛型编程">程序结构质量: 编程范式 [泛型编程]</a></li>
+          </ul>
+        </li>
         <li><a href="#语法基础">语法基础</a>
           <ul>
             <li><a href="#变量">变量</a></li>
@@ -501,6 +510,33 @@
 </tr>
 </tbody>
 </table>
+<h2 id="计算机基础">计算机基础</h2>
+<blockquote>
+<p>不管上层有多绚烂, 只要现有计算架构不变, 底层永远还是那些</p>
+</blockquote>
+<h3 id="内存">内存</h3>
+<blockquote>
+<p>问题: 数据什么时候放在栈上, 什么时候需要放在堆上?</p>
+</blockquote>
+<p>编译器编译和优化的单元是:函数. 编译器需要完成:</p>
+<ol>
+<li>需要使用那些寄存器, 如何分配和使用</li>
+<li>那些数据需要分配到栈上, 或者分配到堆上</li>
+<li>明确数据的大小以及如何预留足够运行存储空间</li>
+</ol>
+<p>回答: 编译时, 一切无法确定大小或大小可改变的数据, 都无法安全存于栈上, 最好存于堆上.</p>
+<p>总结:</p>
+<ol>
+<li>栈上内存数据是静态的, 静态大小, 静态生命周期</li>
+<li>堆上存放数据是动态的, 动态大小, 动态生命周期</li>
+</ol>
+<p>理解: 清晰知道,哪些东西在编译期间可以确定他们之间的关系或者因果, 哪些只能在运行期间确定.</p>
+<h3 id="程序操作对象-数据-值类型指针引用">程序操作对象: 数据 [值/类型/指针/引用]</h3>
+<p>数值就是数值, 类型赋予数值&quot;形态&quot;: 长度, 对齐以及值的运算.</p>
+<p>指针和引用是原生类型, 可以分配在栈上.</p>
+<h3 id="程序运行主体-代码-函数方法闭包接口虚表">程序运行主体: 代码 [函数/方法/闭包/接口/虚表]</h3>
+<h3 id="程序执行效率-运行方式-并发并行同步异步">程序执行效率: 运行方式 [并发/并行/同步/异步]</h3>
+<h3 id="程序结构质量-编程范式-泛型编程">程序结构质量: 编程范式 [泛型编程]</h3>
 <h2 id="语法基础">语法基础</h2>
 <h3 id="变量">变量</h3>
 <ul>
@@ -817,7 +853,7 @@
   <span class="copyright-year">
     &copy; 
     2022 - 
-    2023<span class="division"></span>
+    2024<span class="division"></span>
     <span>zhuzaiye</span>
   </span>
 </div>

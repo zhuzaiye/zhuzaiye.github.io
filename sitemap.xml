@@ -107,6 +107,27 @@
   </url>
   
   <url>
+    <loc>https://zhuzaiye.github.io/post/20221112-tcpudp/</loc>
+    <lastmod>2023-03-25T21:30:18+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuzaiye.github.io/categories/network/</loc>
+    <lastmod>2023-03-25T21:30:18+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuzaiye.github.io/tags/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/</loc>
+    <lastmod>2023-03-25T21:30:18+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://zhuzaiye.github.io/categories/microservice/</loc>
     <lastmod>2022-10-20T21:22:35+08:00</lastmod>
     <changefreq>weekly</changefreq>
