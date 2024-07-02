@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>架构 on </title>
+    <link>https://zhuzaiye.github.io/categories/%E6%9E%B6%E6%9E%84/</link>
+    <description>Recent content in 架构 on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 25 Feb 2024 10:15:09 +0800</lastBuildDate><atom:link href="https://zhuzaiye.github.io/categories/%E6%9E%B6%E6%9E%84/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>分布式架构123</title>
+      <link>https://zhuzaiye.github.io/post/20240228-distribution/</link>
+      <pubDate>Sun, 25 Feb 2024 10:15:09 +0800</pubDate>
+      
+      <guid>https://zhuzaiye.github.io/post/20240228-distribution/</guid>
+      <description>服务拆分 分布式调用 解决： 拆分后的服务之间如何调用和童话更新？ 相关技术 负载均衡：请求分配上， 按照一定的规则将请求分配到集群中不同服务器上执行。</description>
+    </item>
+    
+  </channel>
+</rss>

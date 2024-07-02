@@ -1,12 +1,57 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Tags on zhuzaiye</title>
+    <title>Tags on </title>
     <link>https://zhuzaiye.github.io/tags/</link>
-    <description>Recent content in Tags on zhuzaiye</description>
+    <description>Recent content in Tags on </description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 28 Nov 2023 21:03:22 +0800</lastBuildDate><atom:link href="https://zhuzaiye.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 03 Jul 2024 07:34:00 +0800</lastBuildDate><atom:link href="https://zhuzaiye.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Algorithm</title>
+      <link>https://zhuzaiye.github.io/tags/algorithm/</link>
+      <pubDate>Wed, 03 Jul 2024 07:34:00 +0800</pubDate>
+      
+      <guid>https://zhuzaiye.github.io/tags/algorithm/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Docker</title>
+      <link>https://zhuzaiye.github.io/tags/docker/</link>
+      <pubDate>Sat, 20 Apr 2024 22:50:23 +0800</pubDate>
+      
+      <guid>https://zhuzaiye.github.io/tags/docker/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Mysql8</title>
+      <link>https://zhuzaiye.github.io/tags/mysql8/</link>
+      <pubDate>Sat, 20 Apr 2024 22:50:23 +0800</pubDate>
+      
+      <guid>https://zhuzaiye.github.io/tags/mysql8/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>LLMs</title>
+      <link>https://zhuzaiye.github.io/tags/llms/</link>
+      <pubDate>Sun, 25 Feb 2024 10:15:09 +0800</pubDate>
+      
+      <guid>https://zhuzaiye.github.io/tags/llms/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>分布式</title>
+      <link>https://zhuzaiye.github.io/tags/%E5%88%86%E5%B8%83%E5%BC%8F/</link>
+      <pubDate>Sun, 25 Feb 2024 10:15:09 +0800</pubDate>
+      
+      <guid>https://zhuzaiye.github.io/tags/%E5%88%86%E5%B8%83%E5%BC%8F/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>FAQ</title>
       <link>https://zhuzaiye.github.io/tags/faq/</link>
@@ -130,24 +175,6 @@
       <pubDate>Wed, 13 Apr 2022 22:26:50 +0800</pubDate>
       
       <guid>https://zhuzaiye.github.io/tags/bitmap/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Docker</title>
-      <link>https://zhuzaiye.github.io/tags/docker/</link>
-      <pubDate>Tue, 22 Mar 2022 22:50:23 +0800</pubDate>
-      
-      <guid>https://zhuzaiye.github.io/tags/docker/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Algorithm</title>
-      <link>https://zhuzaiye.github.io/tags/algorithm/</link>
-      <pubDate>Sun, 20 Mar 2022 12:56:13 +0800</pubDate>
-      
-      <guid>https://zhuzaiye.github.io/tags/algorithm/</guid>
       <description></description>
     </item>
     

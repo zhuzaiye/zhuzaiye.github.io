@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>Kubernetes - zhuzaiye</title>
+  <title>Kubernetes - </title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -35,7 +35,7 @@
 
 
 
-<link href="/sass/main.min.4c69509e2bef5eac5f94e1a12f8cd80af3c4f4127832bf2a0e6103d38c5d892d.css" rel="stylesheet">
+<link href="/sass/main.min.71a607c878cfb5b6aee21e8dc34d70c29d782525eefff99b43d8b0e68663779f.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
@@ -50,7 +50,7 @@
 <meta itemprop="name" content="Kubernetes">
 <meta itemprop="description" content="应用部署在哪里? 应用在哪里运行? 应用应如何访问? 问题该如何排查? 应用该如何监控? pod Pod 是共享资源的进程的逻辑管理单元. 底层还是依赖于linux"><meta itemprop="datePublished" content="2023-04-08T09:20:36+08:00" />
 <meta itemprop="dateModified" content="2023-04-08T09:20:36+08:00" />
-<meta itemprop="wordCount" content="10086">
+<meta itemprop="wordCount" content="10101">
 <meta itemprop="keywords" content="Kubernetes,k8s," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Kubernetes"/>
 <meta name="twitter:description" content="应用部署在哪里? 应用在哪里运行? 应用应如何访问? 问题该如何排查? 应用该如何监控? pod Pod 是共享资源的进程的逻辑管理单元. 底层还是依赖于linux"/>
@@ -68,7 +68,7 @@
 <body>
   <div id="mobile-navbar" class="mobile-navbar">
   <div class="mobile-header-logo">
-    <a href="/" class="logo">zhuzaiye</a>
+    <a href="/" class="logo"></a>
   </div>
   <div class="mobile-navbar-icon">
     <span></span>
@@ -81,7 +81,9 @@
     <a href="/">
         <li class="mobile-menu-item">Home</li>
       </a><a href="/post/">
-        <li class="mobile-menu-item">Archives</li>
+        <li class="mobile-menu-item">Techlog</li>
+      </a><a href="/passage/">
+        <li class="mobile-menu-item">Passages</li>
       </a><a href="/tags/">
         <li class="mobile-menu-item">Tags</li>
       </a><a href="/categories/">
@@ -98,9 +100,7 @@
 
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
-        <div class="logo-wrapper">
-  <a href="/" class="logo">zhuzaiye</a>
-</div>
+        
 
 
 
@@ -111,7 +111,9 @@
     <li class="menu-item">
         <a class="menu-item-link" href="/">Home</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/post/">Archives</a>
+        <a class="menu-item-link" href="/post/">Techlog</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/passage/">Passages</a>
       </li><li class="menu-item">
         <a class="menu-item-link" href="/tags/">Tags</a>
       </li><li class="menu-item">
@@ -137,7 +139,7 @@
         <div class="post-category">
             <a href="/categories/cloudnative/"> CloudNative </a>
             </div>
-          <span class="more-meta"> 10086 words </span>
+          <span class="more-meta"> 10101 words </span>
           <span class="more-meta"> 21 mins read </span>
         
       </div>
@@ -185,6 +187,7 @@
             <li><a href="#calico">calico</a></li>
           </ul>
         </li>
+        <li><a href="#参考">参考</a></li>
       </ul>
     </li>
   </ul>
@@ -1454,9 +1457,11 @@ pod 网段 172.16.0.0/12</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># yum install -y docker-ce-20.10.* docker-ce-cli-20.10.*</span>
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># yum install -y docker-ce-20.10.* docker-ce-cli-20.10.*</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>新版<code>kubelet</code>建议使用<code>systemd</code>, <code>Docker</code>的<code>native.cgroupdriver</code>设置为<code>systemd</code>
@@ -3375,7 +3380,9 @@ pod 网段 172.16.0.0/12</p>
 </span></span><span class="line"><span class="cl">calico-typha-67c6dc57d6-l24p9              0/1     Running             <span class="m">0</span>          112s
 </span></span></code></pre></td></tr></table>
 </div>
-</div>
+</div><h2 id="参考">参考</h2>
+<p><a href="https://mirrors.aliyun.com/centos/">centos镜像</a></p>
+
     </div>
 
     <div class="post-copyright">
@@ -3391,7 +3398,10 @@ pod 网段 172.16.0.0/12</p>
     </span>
   </p>
   
-  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
 </div>
 <footer class="post-footer">
       <div class="post-tags">
@@ -3451,14 +3461,13 @@ pod 网段 172.16.0.0/12</p>
   </span>
   <span class="division">|</span>
   <span class="theme-info">
-    theme - 
-    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+    theme <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
   </span>
 
   <span class="copyright-year">
     &copy; 
-    2022 - 
-    2024<span class="division"></span>
+    2022-2024
+    <span class="division"></span>
     <span>zhuzaiye</span>
   </span>
 </div>

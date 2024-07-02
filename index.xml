@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>zhuzaiye</title>
+    <title></title>
     <link>https://zhuzaiye.github.io/</link>
-    <description>Recent content on zhuzaiye</description>
+    <description>Recent content on </description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 28 Nov 2023 21:03:22 +0800</lastBuildDate><atom:link href="https://zhuzaiye.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 03 Jul 2024 07:34:00 +0800</lastBuildDate><atom:link href="https://zhuzaiye.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>About</title>
       <link>https://zhuzaiye.github.io/about/</link>
@@ -14,6 +14,42 @@
       
       <guid>https://zhuzaiye.github.io/about/</guid>
       <description>Nothing</description>
+    </item>
+    
+    <item>
+      <title>数据结构与算法</title>
+      <link>https://zhuzaiye.github.io/passage/algo-and-data-struct/</link>
+      <pubDate>Wed, 03 Jul 2024 07:34:00 +0800</pubDate>
+      
+      <guid>https://zhuzaiye.github.io/passage/algo-and-data-struct/</guid>
+      <description>数据结构和算法. 参考: Hello算法 Leetcode 贪心算法 贪心算法属于局部优化算法, 无法保证找到全局最优解(如果需要请考虑动态规划) 贪心算法适合以下两种</description>
+    </item>
+    
+    <item>
+      <title>Docker Mysql8实践</title>
+      <link>https://zhuzaiye.github.io/post/20240420-docker-mysql/</link>
+      <pubDate>Sat, 20 Apr 2024 22:50:23 +0800</pubDate>
+      
+      <guid>https://zhuzaiye.github.io/post/20240420-docker-mysql/</guid>
+      <description>Docker 部署mysql8 &amp;amp; Navicat 连接配置 docker 部署mysql 8 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 #!/bin/bash # 定义容器名称 container_name=&amp;#34;mysql8&amp;#34; # 检查容器是否在运行 if sudo docker ps -q -f</description>
+    </item>
+    
+    <item>
+      <title>从0到1构建一个LLMs</title>
+      <link>https://zhuzaiye.github.io/post/20240225-build-llms/</link>
+      <pubDate>Sun, 25 Feb 2024 10:15:09 +0800</pubDate>
+      
+      <guid>https://zhuzaiye.github.io/post/20240225-build-llms/</guid>
+      <description>model_script oh-ho oh-ho1 What&amp;rsquo;s LLMs? Large Language Models (LLMs) are a type of deep learning models specifically designed to understand, generate, and manipulate human language. Architecture Of LLMs Large Language Models (LLMs) are primarily based on the Transformer architecture. The architecture of Trnasfomer relias on the self-attetion mechanism. 文本数据处理[Working with text data] 深度学习和</description>
+    </item>
+    
+    <item>
+      <title>分布式架构123</title>
+      <link>https://zhuzaiye.github.io/post/20240228-distribution/</link>
+      <pubDate>Sun, 25 Feb 2024 10:15:09 +0800</pubDate>
+      
+      <guid>https://zhuzaiye.github.io/post/20240228-distribution/</guid>
+      <description>服务拆分 分布式调用 解决： 拆分后的服务之间如何调用和童话更新？ 相关技术 负载均衡：请求分配上， 按照一定的规则将请求分配到集群中不同服务器上执行。</description>
     </item>
     
     <item>
@@ -131,15 +167,6 @@
       
       <guid>https://zhuzaiye.github.io/post/20220322-dockers/</guid>
       <description>容器本身没有价值, 有价值的是&amp;quot;容器编排&amp;quot; From Dcoker To Kurbernets Linux 容器: 一组联合挂载在 /var/lib/docker/aufs/mnt 上的 rootfs，这一部分我们称为“容器镜像”（</description>
-    </item>
-    
-    <item>
-      <title>数据结构与算法</title>
-      <link>https://zhuzaiye.github.io/post/20220320-algo-struct/</link>
-      <pubDate>Sun, 20 Mar 2022 12:56:13 +0800</pubDate>
-      
-      <guid>https://zhuzaiye.github.io/post/20220320-algo-struct/</guid>
-      <description>数据结构和算法. 参考: Hello算法 Leetcode 贪心算法 贪心算法属于局部优化算法, 无法保证找到全局最优解(如果需要请考虑动态规划) 贪心算法适合以下两种</description>
     </item>
     
   </channel>

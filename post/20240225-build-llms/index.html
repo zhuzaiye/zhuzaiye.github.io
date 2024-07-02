@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>从0到1构建一个LLMs - </title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="zhuzaiye" /><meta name="description" content="model_script oh-ho oh-ho1 What&amp;rsquo;s LLMs? Large Language Models (LLMs) are a type of deep learning models specifically designed to understand, generate, and manipulate human language. Architecture Of LLMs Large Language Models (LLMs) are primarily based on the Transformer architecture. The architecture of Trnasfomer relias on the self-attetion mechanism. 文本数据处理[Working with text data] 深度学习和" /><meta name="keywords" content="LLMs" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.95.0 with theme even" />
+
+
+<link rel="canonical" href="https://zhuzaiye.github.io/post/20240225-build-llms/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.71a607c878cfb5b6aee21e8dc34d70c29d782525eefff99b43d8b0e68663779f.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="从0到1构建一个LLMs" />
+<meta property="og:description" content="model_script oh-ho oh-ho1 What&rsquo;s LLMs? Large Language Models (LLMs) are a type of deep learning models specifically designed to understand, generate, and manipulate human language. Architecture Of LLMs Large Language Models (LLMs) are primarily based on the Transformer architecture. The architecture of Trnasfomer relias on the self-attetion mechanism. 文本数据处理[Working with text data] 深度学习和" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhuzaiye.github.io/post/20240225-build-llms/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2024-02-25T10:15:09+08:00" />
+<meta property="article:modified_time" content="2024-02-25T10:15:09+08:00" />
+
+
+<meta itemprop="name" content="从0到1构建一个LLMs">
+<meta itemprop="description" content="model_script oh-ho oh-ho1 What&rsquo;s LLMs? Large Language Models (LLMs) are a type of deep learning models specifically designed to understand, generate, and manipulate human language. Architecture Of LLMs Large Language Models (LLMs) are primarily based on the Transformer architecture. The architecture of Trnasfomer relias on the self-attetion mechanism. 文本数据处理[Working with text data] 深度学习和"><meta itemprop="datePublished" content="2024-02-25T10:15:09+08:00" />
+<meta itemprop="dateModified" content="2024-02-25T10:15:09+08:00" />
+<meta itemprop="wordCount" content="85">
+<meta itemprop="keywords" content="LLMs," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="从0到1构建一个LLMs"/>
+<meta name="twitter:description" content="model_script oh-ho oh-ho1 What&rsquo;s LLMs? Large Language Models (LLMs) are a type of deep learning models specifically designed to understand, generate, and manipulate human language. Architecture Of LLMs Large Language Models (LLMs) are primarily based on the Transformer architecture. The architecture of Trnasfomer relias on the self-attetion mechanism. 文本数据处理[Working with text data] 深度学习和"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo"></a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Techlog</li>
+      </a><a href="/passage/">
+        <li class="mobile-menu-item">Passages</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Techlog</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/passage/">Passages</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">从0到1构建一个LLMs</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2024-02-25 </span>
+        <div class="post-category">
+            <a href="/categories/ai/"> AI </a>
+            </div>
+          <span class="more-meta"> 85 words </span>
+          <span class="more-meta"> 1 min read </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#whats-llms">What&rsquo;s LLMs?</a></li>
+        <li><a href="#architecture-of-llms">Architecture Of LLMs</a></li>
+        <li><a href="#文本数据处理working-with-text-data">文本数据处理[Working with text data]</a></li>
+        <li><a href="#深度学习和pytorch">深度学习和PyTorch</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p><a href="https://github.com/rasbt/LLMs-from-scratch">model_script</a>
+<a href="https://github.com/FareedKhan-dev/create-million-parameter-llm-from-scratch?tab=readme-ov-file#data-preprocessing">oh-ho</a>
+<a href="https://github.com/datainsightat/introduction_llm?tab=readme-ov-file#overview">oh-ho1</a></p>
+<h2 id="whats-llms">What&rsquo;s LLMs?</h2>
+<blockquote>
+<p>Large Language Models (LLMs) are a type of deep learning models specifically designed to understand, generate, and manipulate human language.</p>
+</blockquote>
+<h2 id="architecture-of-llms">Architecture Of LLMs</h2>
+<blockquote>
+<p>Large Language Models (LLMs) are primarily based on the Transformer architecture.</p>
+<p>The architecture of Trnasfomer relias on the self-attetion mechanism.</p>
+</blockquote>
+<h2 id="文本数据处理working-with-text-data">文本数据处理[Working with text data]</h2>
+<h2 id="深度学习和pytorch">深度学习和PyTorch</h2>
+<blockquote>
+<p>什么是深入学习？</p>
+</blockquote>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">zhuzaiye</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2024-02-25
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/llms/">LLMs</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/20240420-docker-mysql/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Docker Mysql8实践</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/20240228-distribution/">
+            <span class="next-text nav-default">分布式架构123</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://unpkg.com/gitalk@1.2.2/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://unpkg.com/gitalk@latest/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2024-02-25 10:15:09 \u002b0800 CST',
+        title: '从0到1构建一个LLMs',
+        clientID: '9c36634fbb845c1d1d64',
+        clientSecret: '3d57254b5ffccf04f9d973cc42b1d84ecd48fd01',
+        repo: 'zhuzaiye.github.io',
+        owner: 'zhuzaiye',
+        admin: ['zhuzaiye'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      
+<div class="social-links">
+      <a href="hanzi_zhu@foxmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/pigzhu11" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/zhuzaiye" class="iconfont icon-github" title="github"></a>
+  <a href="https://zhuzaiye.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+
+<div class="copyright">
+  <span class="power-by">
+    powered by
+    <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    theme <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    &copy; 
+    2022-2024
+    <span class="division"></span>
+    <span>zhuzaiye</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.64437849d125a2d603b3e71d6de5225d641a32d17168a58106e0b61852079683.js"></script>
+
+
+
+<script id="baidu_push">
+  (function(){
+    if (window.location.hostname === 'localhost') return;
+    var bp = document.createElement('script'); bp.async = true;
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+      bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+      bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+  })();
+</script>
+
+
+
+
+</body>
+</html>

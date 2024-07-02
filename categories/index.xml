@@ -1,12 +1,48 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Categories on zhuzaiye</title>
+    <title>Categories on </title>
     <link>https://zhuzaiye.github.io/categories/</link>
-    <description>Recent content in Categories on zhuzaiye</description>
+    <description>Recent content in Categories on </description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 28 Nov 2023 21:03:22 +0800</lastBuildDate><atom:link href="https://zhuzaiye.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 03 Jul 2024 07:34:00 +0800</lastBuildDate><atom:link href="https://zhuzaiye.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Algorithm</title>
+      <link>https://zhuzaiye.github.io/categories/algorithm/</link>
+      <pubDate>Wed, 03 Jul 2024 07:34:00 +0800</pubDate>
+      
+      <guid>https://zhuzaiye.github.io/categories/algorithm/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Docker</title>
+      <link>https://zhuzaiye.github.io/categories/docker/</link>
+      <pubDate>Sat, 20 Apr 2024 22:50:23 +0800</pubDate>
+      
+      <guid>https://zhuzaiye.github.io/categories/docker/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>AI</title>
+      <link>https://zhuzaiye.github.io/categories/ai/</link>
+      <pubDate>Sun, 25 Feb 2024 10:15:09 +0800</pubDate>
+      
+      <guid>https://zhuzaiye.github.io/categories/ai/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>架构</title>
+      <link>https://zhuzaiye.github.io/categories/%E6%9E%B6%E6%9E%84/</link>
+      <pubDate>Sun, 25 Feb 2024 10:15:09 +0800</pubDate>
+      
+      <guid>https://zhuzaiye.github.io/categories/%E6%9E%B6%E6%9E%84/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>FAQ</title>
       <link>https://zhuzaiye.github.io/categories/faq/</link>
@@ -76,15 +112,6 @@
       <pubDate>Sun, 03 Jul 2022 23:21:04 +0800</pubDate>
       
       <guid>https://zhuzaiye.github.io/categories/utils/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Algorithm</title>
-      <link>https://zhuzaiye.github.io/categories/algorithm/</link>
-      <pubDate>Wed, 13 Apr 2022 22:26:50 +0800</pubDate>
-      
-      <guid>https://zhuzaiye.github.io/categories/algorithm/</guid>
       <description></description>
     </item>
     

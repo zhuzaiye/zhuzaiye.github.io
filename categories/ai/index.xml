@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>AI on </title>
+    <link>https://zhuzaiye.github.io/categories/ai/</link>
+    <description>Recent content in AI on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 25 Feb 2024 10:15:09 +0800</lastBuildDate><atom:link href="https://zhuzaiye.github.io/categories/ai/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>从0到1构建一个LLMs</title>
+      <link>https://zhuzaiye.github.io/post/20240225-build-llms/</link>
+      <pubDate>Sun, 25 Feb 2024 10:15:09 +0800</pubDate>
+      
+      <guid>https://zhuzaiye.github.io/post/20240225-build-llms/</guid>
+      <description>model_script oh-ho oh-ho1 What&amp;rsquo;s LLMs? Large Language Models (LLMs) are a type of deep learning models specifically designed to understand, generate, and manipulate human language. Architecture Of LLMs Large Language Models (LLMs) are primarily based on the Transformer architecture. The architecture of Trnasfomer relias on the self-attetion mechanism. 文本数据处理[Working with text data] 深度学习和</description>
+    </item>
+    
+  </channel>
+</rss>

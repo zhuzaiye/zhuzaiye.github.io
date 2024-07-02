@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Docker on </title>
+    <link>https://zhuzaiye.github.io/categories/docker/</link>
+    <description>Recent content in Docker on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 20 Apr 2024 22:50:23 +0800</lastBuildDate><atom:link href="https://zhuzaiye.github.io/categories/docker/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Docker Mysql8实践</title>
+      <link>https://zhuzaiye.github.io/post/20240420-docker-mysql/</link>
+      <pubDate>Sat, 20 Apr 2024 22:50:23 +0800</pubDate>
+      
+      <guid>https://zhuzaiye.github.io/post/20240420-docker-mysql/</guid>
+      <description>Docker 部署mysql8 &amp;amp; Navicat 连接配置 docker 部署mysql 8 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 #!/bin/bash # 定义容器名称 container_name=&amp;#34;mysql8&amp;#34; # 检查容器是否在运行 if sudo docker ps -q -f</description>
+    </item>
+    
+  </channel>
+</rss>
