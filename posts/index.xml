@@ -5,7 +5,21 @@
     <link>https://zhuzaiye.github.io/posts/</link>
     <description>Recent content in Posts on hzzhu</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sun, 03 Jul 2022 23:21:04 +0800</lastBuildDate><atom:link href="https://zhuzaiye.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 25 Mar 2023 09:18:53 +0800</lastBuildDate><atom:link href="https://zhuzaiye.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Makfile-ABC</title>
+      <link>https://zhuzaiye.github.io/posts/20230325-makfile/</link>
+      <pubDate>Sat, 25 Mar 2023 09:18:53 +0800</pubDate>
+      
+      <guid>https://zhuzaiye.github.io/posts/20230325-makfile/</guid>
+      <description>Makefile是组织编译的命令脚本文件-构建生成可执行文件的依赖关系树.
+make根据makefile的规则关系树, 构建出编译可执行程序.
+ # 目标: 目标依赖 # 命令 a.out: demo.c  gcc -o $@ $&amp;lt; make指令  windows 环境
+ 运行make -v会出现:
+&amp;#39;make&amp;#39; 不是内部命或外部命令, 也不是可余小宁的程序, 或批处理文件. # 系统在环境变量中找不到 make 命令执行文件 解决方法:
+ 找到mingw安装目录, 打开bin目录, 找到mingw32-make.exe 将mingw32-make.exe将该文件重命名为make.exe  编译过程 Makefile  变量 使用 $(val) 获取val的值  .PHONY: clean  CC=g++ BIN=exec OBJS=AddTwoSum.o utils.o  $(BIN): $(OBJS) 	@echo &amp;#34;start compiling...&amp;#34; 	@echo $(CC) 	$(CC) -o $(BIN) $(OBJS) 	@echo &amp;#34;compile done&amp;#34; AddTwoSum.</description>
+    </item>
+    
     <item>
       <title>Docxtohtml</title>
       <link>https://zhuzaiye.github.io/posts/20220703_docxtohtml/</link>
