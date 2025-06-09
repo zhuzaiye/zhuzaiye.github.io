@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>hzzhu</title>
+    <link>https://zhuzaiye.github.io/</link>
+    <description>Recent content on hzzhu</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sun, 03 Jul 2022 23:21:04 +0800</lastBuildDate><atom:link href="https://zhuzaiye.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Apollo</title>
+      <link>https://zhuzaiye.github.io/projects/projects_1/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://zhuzaiye.github.io/projects/projects_1/</guid>
+      <description>Example project page</description>
+    </item>
+    
+    <item>
+      <title>Docxtohtml</title>
+      <link>https://zhuzaiye.github.io/posts/20220703_docxtohtml/</link>
+      <pubDate>Sun, 03 Jul 2022 23:21:04 +0800</pubDate>
+      
+      <guid>https://zhuzaiye.github.io/posts/20220703_docxtohtml/</guid>
+      <description>由于工作中遇到将office的word合并将合并的word转成Html5的任务。
+需要处理的相关问题如下：
+ 按照给定的excel将指定的多个word文档按照顺序合并 将合并后的word文档按照word中的字体、样式转化，并将word中的图片base64处理 将上述过程整理成一个简单小程序，如GUI程序，便于资源组直接进行处理  工具清单    Tool DESC Link     python=3.7 base code https://docs.python.org/3.7/   base64 img base64转码 https://docs.python.org/3.7/library/base64.html?highlight=base64#module-base64   tkinter pyth0n GUI https://docs.python.org/3.7/library/tkinter.html?highlight=tkinter#module-tkinter   docx=0.2.4 加载word文档 https://pypi.org/project/docx/   docxcompose=1.3.4 操作word文档 https://pypi.org/project/docxcompose/   pywin32=304 office的python宏调用包 https://pypi.org/project/pywin32/   lmxl=4.9.0 解析html的包 https://pypi.org/project/lxml/    #! /usr/bin/env python3 # -*- coding: utf-8 -*- # DESC：将docx转化成html  import os import base64 import shutil import tkinter as tk from tkinter import filedialog from lxml import etree from win32com import client as wc from docx import Document from docxcompose.</description>
+    </item>
+    
+    <item>
+      <title>About</title>
+      <link>https://zhuzaiye.github.io/about/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://zhuzaiye.github.io/about/</guid>
+      <description>Thanks for visiting my blog!
+I&amp;rsquo;m HanziZhu(朱在野), a programmer who enjoys finding simple solutions to complex problems.</description>
+    </item>
+    
+  </channel>
+</rss>
