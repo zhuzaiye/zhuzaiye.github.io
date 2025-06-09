@@ -8,10 +8,10 @@
     <lastBuildDate>Sat, 25 Mar 2023 09:18:53 +0800</lastBuildDate><atom:link href="https://zhuzaiye.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Makfile-ABC</title>
-      <link>https://zhuzaiye.github.io/posts/20230325-makfile/</link>
+      <link>https://zhuzaiye.github.io/posts/20230325-makefile/</link>
       <pubDate>Sat, 25 Mar 2023 09:18:53 +0800</pubDate>
       
-      <guid>https://zhuzaiye.github.io/posts/20230325-makfile/</guid>
+      <guid>https://zhuzaiye.github.io/posts/20230325-makefile/</guid>
       <description>Makefile是组织编译的命令脚本文件-构建生成可执行文件的依赖关系树.
 make根据makefile的规则关系树, 构建出编译可执行程序.
  # 目标: 目标依赖 # 命令 a.out: demo.c  gcc -o $@ $&amp;lt; make指令  windows 环境
