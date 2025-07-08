@@ -5,7 +5,31 @@
     <link>https://zhuzaiye.github.io/posts/</link>
     <description>Recent content in Posts on hzzhu</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sat, 25 Mar 2023 09:18:53 +0800</lastBuildDate><atom:link href="https://zhuzaiye.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 06 Jul 2025 10:55:06 +0800</lastBuildDate><atom:link href="https://zhuzaiye.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Feynman学习法</title>
+      <link>https://zhuzaiye.github.io/posts/20250706-feynman/</link>
+      <pubDate>Sun, 06 Jul 2025 10:55:06 +0800</pubDate>
+      
+      <guid>https://zhuzaiye.github.io/posts/20250706-feynman/</guid>
+      <description>当你看到一只鸟时，即便你知道它的名字，对它也仍然一无所知。 因为你只是知道了人类赋予它的名字，仅此而已。 至于它在夏天横跨整个国家并飞行上万英里时是怎样辨别方向的，没有人知道是怎么回事。​
+ 那么, 我就需要搞清楚:
+ 知识的本质是什么? 我如何学习到知识呢?  知识和学习 知识本质是: 实践所需的逻辑来源支撑. 学习本事是: 获取来源支撑的思维方式.
+一定要区分出知识和信息的差别, 去掉信息, 抓住知识
+学习的思维策略  对具有生长能力的知识点重点学习[关乎知识源头的问题] 对模块化的知识针对性学习[工具性解决性的知识] 对碎片化的知识坚不学习  原理性思维: 一定要搞清楚一门知识, 一个概念背后的原理, 结构和支柱, 没有任何知识是独立存的.
+ 知识的原理要比知识的本身更有价值 明白知识背后的东西是重要的思维训练过程 至少三遍的输出式的反馈 必须学会简化知识体系, 构建自我的知识体系    选择概念[Concept]
+确定要学习的知识点, 并将其写在纸上. 不限于任何方式获取概念的内容.
+[还要具备祛伪概念, 选择优质知识来源, 不要浪费时间在低劣来源上]
+贯彻到底的一个问题就是: 对我而言最重要的那件事情是什么? 我如何将其本质概念获取到
+  教给别人[Teach]
+如果没有人教授, 通过录音的方式将给自己听, 自己来听是否听得明白.
+标准: 词汇是否专业, 知识结构是否完整, 思维逻辑是否正确, 表达方式是否合理, 语言表述是否流畅.
+  找出不足[Review]
+在输出的过程中, 如果语言表达卡壳, 或者强行输出, 说明这个知识点美哦与掌握.
+需要回顾学习.
+  简化知识[Simplify]</description>
+    </item>
+    
     <item>
       <title>Makefile-ABC</title>
       <link>https://zhuzaiye.github.io/posts/20230325-makefile/</link>
