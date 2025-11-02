@@ -6,12 +6,12 @@
   </url>
   
   <url>
-    <loc>https://zhuzaiye.github.io/</loc>
+    <loc>https://zhuzaiye.github.io/posts/20250706-feynman/</loc>
     <lastmod>2025-07-06T10:55:06+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://zhuzaiye.github.io/posts/20250706-feynman/</loc>
+    <loc>https://zhuzaiye.github.io/</loc>
     <lastmod>2025-07-06T10:55:06+08:00</lastmod>
   </url>
   
@@ -35,7 +35,19 @@
   </url>
   
   <url>
+    <loc>https://zhuzaiye.github.io/categories/</loc>
+  </url>
+  
+  <url>
     <loc>https://zhuzaiye.github.io/projects/</loc>
+  </url>
+  
+  <url>
+    <loc>https://zhuzaiye.github.io/notes/</loc>
+  </url>
+  
+  <url>
+    <loc>https://zhuzaiye.github.io/tags/</loc>
   </url>
   
 </urlset>

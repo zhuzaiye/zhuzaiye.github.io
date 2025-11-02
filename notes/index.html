@@ -1,0 +1,189 @@
+
+<!DOCTYPE html>
+<html lang="en" class="dark light">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="base" content="https://zhuzaiye.github.io/">
+
+    
+    
+
+    
+    
+        <title>Quick Notes</title>
+        
+            <meta property="og:title" content="Quick Notes" />
+        
+    
+
+    
+        
+    
+
+    
+        
+    
+
+    
+    
+
+    
+    
+
+    
+    
+
+    
+    
+        
+        <script src="https://zhuzaiye.github.io/js/main.min.709b2cc07788dc81af71cdb44ac921361de4570bb2f7a9ac753efa35798fda5c.js" integrity="sha256-cJsswHeI3IGvcc20SskhNh3kVwuy96msdT76NXmP2lw=" defer></script>
+    
+
+    
+    
+        
+            
+            <script src="https://zhuzaiye.github.io/js/notes.min.8498366c3d76f1f56cfc8486a4a0c214b858283e5c379669912f08f76a49e2c3.js" integrity="sha256-hJg2bD128fVs/ISGpKDCFLhYKD5cN5ZpkS8I92pJ4sM="></script>
+        
+    
+
+    
+    
+        
+        <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+
+    <link rel="alternate" type="application/atom+xml" title="hzzhu" href="/index.xml">
+
+    
+    
+    
+    
+
+    
+        <link rel="stylesheet" href="/sass/theme/light.min.7bebe62a7f0bce52d5ac022ed2f94faa37a1771a19e0e45897652b4bb6aa90a9.css" />
+        <link id="darkModeStyle" rel="stylesheet" href="/sass/theme/dark.min.3dc265de402f27bbd2bdc27f57ddc5be9ac23d9a1e5395858431e8bf42dde643.css" />
+    
+
+    
+
+    
+    
+        
+        <link rel="stylesheet" href="/sass/main.min.4e80c49d3ae342a2393ad84fd49c4a7dddc5df307e7f7a75562b7dfba62a3bb7.css" />
+    
+
+    
+    
+
+    
+    
+</head>
+
+
+<body>
+   <div class="page-wrapper">
+      <div class="page-container">
+         <div class="main-content">
+            
+            <header>
+    <div class="main">
+        
+        <a href="https://zhuzaiye.github.io/">hzzhu</a>
+        
+
+        <div class="socials">
+            
+            <a rel="me" href="https://github.com/zhuzaiye/" class="social">
+                <img alt="github" src="/icons/social/github.svg">
+            </a>
+            
+            <a rel="me" href="mailto:hzzhu92@gmail.com" class="social">
+                <img alt="email" src="/icons/social/email.svg">
+            </a>
+            
+            <a rel="me" href="https://twitter.com/pigzhu11" class="social">
+                <img alt="twitter" src="/icons/social/twitter.svg">
+            </a>
+            
+            <a rel="me" href="/index.xml" class="social">
+                <img alt="rss" src="/icons/social/rss.svg">
+            </a>
+            
+        </div>
+    </div>
+
+    <nav>
+        
+        <a href="/posts" style="margin-left: 0.25em">/posts</a>
+        
+        <a href="/projects" style="margin-left: 0.25em">/projects</a>
+        
+        <a href="/about" style="margin-left: 0.25em">/about</a>
+        
+        <a href="/notes" style="margin-left: 0.25em">/notes</a>
+        
+        |
+        
+        <a id="dark-mode-toggle" onclick="toggleTheme(); return false;" href="#">
+            <img src="/icons/sun.svg" id="sun-icon" style="filter: invert(1)" alt="Light" />
+            <img src="/icons/moon.svg" id="moon-icon" alt="Dark" />
+        </a>
+        
+    </nav>
+</header>
+
+            
+            
+<div class="notes-container">
+    <h1 class="notes-title">Notes</h1>
+    
+    <div class="notes-actions">
+        <button id="new-note-btn" class="btn btn-primary">New Note</button>
+        <button id="export-all-btn" class="btn btn-export">Export All</button>
+        <button id="import-btn" class="btn btn-import">Import Notes</button>
+        <input type="file" id="import-file" accept=".md,.json" style="display: none;">
+        <button id="clear-all-btn" class="btn btn-secondary">Clear All</button>
+        <input type="search" id="search-notes" placeholder="Search Notes..." class="search-input">
+    </div>
+
+    <div id="note-editor" class="note-editor hidden">
+        <div class="editor-header">
+            <input type="text" id="note-title" placeholder="Title" class="note-title-input">
+            <div class="editor-actions">
+                <button id="save-note-btn" class="btn btn-save">Save</button>
+                <button id="cancel-note-btn" class="btn btn-cancel">Cancel</button>
+            </div>
+        </div>
+        <textarea id="note-content" placeholder="Write your notes here..." class="note-content-input"></textarea>
+        <div class="note-meta">
+            <span id="note-date" class="note-date"></span>
+            <div class="note-actions">
+                <button id="export-note-btn" class="btn btn-export-small hidden">Export</button>
+                <button id="delete-note-btn" class="btn btn-delete hidden">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="notes-list" class="notes-list">
+        
+    </div>
+
+    <div id="empty-state" class="empty-state hidden">
+        <p>No notes yet, click "New Note" to start recording!</p>
+    </div>
+</div>
+
+
+            
+
+         </div>
+      </div>
+   </div>
+</body>
+
+</html>
