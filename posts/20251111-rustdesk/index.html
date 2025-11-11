@@ -1,0 +1,281 @@
+
+<!DOCTYPE html>
+<html lang="en" class="dark light">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="base" content="https://zhuzaiye.github.io/">
+
+    
+    
+
+    
+    
+        <title>RustDesk自建服务器</title>
+        
+            <meta property="og:title" content="RustDesk自建服务器" />
+        
+    
+
+    
+        
+            <meta property="og:description" content="基于Docker搭建RustDesk服务器" />
+        
+    
+
+    
+        
+            <meta name="description" content="基于Docker搭建RustDesk服务器" />
+        
+    
+
+    
+    
+
+    
+    
+
+    
+    
+
+    
+    
+        
+        <script src="/js/main.min.709b2cc07788dc81af71cdb44ac921361de4570bb2f7a9ac753efa35798fda5c.js" defer></script>
+    
+
+    
+    
+
+    
+    
+        
+        <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+
+    <link rel="alternate" type="application/atom+xml" title="hzzhu" href="/index.xml">
+
+    
+    
+    
+    
+
+    
+        <link rel="stylesheet" href="/sass/theme/light.min.7bebe62a7f0bce52d5ac022ed2f94faa37a1771a19e0e45897652b4bb6aa90a9.css" />
+        <link id="darkModeStyle" rel="stylesheet" href="/sass/theme/dark.min.3dc265de402f27bbd2bdc27f57ddc5be9ac23d9a1e5395858431e8bf42dde643.css" />
+    
+
+    
+
+    
+    
+        
+        <link rel="stylesheet" href="/sass/main.min.6a3e0207a23ff2bc4a1f7457549ef102c2fa12ae36ec010c44685bd3e66d83d7.css" />
+    
+
+    
+    
+
+    
+    
+</head>
+
+
+<body>
+   <div class="page-wrapper">
+      <div class="page-container">
+         <div class="main-content">
+            
+            <header>
+    <div class="main">
+        
+        <a href="https://zhuzaiye.github.io/">hzzhu</a>
+        
+
+        <div class="socials">
+            
+            <a rel="me" href="https://github.com/zhuzaiye/" class="social">
+                <img alt="github" src="/icons/social/github.svg">
+            </a>
+            
+            <a rel="me" href="mailto:hzzhu92@gmail.com" class="social">
+                <img alt="email" src="/icons/social/email.svg">
+            </a>
+            
+            <a rel="me" href="https://twitter.com/pigzhu11" class="social">
+                <img alt="twitter" src="/icons/social/twitter.svg">
+            </a>
+            
+            <a rel="me" href="/index.xml" class="social">
+                <img alt="rss" src="/icons/social/rss.svg">
+            </a>
+            
+        </div>
+    </div>
+
+    <nav>
+        
+        <a href="/posts">/posts</a>
+        
+        <a href="/projects">/projects</a>
+        
+        <a href="/about">/about</a>
+        
+        <a href="/notes">/notes</a>
+        
+        |
+        
+        <a id="dark-mode-toggle" onclick="toggleTheme(); return false;" href="#">
+            <img src="/icons/sun.svg" id="sun-icon" style="filter: invert(1)" alt="Light" />
+            <img src="/icons/moon.svg" id="moon-icon" alt="Dark" />
+        </a>
+        
+    </nav>
+</header>
+
+            
+            
+<article class="post-single">
+    
+    <header class="post-header">
+        
+        <h1 class="post-title">RustDesk自建服务器</h1>
+        
+        
+        <div class="post-meta">
+            
+            
+            <div class="post-date">
+                <time datetime="2025-11-11T10:55:06&#43;08:00">
+                    November 11, 2025
+                </time>
+            </div>
+            
+            
+            
+            
+            
+            
+            
+            <div class="post-description">
+                基于Docker搭建RustDesk服务器
+            </div>
+            
+        </div>
+    </header>
+
+    
+    <div class="post-content">
+        <p><a href="https://github.com/rustdesk/rustdesk">RustDesk</a>是开源的远程桌面软件,可以使用自建的注册/中继服务器.</p>
+<p>首先准备一台公网服务器, 安装Docker和配置<a href="https://github.com/dongyubin/DockerHub">国内镜像源</a>.<br>
+以下是我目前的Docker镜像源的设置, 使用上总体平稳快速, 满足目前的需求.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>cat /etc/docker/daemon.json 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># {</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4">#   &#34;registry-mirrors&#34;: [</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4">#       &#34;https://docker.1panel.live/&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4">#   ] </span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># }</span>
+</span></span></code></pre></div><p>我一开始通过Centos7和RustDesk的hbbr/hbbs的应用搭建, 自建中间服务起来了, 也可以用, 但是总体上操作麻烦.<br>
+于是后续我用过RustDesk服务器镜像<strong>rustdesk/rustdesk-server</strong>进行搭建, 详细如下:</p>
+<h3 id="拉取rustdeskrustdesk-server镜像">拉取<strong>rustdesk/rustdesk-server</strong>镜像</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>docker image pull rustdesk/rustdesk-server
+</span></span></code></pre></div><h3 id="运行rustdesk服务端的hbbs和hbbr服务">运行RustDesk服务端的hbbs和hbbr服务</h3>
+<ol>
+<li>restart-rustdesk-hbbs.sh</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span><span style="color:#ff79c6">#!/bin/bash
+</span></span></span><span style="display:flex;"><span><span style="color:#ff79c6"></span><span style="color:#8be9fd;font-style:italic">appname</span><span style="color:#ff79c6">=</span>hbbs
+</span></span><span style="display:flex;"><span>docker stop <span style="color:#8be9fd;font-style:italic">$appname</span> <span style="color:#ff79c6">&amp;&amp;</span> sudo docker rm <span style="color:#8be9fd;font-style:italic">$appname</span>
+</span></span><span style="display:flex;"><span>docker run -d --name <span style="color:#8be9fd;font-style:italic">$appname</span> <span style="color:#f1fa8c">\
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c"></span>  --restart unless-stopped <span style="color:#f1fa8c">\
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c"></span>  -p 21115:21115 <span style="color:#f1fa8c">\
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c"></span>  -p 21116:21116 <span style="color:#f1fa8c">\
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c"></span>  -p 21116:21116/udp <span style="color:#f1fa8c">\
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c"></span>  -v <span style="color:#8be9fd;font-style:italic">$PWD</span>/data:/data <span style="color:#f1fa8c">\
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c"></span>  rustdesk/rustdesk-server hbbs -r <span style="color:#ff79c6">[</span>服务器公网IP<span style="color:#ff79c6">]</span>:21117 -k /data/id_ed25519
+</span></span></code></pre></div><p>启动返回如下:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span><span style="color:#ff79c6">[</span>2025-11-02 07:40:36.449043 +00:00<span style="color:#ff79c6">]</span> INFO <span style="color:#ff79c6">[</span>src/common.rs:121<span style="color:#ff79c6">]</span> Private key comes from id_ed25519
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">[</span>2025-11-02 07:40:36.449119 +00:00<span style="color:#ff79c6">]</span> INFO <span style="color:#ff79c6">[</span>src/rendezvous_server.rs:1205<span style="color:#ff79c6">]</span> Key: <span style="color:#ff79c6">[</span>这个是生成KEY,切莫泄露<span style="color:#ff79c6">]</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">[</span>2025-11-02 07:40:36.449152 +00:00<span style="color:#ff79c6">]</span> INFO <span style="color:#ff79c6">[</span>src/peer.rs:84<span style="color:#ff79c6">]</span> <span style="color:#8be9fd;font-style:italic">DB_URL</span><span style="color:#ff79c6">=</span>./db_v2.sqlite3
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">[</span>2025-11-02 07:40:36.451380 +00:00<span style="color:#ff79c6">]</span> INFO <span style="color:#ff79c6">[</span>libs/hbb_common/src/config.rs:902<span style="color:#ff79c6">]</span> Generated new keypair <span style="color:#ff79c6">for</span> id: 
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">[</span>2025-11-02 07:40:36.459686 +00:00<span style="color:#ff79c6">]</span> INFO <span style="color:#ff79c6">[</span>src/rendezvous_server.rs:99<span style="color:#ff79c6">]</span> <span style="color:#8be9fd;font-style:italic">serial</span><span style="color:#ff79c6">=</span><span style="color:#bd93f9">0</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">[</span>2025-11-02 07:40:36.459704 +00:00<span style="color:#ff79c6">]</span> INFO <span style="color:#ff79c6">[</span>src/common.rs:45<span style="color:#ff79c6">]</span> rendezvous-servers<span style="color:#ff79c6">=[]</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">[</span>2025-11-02 07:40:36.459707 +00:00<span style="color:#ff79c6">]</span> INFO <span style="color:#ff79c6">[</span>src/rendezvous_server.rs:101<span style="color:#ff79c6">]</span> Listening on tcp/udp :21116
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">[</span>2025-11-02 07:40:36.459710 +00:00<span style="color:#ff79c6">]</span> INFO <span style="color:#ff79c6">[</span>src/rendezvous_server.rs:102<span style="color:#ff79c6">]</span> Listening on tcp :21115, extra port <span style="color:#ff79c6">for</span> NAT <span style="color:#8be9fd;font-style:italic">test</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">[</span>2025-11-02 07:40:36.459712 +00:00<span style="color:#ff79c6">]</span> INFO <span style="color:#ff79c6">[</span>src/rendezvous_server.rs:103<span style="color:#ff79c6">]</span> Listening on websocket :21118
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">[</span>2025-11-02 07:40:36.459785 +00:00<span style="color:#ff79c6">]</span> INFO <span style="color:#ff79c6">[</span>src/rendezvous_server.rs:138<span style="color:#ff79c6">]</span> mask: None
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">[</span>2025-11-02 07:40:36.459796 +00:00<span style="color:#ff79c6">]</span> INFO <span style="color:#ff79c6">[</span>src/rendezvous_server.rs:139<span style="color:#ff79c6">]</span> local-ip: <span style="color:#f1fa8c">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">[</span>2025-11-02 07:40:36.459802 +00:00<span style="color:#ff79c6">]</span> INFO <span style="color:#ff79c6">[</span>src/common.rs:45<span style="color:#ff79c6">]</span> relay-servers<span style="color:#ff79c6">=[</span><span style="color:#f1fa8c">&#34;[服务器公网IP]:21116&#34;</span><span style="color:#ff79c6">]</span>
+</span></span></code></pre></div><ol start="2">
+<li>restart-rustdesk-hbbr.sh</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span><span style="color:#ff79c6">#!/bin/bash
+</span></span></span><span style="display:flex;"><span><span style="color:#ff79c6"></span><span style="color:#8be9fd;font-style:italic">appname</span><span style="color:#ff79c6">=</span>hbbr
+</span></span><span style="display:flex;"><span>docker stop <span style="color:#8be9fd;font-style:italic">$appname</span> <span style="color:#ff79c6">&amp;&amp;</span> sudo docker rm <span style="color:#8be9fd;font-style:italic">$appname</span>
+</span></span><span style="display:flex;"><span>docker run -d --name <span style="color:#8be9fd;font-style:italic">$appname</span> <span style="color:#f1fa8c">\
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c"></span>  --restart unless-stopped <span style="color:#f1fa8c">\
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c"></span>  -p 21117:21117 <span style="color:#f1fa8c">\
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c"></span>  -v <span style="color:#8be9fd;font-style:italic">$PWD</span>/data:/data <span style="color:#f1fa8c">\
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c"></span>  rustdesk/rustdesk-server hbbr -k /data/id_ed25519
+</span></span></code></pre></div><p>以上的<strong>hbbs</strong>和<strong>hbbr</strong>启动后, 就可以配置客户端的RustDesk.</p>
+<h3 id="配置客户端">配置客户端</h3>
+<p>任何一个client的配置都是如此:</p>
+<blockquote>
+<p>前提是将云服务器的21115,21116(tcp/udp), 21117公开.</p>
+</blockquote>
+<p><img src="/imgs/rustdesk_p01.png" alt="p01">
+<img src="/imgs/rustdesk_p02.png" alt="p02"></p>
+<p>现在, 就可以愉快的远程开发Work了.</p>
+<p>以上, 如有问题请留言, 互相讨论解决.</p>
+
+    </div>
+</article>
+
+
+<aside class="toc-sidebar">
+    <div class="toc-sticky">
+        <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#拉取rustdeskrustdesk-server镜像">拉取<strong>rustdesk/rustdesk-server</strong>镜像</a></li>
+        <li><a href="#运行rustdesk服务端的hbbs和hbbr服务">运行RustDesk服务端的hbbs和hbbr服务</a></li>
+        <li><a href="#配置客户端">配置客户端</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </div>
+</aside>
+
+
+
+            <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://unpkg.com/gitalk@1.2.2/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://unpkg.com/gitalk@latest/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2025-11-11 10:55:06 \u002b0800 CST',
+        title: 'RustDesk自建服务器',
+        clientID: '9c36634fbb845c1d1d64',
+        clientSecret: '3d57254b5ffccf04f9d973cc42b1d84ecd48fd01',
+        repo: 'zhuzaiye.github.io',
+        owner: 'zhuzaiye',
+        admin: ['zhuzaiye'],
+        body: decodeURI(location.href),
+        language: "en"
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+         </div>
+      </div>
+   </div>
+</body>
+
+</html>
