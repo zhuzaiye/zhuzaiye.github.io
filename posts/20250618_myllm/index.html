@@ -1,0 +1,387 @@
+
+<!DOCTYPE html>
+<html lang="en" class="dark light">
+
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="base" content="//localhost:1313/">
+
+    
+    
+
+    
+    
+        <title>LLM Learning</title>
+        
+            <meta property="og:title" content="LLM Learning" />
+        
+    
+
+    
+        
+            <meta property="og:description" content="LLM 从数据基础到模型使用" />
+        
+    
+
+    
+        
+            <meta name="description" content="LLM 从数据基础到模型使用" />
+        
+    
+
+    
+    
+
+    
+    
+
+    
+    
+
+    
+    
+        
+        <script src="/js/main.min.709b2cc07788dc81af71cdb44ac921361de4570bb2f7a9ac753efa35798fda5c.js" defer></script>
+    
+
+    
+    
+
+    
+    
+        
+        <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+
+    <link rel="alternate" type="application/atom+xml" title="hzzhu" href="/index.xml">
+
+    
+    
+    
+    
+
+    
+        <link rel="stylesheet" href="/sass/theme/light.min.7bebe62a7f0bce52d5ac022ed2f94faa37a1771a19e0e45897652b4bb6aa90a9.css" />
+        <link id="darkModeStyle" rel="stylesheet" href="/sass/theme/dark.min.3dc265de402f27bbd2bdc27f57ddc5be9ac23d9a1e5395858431e8bf42dde643.css" />
+    
+
+    
+
+    
+    
+        
+        <link rel="stylesheet" href="/sass/main.min.6a3e0207a23ff2bc4a1f7457549ef102c2fa12ae36ec010c44685bd3e66d83d7.css" />
+    
+
+    
+    
+
+    
+    
+</head>
+
+
+<body>
+   <div class="page-wrapper">
+      <div class="page-container">
+         <div class="main-content">
+            
+            <header>
+    <div class="main">
+        
+        <a href="//localhost:1313/">hzzhu</a>
+        
+
+        <div class="socials">
+            
+            <a rel="me" href="https://github.com/zhuzaiye/" class="social">
+                <img alt="github" src="/icons/social/github.svg">
+            </a>
+            
+            <a rel="me" href="mailto:hzzhu92@gmail.com" class="social">
+                <img alt="email" src="/icons/social/email.svg">
+            </a>
+            
+            <a rel="me" href="https://twitter.com/pigzhu11" class="social">
+                <img alt="twitter" src="/icons/social/twitter.svg">
+            </a>
+            
+            <a rel="me" href="/index.xml" class="social">
+                <img alt="rss" src="/icons/social/rss.svg">
+            </a>
+            
+        </div>
+    </div>
+
+    <nav>
+        
+        <a href="/posts">/posts</a>
+        
+        <a href="/projects">/projects</a>
+        
+        <a href="/about">/about</a>
+        
+        <a href="/notes">/notes</a>
+        
+        |
+        
+        <a id="dark-mode-toggle" onclick="toggleTheme(); return false;" href="#">
+            <img src="/icons/sun.svg" id="sun-icon" style="filter: invert(1)" alt="Light" />
+            <img src="/icons/moon.svg" id="moon-icon" alt="Dark" />
+        </a>
+        
+    </nav>
+</header>
+
+            
+            
+<article class="post-single">
+    
+    <header class="post-header">
+        
+        <h1 class="post-title">LLM Learning</h1>
+        
+        
+        <div class="post-meta">
+            
+            
+            <div class="post-date">
+                <time datetime="2025-06-18T20:46:00&#43;08:00">
+                    June 18, 2025
+                </time>
+            </div>
+            
+            
+            
+            
+            
+            
+            
+            <div class="post-description">
+                LLM 从数据基础到模型使用
+            </div>
+            
+        </div>
+    </header>
+
+    
+    <div class="post-content">
+        <h2 id="natural-language-processingnlp">Natural Language Processing[NLP]</h2>
+<p>NLP是研究<code>人类语言和计算机</code>之间交互的科学, 实现计算机<code>理解</code>, <code>处理</code>和<code>生成</code>自然语言.</p>
+<p><strong>Text Representation[文本表示]</strong></p>
+<p><code>文本表示</code>把自然语言转化为计算机能够理解和运算的数字形式, 即<code>向量</code>的技术. 于是, 基于向量构建了<code>词向量空间模型</code>[VSM].
+<code>VSM</code>将文本内容转换高维空间的向量, 实现从语言符号域转成数字域表达, 可用于计算机数学计算和分析.</p>
+<p><code>文本表示</code>依赖语言模型, 语言模型作用是: 基于给定上下文, 建模语言的概率分布.</p>
+<p><strong>语言概率分布统计模型</strong></p>
+<ol>
+<li>N-Gram模型: 基于统计频率, 当前次依赖于前N-1个词</li>
+<li>RNN/LSTM模型: 通过循环结构记忆前面出现的词</li>
+<li>Transformer: 注意力机制(Self-Attention), 构建每个词的向量, 通过注意力计算词之间关系, 可以并行计算获取更好的上下文.</li>
+</ol>
+<h2 id="transformer架构">Transformer架构</h2>
+<blockquote>
+<p>Transformer最初由 Vaswani 等人提出于论文<a href="https://arxiv.org/abs/1706.03762">《Attention is All You Need》（2017）</a>，是目前 NLP 与多模态大模型的核心架构。
+它以「全注意力机制」为核心，彻底摆脱了 RNN 的时间顺序依赖，具备更强的并行计算能力和上下文建模能力。</p>
+</blockquote>
+<p><strong>架构的组成模块</strong></p>
+<ol>
+<li>输入嵌入[Embedding]+位置编码[Positional Encoding]</li>
+<li>多头注意力机制[Multi-Head Self-Attention]</li>
+<li>前馈神经网络[Feed Forward Network, FFN]</li>
+<li>残差连接[Residual]+层归一化[LayerNorm]</li>
+<li>堆叠多层形成深层模型[通常6/12/24层]</li>
+</ol>
+<p><strong>注意力Attention</strong></p>
+<ol>
+<li>
+<p>注意力机制作用</p>
+<p>给定文本序列, 通过计算文本每个词对其他所有词的关注程度[关系权重], 实现计算机对文本序列的理解.</p>
+</li>
+<li>
+<p>数学基础</p>
+<p>假设输入序列 $X=[x_1, x_2, &hellip;, x_n]$, 每个 $x_i \in \mathbb{R}^d$</p>
+<p>首先, 将$X$投影为:</p>
+<ul>
+<li>Query矩阵: $Q = XW^Q$</li>
+<li>Key 矩阵：$K = XW^K$</li>
+<li>Value 矩阵：$V = XW^V$</li>
+</ul>
+<p>其中, $W^Q, W^K, W^V$ 是学习得到的权重矩阵</p>
+<p>Attention计算公式:</p>
+<p>$$ Attention(Q,K,V)=Softmax(\frac{QK^\top}{\sqrt{d_k}})V $$</p>
+<p>Softmax的计算公式:</p>
+<p>$$ \text{softmax}(x_i) = \frac{e^{xi}}{\sum{j}e^{x_j}} $$</p>
+<ul>
+<li>$QK^\top$ 是每个词对其它词的相关性打分(相似度计算), Key和Query的相关性通过点积来衡量</li>
+<li>除以 $\sqrt{d_k}$ 是为了防止 dot product 值过大(内积爆炸)</li>
+<li>softmax将计算相似度转化成和为1的注意力权重</li>
+<li>乘以 $V$ 对QK乘积进行缩放, 防止不同值之间差异性较大, 影响梯度的稳定性</li>
+</ul>
+</li>
+<li>
+<p>多头注意力(Multi-Head Attention)</p>
+<p>多头注意力机制是Transform的核心机制, 能够让模型在不同的表示空间中<strong>并行关注序列中的不同部分</strong></p>
+<p>因为:</p>
+<ul>
+<li>单个注意力机制只能学习一个子空间的相关性</li>
+<li>多头注意力通过多个并行的注意力头, 可以捕获不同的关系模式</li>
+</ul>
+<p>多头注意力公式:</p>
+<p>假设$h$个头, 每个头都有自己的一组投影:</p>
+<ul>
+<li>$W_i^Q \in \mathbb{R}^{d_{model} \times {d_k}}$</li>
+<li>$W_i^K \in \mathbb{R}^{d_{model} \times {d_k}}$</li>
+<li>$W_i^V \in \mathbb{R}^{d_{model} \times {d_v}}$</li>
+</ul>
+<p>第$i$个头的计算:</p>
+<p>$$
+head_i = Attention(QW_i^Q, KW_i^K, VW_i^V)
+$$</p>
+<p>最后拼接所有的头并线性映射:</p>
+<p>$$
+MultiHead(Q, K, V) = Concat(head_1, &hellip; , head_h)W^O
+$$</p>
+<p>其中: $W^O \in \mathbb{R}^{h \cdot d_v \times {d_{model}}}$</p>
+</li>
+</ol>
+<h2 id="encoder-decoder">Encoder-Decoder</h2>
+<ol>
+<li>
+<p>定义</p>
+<ul>
+<li><code>Encoder-Decoder</code>是一种<strong>序列到序列</strong>建模框架</li>
+<li>输入(序列)-&gt;编码(理解)-&gt;解码(生成)</li>
+</ul>
+</li>
+<li>
+<p>核心逻辑</p>
+<p>1️⃣ Encoder（编码器）—— 理解输入</p>
+<ul>
+<li>输入: 序列$X=(x_1,x_2,&hellip;,x_n)$</li>
+<li>功能: 利用<strong>自注意力机制</strong> 捕捉<strong>序列内部的全局关系</strong></li>
+<li>输出: 每一个关系的位置编码$Z=(z_1,z_2,&hellip;,z_n)$作为Decoder的条件输入</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-plaintext" data-lang="plaintext"><span style="display:flex;"><span>       输入(I love you )
+</span></span><span style="display:flex;"><span>     │
+</span></span><span style="display:flex;"><span>┌───────────────┐
+</span></span><span style="display:flex;"><span>│ Multi-Head Self│
+</span></span><span style="display:flex;"><span>│   Attention    │  ← 跨所有输入Token
+</span></span><span style="display:flex;"><span>└──────┬────────┘
+</span></span><span style="display:flex;"><span>      ↓
+</span></span><span style="display:flex;"><span>┌───────────────┐
+</span></span><span style="display:flex;"><span>│  Feed Forward  │
+</span></span><span style="display:flex;"><span>└───────────────┘
+</span></span><span style="display:flex;"><span>      ↓
+</span></span><span style="display:flex;"><span>    输出 (理解&#34;I love you&#34;, 编码为语义向量)
+</span></span></code></pre></div><p>2️⃣ Decoder（解码器）—— 逐步生成</p>
+<ul>
+<li>输入: 已生成的目标序列(例如翻译一半的句子), Encoder的输出$Z$</li>
+<li>功能:
+<ul>
+<li><strong>Masked Self-Attention</strong> 防止看到未来词</li>
+<li><strong>Encoder-Decoder Attention</strong> 关联输入序列</li>
+</ul>
+</li>
+<li>输出: 下一个Token的概率分布</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-plaintext" data-lang="plaintext"><span style="display:flex;"><span>        输入 ()
+</span></span><span style="display:flex;"><span>         │
+</span></span><span style="display:flex;"><span>┌───────────────────────┐
+</span></span><span style="display:flex;"><span>│ Masked Self-Attention  │ ← 遮挡未来
+</span></span><span style="display:flex;"><span>└──────┬────────────────┘
+</span></span><span style="display:flex;"><span>      ↓
+</span></span><span style="display:flex;"><span>┌──────────────────┐
+</span></span><span style="display:flex;"><span>│ Cross-Attention   │ ← 来自Encoder输出
+</span></span><span style="display:flex;"><span>└──────┬───────────┘
+</span></span><span style="display:flex;"><span>      ↓
+</span></span><span style="display:flex;"><span>┌──────────────────┐
+</span></span><span style="display:flex;"><span>│  Feed Forward     │
+</span></span><span style="display:flex;"><span>└──────────────────┘
+</span></span><span style="display:flex;"><span>      ↓
+</span></span><span style="display:flex;"><span>    输出
+</span></span></code></pre></div></li>
+</ol>
+<h2 id="专有名词">专有名词</h2>
+<table>
+  <thead>
+      <tr>
+          <th>En</th>
+          <th>Full En</th>
+          <th>CN</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>NLP</td>
+          <td>Natural Language Processing</td>
+          <td>自然语言处理</td>
+      </tr>
+      <tr>
+          <td>LSTM</td>
+          <td>Long Short-Term Memory</td>
+          <td>长短时间记忆网络</td>
+      </tr>
+      <tr>
+          <td>ELMo</td>
+          <td>Embeddings from Language Models</td>
+          <td>预训练的上下文相关词嵌入模型</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="参考连接">参考连接</h2>
+<ul>
+<li><a href="https://datawhalechina.github.io/math-for-ai">人工智能的数学基础</a>
+<a href="https://github.com/mml-book/mml-book.github.io/blob/master/book/mml-book.pdf">人工智能的数学基础-英文原版</a></li>
+<li><a href="https://github.com/datawhalechina/happy-llm">Happy LLM</a></li>
+<li><a href="https://github.com/alipay/Ant-Multi-Modal-Framework">Ant Multi Modal</a></li>
+<li><a href="https://colah.github.io/">Colah Blog</a></li>
+</ul>
+
+    </div>
+</article>
+
+
+<aside class="toc-sidebar">
+    <div class="toc-sticky">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#natural-language-processingnlp">Natural Language Processing[NLP]</a></li>
+    <li><a href="#transformer架构">Transformer架构</a></li>
+    <li><a href="#encoder-decoder">Encoder-Decoder</a></li>
+    <li><a href="#专有名词">专有名词</a></li>
+    <li><a href="#参考连接">参考连接</a></li>
+  </ul>
+</nav>
+    </div>
+</aside>
+
+
+
+            <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://unpkg.com/gitalk@1.2.2/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://unpkg.com/gitalk@latest/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2025-06-18 20:46:00 \u002b0800 CST',
+        title: 'LLM Learning',
+        clientID: '9c36634fbb845c1d1d64',
+        clientSecret: '3d57254b5ffccf04f9d973cc42b1d84ecd48fd01',
+        repo: 'zhuzaiye.github.io',
+        owner: 'zhuzaiye',
+        admin: ['zhuzaiye'],
+        body: decodeURI(location.href),
+        language: "en"
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+         </div>
+      </div>
+   </div>
+</body>
+
+</html>
