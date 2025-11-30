@@ -3,11 +3,11 @@
 <html lang="en" class="dark light">
 
 
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+<head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="base" content="//localhost:1313/">
+    <meta name="base" content="https://zhuzaiye.github.io/">
 
     
     
@@ -22,13 +22,13 @@
 
     
         
-            <meta property="og:description" content="LLM 从数据基础到模型使用" />
+            <meta property="og:description" content="LLM 从数据基础到模型训练" />
         
     
 
     
         
-            <meta name="description" content="LLM 从数据基础到模型使用" />
+            <meta name="description" content="LLM 从数据基础到模型训练" />
         
     
 
@@ -52,6 +52,14 @@
 
     
     
+        
+            <script>
+            MathJax = {
+              tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']]
+              }
+            };
+            </script>
         
         <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     
@@ -92,7 +100,7 @@
             <header>
     <div class="main">
         
-        <a href="//localhost:1313/">hzzhu</a>
+        <a href="https://zhuzaiye.github.io/">hzzhu</a>
         
 
         <div class="socials">
@@ -161,7 +169,7 @@
             
             
             <div class="post-description">
-                LLM 从数据基础到模型使用
+                LLM 从数据基础到模型训练
             </div>
             
         </div>
@@ -172,7 +180,8 @@
         <h2 id="natural-language-processingnlp">Natural Language Processing[NLP]</h2>
 <p>NLP是研究<code>人类语言和计算机</code>之间交互的科学, 实现计算机<code>理解</code>, <code>处理</code>和<code>生成</code>自然语言.</p>
 <p><strong>Text Representation[文本表示]</strong></p>
-<p><code>文本表示</code>把自然语言转化为计算机能够理解和运算的数字形式, 即<code>向量</code>的技术. 于是, 基于向量构建了<code>词向量空间模型</code>[VSM].
+<p><code>文本表示</code>把自然语言转化为计算机能够理解和运算的数字形式, 即<code>向量</code>的技术.<br>
+于是, 基于向量构建了<code>词向量空间模型</code>[VSM].<br>
 <code>VSM</code>将文本内容转换高维空间的向量, 实现从语言符号域转成数字域表达, 可用于计算机数学计算和分析.</p>
 <p><code>文本表示</code>依赖语言模型, 语言模型作用是: 基于给定上下文, 建模语言的概率分布.</p>
 <p><strong>语言概率分布统计模型</strong></p>
@@ -183,128 +192,1202 @@
 </ol>
 <h2 id="transformer架构">Transformer架构</h2>
 <blockquote>
-<p>Transformer最初由 Vaswani 等人提出于论文<a href="https://arxiv.org/abs/1706.03762">《Attention is All You Need》（2017）</a>，是目前 NLP 与多模态大模型的核心架构。
-它以「全注意力机制」为核心，彻底摆脱了 RNN 的时间顺序依赖，具备更强的并行计算能力和上下文建模能力。</p>
+<p>Transformer最初由 Vaswani 等人提出于论文<a href="https://arxiv.org/abs/1706.03762">《Attention is All You Need》（2017）</a>，是目前 NLP 与多模态大模型的核心架构。</p>
+<p>它以「全注意力机制」为核心，彻底摆脱了 RNN 的时间顺序依赖，具备更强的并行计算能力和上下文建模能力。</p>
+<p>「全注意力机制」的设计作用: 让序列中的每一个元素都可以动态的关注到整个序列中的其他元素, 进而实现更好的理解上下文信息.</p>
+<p>而<code>上下文信息</code>在计算数学上的体现就是: 每一个元素之间的关联关系权重大小.</p>
 </blockquote>
-<p><strong>架构的组成模块</strong></p>
-<ol>
-<li>输入嵌入[Embedding]+位置编码[Positional Encoding]</li>
-<li>多头注意力机制[Multi-Head Self-Attention]</li>
-<li>前馈神经网络[Feed Forward Network, FFN]</li>
-<li>残差连接[Residual]+层归一化[LayerNorm]</li>
-<li>堆叠多层形成深层模型[通常6/12/24层]</li>
-</ol>
-<p><strong>注意力Attention</strong></p>
-<ol>
-<li>
-<p>注意力机制作用</p>
-<p>给定文本序列, 通过计算文本每个词对其他所有词的关注程度[关系权重], 实现计算机对文本序列的理解.</p>
-</li>
-<li>
-<p>数学基础</p>
-<p>假设输入序列 $X=[x_1, x_2, &hellip;, x_n]$, 每个 $x_i \in \mathbb{R}^d$</p>
-<p>首先, 将$X$投影为:</p>
+<h3 id="注意力机制attention">注意力机制(Attention)</h3>
+<p><strong>注意力机制作用</strong>: 给定文本序列, 通过计算文本每个词对其他所有词的关注程度[关系权重], 实现计算机对文本序列的理解.</p>
+<p>首先, 你输入和每一个词是如何在计算上表征呢?</p>
+<p>每一个输入都会有<strong>词向量表示</strong>, 可以通过输入嵌入<code>Embedding</code>+位置编码<code>Positional Encoding</code>实现:</p>
+<p>$$X=[x_1, x_2, &hellip;, x_n],  x_i \in \mathbb{R}^d$$</p>
+<p>然后通过<strong>3个可计算的线性映射矩阵</strong>表征: Q(Query), K(Key), V(Value)</p>
+<p>$$ Q = XW_Q, K = XW_K, V = XW_V $$</p>
 <ul>
-<li>Query矩阵: $Q = XW^Q$</li>
-<li>Key 矩阵：$K = XW^K$</li>
-<li>Value 矩阵：$V = XW^V$</li>
+<li>Q向量: 是&quot;用于索引/匹配&quot;的向量, 查询向量, 决定「我需要关注什么」</li>
+<li>K向量: 是&quot;用于被匹配/键入&quot;的向量, 被查询向量, 决定「我是什么特征」</li>
+<li>V向量: 是&quot;传递信息/携带内容&quot;的向量, 内容向量, 决定「我携带什么内容」</li>
 </ul>
-<p>其中, $W^Q, W^K, W^V$ 是学习得到的权重矩阵</p>
-<p>Attention计算公式:</p>
+<blockquote>
+<p>它们全部来自输入$X$，通过三个可学习矩阵$W_Q、W_K、W_V$投影而来。</p>
+</blockquote>
+<p><strong>注意力Attention:</strong></p>
 <p>$$ Attention(Q,K,V)=Softmax(\frac{QK^\top}{\sqrt{d_k}})V $$</p>
-<p>Softmax的计算公式:</p>
 <p>$$ \text{softmax}(x_i) = \frac{e^{xi}}{\sum{j}e^{x_j}} $$</p>
 <ul>
 <li>$QK^\top$ 是每个词对其它词的相关性打分(相似度计算), Key和Query的相关性通过点积来衡量</li>
 <li>除以 $\sqrt{d_k}$ 是为了防止 dot product 值过大(内积爆炸)</li>
 <li>softmax将计算相似度转化成和为1的注意力权重</li>
-<li>乘以 $V$ 对QK乘积进行缩放, 防止不同值之间差异性较大, 影响梯度的稳定性</li>
 </ul>
-</li>
-<li>
-<p>多头注意力(Multi-Head Attention)</p>
-<p>多头注意力机制是Transform的核心机制, 能够让模型在不同的表示空间中<strong>并行关注序列中的不同部分</strong></p>
-<p>因为:</p>
+<p>注意力不是&quot;显式地找主语&quot;: 模型并不会“懂得语法规则”以符号化方式去找主语；它学到的是：在投影空间中，指代和被指代项的 Q/K 投影会在训练数据下表现出相似/兼容的几何关系，从而产生高点积得分.
+这是统计学（分布式表示）而非符号规则的效果.</p>
+<p>从一个<strong>Attention Header</strong>实际计算例子:</p>
+<blockquote>
+<p>“The animal didn’t cross the street because it was too tired.”</p>
+</blockquote>
+<p>对于每个 token，例如 “it”，它在这一头中得到：</p>
 <ul>
-<li>单个注意力机制只能学习一个子空间的相关性</li>
-<li>多头注意力通过多个并行的注意力头, 可以捕获不同的关系模式</li>
+<li><code>embedding + positional encoding</code> → 得到输入向量$x_{it}$</li>
+<li>$x_{it}$ → 用$W_Q$ 投影 → 得到$Q_{it}$</li>
+<li>所有<code>token</code>的$x$ → 用$W_K$投影 → 得到$K_{matrix}$</li>
+<li>所有<code>token</code>的$x$ → 用$W_V$投影 → 得到$V_{matrix}$</li>
 </ul>
-<p>多头注意力公式:</p>
-<p>假设$h$个头, 每个头都有自己的一组投影:</p>
-<ul>
-<li>$W_i^Q \in \mathbb{R}^{d_{model} \times {d_k}}$</li>
-<li>$W_i^K \in \mathbb{R}^{d_{model} \times {d_k}}$</li>
-<li>$W_i^V \in \mathbb{R}^{d_{model} \times {d_v}}$</li>
-</ul>
-<p>第$i$个头的计算:</p>
-<p>$$
-head_i = Attention(QW_i^Q, KW_i^K, VW_i^V)
-$$</p>
-<p>最后拼接所有的头并线性映射:</p>
-<p>$$
-MultiHead(Q, K, V) = Concat(head_1, &hellip; , head_h)W^O
-$$</p>
-<p>其中: $W^O \in \mathbb{R}^{h \cdot d_v \times {d_{model}}}$</p>
-</li>
-</ol>
-<h2 id="encoder-decoder">Encoder-Decoder</h2>
 <ol>
-<li>
-<p>定义</p>
-<ul>
-<li><code>Encoder-Decoder</code>是一种<strong>序列到序列</strong>建模框架</li>
-<li>输入(序列)-&gt;编码(理解)-&gt;解码(生成)</li>
-</ul>
-</li>
-<li>
-<p>核心逻辑</p>
-<p>1️⃣ Encoder（编码器）—— 理解输入</p>
-<ul>
-<li>输入: 序列$X=(x_1,x_2,&hellip;,x_n)$</li>
-<li>功能: 利用<strong>自注意力机制</strong> 捕捉<strong>序列内部的全局关系</strong></li>
-<li>输出: 每一个关系的位置编码$Z=(z_1,z_2,&hellip;,z_n)$作为Decoder的条件输入</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-plaintext" data-lang="plaintext"><span style="display:flex;"><span>       输入(I love you )
-</span></span><span style="display:flex;"><span>     │
-</span></span><span style="display:flex;"><span>┌───────────────┐
-</span></span><span style="display:flex;"><span>│ Multi-Head Self│
-</span></span><span style="display:flex;"><span>│   Attention    │  ← 跨所有输入Token
-</span></span><span style="display:flex;"><span>└──────┬────────┘
-</span></span><span style="display:flex;"><span>      ↓
-</span></span><span style="display:flex;"><span>┌───────────────┐
-</span></span><span style="display:flex;"><span>│  Feed Forward  │
-</span></span><span style="display:flex;"><span>└───────────────┘
-</span></span><span style="display:flex;"><span>      ↓
-</span></span><span style="display:flex;"><span>    输出 (理解&#34;I love you&#34;, 编码为语义向量)
-</span></span></code></pre></div><p>2️⃣ Decoder（解码器）—— 逐步生成</p>
-<ul>
-<li>输入: 已生成的目标序列(例如翻译一半的句子), Encoder的输出$Z$</li>
-<li>功能:
-<ul>
-<li><strong>Masked Self-Attention</strong> 防止看到未来词</li>
-<li><strong>Encoder-Decoder Attention</strong> 关联输入序列</li>
-</ul>
-</li>
-<li>输出: 下一个Token的概率分布</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-plaintext" data-lang="plaintext"><span style="display:flex;"><span>        输入 ()
-</span></span><span style="display:flex;"><span>         │
-</span></span><span style="display:flex;"><span>┌───────────────────────┐
-</span></span><span style="display:flex;"><span>│ Masked Self-Attention  │ ← 遮挡未来
-</span></span><span style="display:flex;"><span>└──────┬────────────────┘
-</span></span><span style="display:flex;"><span>      ↓
-</span></span><span style="display:flex;"><span>┌──────────────────┐
-</span></span><span style="display:flex;"><span>│ Cross-Attention   │ ← 来自Encoder输出
-</span></span><span style="display:flex;"><span>└──────┬───────────┘
-</span></span><span style="display:flex;"><span>      ↓
-</span></span><span style="display:flex;"><span>┌──────────────────┐
-</span></span><span style="display:flex;"><span>│  Feed Forward     │
-</span></span><span style="display:flex;"><span>└──────────────────┘
-</span></span><span style="display:flex;"><span>      ↓
-</span></span><span style="display:flex;"><span>    输出
-</span></span></code></pre></div></li>
+<li>点积得分(相似度)</li>
 </ol>
-<h2 id="专有名词">专有名词</h2>
+<p>对<code>token</code> &ldquo;it&rdquo;:</p>
+<p>$$s_j=\frac{Q_{it} \cdot K_j}{\sqrt{d_k}}$$</p>
+<p>其中$j$遍历整个句子: animal,the,didn&rsquo;t,&hellip;,it,street,tired</p>
+<ol start="2">
+<li>softmax(变成权重)</li>
+</ol>
+<p>得分 $S=[s_{animal},s_{the}&hellip;]$</p>
+<p>$$ a_j=\frac{e^{s_j}} {\sum e^{s_k}} $$</p>
+<p>模拟计算结果:</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">token</th>
+          <th style="text-align: left">attention weight（例子）</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">animal</td>
+          <td style="text-align: left">0.65</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">street</td>
+          <td style="text-align: left">0.05</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">it（self）</td>
+          <td style="text-align: left">0.10</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">because</td>
+          <td style="text-align: left">0.02</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">tired</td>
+          <td style="text-align: left">0.18</td>
+      </tr>
+  </tbody>
+</table>
+<ol start="3">
+<li>加权求和(聚合$V$向量)</li>
+</ol>
+<p>$$output_{it}=\sum a_jV_j$$</p>
+<p>计算输出的组合向量会<code>用于残差连接</code>, <code>LayerNorm</code>, <code>FFN</code>, 然后进行下一层等等, 最终可以得到<code>语义</code>上输出: <code>it</code>指代的是<code>animal</code></p>
+<p>因此:</p>
+<table>
+  <thead>
+      <tr>
+          <th>token</th>
+          <th>Q 向量（查询）</th>
+          <th>K 向量（被查询）</th>
+          <th>V 向量（内容）</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>animal</td>
+          <td>由 $X_{animal}$ 乘 $W_Q$ 得到（无固定语义）</td>
+          <td>由 $X_{animal}$ 乘 $W_K$ 得到（只是一个向量）</td>
+          <td>由 $X_{animal}$ 乘 $W_V$ 得到（传递“动物”的语义特征）</td>
+      </tr>
+      <tr>
+          <td>it</td>
+          <td>由 $X_{it}$ 乘 $W_Q$ 得到（模型学到“它通常需要找先行词”）</td>
+          <td>由 $X_{it}$ 乘 $W_K$ 得到</td>
+          <td>由 $X_{it}$ 乘 $W_V$ 得到</td>
+      </tr>
+  </tbody>
+</table>
+<blockquote>
+<p>以上只有<code>线性计算</code>, 没有任何<code>标签</code>或者<code>语义</code>标识</p>
+<p>Transformer 并没有硬编码任何语言学规则，它只是学到了一个投影方式，使得：</p>
+<ul>
+<li>Q 向量倾向于“问问题”</li>
+<li>K 向量倾向于“带着可检索特征”</li>
+<li>V 向量倾向于“携带内容”</li>
+</ul>
+<p>其中: $W_Q、W_K、W_V$ 是可训练参数, 在模型训练是随机初始化, 然后通过反向传播不断更新.</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#6272a4"># ------------------------</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># Scaled Dot-Product Attention (single head)</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># ------------------------</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">def</span> <span style="color:#50fa7b">scaled_dot_product_attention</span>(Q, K, V, mask<span style="color:#ff79c6">=</span><span style="color:#ff79c6">None</span>):
+</span></span><span style="display:flex;"><span>    <span style="color:#f1fa8c">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">    Q, K, V: (..., seq_len, d_k)  (supports batch and head dims via leading dims)
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">    mask: None or (..., seq_q, seq_k)  (True where we should mask, typically)
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">    Returns: attn_output, attn_weights
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">    &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    d_k <span style="color:#ff79c6">=</span> Q<span style="color:#ff79c6">.</span>size(<span style="color:#ff79c6">-</span><span style="color:#bd93f9">1</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#6272a4"># scores: (..., seq_q, seq_k)</span>
+</span></span><span style="display:flex;"><span>    scores <span style="color:#ff79c6">=</span> torch<span style="color:#ff79c6">.</span>matmul(Q, K<span style="color:#ff79c6">.</span>transpose(<span style="color:#ff79c6">-</span><span style="color:#bd93f9">2</span>, <span style="color:#ff79c6">-</span><span style="color:#bd93f9">1</span>)) <span style="color:#ff79c6">/</span> math<span style="color:#ff79c6">.</span>sqrt(d_k)
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">if</span> mask <span style="color:#ff79c6">is</span> <span style="color:#ff79c6">not</span> <span style="color:#ff79c6">None</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#6272a4"># mask True = blocked -&gt; set to -inf</span>
+</span></span><span style="display:flex;"><span>        scores <span style="color:#ff79c6">=</span> scores<span style="color:#ff79c6">.</span>masked_fill(mask, <span style="color:#8be9fd;font-style:italic">float</span>(<span style="color:#f1fa8c">&#39;-inf&#39;</span>))
+</span></span><span style="display:flex;"><span>    attn <span style="color:#ff79c6">=</span> F<span style="color:#ff79c6">.</span>softmax(scores, dim<span style="color:#ff79c6">=-</span><span style="color:#bd93f9">1</span>)  <span style="color:#6272a4"># attention weights across keys</span>
+</span></span><span style="display:flex;"><span>    output <span style="color:#ff79c6">=</span> torch<span style="color:#ff79c6">.</span>matmul(attn, V)
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">return</span> output, attn
+</span></span></code></pre></div><h3 id="transformer结构">Transformer结构</h3>
+<h4 id="1-输入嵌入embedding位置编码positional-encoding">1. 输入嵌入[Embedding]+位置编码[Positional Encoding]</h4>
+<p>1.1 词嵌入（Token Embedding）</p>
+<p>如果输入的句子:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>the animal sleeps
+</span></span></code></pre></div><p>token-&gt;vector(Embedding): $$\mathbb{Z} \Rightarrow \mathbb{R}^{d_{model}} $$</p>
+<p>如果model dimention=512: $$X \in \mathbb{R}^{(N,{d_{model}})}$$</p>
+<p>最终结果, 输入句子维度就是(3, 512):</p>
+<table>
+  <thead>
+      <tr>
+          <th>Token</th>
+          <th>Embedding Shape</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>the</td>
+          <td>(512,)</td>
+      </tr>
+      <tr>
+          <td>animal</td>
+          <td>(512,)</td>
+      </tr>
+      <tr>
+          <td>sleeps</td>
+          <td>(512,)</td>
+      </tr>
+  </tbody>
+</table>
+<p>1.2 位置编码（Positional Encoding）</p>
+<p>因为 Transformer 没有 RNN，所以必须告诉模型词的位置</p>
+<p>通过<strong>正余弦</strong>实现:</p>
+<p>$$PE(pos, 2i) = \sin\bigg(\frac{pos}{10000^{2i/d_{model}}}\bigg)$$
+$$PE(pos, 2i+1) = \cos\bigg(\frac{pos}{10000^{2i/d_{model}}}\bigg)$$</p>
+<p>其维度也是: (3, 512)</p>
+<p>最终输出: $$X_{input}=V_{Embedding}+V_{PositionalEncoding}$$</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#6272a4"># ------------------------</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># Positional Encoding</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># ------------------------</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">PositionalEncoding</span>(nn<span style="color:#ff79c6">.</span>Module):
+</span></span><span style="display:flex;"><span>    <span style="color:#f1fa8c">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">    Implements the classic sinusoidal positional encoding.
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">    Input:
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">      d_model: embedding dimension
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">      max_len: maximum sequence length to precompute
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">    Forward input: x shape (batch, seq_len, d_model)
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">    Returns: x + pos_encoding (same shape)
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">    &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">__init__</span>(<span style="font-style:italic">self</span>, d_model: <span style="color:#8be9fd;font-style:italic">int</span>, max_len: <span style="color:#8be9fd;font-style:italic">int</span> <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">5000</span>):
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">super</span>()<span style="color:#ff79c6">.</span><span style="color:#50fa7b">__init__</span>()
+</span></span><span style="display:flex;"><span>        <span style="color:#6272a4"># Create a (max_len, d_model) matrix of positional encodings</span>
+</span></span><span style="display:flex;"><span>        pe <span style="color:#ff79c6">=</span> torch<span style="color:#ff79c6">.</span>zeros(max_len, d_model)
+</span></span><span style="display:flex;"><span>        position <span style="color:#ff79c6">=</span> torch<span style="color:#ff79c6">.</span>arange(<span style="color:#bd93f9">0</span>, max_len, dtype<span style="color:#ff79c6">=</span>torch<span style="color:#ff79c6">.</span>float)<span style="color:#ff79c6">.</span>unsqueeze(<span style="color:#bd93f9">1</span>)  <span style="color:#6272a4"># (max_len, 1)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#6272a4"># div_term: 10000^{2i/d_model}</span>
+</span></span><span style="display:flex;"><span>        div_term <span style="color:#ff79c6">=</span> torch<span style="color:#ff79c6">.</span>exp(torch<span style="color:#ff79c6">.</span>arange(<span style="color:#bd93f9">0</span>, d_model, <span style="color:#bd93f9">2</span>)<span style="color:#ff79c6">.</span>float() <span style="color:#ff79c6">*</span> (<span style="color:#ff79c6">-</span>math<span style="color:#ff79c6">.</span>log(<span style="color:#bd93f9">10000.0</span>) <span style="color:#ff79c6">/</span> d_model))
+</span></span><span style="display:flex;"><span>        pe[:, <span style="color:#bd93f9">0</span>::<span style="color:#bd93f9">2</span>] <span style="color:#ff79c6">=</span> torch<span style="color:#ff79c6">.</span>sin(position <span style="color:#ff79c6">*</span> div_term)      <span style="color:#6272a4"># even dims</span>
+</span></span><span style="display:flex;"><span>        pe[:, <span style="color:#bd93f9">1</span>::<span style="color:#bd93f9">2</span>] <span style="color:#ff79c6">=</span> torch<span style="color:#ff79c6">.</span>cos(position <span style="color:#ff79c6">*</span> div_term)      <span style="color:#6272a4"># odd dims</span>
+</span></span><span style="display:flex;"><span>        pe <span style="color:#ff79c6">=</span> pe<span style="color:#ff79c6">.</span>unsqueeze(<span style="color:#bd93f9">0</span>)  <span style="color:#6272a4"># shape (1, max_len, d_model)</span>
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>register_buffer(<span style="color:#f1fa8c">&#34;pe&#34;</span>, pe)  <span style="color:#6272a4"># not a parameter, but saved with the model</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">forward</span>(<span style="font-style:italic">self</span>, x: torch<span style="color:#ff79c6">.</span>Tensor) <span style="color:#ff79c6">-&gt;</span> torch<span style="color:#ff79c6">.</span>Tensor:
+</span></span><span style="display:flex;"><span>        <span style="color:#6272a4"># x: (batch, seq_len, d_model)</span>
+</span></span><span style="display:flex;"><span>        seq_len <span style="color:#ff79c6">=</span> x<span style="color:#ff79c6">.</span>size(<span style="color:#bd93f9">1</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span> x <span style="color:#ff79c6">+</span> <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>pe[:, :seq_len]<span style="color:#ff79c6">.</span>to(x<span style="color:#ff79c6">.</span>dtype)
+</span></span></code></pre></div><h4 id="2-多头注意力机制multi-head-self-attention">2. 多头注意力机制[Multi-Head Self-Attention]</h4>
+<p>将$Q/K/V$分成h个head, 每个head都有自己的三个矩阵: $$W^{(i)}_Q,W^{(i)}_K,W^{(i)}_V$$</p>
+<p>并行计算Attention后拼接: $$MultiHead(X)=Concat(head_1,&hellip;,head_n)W_O$$</p>
+<p>其中: $W_O \in \mathbb{R}^{h \cdot d_v \times {d_{model}}}$</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#6272a4"># ------------------------</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># Multi-Head Attention</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># ------------------------</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">MultiHeadSelfAttention</span>(nn<span style="color:#ff79c6">.</span>Module):
+</span></span><span style="display:flex;"><span>    <span style="color:#f1fa8c">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">    Multi-head self-attention.
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">    - d_model: model dimension
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">    - num_heads: number of heads (d_model must be divisible by num_heads)
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">    Returns context vectors of shape (batch, seq_len, d_model)
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">    Also returns attention weights per head for inspection (batch, num_heads, seq, seq)
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">    &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">__init__</span>(<span style="font-style:italic">self</span>, d_model: <span style="color:#8be9fd;font-style:italic">int</span>, num_heads: <span style="color:#8be9fd;font-style:italic">int</span>):
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">super</span>()<span style="color:#ff79c6">.</span><span style="color:#50fa7b">__init__</span>()
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">assert</span> d_model <span style="color:#ff79c6">%</span> num_heads <span style="color:#ff79c6">==</span> <span style="color:#bd93f9">0</span>, <span style="color:#f1fa8c">&#34;d_model must be divisible by num_heads&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>d_model <span style="color:#ff79c6">=</span> d_model
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>num_heads <span style="color:#ff79c6">=</span> num_heads
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>d_k <span style="color:#ff79c6">=</span> d_model <span style="color:#ff79c6">//</span> num_heads
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#6272a4"># Linear layers to produce Q, K, V from input X</span>
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>W_q <span style="color:#ff79c6">=</span> nn<span style="color:#ff79c6">.</span>Linear(d_model, d_model, bias<span style="color:#ff79c6">=</span><span style="color:#ff79c6">False</span>)
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>W_k <span style="color:#ff79c6">=</span> nn<span style="color:#ff79c6">.</span>Linear(d_model, d_model, bias<span style="color:#ff79c6">=</span><span style="color:#ff79c6">False</span>)
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>W_v <span style="color:#ff79c6">=</span> nn<span style="color:#ff79c6">.</span>Linear(d_model, d_model, bias<span style="color:#ff79c6">=</span><span style="color:#ff79c6">False</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#6272a4"># Output linear layer</span>
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>W_o <span style="color:#ff79c6">=</span> nn<span style="color:#ff79c6">.</span>Linear(d_model, d_model, bias<span style="color:#ff79c6">=</span><span style="color:#ff79c6">False</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">forward</span>(<span style="font-style:italic">self</span>, x, mask<span style="color:#ff79c6">=</span><span style="color:#ff79c6">None</span>):
+</span></span><span style="display:flex;"><span>        <span style="color:#f1fa8c">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">        x: (batch, seq_len, d_model)
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">        mask: optional mask, shape broadcastable to (batch, num_heads, seq_len, seq_len)
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">        &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>        B, S, D <span style="color:#ff79c6">=</span> x<span style="color:#ff79c6">.</span>size()
+</span></span><span style="display:flex;"><span>        <span style="color:#6272a4"># Project input to Q/K/V of shape (B, S, d_model)</span>
+</span></span><span style="display:flex;"><span>        Q <span style="color:#ff79c6">=</span> <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>W_q(x)
+</span></span><span style="display:flex;"><span>        K <span style="color:#ff79c6">=</span> <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>W_k(x)
+</span></span><span style="display:flex;"><span>        V <span style="color:#ff79c6">=</span> <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>W_v(x)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#6272a4"># Split heads: (B, S, num_heads, d_k) -&gt; (B, num_heads, S, d_k)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">split_heads</span>(tensor):
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">return</span> tensor<span style="color:#ff79c6">.</span>view(B, S, <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>num_heads, <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>d_k)<span style="color:#ff79c6">.</span>transpose(<span style="color:#bd93f9">1</span>, <span style="color:#bd93f9">2</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        Qh <span style="color:#ff79c6">=</span> split_heads(Q)
+</span></span><span style="display:flex;"><span>        Kh <span style="color:#ff79c6">=</span> split_heads(K)
+</span></span><span style="display:flex;"><span>        Vh <span style="color:#ff79c6">=</span> split_heads(V)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#6272a4"># scaled dot-product per head</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#6272a4"># attn_out: (B, num_heads, S, d_k)</span>
+</span></span><span style="display:flex;"><span>        attn_out, attn_weights <span style="color:#ff79c6">=</span> scaled_dot_product_attention(Qh, Kh, Vh, mask)
+</span></span><span style="display:flex;"><span>        <span style="color:#6272a4"># concat heads: (B, S, num_heads, d_k) after transpose back</span>
+</span></span><span style="display:flex;"><span>        attn_out <span style="color:#ff79c6">=</span> attn_out<span style="color:#ff79c6">.</span>transpose(<span style="color:#bd93f9">1</span>, <span style="color:#bd93f9">2</span>)<span style="color:#ff79c6">.</span>contiguous()<span style="color:#ff79c6">.</span>view(B, S, D)
+</span></span><span style="display:flex;"><span>        <span style="color:#6272a4"># final linear projection</span>
+</span></span><span style="display:flex;"><span>        out <span style="color:#ff79c6">=</span> <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>W_o(attn_out)
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span> out, attn_weights  <span style="color:#6272a4"># attn_weights: (B, num_heads, S, S)</span>
+</span></span></code></pre></div><h4 id="3-前馈神经网络feed-forward-network-ffn">3. 前馈神经网络[Feed Forward Network, FFN]</h4>
+<p>自注意力机制负责「跨词信息交换」<br>
+<strong>FFN</strong>负责「对每个词独立非线性变换」</p>
+<p>数学结构(两层MLP): $$FFN(x)=\max(0,xW_1+b_1)W_2+b_2$$</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#6272a4"># ------------------------</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># Position-wise Feed-Forward Network (FFN)</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># ------------------------</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">PositionwiseFeedForward</span>(nn<span style="color:#ff79c6">.</span>Module):
+</span></span><span style="display:flex;"><span>    <span style="color:#f1fa8c">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">    Implements FFN: two linear layers with an activation in between.
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">    Applied independently at each position.
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">    &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">__init__</span>(<span style="font-style:italic">self</span>, d_model: <span style="color:#8be9fd;font-style:italic">int</span>, d_hidden: <span style="color:#8be9fd;font-style:italic">int</span>, activation<span style="color:#ff79c6">=</span>F<span style="color:#ff79c6">.</span>relu):
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">super</span>()<span style="color:#ff79c6">.</span><span style="color:#50fa7b">__init__</span>()
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>fc1 <span style="color:#ff79c6">=</span> nn<span style="color:#ff79c6">.</span>Linear(d_model, d_hidden)
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>fc2 <span style="color:#ff79c6">=</span> nn<span style="color:#ff79c6">.</span>Linear(d_hidden, d_model)
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>activation <span style="color:#ff79c6">=</span> activation
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">forward</span>(<span style="font-style:italic">self</span>, x):
+</span></span><span style="display:flex;"><span>        <span style="color:#6272a4"># x: (batch, seq_len, d_model)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span> <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>fc2(<span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>activation(<span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>fc1(x)))
+</span></span></code></pre></div><h4 id="4-残差连接residual层归一化layernorm">4. 残差连接[Residual]+层归一化[LayerNorm]</h4>
+<ul>
+<li>防止<strong>梯度消失</strong></li>
+<li>允许模型学习微量更新</li>
+<li>确保层数增加后的训练稳定性</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#6272a4"># ------------------------</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># Transformer Encoder Block</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># ------------------------</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">TransformerEncoderBlock</span>(nn<span style="color:#ff79c6">.</span>Module):
+</span></span><span style="display:flex;"><span>    <span style="color:#f1fa8c">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">    One Transformer encoder block:
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">    x -&gt; x + MultiHead(LN(x)) -&gt; LN -&gt; x + FFN(LN(x))
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">    Note: We use &#39;pre-norm&#39; style: layer norm before sublayer, which is often more stable.
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">    &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">__init__</span>(<span style="font-style:italic">self</span>, d_model: <span style="color:#8be9fd;font-style:italic">int</span>, num_heads: <span style="color:#8be9fd;font-style:italic">int</span>, d_ff: <span style="color:#8be9fd;font-style:italic">int</span>, dropout<span style="color:#ff79c6">=</span><span style="color:#bd93f9">0.1</span>):
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">super</span>()<span style="color:#ff79c6">.</span><span style="color:#50fa7b">__init__</span>()
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>self_attn <span style="color:#ff79c6">=</span> MultiHeadSelfAttention(d_model, num_heads)
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>ffn <span style="color:#ff79c6">=</span> PositionwiseFeedForward(d_model, d_ff)
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>norm1 <span style="color:#ff79c6">=</span> nn<span style="color:#ff79c6">.</span>LayerNorm(d_model)
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>norm2 <span style="color:#ff79c6">=</span> nn<span style="color:#ff79c6">.</span>LayerNorm(d_model)
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>dropout <span style="color:#ff79c6">=</span> nn<span style="color:#ff79c6">.</span>Dropout(dropout)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">forward</span>(<span style="font-style:italic">self</span>, x, mask<span style="color:#ff79c6">=</span><span style="color:#ff79c6">None</span>):
+</span></span><span style="display:flex;"><span>        <span style="color:#6272a4"># Pre-norm for attention</span>
+</span></span><span style="display:flex;"><span>        x_norm <span style="color:#ff79c6">=</span> <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>norm1(x)
+</span></span><span style="display:flex;"><span>        attn_out, attn_weights <span style="color:#ff79c6">=</span> <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>self_attn(x_norm, mask<span style="color:#ff79c6">=</span>mask)
+</span></span><span style="display:flex;"><span>        x <span style="color:#ff79c6">=</span> x <span style="color:#ff79c6">+</span> <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>dropout(attn_out)  <span style="color:#6272a4"># residual connection</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#6272a4"># Pre-norm for FFN</span>
+</span></span><span style="display:flex;"><span>        x_norm <span style="color:#ff79c6">=</span> <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>norm2(x)
+</span></span><span style="display:flex;"><span>        ffn_out <span style="color:#ff79c6">=</span> <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>ffn(x_norm)
+</span></span><span style="display:flex;"><span>        x <span style="color:#ff79c6">=</span> x <span style="color:#ff79c6">+</span> <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>dropout(ffn_out)  <span style="color:#6272a4"># residual connection</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span> x, attn_weights
+</span></span></code></pre></div><h4 id="5-堆叠多层形成深层模型通常61224层">5. 堆叠多层形成深层模型[通常6/12/24层]</h4>
+<ul>
+<li>每一层做一次“信息整合 + 非线性变换”。
+底层学习低级模式（词法、短语），中层组合成更复杂的语义结构，高层捕获句子级或段落级的语义/关系。</li>
+<li>单层 attention 可以让每个 token 直接看见其他 token（全局），但堆栈多层能让信息在多步中被不断重写与迭代：
+第一层给出初步注意力分配，第二层能基于第一层的输出调整、强化或抑制信息，等于对关系进行多步推理或迭代聚合（iterative refinement）</li>
+<li>堆叠和FFN中的非线性让网络可以逼近更复杂的函数, 多层组合能表达高阶交互</li>
+<li>不同层获取到不同&quot;尺度&quot;特征, 把这些分开到不同层有利于模型泛化和可解释性</li>
+</ul>
+<h3 id="最小可运行的-transformer-encoder-stackpytorch">最小可运行的 Transformer Encoder Stack（PyTorch）</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#6272a4"># transformer_from_scratch.py</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">import</span> math
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">import</span> torch
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">import</span> torch.nn <span style="color:#ff79c6">as</span> nn
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">import</span> torch.nn.functional <span style="color:#ff79c6">as</span> F
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># ------------------------</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># Positional Encoding</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># ------------------------</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">PositionalEncoding</span>(nn<span style="color:#ff79c6">.</span>Module):
+</span></span><span style="display:flex;"><span>    <span style="color:#f1fa8c">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">    Implements the classic sinusoidal positional encoding.
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">    Input:
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">      d_model: embedding dimension
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">      max_len: maximum sequence length to precompute
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">    Forward input: x shape (batch, seq_len, d_model)
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">    Returns: x + pos_encoding (same shape)
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">    &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">__init__</span>(<span style="font-style:italic">self</span>, d_model: <span style="color:#8be9fd;font-style:italic">int</span>, max_len: <span style="color:#8be9fd;font-style:italic">int</span> <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">5000</span>):
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">super</span>()<span style="color:#ff79c6">.</span><span style="color:#50fa7b">__init__</span>()
+</span></span><span style="display:flex;"><span>        <span style="color:#6272a4"># Create a (max_len, d_model) matrix of positional encodings</span>
+</span></span><span style="display:flex;"><span>        pe <span style="color:#ff79c6">=</span> torch<span style="color:#ff79c6">.</span>zeros(max_len, d_model)
+</span></span><span style="display:flex;"><span>        position <span style="color:#ff79c6">=</span> torch<span style="color:#ff79c6">.</span>arange(<span style="color:#bd93f9">0</span>, max_len, dtype<span style="color:#ff79c6">=</span>torch<span style="color:#ff79c6">.</span>float)<span style="color:#ff79c6">.</span>unsqueeze(<span style="color:#bd93f9">1</span>)  <span style="color:#6272a4"># (max_len, 1)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#6272a4"># div_term: 10000^{2i/d_model}</span>
+</span></span><span style="display:flex;"><span>        div_term <span style="color:#ff79c6">=</span> torch<span style="color:#ff79c6">.</span>exp(torch<span style="color:#ff79c6">.</span>arange(<span style="color:#bd93f9">0</span>, d_model, <span style="color:#bd93f9">2</span>)<span style="color:#ff79c6">.</span>float() <span style="color:#ff79c6">*</span> (<span style="color:#ff79c6">-</span>math<span style="color:#ff79c6">.</span>log(<span style="color:#bd93f9">10000.0</span>) <span style="color:#ff79c6">/</span> d_model))
+</span></span><span style="display:flex;"><span>        pe[:, <span style="color:#bd93f9">0</span>::<span style="color:#bd93f9">2</span>] <span style="color:#ff79c6">=</span> torch<span style="color:#ff79c6">.</span>sin(position <span style="color:#ff79c6">*</span> div_term)      <span style="color:#6272a4"># even dims</span>
+</span></span><span style="display:flex;"><span>        pe[:, <span style="color:#bd93f9">1</span>::<span style="color:#bd93f9">2</span>] <span style="color:#ff79c6">=</span> torch<span style="color:#ff79c6">.</span>cos(position <span style="color:#ff79c6">*</span> div_term)      <span style="color:#6272a4"># odd dims</span>
+</span></span><span style="display:flex;"><span>        pe <span style="color:#ff79c6">=</span> pe<span style="color:#ff79c6">.</span>unsqueeze(<span style="color:#bd93f9">0</span>)  <span style="color:#6272a4"># shape (1, max_len, d_model)</span>
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>register_buffer(<span style="color:#f1fa8c">&#34;pe&#34;</span>, pe)  <span style="color:#6272a4"># not a parameter, but saved with the model</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">forward</span>(<span style="font-style:italic">self</span>, x: torch<span style="color:#ff79c6">.</span>Tensor) <span style="color:#ff79c6">-&gt;</span> torch<span style="color:#ff79c6">.</span>Tensor:
+</span></span><span style="display:flex;"><span>        <span style="color:#6272a4"># x: (batch, seq_len, d_model)</span>
+</span></span><span style="display:flex;"><span>        seq_len <span style="color:#ff79c6">=</span> x<span style="color:#ff79c6">.</span>size(<span style="color:#bd93f9">1</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span> x <span style="color:#ff79c6">+</span> <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>pe[:, :seq_len]<span style="color:#ff79c6">.</span>to(x<span style="color:#ff79c6">.</span>dtype)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># ------------------------</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># Scaled Dot-Product Attention (single head)</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># ------------------------</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">def</span> <span style="color:#50fa7b">scaled_dot_product_attention</span>(Q, K, V, mask<span style="color:#ff79c6">=</span><span style="color:#ff79c6">None</span>):
+</span></span><span style="display:flex;"><span>    <span style="color:#f1fa8c">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">    Q, K, V: (..., seq_len, d_k)  (supports batch and head dims via leading dims)
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">    mask: None or (..., seq_q, seq_k)  (True where we should mask, typically)
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">    Returns: attn_output, attn_weights
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">    &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    d_k <span style="color:#ff79c6">=</span> Q<span style="color:#ff79c6">.</span>size(<span style="color:#ff79c6">-</span><span style="color:#bd93f9">1</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#6272a4"># scores: (..., seq_q, seq_k)</span>
+</span></span><span style="display:flex;"><span>    scores <span style="color:#ff79c6">=</span> torch<span style="color:#ff79c6">.</span>matmul(Q, K<span style="color:#ff79c6">.</span>transpose(<span style="color:#ff79c6">-</span><span style="color:#bd93f9">2</span>, <span style="color:#ff79c6">-</span><span style="color:#bd93f9">1</span>)) <span style="color:#ff79c6">/</span> math<span style="color:#ff79c6">.</span>sqrt(d_k)
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">if</span> mask <span style="color:#ff79c6">is</span> <span style="color:#ff79c6">not</span> <span style="color:#ff79c6">None</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#6272a4"># mask True = blocked -&gt; set to -inf</span>
+</span></span><span style="display:flex;"><span>        scores <span style="color:#ff79c6">=</span> scores<span style="color:#ff79c6">.</span>masked_fill(mask, <span style="color:#8be9fd;font-style:italic">float</span>(<span style="color:#f1fa8c">&#39;-inf&#39;</span>))
+</span></span><span style="display:flex;"><span>    attn <span style="color:#ff79c6">=</span> F<span style="color:#ff79c6">.</span>softmax(scores, dim<span style="color:#ff79c6">=-</span><span style="color:#bd93f9">1</span>)  <span style="color:#6272a4"># attention weights across keys</span>
+</span></span><span style="display:flex;"><span>    output <span style="color:#ff79c6">=</span> torch<span style="color:#ff79c6">.</span>matmul(attn, V)
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">return</span> output, attn
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># ------------------------</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># Multi-Head Attention</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># ------------------------</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">MultiHeadSelfAttention</span>(nn<span style="color:#ff79c6">.</span>Module):
+</span></span><span style="display:flex;"><span>    <span style="color:#f1fa8c">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">    Multi-head self-attention.
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">    - d_model: model dimension
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">    - num_heads: number of heads (d_model must be divisible by num_heads)
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">    Returns context vectors of shape (batch, seq_len, d_model)
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">    Also returns attention weights per head for inspection (batch, num_heads, seq, seq)
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">    &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">__init__</span>(<span style="font-style:italic">self</span>, d_model: <span style="color:#8be9fd;font-style:italic">int</span>, num_heads: <span style="color:#8be9fd;font-style:italic">int</span>):
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">super</span>()<span style="color:#ff79c6">.</span><span style="color:#50fa7b">__init__</span>()
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">assert</span> d_model <span style="color:#ff79c6">%</span> num_heads <span style="color:#ff79c6">==</span> <span style="color:#bd93f9">0</span>, <span style="color:#f1fa8c">&#34;d_model must be divisible by num_heads&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>d_model <span style="color:#ff79c6">=</span> d_model
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>num_heads <span style="color:#ff79c6">=</span> num_heads
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>d_k <span style="color:#ff79c6">=</span> d_model <span style="color:#ff79c6">//</span> num_heads
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#6272a4"># Linear layers to produce Q, K, V from input X</span>
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>W_q <span style="color:#ff79c6">=</span> nn<span style="color:#ff79c6">.</span>Linear(d_model, d_model, bias<span style="color:#ff79c6">=</span><span style="color:#ff79c6">False</span>)
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>W_k <span style="color:#ff79c6">=</span> nn<span style="color:#ff79c6">.</span>Linear(d_model, d_model, bias<span style="color:#ff79c6">=</span><span style="color:#ff79c6">False</span>)
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>W_v <span style="color:#ff79c6">=</span> nn<span style="color:#ff79c6">.</span>Linear(d_model, d_model, bias<span style="color:#ff79c6">=</span><span style="color:#ff79c6">False</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#6272a4"># Output linear layer</span>
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>W_o <span style="color:#ff79c6">=</span> nn<span style="color:#ff79c6">.</span>Linear(d_model, d_model, bias<span style="color:#ff79c6">=</span><span style="color:#ff79c6">False</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">forward</span>(<span style="font-style:italic">self</span>, x, mask<span style="color:#ff79c6">=</span><span style="color:#ff79c6">None</span>):
+</span></span><span style="display:flex;"><span>        <span style="color:#f1fa8c">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">        x: (batch, seq_len, d_model)
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">        mask: optional mask, shape broadcastable to (batch, num_heads, seq_len, seq_len)
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">        &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>        B, S, D <span style="color:#ff79c6">=</span> x<span style="color:#ff79c6">.</span>size()
+</span></span><span style="display:flex;"><span>        <span style="color:#6272a4"># Project input to Q/K/V of shape (B, S, d_model)</span>
+</span></span><span style="display:flex;"><span>        Q <span style="color:#ff79c6">=</span> <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>W_q(x) <span style="color:#6272a4"># XW_Q, 实现投影</span>
+</span></span><span style="display:flex;"><span>        K <span style="color:#ff79c6">=</span> <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>W_k(x)
+</span></span><span style="display:flex;"><span>        V <span style="color:#ff79c6">=</span> <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>W_v(x)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#6272a4"># Split heads: (B, S, num_heads, d_k) -&gt; (B, num_heads, S, d_k)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">split_heads</span>(tensor):
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">return</span> tensor<span style="color:#ff79c6">.</span>view(B, S, <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>num_heads, <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>d_k)<span style="color:#ff79c6">.</span>transpose(<span style="color:#bd93f9">1</span>, <span style="color:#bd93f9">2</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        Qh <span style="color:#ff79c6">=</span> split_heads(Q)
+</span></span><span style="display:flex;"><span>        Kh <span style="color:#ff79c6">=</span> split_heads(K)
+</span></span><span style="display:flex;"><span>        Vh <span style="color:#ff79c6">=</span> split_heads(V)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#6272a4"># scaled dot-product per head</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#6272a4"># attn_out: (B, num_heads, S, d_k)</span>
+</span></span><span style="display:flex;"><span>        attn_out, attn_weights <span style="color:#ff79c6">=</span> scaled_dot_product_attention(Qh, Kh, Vh, mask)
+</span></span><span style="display:flex;"><span>        <span style="color:#6272a4"># concat heads: (B, S, num_heads, d_k) after transpose back</span>
+</span></span><span style="display:flex;"><span>        attn_out <span style="color:#ff79c6">=</span> attn_out<span style="color:#ff79c6">.</span>transpose(<span style="color:#bd93f9">1</span>, <span style="color:#bd93f9">2</span>)<span style="color:#ff79c6">.</span>contiguous()<span style="color:#ff79c6">.</span>view(B, S, D)
+</span></span><span style="display:flex;"><span>        <span style="color:#6272a4"># final linear projection</span>
+</span></span><span style="display:flex;"><span>        out <span style="color:#ff79c6">=</span> <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>W_o(attn_out)
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span> out, attn_weights  <span style="color:#6272a4"># attn_weights: (B, num_heads, S, S)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># ------------------------</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># Position-wise Feed-Forward Network (FFN)</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># ------------------------</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">PositionwiseFeedForward</span>(nn<span style="color:#ff79c6">.</span>Module):
+</span></span><span style="display:flex;"><span>    <span style="color:#f1fa8c">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">    Implements FFN: two linear layers with an activation in between.
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">    Applied independently at each position.
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">    &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">__init__</span>(<span style="font-style:italic">self</span>, d_model: <span style="color:#8be9fd;font-style:italic">int</span>, d_hidden: <span style="color:#8be9fd;font-style:italic">int</span>, activation<span style="color:#ff79c6">=</span>F<span style="color:#ff79c6">.</span>relu):
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">super</span>()<span style="color:#ff79c6">.</span><span style="color:#50fa7b">__init__</span>()
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>fc1 <span style="color:#ff79c6">=</span> nn<span style="color:#ff79c6">.</span>Linear(d_model, d_hidden)
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>fc2 <span style="color:#ff79c6">=</span> nn<span style="color:#ff79c6">.</span>Linear(d_hidden, d_model)
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>activation <span style="color:#ff79c6">=</span> activation
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">forward</span>(<span style="font-style:italic">self</span>, x):
+</span></span><span style="display:flex;"><span>        <span style="color:#6272a4"># x: (batch, seq_len, d_model)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span> <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>fc2(<span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>activation(<span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>fc1(x)))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># ------------------------</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># Transformer Encoder Block</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># ------------------------</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">TransformerEncoderBlock</span>(nn<span style="color:#ff79c6">.</span>Module):
+</span></span><span style="display:flex;"><span>    <span style="color:#f1fa8c">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">    One Transformer encoder block:
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">    x -&gt; x + MultiHead(LN(x)) -&gt; LN -&gt; x + FFN(LN(x))
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">    Note: We use &#39;pre-norm&#39; style: layer norm before sublayer, which is often more stable.
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">    &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">__init__</span>(<span style="font-style:italic">self</span>, d_model: <span style="color:#8be9fd;font-style:italic">int</span>, num_heads: <span style="color:#8be9fd;font-style:italic">int</span>, d_ff: <span style="color:#8be9fd;font-style:italic">int</span>, dropout<span style="color:#ff79c6">=</span><span style="color:#bd93f9">0.1</span>):
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">super</span>()<span style="color:#ff79c6">.</span><span style="color:#50fa7b">__init__</span>()
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>self_attn <span style="color:#ff79c6">=</span> MultiHeadSelfAttention(d_model, num_heads)
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>ffn <span style="color:#ff79c6">=</span> PositionwiseFeedForward(d_model, d_ff)
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>norm1 <span style="color:#ff79c6">=</span> nn<span style="color:#ff79c6">.</span>LayerNorm(d_model)
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>norm2 <span style="color:#ff79c6">=</span> nn<span style="color:#ff79c6">.</span>LayerNorm(d_model)
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>dropout <span style="color:#ff79c6">=</span> nn<span style="color:#ff79c6">.</span>Dropout(dropout)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">forward</span>(<span style="font-style:italic">self</span>, x, mask<span style="color:#ff79c6">=</span><span style="color:#ff79c6">None</span>):
+</span></span><span style="display:flex;"><span>        <span style="color:#6272a4"># Pre-norm for attention</span>
+</span></span><span style="display:flex;"><span>        x_norm <span style="color:#ff79c6">=</span> <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>norm1(x)
+</span></span><span style="display:flex;"><span>        attn_out, attn_weights <span style="color:#ff79c6">=</span> <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>self_attn(x_norm, mask<span style="color:#ff79c6">=</span>mask)
+</span></span><span style="display:flex;"><span>        x <span style="color:#ff79c6">=</span> x <span style="color:#ff79c6">+</span> <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>dropout(attn_out)  <span style="color:#6272a4"># residual connection</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#6272a4"># Pre-norm for FFN</span>
+</span></span><span style="display:flex;"><span>        x_norm <span style="color:#ff79c6">=</span> <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>norm2(x)
+</span></span><span style="display:flex;"><span>        ffn_out <span style="color:#ff79c6">=</span> <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>ffn(x_norm)
+</span></span><span style="display:flex;"><span>        x <span style="color:#ff79c6">=</span> x <span style="color:#ff79c6">+</span> <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>dropout(ffn_out)  <span style="color:#6272a4"># residual connection</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span> x, attn_weights
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># ------------------------</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># Transformer Encoder (stack N layers)</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># ------------------------</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">TransformerEncoder</span>(nn<span style="color:#ff79c6">.</span>Module):
+</span></span><span style="display:flex;"><span>    <span style="color:#f1fa8c">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">    Stacks multiple TransformerEncoderBlock layers.
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">    Also contains embedding + positional encoding.
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">    &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">__init__</span>(<span style="font-style:italic">self</span>, vocab_size: <span style="color:#8be9fd;font-style:italic">int</span>, d_model: <span style="color:#8be9fd;font-style:italic">int</span>, num_heads: <span style="color:#8be9fd;font-style:italic">int</span>,
+</span></span><span style="display:flex;"><span>                 d_ff: <span style="color:#8be9fd;font-style:italic">int</span>, num_layers: <span style="color:#8be9fd;font-style:italic">int</span>, max_len: <span style="color:#8be9fd;font-style:italic">int</span> <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">512</span>, dropout<span style="color:#ff79c6">=</span><span style="color:#bd93f9">0.1</span>):
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">super</span>()<span style="color:#ff79c6">.</span><span style="color:#50fa7b">__init__</span>()
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>embed_tokens <span style="color:#ff79c6">=</span> nn<span style="color:#ff79c6">.</span>Embedding(vocab_size, d_model)
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>pos_enc <span style="color:#ff79c6">=</span> PositionalEncoding(d_model, max_len<span style="color:#ff79c6">=</span>max_len)
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>layers <span style="color:#ff79c6">=</span> nn<span style="color:#ff79c6">.</span>ModuleList([
+</span></span><span style="display:flex;"><span>            TransformerEncoderBlock(d_model, num_heads, d_ff, dropout<span style="color:#ff79c6">=</span>dropout)
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">for</span> _ <span style="color:#ff79c6">in</span> <span style="color:#8be9fd;font-style:italic">range</span>(num_layers)
+</span></span><span style="display:flex;"><span>        ])
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>norm <span style="color:#ff79c6">=</span> nn<span style="color:#ff79c6">.</span>LayerNorm(d_model)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">forward</span>(<span style="font-style:italic">self</span>, input_ids, mask<span style="color:#ff79c6">=</span><span style="color:#ff79c6">None</span>):
+</span></span><span style="display:flex;"><span>        <span style="color:#f1fa8c">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">        input_ids: (batch, seq_len) token ids
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">        mask: optional boolean mask where True indicates positions to mask (e.g., padding)
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">              We will expand it to (batch, num_heads, seq_len, seq_len) when needed
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">        &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>        x <span style="color:#ff79c6">=</span> <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>embed_tokens(input_ids)  <span style="color:#6272a4"># (B, S, d_model)</span>
+</span></span><span style="display:flex;"><span>        x <span style="color:#ff79c6">=</span> <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>pos_enc(x)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#6272a4"># Build attention mask expected shape: (B, 1, 1, S) or broadcastable.</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#6272a4"># Here we want a mask for keys (True where key is masked), and scaled_dot_product expects</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#6272a4"># mask shaped (B, num_heads, seq_q, seq_k). We&#39;ll expand when calling attention if needed.</span>
+</span></span><span style="display:flex;"><span>        attn_maps <span style="color:#ff79c6">=</span> []  <span style="color:#6272a4"># collect attention maps for debugging/inspection</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">for</span> layer <span style="color:#ff79c6">in</span> <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>layers:
+</span></span><span style="display:flex;"><span>            <span style="color:#6272a4"># Prepare mask for heads if provided</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">if</span> mask <span style="color:#ff79c6">is</span> <span style="color:#ff79c6">not</span> <span style="color:#ff79c6">None</span>:
+</span></span><span style="display:flex;"><span>                <span style="color:#6272a4"># mask: (B, S) where True denotes PAD; we need (B, num_heads, S, S)</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#6272a4"># We make mask_k such that True at positions to mask when attending keys</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#6272a4"># We&#39;ll broadcast across query dim.</span>
+</span></span><span style="display:flex;"><span>                mask_k <span style="color:#ff79c6">=</span> mask<span style="color:#ff79c6">.</span>unsqueeze(<span style="color:#bd93f9">1</span>)<span style="color:#ff79c6">.</span>unsqueeze(<span style="color:#bd93f9">2</span>)  <span style="color:#6272a4"># (B,1,1,S)</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#6272a4"># expand to (B, num_heads, S, S) by broadcasting inside attention call</span>
+</span></span><span style="display:flex;"><span>                layer_mask <span style="color:#ff79c6">=</span> mask_k
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">else</span>:
+</span></span><span style="display:flex;"><span>                layer_mask <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">None</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            x, attn <span style="color:#ff79c6">=</span> layer(x, mask<span style="color:#ff79c6">=</span>layer_mask)
+</span></span><span style="display:flex;"><span>            attn_maps<span style="color:#ff79c6">.</span>append(attn<span style="color:#ff79c6">.</span>detach() <span style="color:#ff79c6">if</span> attn <span style="color:#ff79c6">is</span> <span style="color:#ff79c6">not</span> <span style="color:#ff79c6">None</span> <span style="color:#ff79c6">else</span> <span style="color:#ff79c6">None</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        x <span style="color:#ff79c6">=</span> <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>norm(x)
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span> x, attn_maps  <span style="color:#6272a4"># attn_maps: list length=num_layers, each (B, num_heads, S, S)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># ------------------------</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># Demo: run a tiny example and print attention maps per head</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># ------------------------</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">if</span> <span style="color:#8be9fd;font-style:italic">__name__</span> <span style="color:#ff79c6">==</span> <span style="color:#f1fa8c">&#34;__main__&#34;</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#6272a4"># tiny vocab and short sequence to demonstrate</span>
+</span></span><span style="display:flex;"><span>    vocab_size <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">50</span>
+</span></span><span style="display:flex;"><span>    d_model <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">64</span>
+</span></span><span style="display:flex;"><span>    num_heads <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">4</span>
+</span></span><span style="display:flex;"><span>    d_ff <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">256</span>
+</span></span><span style="display:flex;"><span>    num_layers <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">3</span>
+</span></span><span style="display:flex;"><span>    batch <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">2</span>
+</span></span><span style="display:flex;"><span>    seq_len <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">6</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    model <span style="color:#ff79c6">=</span> TransformerEncoder(vocab_size, d_model, num_heads, d_ff, num_layers, max_len<span style="color:#ff79c6">=</span><span style="color:#bd93f9">32</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#6272a4"># random toy token ids</span>
+</span></span><span style="display:flex;"><span>    input_ids <span style="color:#ff79c6">=</span> torch<span style="color:#ff79c6">.</span>randint(<span style="color:#bd93f9">0</span>, vocab_size, (batch, seq_len))
+</span></span><span style="display:flex;"><span>    <span style="color:#6272a4"># padding mask example: suppose last two tokens in batch index 1 are padding</span>
+</span></span><span style="display:flex;"><span>    pad_mask <span style="color:#ff79c6">=</span> torch<span style="color:#ff79c6">.</span>zeros((batch, seq_len), dtype<span style="color:#ff79c6">=</span>torch<span style="color:#ff79c6">.</span>bool)
+</span></span><span style="display:flex;"><span>    pad_mask[<span style="color:#bd93f9">1</span>, <span style="color:#ff79c6">-</span><span style="color:#bd93f9">2</span>:] <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">True</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    outputs, attn_maps <span style="color:#ff79c6">=</span> model(input_ids, mask<span style="color:#ff79c6">=</span>pad_mask)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#34;Outputs shape:&#34;</span>, outputs<span style="color:#ff79c6">.</span>shape)  <span style="color:#6272a4"># (batch, seq_len, d_model)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#6272a4"># Print attention of first layer, first sample</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">for</span> layer_idx, attn <span style="color:#ff79c6">in</span> <span style="color:#8be9fd;font-style:italic">enumerate</span>(attn_maps):
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">f</span><span style="color:#f1fa8c">&#34;Layer </span><span style="color:#f1fa8c">{</span>layer_idx<span style="color:#f1fa8c">}</span><span style="color:#f1fa8c"> attention shape:&#34;</span>, attn<span style="color:#ff79c6">.</span>shape)
+</span></span><span style="display:flex;"><span>        <span style="color:#6272a4"># show average attention across heads for the first batch</span>
+</span></span><span style="display:flex;"><span>        avg_attn <span style="color:#ff79c6">=</span> attn[<span style="color:#bd93f9">0</span>]<span style="color:#ff79c6">.</span>mean(dim<span style="color:#ff79c6">=</span><span style="color:#bd93f9">0</span>)  <span style="color:#6272a4"># (S, S)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">f</span><span style="color:#f1fa8c">&#34;Layer </span><span style="color:#f1fa8c">{</span>layer_idx<span style="color:#f1fa8c">}</span><span style="color:#f1fa8c"> avg attention (batch 0) shape:&#34;</span>, avg_attn<span style="color:#ff79c6">.</span>shape)
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">print</span>(avg_attn)  <span style="color:#6272a4"># numeric matrix of attention weights</span>
+</span></span></code></pre></div><h2 id="tiny-transformer--训练--注意力可视化">Tiny Transformer + 训练 + 注意力可视化</h2>
+<ol>
+<li>构造一个极小语料（可人工）用于训练</li>
+<li>训练一个 Tiny Transformer（2 层、4 heads）几步</li>
+<li>记录每个 head 的注意力权重</li>
+<li>实时绘制每个头的 Attention Heatmap</li>
+<li>展示“每个 head 学到什么语义模式”</li>
+</ol>
+<p>目标任务：让Transformer预测下一个词（语言模型训练）</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">import</span> torch
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">import</span> torch.nn <span style="color:#ff79c6">as</span> nn
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">import</span> torch.nn.functional <span style="color:#ff79c6">as</span> F
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">import</span> matplotlib.pyplot <span style="color:#ff79c6">as</span> plt
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">import</span> numpy <span style="color:#ff79c6">as</span> np
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># =========================</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># 1. 构造极小语料</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># =========================</span>
+</span></span><span style="display:flex;"><span>sentences <span style="color:#ff79c6">=</span> [
+</span></span><span style="display:flex;"><span>    <span style="color:#f1fa8c">&#34;the cat likes fish&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f1fa8c">&#34;the dog hates fish&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f1fa8c">&#34;the cat eats fish&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f1fa8c">&#34;the dog likes meat&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f1fa8c">&#34;the girl likes cat&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f1fa8c">&#34;the boy hates dog&#34;</span>,
+</span></span><span style="display:flex;"><span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># 构造词表</span>
+</span></span><span style="display:flex;"><span>words <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">sorted</span>(<span style="color:#8be9fd;font-style:italic">list</span>(<span style="color:#8be9fd;font-style:italic">set</span>(<span style="color:#f1fa8c">&#34; &#34;</span><span style="color:#ff79c6">.</span>join(sentences)<span style="color:#ff79c6">.</span>split())))
+</span></span><span style="display:flex;"><span>stoi <span style="color:#ff79c6">=</span> {w:i <span style="color:#ff79c6">for</span> i,w <span style="color:#ff79c6">in</span> <span style="color:#8be9fd;font-style:italic">enumerate</span>(words)}
+</span></span><span style="display:flex;"><span>itos <span style="color:#ff79c6">=</span> {i:w <span style="color:#ff79c6">for</span> w,i <span style="color:#ff79c6">in</span> stoi<span style="color:#ff79c6">.</span>items()}
+</span></span><span style="display:flex;"><span>vocab_size <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">len</span>(words)
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#34;vocab:&#34;</span>, words)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">def</span> <span style="color:#50fa7b">encode</span>(sentence):
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">return</span> torch<span style="color:#ff79c6">.</span>tensor([stoi[w] <span style="color:#ff79c6">for</span> w <span style="color:#ff79c6">in</span> sentence<span style="color:#ff79c6">.</span>split()])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>encoded <span style="color:#ff79c6">=</span> [encode(s) <span style="color:#ff79c6">for</span> s <span style="color:#ff79c6">in</span> sentences]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># =========================</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># 2. 位置编码（正弦）</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># =========================</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">def</span> <span style="color:#50fa7b">positional_encoding</span>(seq_len, dim):
+</span></span><span style="display:flex;"><span>    pe <span style="color:#ff79c6">=</span> torch<span style="color:#ff79c6">.</span>zeros(seq_len, dim)
+</span></span><span style="display:flex;"><span>    pos <span style="color:#ff79c6">=</span> torch<span style="color:#ff79c6">.</span>arange(<span style="color:#bd93f9">0</span>, seq_len)<span style="color:#ff79c6">.</span>unsqueeze(<span style="color:#bd93f9">1</span>)
+</span></span><span style="display:flex;"><span>    div_term <span style="color:#ff79c6">=</span> torch<span style="color:#ff79c6">.</span>exp(torch<span style="color:#ff79c6">.</span>arange(<span style="color:#bd93f9">0</span>, dim, <span style="color:#bd93f9">2</span>) <span style="color:#ff79c6">*</span> <span style="color:#ff79c6">-</span>(np<span style="color:#ff79c6">.</span>log(<span style="color:#bd93f9">10000.0</span>) <span style="color:#ff79c6">/</span> dim))
+</span></span><span style="display:flex;"><span>    pe[:, <span style="color:#bd93f9">0</span>::<span style="color:#bd93f9">2</span>] <span style="color:#ff79c6">=</span> torch<span style="color:#ff79c6">.</span>sin(pos <span style="color:#ff79c6">*</span> div_term)
+</span></span><span style="display:flex;"><span>    pe[:, <span style="color:#bd93f9">1</span>::<span style="color:#bd93f9">2</span>] <span style="color:#ff79c6">=</span> torch<span style="color:#ff79c6">.</span>cos(pos <span style="color:#ff79c6">*</span> div_term)
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">return</span> pe
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># =========================</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># 3. Multi-Head Self-Attention（可视化支持）</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># =========================</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">MultiHeadAttention</span>(nn<span style="color:#ff79c6">.</span>Module):
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">__init__</span>(<span style="font-style:italic">self</span>, embed_dim<span style="color:#ff79c6">=</span><span style="color:#bd93f9">32</span>, num_heads<span style="color:#ff79c6">=</span><span style="color:#bd93f9">4</span>):
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">super</span>()<span style="color:#ff79c6">.</span><span style="color:#50fa7b">__init__</span>()
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>embed_dim <span style="color:#ff79c6">=</span> embed_dim
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>num_heads <span style="color:#ff79c6">=</span> num_heads
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>head_dim <span style="color:#ff79c6">=</span> embed_dim <span style="color:#ff79c6">//</span> num_heads
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>W_Q <span style="color:#ff79c6">=</span> nn<span style="color:#ff79c6">.</span>Linear(embed_dim, embed_dim, bias<span style="color:#ff79c6">=</span><span style="color:#ff79c6">False</span>)
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>W_K <span style="color:#ff79c6">=</span> nn<span style="color:#ff79c6">.</span>Linear(embed_dim, embed_dim, bias<span style="color:#ff79c6">=</span><span style="color:#ff79c6">False</span>)
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>W_V <span style="color:#ff79c6">=</span> nn<span style="color:#ff79c6">.</span>Linear(embed_dim, embed_dim, bias<span style="color:#ff79c6">=</span><span style="color:#ff79c6">False</span>)
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>W_O <span style="color:#ff79c6">=</span> nn<span style="color:#ff79c6">.</span>Linear(embed_dim, embed_dim, bias<span style="color:#ff79c6">=</span><span style="color:#ff79c6">False</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#6272a4"># 用于收集可视化输出</span>
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>last_attention <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">None</span>  <span style="color:#6272a4"># (heads, seq, seq)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">forward</span>(<span style="font-style:italic">self</span>, x):
+</span></span><span style="display:flex;"><span>        B, T, C <span style="color:#ff79c6">=</span> x<span style="color:#ff79c6">.</span>shape
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        Q <span style="color:#ff79c6">=</span> <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>W_Q(x)
+</span></span><span style="display:flex;"><span>        K <span style="color:#ff79c6">=</span> <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>W_K(x)
+</span></span><span style="display:flex;"><span>        V <span style="color:#ff79c6">=</span> <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>W_V(x)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        Q <span style="color:#ff79c6">=</span> Q<span style="color:#ff79c6">.</span>view(B, T, <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>num_heads, <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>head_dim)<span style="color:#ff79c6">.</span>transpose(<span style="color:#bd93f9">1</span>, <span style="color:#bd93f9">2</span>)
+</span></span><span style="display:flex;"><span>        K <span style="color:#ff79c6">=</span> K<span style="color:#ff79c6">.</span>view(B, T, <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>num_heads, <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>head_dim)<span style="color:#ff79c6">.</span>transpose(<span style="color:#bd93f9">1</span>, <span style="color:#bd93f9">2</span>)
+</span></span><span style="display:flex;"><span>        V <span style="color:#ff79c6">=</span> V<span style="color:#ff79c6">.</span>view(B, T, <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>num_heads, <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>head_dim)<span style="color:#ff79c6">.</span>transpose(<span style="color:#bd93f9">1</span>, <span style="color:#bd93f9">2</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        scores <span style="color:#ff79c6">=</span> (Q <span style="color:#ff79c6">@</span> K<span style="color:#ff79c6">.</span>transpose(<span style="color:#ff79c6">-</span><span style="color:#bd93f9">2</span>, <span style="color:#ff79c6">-</span><span style="color:#bd93f9">1</span>)) <span style="color:#ff79c6">/</span> np<span style="color:#ff79c6">.</span>sqrt(<span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>head_dim)
+</span></span><span style="display:flex;"><span>        attn <span style="color:#ff79c6">=</span> torch<span style="color:#ff79c6">.</span>softmax(scores, dim<span style="color:#ff79c6">=-</span><span style="color:#bd93f9">1</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#6272a4"># 记录注意力</span>
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>last_attention <span style="color:#ff79c6">=</span> attn<span style="color:#ff79c6">.</span>detach()<span style="color:#ff79c6">.</span>cpu()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        out <span style="color:#ff79c6">=</span> attn <span style="color:#ff79c6">@</span> V
+</span></span><span style="display:flex;"><span>        out <span style="color:#ff79c6">=</span> out<span style="color:#ff79c6">.</span>transpose(<span style="color:#bd93f9">1</span>, <span style="color:#bd93f9">2</span>)<span style="color:#ff79c6">.</span>reshape(B, T, C)
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span> <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>W_O(out)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># =========================</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># 4. 前馈网络（FFN）</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># =========================</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">FeedForward</span>(nn<span style="color:#ff79c6">.</span>Module):
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">__init__</span>(<span style="font-style:italic">self</span>, dim<span style="color:#ff79c6">=</span><span style="color:#bd93f9">32</span>, hidden<span style="color:#ff79c6">=</span><span style="color:#bd93f9">64</span>):
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">super</span>()<span style="color:#ff79c6">.</span><span style="color:#50fa7b">__init__</span>()
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>net <span style="color:#ff79c6">=</span> nn<span style="color:#ff79c6">.</span>Sequential(
+</span></span><span style="display:flex;"><span>            nn<span style="color:#ff79c6">.</span>Linear(dim, hidden),
+</span></span><span style="display:flex;"><span>            nn<span style="color:#ff79c6">.</span>ReLU(),
+</span></span><span style="display:flex;"><span>            nn<span style="color:#ff79c6">.</span>Linear(hidden, dim)
+</span></span><span style="display:flex;"><span>        )
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">forward</span>(<span style="font-style:italic">self</span>, x):
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span> <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>net(x)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># =========================</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># 5. Transformer Block（含残差+LayerNorm）</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># =========================</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">TransformerBlock</span>(nn<span style="color:#ff79c6">.</span>Module):
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">__init__</span>(<span style="font-style:italic">self</span>, embed_dim<span style="color:#ff79c6">=</span><span style="color:#bd93f9">32</span>, heads<span style="color:#ff79c6">=</span><span style="color:#bd93f9">4</span>, hidden<span style="color:#ff79c6">=</span><span style="color:#bd93f9">64</span>):
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">super</span>()<span style="color:#ff79c6">.</span><span style="color:#50fa7b">__init__</span>()
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>mha <span style="color:#ff79c6">=</span> MultiHeadAttention(embed_dim, heads)
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>ln1 <span style="color:#ff79c6">=</span> nn<span style="color:#ff79c6">.</span>LayerNorm(embed_dim)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>ffn <span style="color:#ff79c6">=</span> FeedForward(embed_dim, hidden)
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>ln2 <span style="color:#ff79c6">=</span> nn<span style="color:#ff79c6">.</span>LayerNorm(embed_dim)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">forward</span>(<span style="font-style:italic">self</span>, x):
+</span></span><span style="display:flex;"><span>        x <span style="color:#ff79c6">=</span> x <span style="color:#ff79c6">+</span> <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>mha(<span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>ln1(x))
+</span></span><span style="display:flex;"><span>        x <span style="color:#ff79c6">=</span> x <span style="color:#ff79c6">+</span> <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>ffn(<span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>ln2(x))
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span> x
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># =========================</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># 6. Tiny Transformer 模型（2 层）</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># =========================</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">TinyTransformer</span>(nn<span style="color:#ff79c6">.</span>Module):
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">__init__</span>(<span style="font-style:italic">self</span>, vocab_size, seq_len<span style="color:#ff79c6">=</span><span style="color:#bd93f9">4</span>, embed_dim<span style="color:#ff79c6">=</span><span style="color:#bd93f9">32</span>, n_layers<span style="color:#ff79c6">=</span><span style="color:#bd93f9">2</span>):
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">super</span>()<span style="color:#ff79c6">.</span><span style="color:#50fa7b">__init__</span>()
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>token_emb <span style="color:#ff79c6">=</span> nn<span style="color:#ff79c6">.</span>Embedding(vocab_size, embed_dim)
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>pos_emb <span style="color:#ff79c6">=</span> positional_encoding(seq_len, embed_dim)
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>layers <span style="color:#ff79c6">=</span> nn<span style="color:#ff79c6">.</span>ModuleList([TransformerBlock(embed_dim, <span style="color:#bd93f9">4</span>, <span style="color:#bd93f9">64</span>) <span style="color:#ff79c6">for</span> _ <span style="color:#ff79c6">in</span> <span style="color:#8be9fd;font-style:italic">range</span>(n_layers)])
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>fc <span style="color:#ff79c6">=</span> nn<span style="color:#ff79c6">.</span>Linear(embed_dim, vocab_size)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">forward</span>(<span style="font-style:italic">self</span>, x):
+</span></span><span style="display:flex;"><span>        B, T <span style="color:#ff79c6">=</span> x<span style="color:#ff79c6">.</span>shape
+</span></span><span style="display:flex;"><span>        h <span style="color:#ff79c6">=</span> <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>token_emb(x) <span style="color:#ff79c6">+</span> <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>pos_emb[:T]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">for</span> layer <span style="color:#ff79c6">in</span> <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>layers:
+</span></span><span style="display:flex;"><span>            h <span style="color:#ff79c6">=</span> layer(h)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        logits <span style="color:#ff79c6">=</span> <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>fc(h)
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span> logits
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># =========================</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># 7. 训练模型</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># =========================</span>
+</span></span><span style="display:flex;"><span>model <span style="color:#ff79c6">=</span> TinyTransformer(vocab_size)
+</span></span><span style="display:flex;"><span>optimizer <span style="color:#ff79c6">=</span> torch<span style="color:#ff79c6">.</span>optim<span style="color:#ff79c6">.</span>Adam(model<span style="color:#ff79c6">.</span>parameters(), lr<span style="color:#ff79c6">=</span><span style="color:#bd93f9">1e-3</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">def</span> <span style="color:#50fa7b">train_step</span>():
+</span></span><span style="display:flex;"><span>    total_loss <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">for</span> seq <span style="color:#ff79c6">in</span> encoded:
+</span></span><span style="display:flex;"><span>        x <span style="color:#ff79c6">=</span> seq[:<span style="color:#ff79c6">-</span><span style="color:#bd93f9">1</span>]<span style="color:#ff79c6">.</span>unsqueeze(<span style="color:#bd93f9">0</span>)
+</span></span><span style="display:flex;"><span>        y <span style="color:#ff79c6">=</span> seq[<span style="color:#bd93f9">1</span>:]<span style="color:#ff79c6">.</span>unsqueeze(<span style="color:#bd93f9">0</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        logits <span style="color:#ff79c6">=</span> model(x)
+</span></span><span style="display:flex;"><span>        loss <span style="color:#ff79c6">=</span> F<span style="color:#ff79c6">.</span>cross_entropy(logits<span style="color:#ff79c6">.</span>view(<span style="color:#ff79c6">-</span><span style="color:#bd93f9">1</span>, vocab_size), y<span style="color:#ff79c6">.</span>view(<span style="color:#ff79c6">-</span><span style="color:#bd93f9">1</span>))
+</span></span><span style="display:flex;"><span>        optimizer<span style="color:#ff79c6">.</span>zero_grad()
+</span></span><span style="display:flex;"><span>        loss<span style="color:#ff79c6">.</span>backward()
+</span></span><span style="display:flex;"><span>        optimizer<span style="color:#ff79c6">.</span>step()
+</span></span><span style="display:flex;"><span>        total_loss <span style="color:#ff79c6">+=</span> loss<span style="color:#ff79c6">.</span>item()
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">return</span> total_loss <span style="color:#ff79c6">/</span> <span style="color:#8be9fd;font-style:italic">len</span>(encoded)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># 训练30轮</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">for</span> epoch <span style="color:#ff79c6">in</span> <span style="color:#8be9fd;font-style:italic">range</span>(<span style="color:#bd93f9">30</span>):
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#34;epoch&#34;</span>, epoch, <span style="color:#f1fa8c">&#34;loss&#34;</span>, train_step())
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># =========================</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># 8. 注意力可视化函数</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># =========================</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">def</span> <span style="color:#50fa7b">plot_attention</span>(attn, sentence_tokens):
+</span></span><span style="display:flex;"><span>    num_heads <span style="color:#ff79c6">=</span> attn<span style="color:#ff79c6">.</span>shape[<span style="color:#bd93f9">0</span>]
+</span></span><span style="display:flex;"><span>    seq_len <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">len</span>(sentence_tokens)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    fig, axes <span style="color:#ff79c6">=</span> plt<span style="color:#ff79c6">.</span>subplots(<span style="color:#bd93f9">1</span>, num_heads, figsize<span style="color:#ff79c6">=</span>(<span style="color:#bd93f9">3</span><span style="color:#ff79c6">*</span>num_heads, <span style="color:#bd93f9">3</span>))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">for</span> h <span style="color:#ff79c6">in</span> <span style="color:#8be9fd;font-style:italic">range</span>(num_heads):
+</span></span><span style="display:flex;"><span>        ax <span style="color:#ff79c6">=</span> axes[h]
+</span></span><span style="display:flex;"><span>        ax<span style="color:#ff79c6">.</span>imshow(attn[h], cmap<span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;hot&#34;</span>)
+</span></span><span style="display:flex;"><span>        ax<span style="color:#ff79c6">.</span>set_xticks(<span style="color:#8be9fd;font-style:italic">range</span>(seq_len))
+</span></span><span style="display:flex;"><span>        ax<span style="color:#ff79c6">.</span>set_yticks(<span style="color:#8be9fd;font-style:italic">range</span>(seq_len))
+</span></span><span style="display:flex;"><span>        ax<span style="color:#ff79c6">.</span>set_xticklabels(sentence_tokens)
+</span></span><span style="display:flex;"><span>        ax<span style="color:#ff79c6">.</span>set_yticklabels(sentence_tokens)
+</span></span><span style="display:flex;"><span>        ax<span style="color:#ff79c6">.</span>set_title(<span style="color:#f1fa8c">f</span><span style="color:#f1fa8c">&#34;Head </span><span style="color:#f1fa8c">{</span>h<span style="color:#f1fa8c">}</span><span style="color:#f1fa8c">&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    plt<span style="color:#ff79c6">.</span>show()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># =========================</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># 9. 测试 + 输出可视化</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># =========================</span>
+</span></span><span style="display:flex;"><span>test <span style="color:#ff79c6">=</span> encode(<span style="color:#f1fa8c">&#34;the cat likes fish&#34;</span>)[:<span style="color:#ff79c6">-</span><span style="color:#bd93f9">1</span>]<span style="color:#ff79c6">.</span>unsqueeze(<span style="color:#bd93f9">0</span>)
+</span></span><span style="display:flex;"><span>_ <span style="color:#ff79c6">=</span> model(test)  <span style="color:#6272a4"># 前向一次，attention 已记录</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>attn <span style="color:#ff79c6">=</span> model<span style="color:#ff79c6">.</span>layers[<span style="color:#bd93f9">0</span>]<span style="color:#ff79c6">.</span>mha<span style="color:#ff79c6">.</span>last_attention[<span style="color:#bd93f9">0</span>]  <span style="color:#6272a4"># 第1层，第1个batch</span>
+</span></span><span style="display:flex;"><span>tokens <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;the cat likes&#34;</span><span style="color:#ff79c6">.</span>split()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plot_attention(attn, tokens)
+</span></span></code></pre></div><h2 id="完整的-encoderdecoder-transformer用于翻译">完整的 Encoder–Decoder Transformer（用于翻译）</h2>
+<ul>
+<li>实现 Encoder、Decoder（包含自注意力 + encoder–decoder attention）、位置编码、FFN、残差 + LayerNorm。</li>
+<li>加入 decoder 的 causal mask（自回归） 与 padding mask。</li>
+<li>使用一个极小的平行语料（人工短句英文 → “目标语言”）做示例训练（teacher forcing）。</li>
+<li>在推理/演示阶段 可视化 encoder–decoder attention（按 decoder 层与 head 展示 heatmap），并在图上标注 source / target tokens，方便你看到 “译文中的每个 token 在生成时关注源句中的哪些 token”。</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#6272a4"># transformer_enc_dec_translation.py</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># Minimal Encoder-Decoder Transformer for toy translation + encoder-decoder attention visualization</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># Requires: torch, matplotlib</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># Run: python transformer_enc_dec_translation.py</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">import</span> math
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">import</span> random
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">import</span> torch
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">import</span> torch.nn <span style="color:#ff79c6">as</span> nn
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">import</span> torch.nn.functional <span style="color:#ff79c6">as</span> F
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">import</span> matplotlib.pyplot <span style="color:#ff79c6">as</span> plt
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">import</span> numpy <span style="color:#ff79c6">as</span> np
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># =========================</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># Utilities: Positional Encoding</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># =========================</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">PositionalEncoding</span>(nn<span style="color:#ff79c6">.</span>Module):
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">__init__</span>(<span style="font-style:italic">self</span>, d_model, max_len<span style="color:#ff79c6">=</span><span style="color:#bd93f9">100</span>):
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">super</span>()<span style="color:#ff79c6">.</span><span style="color:#50fa7b">__init__</span>()
+</span></span><span style="display:flex;"><span>        pe <span style="color:#ff79c6">=</span> torch<span style="color:#ff79c6">.</span>zeros(max_len, d_model)
+</span></span><span style="display:flex;"><span>        position <span style="color:#ff79c6">=</span> torch<span style="color:#ff79c6">.</span>arange(<span style="color:#bd93f9">0</span>, max_len)<span style="color:#ff79c6">.</span>unsqueeze(<span style="color:#bd93f9">1</span>)<span style="color:#ff79c6">.</span>float()
+</span></span><span style="display:flex;"><span>        div <span style="color:#ff79c6">=</span> torch<span style="color:#ff79c6">.</span>exp(torch<span style="color:#ff79c6">.</span>arange(<span style="color:#bd93f9">0</span>, d_model, <span style="color:#bd93f9">2</span>)<span style="color:#ff79c6">.</span>float() <span style="color:#ff79c6">*</span> (<span style="color:#ff79c6">-</span>math<span style="color:#ff79c6">.</span>log(<span style="color:#bd93f9">10000.0</span>) <span style="color:#ff79c6">/</span> d_model))
+</span></span><span style="display:flex;"><span>        pe[:, <span style="color:#bd93f9">0</span>::<span style="color:#bd93f9">2</span>] <span style="color:#ff79c6">=</span> torch<span style="color:#ff79c6">.</span>sin(position <span style="color:#ff79c6">*</span> div)
+</span></span><span style="display:flex;"><span>        pe[:, <span style="color:#bd93f9">1</span>::<span style="color:#bd93f9">2</span>] <span style="color:#ff79c6">=</span> torch<span style="color:#ff79c6">.</span>cos(position <span style="color:#ff79c6">*</span> div)
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>register_buffer(<span style="color:#f1fa8c">&#34;pe&#34;</span>, pe<span style="color:#ff79c6">.</span>unsqueeze(<span style="color:#bd93f9">0</span>))  <span style="color:#6272a4"># (1, max_len, d_model)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">forward</span>(<span style="font-style:italic">self</span>, x):
+</span></span><span style="display:flex;"><span>        <span style="color:#6272a4"># x shape: (B, T, d_model)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span> x <span style="color:#ff79c6">+</span> <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>pe[:, : x<span style="color:#ff79c6">.</span>size(<span style="color:#bd93f9">1</span>)]<span style="color:#ff79c6">.</span>to(x<span style="color:#ff79c6">.</span>dtype)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># =========================</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># Scaled dot-product attention (supports Q, K, V with different lengths)</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># Returns (context, attn_weights)</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># attn_weights shape: (B, num_heads, T_q, T_k)</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># =========================</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">def</span> <span style="color:#50fa7b">scaled_dot_product_attention</span>(Q, K, V, mask<span style="color:#ff79c6">=</span><span style="color:#ff79c6">None</span>):
+</span></span><span style="display:flex;"><span>    <span style="color:#6272a4"># Q, K, V: (..., T, d_k) with leading dims (B, heads)</span>
+</span></span><span style="display:flex;"><span>    d_k <span style="color:#ff79c6">=</span> Q<span style="color:#ff79c6">.</span>size(<span style="color:#ff79c6">-</span><span style="color:#bd93f9">1</span>)
+</span></span><span style="display:flex;"><span>    scores <span style="color:#ff79c6">=</span> torch<span style="color:#ff79c6">.</span>matmul(Q, K<span style="color:#ff79c6">.</span>transpose(<span style="color:#ff79c6">-</span><span style="color:#bd93f9">2</span>, <span style="color:#ff79c6">-</span><span style="color:#bd93f9">1</span>)) <span style="color:#ff79c6">/</span> math<span style="color:#ff79c6">.</span>sqrt(d_k)  <span style="color:#6272a4"># (..., T_q, T_k)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">if</span> mask <span style="color:#ff79c6">is</span> <span style="color:#ff79c6">not</span> <span style="color:#ff79c6">None</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#6272a4"># mask shape expected broadcastable to scores (True = mask out)</span>
+</span></span><span style="display:flex;"><span>        scores <span style="color:#ff79c6">=</span> scores<span style="color:#ff79c6">.</span>masked_fill(mask, <span style="color:#8be9fd;font-style:italic">float</span>(<span style="color:#f1fa8c">&#34;-1e9&#34;</span>))
+</span></span><span style="display:flex;"><span>    attn <span style="color:#ff79c6">=</span> F<span style="color:#ff79c6">.</span>softmax(scores, dim<span style="color:#ff79c6">=-</span><span style="color:#bd93f9">1</span>)
+</span></span><span style="display:flex;"><span>    out <span style="color:#ff79c6">=</span> torch<span style="color:#ff79c6">.</span>matmul(attn, V)
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">return</span> out, attn
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># =========================</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># MultiHeadAttention (can be used for self-attn and enc-dec attn)</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># If kv is provided (kv != x) then it&#39;s enc-dec use: Q from x, K/V from kv</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># =========================</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">MultiHeadAttention</span>(nn<span style="color:#ff79c6">.</span>Module):
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">__init__</span>(<span style="font-style:italic">self</span>, d_model, num_heads):
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">super</span>()<span style="color:#ff79c6">.</span><span style="color:#50fa7b">__init__</span>()
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">assert</span> d_model <span style="color:#ff79c6">%</span> num_heads <span style="color:#ff79c6">==</span> <span style="color:#bd93f9">0</span>, <span style="color:#f1fa8c">&#34;d_model must be divisible by num_heads&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>d_model <span style="color:#ff79c6">=</span> d_model
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>num_heads <span style="color:#ff79c6">=</span> num_heads
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>d_k <span style="color:#ff79c6">=</span> d_model <span style="color:#ff79c6">//</span> num_heads
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#6272a4"># projectors</span>
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>W_q <span style="color:#ff79c6">=</span> nn<span style="color:#ff79c6">.</span>Linear(d_model, d_model)
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>W_k <span style="color:#ff79c6">=</span> nn<span style="color:#ff79c6">.</span>Linear(d_model, d_model)
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>W_v <span style="color:#ff79c6">=</span> nn<span style="color:#ff79c6">.</span>Linear(d_model, d_model)
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>W_o <span style="color:#ff79c6">=</span> nn<span style="color:#ff79c6">.</span>Linear(d_model, d_model)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">forward</span>(<span style="font-style:italic">self</span>, x, kv<span style="color:#ff79c6">=</span><span style="color:#ff79c6">None</span>, mask<span style="color:#ff79c6">=</span><span style="color:#ff79c6">None</span>):
+</span></span><span style="display:flex;"><span>        <span style="color:#f1fa8c">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">        x: (B, T_q, d_model)  -&gt; queries
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">        kv: None or tensor (B, T_k, d_model) -&gt; if None then self-attend (keys &amp; vals from x)
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">        mask: broadcastable mask (B, 1 or heads, T_q, T_k) True where to mask
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">        &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">if</span> kv <span style="color:#ff79c6">is</span> <span style="color:#ff79c6">None</span>:
+</span></span><span style="display:flex;"><span>            kv <span style="color:#ff79c6">=</span> x
+</span></span><span style="display:flex;"><span>        B, T_q, _ <span style="color:#ff79c6">=</span> x<span style="color:#ff79c6">.</span>size()
+</span></span><span style="display:flex;"><span>        T_k <span style="color:#ff79c6">=</span> kv<span style="color:#ff79c6">.</span>size(<span style="color:#bd93f9">1</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        Q <span style="color:#ff79c6">=</span> <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>W_q(x)                       <span style="color:#6272a4"># (B, T_q, d_model)</span>
+</span></span><span style="display:flex;"><span>        K <span style="color:#ff79c6">=</span> <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>W_k(kv)                      <span style="color:#6272a4"># (B, T_k, d_model)</span>
+</span></span><span style="display:flex;"><span>        V <span style="color:#ff79c6">=</span> <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>W_v(kv)                      <span style="color:#6272a4"># (B, T_k, d_model)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#6272a4"># reshape -&gt; (B, heads, T, d_k)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">split_heads</span>(t):
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">return</span> t<span style="color:#ff79c6">.</span>view(B, <span style="color:#ff79c6">-</span><span style="color:#bd93f9">1</span>, <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>num_heads, <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>d_k)<span style="color:#ff79c6">.</span>transpose(<span style="color:#bd93f9">1</span>, <span style="color:#bd93f9">2</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        Qh <span style="color:#ff79c6">=</span> split_heads(Q)   <span style="color:#6272a4"># (B, heads, T_q, d_k)</span>
+</span></span><span style="display:flex;"><span>        Kh <span style="color:#ff79c6">=</span> split_heads(K)   <span style="color:#6272a4"># (B, heads, T_k, d_k)</span>
+</span></span><span style="display:flex;"><span>        Vh <span style="color:#ff79c6">=</span> split_heads(V)   <span style="color:#6272a4"># (B, heads, T_k, d_k)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        out, attn <span style="color:#ff79c6">=</span> scaled_dot_product_attention(Qh, Kh, Vh, mask<span style="color:#ff79c6">=</span>mask)
+</span></span><span style="display:flex;"><span>        <span style="color:#6272a4"># out: (B, heads, T_q, d_k)</span>
+</span></span><span style="display:flex;"><span>        out <span style="color:#ff79c6">=</span> out<span style="color:#ff79c6">.</span>transpose(<span style="color:#bd93f9">1</span>, <span style="color:#bd93f9">2</span>)<span style="color:#ff79c6">.</span>contiguous()<span style="color:#ff79c6">.</span>view(B, T_q, <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>d_model)
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span> <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>W_o(out), attn  <span style="color:#6272a4"># attn: (B, heads, T_q, T_k)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># =========================</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># Feed-forward network</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># =========================</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">PositionwiseFFN</span>(nn<span style="color:#ff79c6">.</span>Module):
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">__init__</span>(<span style="font-style:italic">self</span>, d_model, d_ff):
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">super</span>()<span style="color:#ff79c6">.</span><span style="color:#50fa7b">__init__</span>()
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>fc1 <span style="color:#ff79c6">=</span> nn<span style="color:#ff79c6">.</span>Linear(d_model, d_ff)
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>fc2 <span style="color:#ff79c6">=</span> nn<span style="color:#ff79c6">.</span>Linear(d_ff, d_model)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">forward</span>(<span style="font-style:italic">self</span>, x):
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span> <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>fc2(F<span style="color:#ff79c6">.</span>relu(<span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>fc1(x)))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># =========================</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># Encoder Layer (self-attn + ffn)</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># =========================</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">EncoderLayer</span>(nn<span style="color:#ff79c6">.</span>Module):
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">__init__</span>(<span style="font-style:italic">self</span>, d_model, num_heads, d_ff, dropout<span style="color:#ff79c6">=</span><span style="color:#bd93f9">0.1</span>):
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">super</span>()<span style="color:#ff79c6">.</span><span style="color:#50fa7b">__init__</span>()
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>self_attn <span style="color:#ff79c6">=</span> MultiHeadAttention(d_model, num_heads)
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>ffn <span style="color:#ff79c6">=</span> PositionwiseFFN(d_model, d_ff)
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>norm1 <span style="color:#ff79c6">=</span> nn<span style="color:#ff79c6">.</span>LayerNorm(d_model)
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>norm2 <span style="color:#ff79c6">=</span> nn<span style="color:#ff79c6">.</span>LayerNorm(d_model)
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>drop <span style="color:#ff79c6">=</span> nn<span style="color:#ff79c6">.</span>Dropout(dropout)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">forward</span>(<span style="font-style:italic">self</span>, x, src_mask<span style="color:#ff79c6">=</span><span style="color:#ff79c6">None</span>):
+</span></span><span style="display:flex;"><span>        <span style="color:#6272a4"># Pre-norm style</span>
+</span></span><span style="display:flex;"><span>        q <span style="color:#ff79c6">=</span> <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>norm1(x)
+</span></span><span style="display:flex;"><span>        attn_out, attn_w <span style="color:#ff79c6">=</span> <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>self_attn(q, kv<span style="color:#ff79c6">=</span><span style="color:#ff79c6">None</span>, mask<span style="color:#ff79c6">=</span>src_mask)
+</span></span><span style="display:flex;"><span>        x <span style="color:#ff79c6">=</span> x <span style="color:#ff79c6">+</span> <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>drop(attn_out)
+</span></span><span style="display:flex;"><span>        q2 <span style="color:#ff79c6">=</span> <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>norm2(x)
+</span></span><span style="display:flex;"><span>        f <span style="color:#ff79c6">=</span> <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>ffn(q2)
+</span></span><span style="display:flex;"><span>        x <span style="color:#ff79c6">=</span> x <span style="color:#ff79c6">+</span> <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>drop(f)
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span> x, attn_w
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># =========================</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># Decoder Layer (self-attn (causal) + enc-dec attn + ffn)</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># We will return both self-attn weights and encoder-decoder attn weights for visualization</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># =========================</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">DecoderLayer</span>(nn<span style="color:#ff79c6">.</span>Module):
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">__init__</span>(<span style="font-style:italic">self</span>, d_model, num_heads, d_ff, dropout<span style="color:#ff79c6">=</span><span style="color:#bd93f9">0.1</span>):
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">super</span>()<span style="color:#ff79c6">.</span><span style="color:#50fa7b">__init__</span>()
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>self_attn <span style="color:#ff79c6">=</span> MultiHeadAttention(d_model, num_heads)
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>enc_dec_attn <span style="color:#ff79c6">=</span> MultiHeadAttention(d_model, num_heads)
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>ffn <span style="color:#ff79c6">=</span> PositionwiseFFN(d_model, d_ff)
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>norm1 <span style="color:#ff79c6">=</span> nn<span style="color:#ff79c6">.</span>LayerNorm(d_model)
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>norm2 <span style="color:#ff79c6">=</span> nn<span style="color:#ff79c6">.</span>LayerNorm(d_model)
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>norm3 <span style="color:#ff79c6">=</span> nn<span style="color:#ff79c6">.</span>LayerNorm(d_model)
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>drop <span style="color:#ff79c6">=</span> nn<span style="color:#ff79c6">.</span>Dropout(dropout)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">forward</span>(<span style="font-style:italic">self</span>, x, enc_out, tgt_mask<span style="color:#ff79c6">=</span><span style="color:#ff79c6">None</span>, enc_mask<span style="color:#ff79c6">=</span><span style="color:#ff79c6">None</span>):
+</span></span><span style="display:flex;"><span>        <span style="color:#6272a4"># x: (B, T_tgt, d)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#6272a4"># enc_out: (B, T_src, d)</span>
+</span></span><span style="display:flex;"><span>        q1 <span style="color:#ff79c6">=</span> <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>norm1(x)
+</span></span><span style="display:flex;"><span>        sa_out, sa_w <span style="color:#ff79c6">=</span> <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>self_attn(q1, kv<span style="color:#ff79c6">=</span><span style="color:#ff79c6">None</span>, mask<span style="color:#ff79c6">=</span>tgt_mask)  <span style="color:#6272a4"># causal self-attn</span>
+</span></span><span style="display:flex;"><span>        x <span style="color:#ff79c6">=</span> x <span style="color:#ff79c6">+</span> <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>drop(sa_out)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        q2 <span style="color:#ff79c6">=</span> <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>norm2(x)
+</span></span><span style="display:flex;"><span>        ed_out, ed_w <span style="color:#ff79c6">=</span> <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>enc_dec_attn(q2, kv<span style="color:#ff79c6">=</span>enc_out, mask<span style="color:#ff79c6">=</span>enc_mask)  <span style="color:#6272a4"># enc-dec attn</span>
+</span></span><span style="display:flex;"><span>        x <span style="color:#ff79c6">=</span> x <span style="color:#ff79c6">+</span> <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>drop(ed_out)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        q3 <span style="color:#ff79c6">=</span> <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>norm3(x)
+</span></span><span style="display:flex;"><span>        f <span style="color:#ff79c6">=</span> <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>ffn(q3)
+</span></span><span style="display:flex;"><span>        x <span style="color:#ff79c6">=</span> x <span style="color:#ff79c6">+</span> <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>drop(f)
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span> x, sa_w, ed_w
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># =========================</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># Full Encoder &amp; Decoder stacks</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># =========================</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">Encoder</span>(nn<span style="color:#ff79c6">.</span>Module):
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">__init__</span>(<span style="font-style:italic">self</span>, vocab_size, d_model, num_layers, num_heads, d_ff, max_len<span style="color:#ff79c6">=</span><span style="color:#bd93f9">50</span>):
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">super</span>()<span style="color:#ff79c6">.</span><span style="color:#50fa7b">__init__</span>()
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>tok_emb <span style="color:#ff79c6">=</span> nn<span style="color:#ff79c6">.</span>Embedding(vocab_size, d_model)
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>pos <span style="color:#ff79c6">=</span> PositionalEncoding(d_model, max_len<span style="color:#ff79c6">=</span>max_len)
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>layers <span style="color:#ff79c6">=</span> nn<span style="color:#ff79c6">.</span>ModuleList([EncoderLayer(d_model, num_heads, d_ff) <span style="color:#ff79c6">for</span> _ <span style="color:#ff79c6">in</span> <span style="color:#8be9fd;font-style:italic">range</span>(num_layers)])
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>norm <span style="color:#ff79c6">=</span> nn<span style="color:#ff79c6">.</span>LayerNorm(d_model)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">forward</span>(<span style="font-style:italic">self</span>, src_ids, src_mask<span style="color:#ff79c6">=</span><span style="color:#ff79c6">None</span>):
+</span></span><span style="display:flex;"><span>        <span style="color:#6272a4"># src_ids: (B, T_src)</span>
+</span></span><span style="display:flex;"><span>        x <span style="color:#ff79c6">=</span> <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>tok_emb(src_ids)  <span style="color:#6272a4"># (B, T_src, d)</span>
+</span></span><span style="display:flex;"><span>        x <span style="color:#ff79c6">=</span> <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>pos(x)
+</span></span><span style="display:flex;"><span>        attn_maps <span style="color:#ff79c6">=</span> []
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">for</span> layer <span style="color:#ff79c6">in</span> <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>layers:
+</span></span><span style="display:flex;"><span>            x, attn <span style="color:#ff79c6">=</span> layer(x, src_mask)
+</span></span><span style="display:flex;"><span>            attn_maps<span style="color:#ff79c6">.</span>append(attn)
+</span></span><span style="display:flex;"><span>        x <span style="color:#ff79c6">=</span> <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>norm(x)
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span> x, attn_maps
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">Decoder</span>(nn<span style="color:#ff79c6">.</span>Module):
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">__init__</span>(<span style="font-style:italic">self</span>, vocab_size, d_model, num_layers, num_heads, d_ff, max_len<span style="color:#ff79c6">=</span><span style="color:#bd93f9">50</span>):
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">super</span>()<span style="color:#ff79c6">.</span><span style="color:#50fa7b">__init__</span>()
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>tok_emb <span style="color:#ff79c6">=</span> nn<span style="color:#ff79c6">.</span>Embedding(vocab_size, d_model)
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>pos <span style="color:#ff79c6">=</span> PositionalEncoding(d_model, max_len<span style="color:#ff79c6">=</span>max_len)
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>layers <span style="color:#ff79c6">=</span> nn<span style="color:#ff79c6">.</span>ModuleList([DecoderLayer(d_model, num_heads, d_ff) <span style="color:#ff79c6">for</span> _ <span style="color:#ff79c6">in</span> <span style="color:#8be9fd;font-style:italic">range</span>(num_layers)])
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>norm <span style="color:#ff79c6">=</span> nn<span style="color:#ff79c6">.</span>LayerNorm(d_model)
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>fc_out <span style="color:#ff79c6">=</span> nn<span style="color:#ff79c6">.</span>Linear(d_model, vocab_size)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">forward</span>(<span style="font-style:italic">self</span>, tgt_ids, enc_out, tgt_mask<span style="color:#ff79c6">=</span><span style="color:#ff79c6">None</span>, enc_mask<span style="color:#ff79c6">=</span><span style="color:#ff79c6">None</span>):
+</span></span><span style="display:flex;"><span>        x <span style="color:#ff79c6">=</span> <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>tok_emb(tgt_ids)
+</span></span><span style="display:flex;"><span>        x <span style="color:#ff79c6">=</span> <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>pos(x)
+</span></span><span style="display:flex;"><span>        all_self_attn <span style="color:#ff79c6">=</span> []
+</span></span><span style="display:flex;"><span>        all_enc_dec_attn <span style="color:#ff79c6">=</span> []
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">for</span> layer <span style="color:#ff79c6">in</span> <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>layers:
+</span></span><span style="display:flex;"><span>            x, sa_w, ed_w <span style="color:#ff79c6">=</span> layer(x, enc_out, tgt_mask<span style="color:#ff79c6">=</span>tgt_mask, enc_mask<span style="color:#ff79c6">=</span>enc_mask)
+</span></span><span style="display:flex;"><span>            all_self_attn<span style="color:#ff79c6">.</span>append(sa_w)
+</span></span><span style="display:flex;"><span>            all_enc_dec_attn<span style="color:#ff79c6">.</span>append(ed_w)
+</span></span><span style="display:flex;"><span>        x <span style="color:#ff79c6">=</span> <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>norm(x)
+</span></span><span style="display:flex;"><span>        logits <span style="color:#ff79c6">=</span> <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>fc_out(x)  <span style="color:#6272a4"># (B, T_tgt, vocab)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span> logits, all_self_attn, all_enc_dec_attn
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># =========================</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># Full Seq2Seq model wrapper</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># =========================</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">TinyTransformerSeq2Seq</span>(nn<span style="color:#ff79c6">.</span>Module):
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">__init__</span>(<span style="font-style:italic">self</span>, src_vocab, tgt_vocab, d_model<span style="color:#ff79c6">=</span><span style="color:#bd93f9">64</span>, num_layers<span style="color:#ff79c6">=</span><span style="color:#bd93f9">2</span>, num_heads<span style="color:#ff79c6">=</span><span style="color:#bd93f9">4</span>, d_ff<span style="color:#ff79c6">=</span><span style="color:#bd93f9">128</span>, max_len<span style="color:#ff79c6">=</span><span style="color:#bd93f9">50</span>):
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">super</span>()<span style="color:#ff79c6">.</span><span style="color:#50fa7b">__init__</span>()
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>encoder <span style="color:#ff79c6">=</span> Encoder(src_vocab, d_model, num_layers, num_heads, d_ff, max_len<span style="color:#ff79c6">=</span>max_len)
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>decoder <span style="color:#ff79c6">=</span> Decoder(tgt_vocab, d_model, num_layers, num_heads, d_ff, max_len<span style="color:#ff79c6">=</span>max_len)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">forward</span>(<span style="font-style:italic">self</span>, src_ids, tgt_ids, src_mask<span style="color:#ff79c6">=</span><span style="color:#ff79c6">None</span>, tgt_mask<span style="color:#ff79c6">=</span><span style="color:#ff79c6">None</span>, enc_mask<span style="color:#ff79c6">=</span><span style="color:#ff79c6">None</span>):
+</span></span><span style="display:flex;"><span>        enc_out, enc_attn <span style="color:#ff79c6">=</span> <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>encoder(src_ids, src_mask)
+</span></span><span style="display:flex;"><span>        logits, self_attn, enc_dec_attn <span style="color:#ff79c6">=</span> <span style="font-style:italic">self</span><span style="color:#ff79c6">.</span>decoder(tgt_ids, enc_out, tgt_mask<span style="color:#ff79c6">=</span>tgt_mask, enc_mask<span style="color:#ff79c6">=</span>enc_mask)
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span> logits, enc_attn, self_attn, enc_dec_attn
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># =========================</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># Masks</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># =========================</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">def</span> <span style="color:#50fa7b">make_src_padding_mask</span>(src_ids, pad_idx<span style="color:#ff79c6">=</span><span style="color:#bd93f9">0</span>):
+</span></span><span style="display:flex;"><span>    <span style="color:#6272a4"># True where padding (to be masked)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">return</span> (src_ids <span style="color:#ff79c6">==</span> pad_idx)<span style="color:#ff79c6">.</span>unsqueeze(<span style="color:#bd93f9">1</span>)<span style="color:#ff79c6">.</span>unsqueeze(<span style="color:#bd93f9">2</span>)  <span style="color:#6272a4"># (B,1,1,T_src)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">def</span> <span style="color:#50fa7b">make_tgt_padding_mask</span>(tgt_ids, pad_idx<span style="color:#ff79c6">=</span><span style="color:#bd93f9">0</span>):
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">return</span> (tgt_ids <span style="color:#ff79c6">==</span> pad_idx)<span style="color:#ff79c6">.</span>unsqueeze(<span style="color:#bd93f9">1</span>)<span style="color:#ff79c6">.</span>unsqueeze(<span style="color:#bd93f9">3</span>)  <span style="color:#6272a4"># (B,1,T_tgt,1) - to combine with causal mask</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">def</span> <span style="color:#50fa7b">make_causal_mask</span>(tgt_len):
+</span></span><span style="display:flex;"><span>    <span style="color:#6272a4"># causal mask: True where j &gt; i (mask future)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#6272a4"># shape (1, 1, T_tgt, T_tgt)</span>
+</span></span><span style="display:flex;"><span>    mask <span style="color:#ff79c6">=</span> torch<span style="color:#ff79c6">.</span>triu(torch<span style="color:#ff79c6">.</span>ones((tgt_len, tgt_len), dtype<span style="color:#ff79c6">=</span>torch<span style="color:#ff79c6">.</span>bool), diagonal<span style="color:#ff79c6">=</span><span style="color:#bd93f9">1</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">return</span> mask<span style="color:#ff79c6">.</span>unsqueeze(<span style="color:#bd93f9">0</span>)<span style="color:#ff79c6">.</span>unsqueeze(<span style="color:#bd93f9">0</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># =========================</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># Toy parallel corpus (English -&gt; &#34;Target&#34;)</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># We&#39;ll use tiny made-up parallel pairs so training converges quickly.</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># =========================</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># We&#39;ll build small tokenizers (different vocabs for src/tgt)</span>
+</span></span><span style="display:flex;"><span>src_sentences <span style="color:#ff79c6">=</span> [
+</span></span><span style="display:flex;"><span>    <span style="color:#f1fa8c">&#34;i eat fish&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f1fa8c">&#34;i like fish&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f1fa8c">&#34;you eat meat&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f1fa8c">&#34;i eat meat&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f1fa8c">&#34;she likes fish&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f1fa8c">&#34;he hates meat&#34;</span>
+</span></span><span style="display:flex;"><span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>tgt_sentences <span style="color:#ff79c6">=</span> [
+</span></span><span style="display:flex;"><span>    <span style="color:#f1fa8c">&#34;je mange poisson&#34;</span>,     <span style="color:#6272a4"># pretend target language tokens</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f1fa8c">&#34;je aime poisson&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f1fa8c">&#34;tu mange viande&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f1fa8c">&#34;je mange viande&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f1fa8c">&#34;elle aime poisson&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f1fa8c">&#34;il deteste viande&#34;</span>
+</span></span><span style="display:flex;"><span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># build src vocab</span>
+</span></span><span style="display:flex;"><span>src_tokens <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">sorted</span>(<span style="color:#8be9fd;font-style:italic">list</span>({tok <span style="color:#ff79c6">for</span> s <span style="color:#ff79c6">in</span> src_sentences <span style="color:#ff79c6">for</span> tok <span style="color:#ff79c6">in</span> s<span style="color:#ff79c6">.</span>split()}))
+</span></span><span style="display:flex;"><span>src_stoi <span style="color:#ff79c6">=</span> {w:i<span style="color:#ff79c6">+</span><span style="color:#bd93f9">1</span> <span style="color:#ff79c6">for</span> i,w <span style="color:#ff79c6">in</span> <span style="color:#8be9fd;font-style:italic">enumerate</span>(src_tokens)}  <span style="color:#6272a4"># reserve 0 for PAD</span>
+</span></span><span style="display:flex;"><span>src_stoi[<span style="color:#f1fa8c">&#34;&lt;bos&gt;&#34;</span>] <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">len</span>(src_stoi)<span style="color:#ff79c6">+</span><span style="color:#bd93f9">1</span>
+</span></span><span style="display:flex;"><span>src_stoi[<span style="color:#f1fa8c">&#34;&lt;eos&gt;&#34;</span>] <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">len</span>(src_stoi)<span style="color:#ff79c6">+</span><span style="color:#bd93f9">1</span>
+</span></span><span style="display:flex;"><span>src_itos <span style="color:#ff79c6">=</span> {i:w <span style="color:#ff79c6">for</span> w,i <span style="color:#ff79c6">in</span> src_stoi<span style="color:#ff79c6">.</span>items()}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># build tgt vocab</span>
+</span></span><span style="display:flex;"><span>tgt_tokens <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">sorted</span>(<span style="color:#8be9fd;font-style:italic">list</span>({tok <span style="color:#ff79c6">for</span> s <span style="color:#ff79c6">in</span> tgt_sentences <span style="color:#ff79c6">for</span> tok <span style="color:#ff79c6">in</span> s<span style="color:#ff79c6">.</span>split()}))
+</span></span><span style="display:flex;"><span>tgt_stoi <span style="color:#ff79c6">=</span> {w:i<span style="color:#ff79c6">+</span><span style="color:#bd93f9">1</span> <span style="color:#ff79c6">for</span> i,w <span style="color:#ff79c6">in</span> <span style="color:#8be9fd;font-style:italic">enumerate</span>(tgt_tokens)}  <span style="color:#6272a4"># 0 pad</span>
+</span></span><span style="display:flex;"><span>tgt_stoi[<span style="color:#f1fa8c">&#34;&lt;bos&gt;&#34;</span>] <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">len</span>(tgt_stoi)<span style="color:#ff79c6">+</span><span style="color:#bd93f9">1</span>
+</span></span><span style="display:flex;"><span>tgt_stoi[<span style="color:#f1fa8c">&#34;&lt;eos&gt;&#34;</span>] <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">len</span>(tgt_stoi)<span style="color:#ff79c6">+</span><span style="color:#bd93f9">1</span>
+</span></span><span style="display:flex;"><span>tgt_itos <span style="color:#ff79c6">=</span> {i:w <span style="color:#ff79c6">for</span> w,i <span style="color:#ff79c6">in</span> tgt_stoi<span style="color:#ff79c6">.</span>items()}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># encode helpers</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">def</span> <span style="color:#50fa7b">encode_src</span>(s):
+</span></span><span style="display:flex;"><span>    toks <span style="color:#ff79c6">=</span> s<span style="color:#ff79c6">.</span>split()
+</span></span><span style="display:flex;"><span>    ids <span style="color:#ff79c6">=</span> [src_stoi[<span style="color:#f1fa8c">&#34;&lt;bos&gt;&#34;</span>]] <span style="color:#ff79c6">+</span> [src_stoi[t] <span style="color:#ff79c6">for</span> t <span style="color:#ff79c6">in</span> toks] <span style="color:#ff79c6">+</span> [src_stoi[<span style="color:#f1fa8c">&#34;&lt;eos&gt;&#34;</span>]]
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">return</span> torch<span style="color:#ff79c6">.</span>tensor(ids, dtype<span style="color:#ff79c6">=</span>torch<span style="color:#ff79c6">.</span>long)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">def</span> <span style="color:#50fa7b">encode_tgt</span>(s):
+</span></span><span style="display:flex;"><span>    toks <span style="color:#ff79c6">=</span> s<span style="color:#ff79c6">.</span>split()
+</span></span><span style="display:flex;"><span>    ids <span style="color:#ff79c6">=</span> [tgt_stoi[<span style="color:#f1fa8c">&#34;&lt;bos&gt;&#34;</span>]] <span style="color:#ff79c6">+</span> [tgt_stoi[t] <span style="color:#ff79c6">for</span> t <span style="color:#ff79c6">in</span> toks] <span style="color:#ff79c6">+</span> [tgt_stoi[<span style="color:#f1fa8c">&#34;&lt;eos&gt;&#34;</span>]]
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">return</span> torch<span style="color:#ff79c6">.</span>tensor(ids, dtype<span style="color:#ff79c6">=</span>torch<span style="color:#ff79c6">.</span>long)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>src_data <span style="color:#ff79c6">=</span> [encode_src(s) <span style="color:#ff79c6">for</span> s <span style="color:#ff79c6">in</span> src_sentences]
+</span></span><span style="display:flex;"><span>tgt_data <span style="color:#ff79c6">=</span> [encode_tgt(s) <span style="color:#ff79c6">for</span> s <span style="color:#ff79c6">in</span> tgt_sentences]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># pad sequences to max lengths</span>
+</span></span><span style="display:flex;"><span>max_src_len <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">max</span>([x<span style="color:#ff79c6">.</span>size(<span style="color:#bd93f9">0</span>) <span style="color:#ff79c6">for</span> x <span style="color:#ff79c6">in</span> src_data])
+</span></span><span style="display:flex;"><span>max_tgt_len <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">max</span>([x<span style="color:#ff79c6">.</span>size(<span style="color:#bd93f9">0</span>) <span style="color:#ff79c6">for</span> x <span style="color:#ff79c6">in</span> tgt_data])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">def</span> <span style="color:#50fa7b">pad_batch</span>(seq_list, max_len):
+</span></span><span style="display:flex;"><span>    padded <span style="color:#ff79c6">=</span> []
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">for</span> s <span style="color:#ff79c6">in</span> seq_list:
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">if</span> s<span style="color:#ff79c6">.</span>size(<span style="color:#bd93f9">0</span>) <span style="color:#ff79c6">&lt;</span> max_len:
+</span></span><span style="display:flex;"><span>            pad <span style="color:#ff79c6">=</span> F<span style="color:#ff79c6">.</span>pad(s, (<span style="color:#bd93f9">0</span>, max_len <span style="color:#ff79c6">-</span> s<span style="color:#ff79c6">.</span>size(<span style="color:#bd93f9">0</span>)), value<span style="color:#ff79c6">=</span><span style="color:#bd93f9">0</span>)
+</span></span><span style="display:flex;"><span>            padded<span style="color:#ff79c6">.</span>append(pad)
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">else</span>:
+</span></span><span style="display:flex;"><span>            padded<span style="color:#ff79c6">.</span>append(s)
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">return</span> torch<span style="color:#ff79c6">.</span>stack(padded)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>src_batch <span style="color:#ff79c6">=</span> pad_batch(src_data, max_src_len)  <span style="color:#6272a4"># (N, T_src)</span>
+</span></span><span style="display:flex;"><span>tgt_batch <span style="color:#ff79c6">=</span> pad_batch(tgt_data, max_tgt_len)  <span style="color:#6272a4"># (N, T_tgt)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># =========================</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># Model instantiation &amp; training (tiny, demo)</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># =========================</span>
+</span></span><span style="display:flex;"><span>device <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;cuda&#34;</span> <span style="color:#ff79c6">if</span> torch<span style="color:#ff79c6">.</span>cuda<span style="color:#ff79c6">.</span>is_available() <span style="color:#ff79c6">else</span> <span style="color:#f1fa8c">&#34;cpu&#34;</span>
+</span></span><span style="display:flex;"><span>model <span style="color:#ff79c6">=</span> TinyTransformerSeq2Seq(
+</span></span><span style="display:flex;"><span>    src_vocab<span style="color:#ff79c6">=</span><span style="color:#8be9fd;font-style:italic">max</span>(src_stoi<span style="color:#ff79c6">.</span>values())<span style="color:#ff79c6">+</span><span style="color:#bd93f9">1</span>,
+</span></span><span style="display:flex;"><span>    tgt_vocab<span style="color:#ff79c6">=</span><span style="color:#8be9fd;font-style:italic">max</span>(tgt_stoi<span style="color:#ff79c6">.</span>values())<span style="color:#ff79c6">+</span><span style="color:#bd93f9">1</span>,
+</span></span><span style="display:flex;"><span>    d_model<span style="color:#ff79c6">=</span><span style="color:#bd93f9">64</span>,
+</span></span><span style="display:flex;"><span>    num_layers<span style="color:#ff79c6">=</span><span style="color:#bd93f9">2</span>,
+</span></span><span style="display:flex;"><span>    num_heads<span style="color:#ff79c6">=</span><span style="color:#bd93f9">4</span>,
+</span></span><span style="display:flex;"><span>    d_ff<span style="color:#ff79c6">=</span><span style="color:#bd93f9">128</span>,
+</span></span><span style="display:flex;"><span>    max_len<span style="color:#ff79c6">=</span><span style="color:#8be9fd;font-style:italic">max</span>(max_src_len, max_tgt_len)<span style="color:#ff79c6">+</span><span style="color:#bd93f9">2</span>
+</span></span><span style="display:flex;"><span>)<span style="color:#ff79c6">.</span>to(device)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>optimizer <span style="color:#ff79c6">=</span> torch<span style="color:#ff79c6">.</span>optim<span style="color:#ff79c6">.</span>Adam(model<span style="color:#ff79c6">.</span>parameters(), lr<span style="color:#ff79c6">=</span><span style="color:#bd93f9">1e-3</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># Training with teacher forcing: predict next target token</span>
+</span></span><span style="display:flex;"><span>epochs <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">200</span>
+</span></span><span style="display:flex;"><span>model<span style="color:#ff79c6">.</span>train()
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">for</span> ep <span style="color:#ff79c6">in</span> <span style="color:#8be9fd;font-style:italic">range</span>(epochs):
+</span></span><span style="display:flex;"><span>    total_loss <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0.0</span>
+</span></span><span style="display:flex;"><span>    optimizer<span style="color:#ff79c6">.</span>zero_grad()
+</span></span><span style="display:flex;"><span>    <span style="color:#6272a4"># we&#39;ll do full-batch for simplicity</span>
+</span></span><span style="display:flex;"><span>    src_ids <span style="color:#ff79c6">=</span> src_batch<span style="color:#ff79c6">.</span>to(device)
+</span></span><span style="display:flex;"><span>    tgt_ids <span style="color:#ff79c6">=</span> tgt_batch<span style="color:#ff79c6">.</span>to(device)
+</span></span><span style="display:flex;"><span>    <span style="color:#6272a4"># inputs for decoder are all tokens except last; targets are all tokens except first</span>
+</span></span><span style="display:flex;"><span>    decoder_input <span style="color:#ff79c6">=</span> tgt_ids[:, :<span style="color:#ff79c6">-</span><span style="color:#bd93f9">1</span>]   <span style="color:#6272a4"># (B, T_tgt-1)</span>
+</span></span><span style="display:flex;"><span>    decoder_target <span style="color:#ff79c6">=</span> tgt_ids[:, <span style="color:#bd93f9">1</span>:]   <span style="color:#6272a4"># (B, T_tgt-1)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#6272a4"># masks</span>
+</span></span><span style="display:flex;"><span>    src_pad_mask <span style="color:#ff79c6">=</span> make_src_padding_mask(src_ids, pad_idx<span style="color:#ff79c6">=</span><span style="color:#bd93f9">0</span>)<span style="color:#ff79c6">.</span>to(device)  <span style="color:#6272a4"># (B,1,1,T_src)</span>
+</span></span><span style="display:flex;"><span>    tgt_pad_mask <span style="color:#ff79c6">=</span> make_tgt_padding_mask(decoder_input, pad_idx<span style="color:#ff79c6">=</span><span style="color:#bd93f9">0</span>)<span style="color:#ff79c6">.</span>to(device)  <span style="color:#6272a4"># (B,1,T_tgt-1,1)</span>
+</span></span><span style="display:flex;"><span>    causal <span style="color:#ff79c6">=</span> make_causal_mask(decoder_input<span style="color:#ff79c6">.</span>size(<span style="color:#bd93f9">1</span>))<span style="color:#ff79c6">.</span>to(device)  <span style="color:#6272a4"># (1,1,T_tgt-1,T_tgt-1)</span>
+</span></span><span style="display:flex;"><span>    tgt_mask <span style="color:#ff79c6">=</span> (tgt_pad_mask <span style="color:#ff79c6">|</span> causal)  <span style="color:#6272a4"># broadcastable to (B, heads, Tq, Tk)</span>
+</span></span><span style="display:flex;"><span>    enc_mask <span style="color:#ff79c6">=</span> src_pad_mask  <span style="color:#6272a4"># mask keys in encoder-decoder attention</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    logits, enc_attn, self_attn, enc_dec_attn <span style="color:#ff79c6">=</span> model(src_ids, decoder_input, src_mask<span style="color:#ff79c6">=</span>src_pad_mask, tgt_mask<span style="color:#ff79c6">=</span>tgt_mask, enc_mask<span style="color:#ff79c6">=</span>enc_mask)
+</span></span><span style="display:flex;"><span>    <span style="color:#6272a4"># logits: (B, T_tgt-1, V_tgt)</span>
+</span></span><span style="display:flex;"><span>    loss <span style="color:#ff79c6">=</span> F<span style="color:#ff79c6">.</span>cross_entropy(logits<span style="color:#ff79c6">.</span>view(<span style="color:#ff79c6">-</span><span style="color:#bd93f9">1</span>, logits<span style="color:#ff79c6">.</span>size(<span style="color:#ff79c6">-</span><span style="color:#bd93f9">1</span>)), decoder_target<span style="color:#ff79c6">.</span>contiguous()<span style="color:#ff79c6">.</span>view(<span style="color:#ff79c6">-</span><span style="color:#bd93f9">1</span>))
+</span></span><span style="display:flex;"><span>    loss<span style="color:#ff79c6">.</span>backward()
+</span></span><span style="display:flex;"><span>    optimizer<span style="color:#ff79c6">.</span>step()
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">if</span> (ep<span style="color:#ff79c6">+</span><span style="color:#bd93f9">1</span>) <span style="color:#ff79c6">%</span> <span style="color:#bd93f9">50</span> <span style="color:#ff79c6">==</span> <span style="color:#bd93f9">0</span> <span style="color:#ff79c6">or</span> ep <span style="color:#ff79c6">==</span> <span style="color:#bd93f9">0</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">f</span><span style="color:#f1fa8c">&#34;Epoch </span><span style="color:#f1fa8c">{</span>ep<span style="color:#ff79c6">+</span><span style="color:#bd93f9">1</span><span style="color:#f1fa8c">}</span><span style="color:#f1fa8c">/</span><span style="color:#f1fa8c">{</span>epochs<span style="color:#f1fa8c">}</span><span style="color:#f1fa8c"> loss=</span><span style="color:#f1fa8c">{</span>loss<span style="color:#ff79c6">.</span>item()<span style="color:#f1fa8c">:</span><span style="color:#f1fa8c">.4f</span><span style="color:#f1fa8c">}</span><span style="color:#f1fa8c">&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#34;Training done.&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># =========================</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># Simple greedy inference (for demo) and capture encoder-decoder attn</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># =========================</span>
+</span></span><span style="display:flex;"><span>model<span style="color:#ff79c6">.</span>eval()
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">with</span> torch<span style="color:#ff79c6">.</span>no_grad():
+</span></span><span style="display:flex;"><span>    example_idx <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>  <span style="color:#6272a4"># pick first sentence to visualize</span>
+</span></span><span style="display:flex;"><span>    src_ids <span style="color:#ff79c6">=</span> src_batch[example_idx:example_idx<span style="color:#ff79c6">+</span><span style="color:#bd93f9">1</span>]<span style="color:#ff79c6">.</span>to(device)  <span style="color:#6272a4"># (1, T_src)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#6272a4"># encode</span>
+</span></span><span style="display:flex;"><span>    src_pad_mask <span style="color:#ff79c6">=</span> make_src_padding_mask(src_ids, pad_idx<span style="color:#ff79c6">=</span><span style="color:#bd93f9">0</span>)<span style="color:#ff79c6">.</span>to(device)
+</span></span><span style="display:flex;"><span>    enc_out, enc_attn_maps <span style="color:#ff79c6">=</span> model<span style="color:#ff79c6">.</span>encoder(src_ids, src_mask<span style="color:#ff79c6">=</span>src_pad_mask)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#6272a4"># Start decoder with &lt;bos&gt;</span>
+</span></span><span style="display:flex;"><span>    cur <span style="color:#ff79c6">=</span> torch<span style="color:#ff79c6">.</span>tensor([[tgt_stoi[<span style="color:#f1fa8c">&#34;&lt;bos&gt;&#34;</span>]]], dtype<span style="color:#ff79c6">=</span>torch<span style="color:#ff79c6">.</span>long)<span style="color:#ff79c6">.</span>to(device)
+</span></span><span style="display:flex;"><span>    generated <span style="color:#ff79c6">=</span> [tgt_stoi[<span style="color:#f1fa8c">&#34;&lt;bos&gt;&#34;</span>]]
+</span></span><span style="display:flex;"><span>    collected_enc_dec_attn <span style="color:#ff79c6">=</span> []  <span style="color:#6272a4"># will be list of lists: per decode-step, per decoder-layer: attn (1,heads,1,T_src)</span>
+</span></span><span style="display:flex;"><span>    max_gen_len <span style="color:#ff79c6">=</span> max_tgt_len
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">for</span> step <span style="color:#ff79c6">in</span> <span style="color:#8be9fd;font-style:italic">range</span>(max_gen_len):
+</span></span><span style="display:flex;"><span>        <span style="color:#6272a4"># build masks for current decoder input</span>
+</span></span><span style="display:flex;"><span>        tgt_pad_mask <span style="color:#ff79c6">=</span> make_tgt_padding_mask(cur, pad_idx<span style="color:#ff79c6">=</span><span style="color:#bd93f9">0</span>)<span style="color:#ff79c6">.</span>to(device)  <span style="color:#6272a4"># (B,1,Tcur,1)</span>
+</span></span><span style="display:flex;"><span>        causal <span style="color:#ff79c6">=</span> make_causal_mask(cur<span style="color:#ff79c6">.</span>size(<span style="color:#bd93f9">1</span>))<span style="color:#ff79c6">.</span>to(device)  <span style="color:#6272a4"># (1,1,Tcur,Tcur)</span>
+</span></span><span style="display:flex;"><span>        tgt_mask <span style="color:#ff79c6">=</span> (tgt_pad_mask <span style="color:#ff79c6">|</span> causal)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        logits, self_attn_maps, enc_dec_attn_maps <span style="color:#ff79c6">=</span> model<span style="color:#ff79c6">.</span>decoder(cur, enc_out, tgt_mask<span style="color:#ff79c6">=</span>tgt_mask, enc_mask<span style="color:#ff79c6">=</span>src_pad_mask)
+</span></span><span style="display:flex;"><span>        <span style="color:#6272a4"># logits: (1, Tcur, V)</span>
+</span></span><span style="display:flex;"><span>        next_tok_logits <span style="color:#ff79c6">=</span> logits[:, <span style="color:#ff79c6">-</span><span style="color:#bd93f9">1</span>, :]  <span style="color:#6272a4"># (1, V)</span>
+</span></span><span style="display:flex;"><span>        next_id <span style="color:#ff79c6">=</span> next_tok_logits<span style="color:#ff79c6">.</span>argmax(dim<span style="color:#ff79c6">=-</span><span style="color:#bd93f9">1</span>)<span style="color:#ff79c6">.</span>item()
+</span></span><span style="display:flex;"><span>        generated<span style="color:#ff79c6">.</span>append(next_id)
+</span></span><span style="display:flex;"><span>        <span style="color:#6272a4"># collect the encoder-decoder attention maps *for the last decoder position* of each layer</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#6272a4"># enc_dec_attn_maps is list[layer] each (B, heads, Tcur, T_src)</span>
+</span></span><span style="display:flex;"><span>        step_attns <span style="color:#ff79c6">=</span> [m[:, :, <span style="color:#ff79c6">-</span><span style="color:#bd93f9">1</span>, :]<span style="color:#ff79c6">.</span>cpu()<span style="color:#ff79c6">.</span>numpy() <span style="color:#ff79c6">for</span> m <span style="color:#ff79c6">in</span> enc_dec_attn_maps]  <span style="color:#6272a4"># per-layer list of (1,heads,T_src)</span>
+</span></span><span style="display:flex;"><span>        collected_enc_dec_attn<span style="color:#ff79c6">.</span>append(step_attns)  <span style="color:#6272a4"># append per-step</span>
+</span></span><span style="display:flex;"><span>        cur <span style="color:#ff79c6">=</span> torch<span style="color:#ff79c6">.</span>cat([cur, torch<span style="color:#ff79c6">.</span>tensor([[next_id]], device<span style="color:#ff79c6">=</span>device)], dim<span style="color:#ff79c6">=</span><span style="color:#bd93f9">1</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">if</span> next_id <span style="color:#ff79c6">==</span> tgt_stoi[<span style="color:#f1fa8c">&#34;&lt;eos&gt;&#34;</span>]:
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">break</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># decode ids to tokens</span>
+</span></span><span style="display:flex;"><span>gen_tokens <span style="color:#ff79c6">=</span> [tgt_itos<span style="color:#ff79c6">.</span>get(i, <span style="color:#f1fa8c">&#34;&lt;unk&gt;&#34;</span>) <span style="color:#ff79c6">for</span> i <span style="color:#ff79c6">in</span> generated]
+</span></span><span style="display:flex;"><span>src_tokens <span style="color:#ff79c6">=</span> [src_itos<span style="color:#ff79c6">.</span>get(i, <span style="color:#f1fa8c">&#34;&lt;unk&gt;&#34;</span>) <span style="color:#ff79c6">for</span> i <span style="color:#ff79c6">in</span> src_batch[example_idx]<span style="color:#ff79c6">.</span>tolist() <span style="color:#ff79c6">if</span> i <span style="color:#ff79c6">!=</span> <span style="color:#bd93f9">0</span>]
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#34;SRC tokens:&#34;</span>, src_tokens)
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#34;Generated tgt tokens:&#34;</span>, gen_tokens)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># =========================</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># Visualization of encoder-decoder attention</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># We&#39;ll visualize for each decode step, the enc-dec attention across layers/heads</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># collected_enc_dec_attn: list over decode steps; each element is list over layers of (1,heads,T_src)</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># =========================</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">def</span> <span style="color:#50fa7b">plot_enc_dec_attn_for_step</span>(step_idx):
+</span></span><span style="display:flex;"><span>    <span style="color:#f1fa8c">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">    Plot for a given decode step (0-based). For that step, we have per-layer: (1, heads, T_src)
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">    We&#39;ll create a figure with rows = layers, cols = heads.
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">    &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    step_attns <span style="color:#ff79c6">=</span> collected_enc_dec_attn[step_idx]  <span style="color:#6272a4"># list len=num_layers, each shape (1,heads,T_src)</span>
+</span></span><span style="display:flex;"><span>    num_layers <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">len</span>(step_attns)
+</span></span><span style="display:flex;"><span>    num_heads <span style="color:#ff79c6">=</span> step_attns[<span style="color:#bd93f9">0</span>]<span style="color:#ff79c6">.</span>shape[<span style="color:#bd93f9">1</span>]
+</span></span><span style="display:flex;"><span>    T_src <span style="color:#ff79c6">=</span> step_attns[<span style="color:#bd93f9">0</span>]<span style="color:#ff79c6">.</span>shape[<span style="color:#bd93f9">2</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    fig, axes <span style="color:#ff79c6">=</span> plt<span style="color:#ff79c6">.</span>subplots(num_layers, num_heads, figsize<span style="color:#ff79c6">=</span>(<span style="color:#bd93f9">3</span><span style="color:#ff79c6">*</span>num_heads, <span style="color:#bd93f9">2.5</span><span style="color:#ff79c6">*</span>num_layers))
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">if</span> num_layers <span style="color:#ff79c6">==</span> <span style="color:#bd93f9">1</span> <span style="color:#ff79c6">and</span> num_heads <span style="color:#ff79c6">==</span> <span style="color:#bd93f9">1</span>:
+</span></span><span style="display:flex;"><span>        axes <span style="color:#ff79c6">=</span> np<span style="color:#ff79c6">.</span>array([[axes]])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">for</span> li <span style="color:#ff79c6">in</span> <span style="color:#8be9fd;font-style:italic">range</span>(num_layers):
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">for</span> hi <span style="color:#ff79c6">in</span> <span style="color:#8be9fd;font-style:italic">range</span>(num_heads):
+</span></span><span style="display:flex;"><span>            ax <span style="color:#ff79c6">=</span> axes[li, hi] <span style="color:#ff79c6">if</span> num_layers <span style="color:#ff79c6">&gt;</span> <span style="color:#bd93f9">1</span> <span style="color:#ff79c6">or</span> num_heads <span style="color:#ff79c6">&gt;</span> <span style="color:#bd93f9">1</span> <span style="color:#ff79c6">else</span> axes[<span style="color:#bd93f9">0</span>,<span style="color:#bd93f9">0</span>]
+</span></span><span style="display:flex;"><span>            att <span style="color:#ff79c6">=</span> step_attns[li][<span style="color:#bd93f9">0</span>, hi, :]  <span style="color:#6272a4"># (T_src,)</span>
+</span></span><span style="display:flex;"><span>            ax<span style="color:#ff79c6">.</span>imshow(att[np<span style="color:#ff79c6">.</span>newaxis, :], aspect<span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;auto&#34;</span>, cmap<span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;viridis&#34;</span>)
+</span></span><span style="display:flex;"><span>            ax<span style="color:#ff79c6">.</span>set_xticks(<span style="color:#8be9fd;font-style:italic">range</span>(T_src))
+</span></span><span style="display:flex;"><span>            ax<span style="color:#ff79c6">.</span>set_xticklabels(src_tokens, rotation<span style="color:#ff79c6">=</span><span style="color:#bd93f9">45</span>)
+</span></span><span style="display:flex;"><span>            ax<span style="color:#ff79c6">.</span>set_yticks([])
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">if</span> hi <span style="color:#ff79c6">==</span> <span style="color:#bd93f9">0</span>:
+</span></span><span style="display:flex;"><span>                ax<span style="color:#ff79c6">.</span>set_ylabel(<span style="color:#f1fa8c">f</span><span style="color:#f1fa8c">&#34;Layer </span><span style="color:#f1fa8c">{</span>li<span style="color:#f1fa8c">}</span><span style="color:#f1fa8c">&#34;</span>)
+</span></span><span style="display:flex;"><span>            ax<span style="color:#ff79c6">.</span>set_title(<span style="color:#f1fa8c">f</span><span style="color:#f1fa8c">&#34;Head </span><span style="color:#f1fa8c">{</span>hi<span style="color:#f1fa8c">}</span><span style="color:#f1fa8c">&#34;</span>)
+</span></span><span style="display:flex;"><span>    plt<span style="color:#ff79c6">.</span>suptitle(<span style="color:#f1fa8c">f</span><span style="color:#f1fa8c">&#34;Encoder-Decoder Attention for decode step </span><span style="color:#f1fa8c">{</span>step_idx<span style="color:#f1fa8c">}</span><span style="color:#f1fa8c"> (generated token: </span><span style="color:#f1fa8c">{</span>gen_tokens[step_idx<span style="color:#ff79c6">+</span><span style="color:#bd93f9">1</span>]<span style="color:#f1fa8c">}</span><span style="color:#f1fa8c">)&#34;</span>)
+</span></span><span style="display:flex;"><span>    plt<span style="color:#ff79c6">.</span>tight_layout(rect<span style="color:#ff79c6">=</span>[<span style="color:#bd93f9">0</span>, <span style="color:#bd93f9">0.03</span>, <span style="color:#bd93f9">1</span>, <span style="color:#bd93f9">0.95</span>])
+</span></span><span style="display:flex;"><span>    plt<span style="color:#ff79c6">.</span>show()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># plot attention for each decode step</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">for</span> step <span style="color:#ff79c6">in</span> <span style="color:#8be9fd;font-style:italic">range</span>(<span style="color:#8be9fd;font-style:italic">len</span>(collected_enc_dec_attn)):
+</span></span><span style="display:flex;"><span>    plot_enc_dec_attn_for_step(step)
+</span></span></code></pre></div><h2 id="专有名词">专有名词</h2>
 <table>
   <thead>
       <tr>
@@ -338,6 +1421,7 @@ $$</p>
 <li><a href="https://github.com/datawhalechina/happy-llm">Happy LLM</a></li>
 <li><a href="https://github.com/alipay/Ant-Multi-Modal-Framework">Ant Multi Modal</a></li>
 <li><a href="https://colah.github.io/">Colah Blog</a></li>
+<li><a href="https://mp.weixin.qq.com/s/dd4qclVLJSqz8YsAAh1kUQ">Transformer 原理图解：从自注意力到 Encoder-Decoder</a></li>
 </ul>
 
     </div>
@@ -349,8 +1433,15 @@ $$</p>
         <nav id="TableOfContents">
   <ul>
     <li><a href="#natural-language-processingnlp">Natural Language Processing[NLP]</a></li>
-    <li><a href="#transformer架构">Transformer架构</a></li>
-    <li><a href="#encoder-decoder">Encoder-Decoder</a></li>
+    <li><a href="#transformer架构">Transformer架构</a>
+      <ul>
+        <li><a href="#注意力机制attention">注意力机制(Attention)</a></li>
+        <li><a href="#transformer结构">Transformer结构</a></li>
+        <li><a href="#最小可运行的-transformer-encoder-stackpytorch">最小可运行的 Transformer Encoder Stack（PyTorch）</a></li>
+      </ul>
+    </li>
+    <li><a href="#tiny-transformer--训练--注意力可视化">Tiny Transformer + 训练 + 注意力可视化</a></li>
+    <li><a href="#完整的-encoderdecoder-transformer用于翻译">完整的 Encoder–Decoder Transformer（用于翻译）</a></li>
     <li><a href="#专有名词">专有名词</a></li>
     <li><a href="#参考连接">参考连接</a></li>
   </ul>
