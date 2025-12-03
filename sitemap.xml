@@ -11,12 +11,12 @@
   
   <url>
     <loc>https://zhuzaiye.github.io/</loc>
-    <lastmod>2025-11-11T10:55:06+08:00</lastmod>
+    <lastmod>2025-12-01T08:19:31+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://zhuzaiye.github.io/posts/</loc>
-    <lastmod>2025-11-11T10:55:06+08:00</lastmod>
+    <lastmod>2025-12-01T08:19:31+08:00</lastmod>
   </url>
   
   <url>
@@ -45,10 +45,6 @@
   </url>
   
   <url>
-    <loc>https://zhuzaiye.github.io/about/</loc>
-  </url>
-  
-  <url>
     <loc>https://zhuzaiye.github.io/categories/</loc>
   </url>
   
@@ -62,6 +58,10 @@
   
   <url>
     <loc>https://zhuzaiye.github.io/tags/</loc>
+  </url>
+  
+  <url>
+    <loc>https://zhuzaiye.github.io/about/</loc>
   </url>
   
 </urlset>
