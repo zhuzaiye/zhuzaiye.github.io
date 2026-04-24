@@ -1,0 +1,523 @@
+
+<!DOCTYPE html>
+<html lang="en" class="light">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="base" content="https://zhuzaiye.github.io/">
+
+    
+    
+
+    
+    
+        <title>Word 文档（Docx）合并、转 Html5 并内嵌 Base64 图片的 Python GUI 工具</title>
+        
+            <meta property="og:title" content="Word 文档（Docx）合并、转 Html5 并内嵌 Base64 图片的 Python GUI 工具" />
+        
+    
+
+    
+        
+            <meta property="og:description" content="基于 Python 将多个 Word 文档合并后转为 HTML5，并将图片内嵌为 Base64 编码，最终封装为 GUI 桌面工具" />
+        
+    
+
+    
+        
+            <meta name="description" content="基于 Python 将多个 Word 文档合并后转为 HTML5，并将图片内嵌为 Base64 编码，最终封装为 GUI 桌面工具" />
+        
+    
+
+    
+    
+
+    
+    
+
+    
+    
+
+    
+    
+        
+        <script src="/js/main.min.8c23cd573774b93805e59c27ceebd6ae929194cb1d3f05c73a0b4d2dececa6a0.js" defer></script>
+    
+
+    
+    
+        
+            <script>
+            MathJax = {
+              tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']]
+              }
+            };
+            </script>
+        
+        <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+
+    <link rel="alternate" type="application/atom+xml" title="hzzhu" href="/index.xml">
+
+    
+    
+    
+    
+
+    
+        <script>
+        (function () {
+            var mode = localStorage.getItem("theme-storage");
+            if (!mode) {
+                mode = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+                localStorage.setItem("theme-storage", mode);
+            }
+            document.documentElement.classList.remove("dark", "light");
+            document.documentElement.classList.add(mode === "dark" ? "dark" : "light");
+        })();
+        </script>
+    
+
+    
+        <link rel="stylesheet" href="/sass/theme/light.min.fcb2ce4540bb641af0a40e6b423e454398070f3dd9b2fed7dd7052f3d44d5a23.css" />
+        <link id="darkModeStyle" rel="stylesheet" href="/sass/theme/dark.min.93b31291e4f3f9c4d168ae61c13d5353c1f5efc475494bc281485fe6855e1024.css" />
+    
+
+    
+
+    
+    
+        
+        <link rel="stylesheet" href="/sass/main.min.7a2a59830d7c98448f41d561e33375ebb095295b219fd8fc91c680a28042f0fc.css" />
+    
+
+    
+    
+
+    
+    
+</head>
+
+
+<body>
+   <div class="page-wrapper">
+      <div class="page-container">
+         <div class="main-content">
+            
+            <header>
+    <div class="main">
+        
+        <a href="https://zhuzaiye.github.io/">hzzhu</a>
+        
+
+        <div class="socials">
+            
+            <a rel="me" href="https://github.com/zhuzaiye/" class="social">
+                <img alt="github" src="/icons/social/github.svg">
+            </a>
+            
+            <a rel="me" href="mailto:hzzhu92@gmail.com" class="social">
+                <img alt="email" src="/icons/social/email.svg">
+            </a>
+            
+            <a rel="me" href="https://twitter.com/pigzhu11" class="social">
+                <img alt="twitter" src="/icons/social/twitter.svg">
+            </a>
+            
+            <a rel="me" href="/index.xml" class="social">
+                <img alt="rss" src="/icons/social/rss.svg">
+            </a>
+            
+        </div>
+    </div>
+
+    <nav>
+        
+        <a href="/posts">/posts</a>
+        
+        <a href="/projects">/projects</a>
+        
+        <a href="/about">/about</a>
+        
+        |
+        
+        <a id="dark-mode-toggle" onclick="toggleTheme(); return false;" href="#">
+            <img src="/icons/sun.svg" id="sun-icon" style="filter: invert(1)" alt="Light" />
+            <img src="/icons/moon.svg" id="moon-icon" alt="Dark" />
+        </a>
+        
+    </nav>
+</header>
+
+            
+            
+
+
+
+
+<article class="post-single wechat-post page-type-posts">
+    
+    
+    <div class="wechat-cover">
+        <img src="/imgs/docxtohtml_cover.svg" alt="Word 文档（Docx）合并、转 Html5 并内嵌 Base64 图片的 Python GUI 工具">
+    </div>
+    
+
+    
+    <header class="post-header wechat-header">
+        <h1 class="post-title wechat-title">Word 文档（Docx）合并、转 Html5 并内嵌 Base64 图片的 Python GUI 工具</h1>
+        
+        <div class="post-meta wechat-meta">
+            
+            <time class="wechat-date" datetime="2022-07-03T23:21:04&#43;08:00">
+                July 3, 2022
+            </time>
+            
+            <span class="wechat-meta-separator">|</span>
+            <span class="wechat-author">hzzhu</span>
+        </div>
+        
+    </header>
+
+    
+    <div class="post-content">
+        <p>工作中遇到一个需求：将多份 Office Word 文档按指定顺序合并，再统一转为 HTML5 格式。</p>
+<p>具体需要解决以下三个问题：</p>
+<ol>
+<li>按照给定的 Excel 列表，将多个 Word 文档按顺序合并</li>
+<li>合并后保留原文档的字体和样式，并将文档中的图片转为 Base64 内嵌</li>
+<li>将整套流程封装为简单的 GUI 程序，方便资源组直接使用</li>
+</ol>
+<h2 id="工具清单">工具清单</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Tool</th>
+<th style="text-align:left">说明</th>
+<th style="text-align:left">Link</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">python=3.7</td>
+<td style="text-align:left">基础语言</td>
+<td style="text-align:left"><a href="https://docs.python.org/3.7/">https://docs.python.org/3.7/</a></td>
+</tr>
+<tr>
+<td style="text-align:left">base64</td>
+<td style="text-align:left">图片 Base64 转码</td>
+<td style="text-align:left"><a href="https://docs.python.org/3.7/library/base64.html?highlight=base64#module-base64">https://docs.python.org/3.7/library/base64.html?highlight=base64#module-base64</a></td>
+</tr>
+<tr>
+<td style="text-align:left">tkinter</td>
+<td style="text-align:left">Python GUI 框架</td>
+<td style="text-align:left"><a href="https://docs.python.org/3.7/library/tkinter.html?highlight=tkinter#module-tkinter">https://docs.python.org/3.7/library/tkinter.html?highlight=tkinter#module-tkinter</a></td>
+</tr>
+<tr>
+<td style="text-align:left">docx=0.2.4</td>
+<td style="text-align:left">加载 Word 文档</td>
+<td style="text-align:left"><a href="https://pypi.org/project/docx/">https://pypi.org/project/docx/</a></td>
+</tr>
+<tr>
+<td style="text-align:left">docxcompose=1.3.4</td>
+<td style="text-align:left">合并操作 Word 文档</td>
+<td style="text-align:left"><a href="https://pypi.org/project/docxcompose/">https://pypi.org/project/docxcompose/</a></td>
+</tr>
+<tr>
+<td style="text-align:left">pywin32=304</td>
+<td style="text-align:left">调用 Office 宏的 Python 包</td>
+<td style="text-align:left"><a href="https://pypi.org/project/pywin32/">https://pypi.org/project/pywin32/</a></td>
+</tr>
+<tr>
+<td style="text-align:left">lxml=4.9.0</td>
+<td style="text-align:left">解析 HTML</td>
+<td style="text-align:left"><a href="https://pypi.org/project/lxml/">https://pypi.org/project/lxml/</a></td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="ch">#! /usr/bin/env python3</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># -*- coding: utf-8 -*-</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 将 docx 转化为 html</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">os</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">base64</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">shutil</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">tkinter</span> <span class="k">as</span> <span class="nn">tk</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">tkinter</span> <span class="kn">import</span> <span class="n">filedialog</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">lxml</span> <span class="kn">import</span> <span class="n">etree</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">win32com</span> <span class="kn">import</span> <span class="n">client</span> <span class="k">as</span> <span class="n">wc</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">docx</span> <span class="kn">import</span> <span class="n">Document</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">docxcompose.composer</span> <span class="kn">import</span> <span class="n">Composer</span>
+</span></span></code></pre></div><h2 id="代码清单">代码清单</h2>
+<h3 id="合并-word-文档主要针对-docx">合并 Word 文档（主要针对 docx）</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">merge_doc</span><span class="p">(</span><span class="n">docx_list</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">docx_tar</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">docx_list_src</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">    docx_list: word 文档名称列表，如 [&#34;word1.docx&#34;, &#34;word2.docx&#34;]
+</span></span></span><span class="line"><span class="cl"><span class="s2">    docx_tar: 合并后 word 文档的存储目标目录
+</span></span></span><span class="line"><span class="cl"><span class="s2">    docx_list_src: 待合并 word 文档的源文件目录
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">docx_list</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 以第一个 word 文档作为合并基文档</span>
+</span></span><span class="line"><span class="cl">    <span class="n">base_docx</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">docx_list_src</span><span class="p">,</span> <span class="n">docx_list</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">    <span class="n">tar_doc</span> <span class="o">=</span> <span class="n">Document</span><span class="p">(</span><span class="n">base_docx</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">tar_composer</span> <span class="o">=</span> <span class="n">Composer</span><span class="p">(</span><span class="n">tar_doc</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 依次追加后续文档</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">next_doc</span> <span class="ow">in</span> <span class="n">docx_list</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">next_doc_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">docx_list_src</span><span class="p">,</span> <span class="n">next_doc</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">tar_composer</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Document</span><span class="p">(</span><span class="n">next_doc_path</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 保存合并后的文档</span>
+</span></span><span class="line"><span class="cl">    <span class="n">docx_tar_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">docx_tar</span><span class="p">,</span> <span class="s2">&#34;introduce.docx&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">tar_composer</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">docx_tar_file</span><span class="p">)</span>
+</span></span></code></pre></div><h3 id="word-文档转-html">Word 文档转 Html</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">convert_docx_html_pywin</span><span class="p">(</span><span class="n">docx_file_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">    docx_file_path: word 原文档路径
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 调用 Windows Word 的 COM 宏</span>
+</span></span><span class="line"><span class="cl">    <span class="n">word</span> <span class="o">=</span> <span class="n">wc</span><span class="o">.</span><span class="n">Dispatch</span><span class="p">(</span><span class="s1">&#39;Word.Application&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">doc</span> <span class="o">=</span> <span class="n">word</span><span class="o">.</span><span class="n">Documents</span><span class="o">.</span><span class="n">Open</span><span class="p">(</span><span class="n">docx_file_path</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">html_file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">docx_file_path</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">                                  <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">docx_file_path</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&#34;.&#34;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&#34;.html&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 另存为 Html（格式代码 10）</span>
+</span></span><span class="line"><span class="cl">    <span class="n">doc</span><span class="o">.</span><span class="n">SaveAs</span><span class="p">(</span><span class="n">html_file_path</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">doc</span><span class="o">.</span><span class="n">Close</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="n">word</span><span class="o">.</span><span class="n">Quit</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># 编码转换：GBK → UTF-8</span>
+</span></span><span class="line"><span class="cl">    <span class="n">fp</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">html_file_path</span><span class="p">,</span> <span class="s2">&#34;rb&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">html_gb</span> <span class="o">=</span> <span class="n">fp</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="n">fp</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="n">fp</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">html_file_path</span><span class="p">,</span> <span class="s2">&#34;wb&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">html_gb</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&#34;gbk&#34;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&#34;charset=gb2312&#34;</span><span class="p">,</span> <span class="s2">&#34;charset=utf-8&#34;</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&#34;utf-8&#34;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">    <span class="n">fp</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">html_file_path</span>
+</span></span></code></pre></div><h3 id="图片转-base64-编码">图片转 Base64 编码</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">convert_pic_base64</span><span class="p">(</span><span class="n">img_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">    img_path: 图片路径
+</span></span></span><span class="line"><span class="cl"><span class="s2">    return: Base64 编码串
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">fp</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">img_path</span><span class="p">,</span> <span class="s2">&#34;rb&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">img_content</span> <span class="o">=</span> <span class="n">fp</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="n">img_base64</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">img_content</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">img_base64_str</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">img_base64</span><span class="p">,</span> <span class="s2">&#34;utf-8&#34;</span><span class="p">)</span>  <span class="c1"># bytes 转 utf-8 字符串</span>
+</span></span><span class="line"><span class="cl">    <span class="n">img_base64_tmp</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&#34;data:image/</span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">img_path</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">:]</span><span class="si">}</span><span class="s2">;base64,</span><span class="si">{</span><span class="n">img_base64_str</span><span class="si">}</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">img_base64_tmp</span>
+</span></span></code></pre></div><h3 id="替换-html-中的图片为-base64">替换 Html 中的图片为 Base64</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">process_html_img_tag</span><span class="p">(</span><span class="n">html_tar_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">    html_tar_file: word 转存 html 的原始文件路径
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 当前转化图片所在目录</span>
+</span></span><span class="line"><span class="cl">    <span class="n">dir_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">html_tar_file</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 解析 html 并替换 img 标签的 src</span>
+</span></span><span class="line"><span class="cl">    <span class="n">html_content</span> <span class="o">=</span> <span class="n">etree</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">html_tar_file</span><span class="p">,</span> <span class="n">etree</span><span class="o">.</span><span class="n">HTMLParser</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">    <span class="n">tmp_files</span> <span class="o">=</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">img_tag</span> <span class="ow">in</span> <span class="n">html_content</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s2">&#34;//img&#34;</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">img_tag</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="s2">&#34;src&#34;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&#34;&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="k">continue</span>
+</span></span><span class="line"><span class="cl">        <span class="n">src_img_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dir_path</span><span class="p">,</span> <span class="n">img_tag</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="s2">&#34;src&#34;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">        <span class="n">tmp_files</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">src_img_path</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">        <span class="n">src_img_b64code</span> <span class="o">=</span> <span class="n">convert_pic_base64</span><span class="p">(</span><span class="n">src_img_path</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">img_tag</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="s2">&#34;src&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="n">src_img_b64code</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># 去除转换后 html 中的 system URL 和 public ID</span>
+</span></span><span class="line"><span class="cl">    <span class="n">html_content</span><span class="o">.</span><span class="n">docinfo</span><span class="o">.</span><span class="n">system_url</span> <span class="o">=</span> <span class="kc">None</span>
+</span></span><span class="line"><span class="cl">    <span class="n">html_content</span><span class="o">.</span><span class="n">docinfo</span><span class="o">.</span><span class="n">public_id</span> <span class="o">=</span> <span class="kc">None</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 将 lxml 处理后的字节内容写入 utf-8 html 文件</span>
+</span></span><span class="line"><span class="cl">    <span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">html_tar_file</span><span class="p">,</span> <span class="s2">&#34;w&#34;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&#34;utf-8&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># method=html 去除冗余信息</span>
+</span></span><span class="line"><span class="cl">    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">etree</span><span class="o">.</span><span class="n">tostring</span><span class="p">(</span><span class="n">html_content</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&#34;utf-8&#34;</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&#34;html&#34;</span><span class="p">,</span> <span class="n">pretty_print</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&#34;utf-8&#34;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">    <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">tmp_files</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Word 转 Html 总成</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">convert</span><span class="p">(</span><span class="n">docx_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">html_path</span> <span class="o">=</span> <span class="n">convert_docx_html_pywin</span><span class="p">(</span><span class="n">docx_path</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">process_html_img_tag</span><span class="p">(</span><span class="n">html_path</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">html_path</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&#34;</span><span class="se">\\</span><span class="s2">&#34;</span><span class="p">,</span> <span class="s2">&#34;/&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><h3 id="基于-tkinter-的-gui-设计">基于 tkinter 的 GUI 设计</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">window</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Tk</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">window</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&#34;Word转Html工具&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">window</span><span class="o">.</span><span class="n">geometry</span><span class="p">(</span><span class="s1">&#39;600x300&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 输入框 1：源文件路径</span>
+</span></span><span class="line"><span class="cl"><span class="n">path_var</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">StringVar</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">entry</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Entry</span><span class="p">(</span><span class="n">window</span><span class="p">,</span> <span class="n">textvariable</span><span class="o">=</span><span class="n">path_var</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">60</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">entry</span><span class="o">.</span><span class="n">place</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">anchor</span><span class="o">=</span><span class="s1">&#39;nw&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 输入框 2：转换结果路径</span>
+</span></span><span class="line"><span class="cl"><span class="n">path_var1</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">StringVar</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">entry1</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Entry</span><span class="p">(</span><span class="n">window</span><span class="p">,</span> <span class="n">textvariable</span><span class="o">=</span><span class="n">path_var1</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">60</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">entry1</span><span class="o">.</span><span class="n">place</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">anchor</span><span class="o">=</span><span class="s1">&#39;nw&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">choose_file_click</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;选择文件事件&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">file_types</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">&#34;word文件&#34;</span><span class="p">,</span> <span class="s2">&#34;*.docx&#34;</span><span class="p">)]</span>
+</span></span><span class="line"><span class="cl">    <span class="n">file_name</span> <span class="o">=</span> <span class="n">filedialog</span><span class="o">.</span><span class="n">askopenfilename</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;选择单个文件&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                                           <span class="n">filetypes</span><span class="o">=</span><span class="n">file_types</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                                           <span class="n">initialdir</span><span class="o">=</span><span class="s1">&#39;./&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">path_var</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">file_name</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">convert_file_click</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;Word 转 Html 事件&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">src_file_path</span> <span class="o">=</span> <span class="n">path_var</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="n">convert_file_path</span> <span class="o">=</span> <span class="n">convert</span><span class="p">(</span><span class="n">src_file_path</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">path_var1</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">convert_file_path</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">clear_click</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;清空所有输入&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">path_var</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&#34;&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">path_var1</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&#34;&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">choose_btn</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="n">window</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s1">&#39;选择&#39;</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="n">choose_file_click</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">choose_btn</span><span class="o">.</span><span class="n">place</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">450</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">anchor</span><span class="o">=</span><span class="s1">&#39;nw&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">convert_btn</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="n">window</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s1">&#39;转化&#39;</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="n">convert_file_click</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">convert_btn</span><span class="o">.</span><span class="n">place</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">450</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">anchor</span><span class="o">=</span><span class="s1">&#39;nw&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">clear_btn</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="n">window</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s1">&#39;清空&#39;</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="n">clear_click</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">clear_btn</span><span class="o">.</span><span class="n">place</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">450</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">anchor</span><span class="o">=</span><span class="s1">&#39;nw&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">window</span><span class="o">.</span><span class="n">mainloop</span><span class="p">()</span>
+</span></span></code></pre></div><h2 id="word-合并及转-html-测试">Word 合并及转 Html 测试</h2>
+<h3 id="合并效果">合并效果</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">docs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&#34;xx.docx&#34;</span><span class="p">,</span> <span class="s2">&#34;yy.docx&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="n">tar</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">src</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">merge_doc</span><span class="p">(</span><span class="n">docs</span><span class="p">,</span> <span class="n">tar</span><span class="p">,</span> <span class="n">src</span><span class="p">)</span>
+</span></span></code></pre></div><p><img src="/imgs/word2html_docx.png" alt="word docx 源文件 1">
+<img src="/imgs/word2html_docx_2.png" alt="word docx 源文件 2">
+<img src="/imgs/word2html_merge_rst.png" alt="word docx 合并结果"></p>
+<blockquote>
+<p><strong>注意：</strong> 合并效果中 <code>/docx 2/</code> 的字体样式存在部分合并失效的情况，目前未有很好的解决方法。如果您有好的建议，欢迎留言，不胜感激！</p>
+</blockquote>
+<h3 id="docx-转-html-效果">Docx 转 Html 效果</h3>
+<p><img src="/imgs/word2html_docx.png" alt="word docx 原文件"></p>
+<p><strong>转化后的 Html 文件：</strong></p>
+<p><img src="/imgs/word2html_html.png" alt="转化后的 Html 结果"></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;MsoNormal&#34;</span> <span class="na">style</span><span class="o">=</span><span class="s">&#34;text-align:justify;text-justify:inter-ideograph;line-height:normal&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">span</span> <span class="na">style</span><span class="o">=</span><span class="s">&#39;font-size:10.5pt;font-family:&#34;Rounded Mplus 1c&#34;&#39;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">img</span> <span class="na">width</span><span class="o">=</span><span class="s">&#34;601&#34;</span> <span class="na">height</span><span class="o">=</span><span class="s">&#34;159&#34;</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;image1.png&#34;</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;data:image/gif;base64,R0lGODlhWQKfAHcAMSH...+GcAQEAOw==&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span></code></pre></div><h3 id="gui-效果及测试">GUI 效果及测试</h3>
+<p><img src="/imgs/word2html_gui.png" alt="GUI 启动界面">
+<img src="/imgs/word2html_gui_rst.png" alt="GUI 运行结果"></p>
+
+    </div>
+
+</article>
+
+
+
+<div class="wechat-bottom-bar">
+    <div class="wechat-bottom-inner">
+        <div class="wechat-bottom-left">
+            
+            <div class="wechat-bottom-avatar">
+                <img src="/imgs/me_gibuli.png" alt="avatar">
+            </div>
+            
+            <span class="wechat-bottom-name">hzzhu</span>
+        </div>
+        <div class="wechat-bottom-actions">
+            <button class="wechat-bottom-btn" id="wechat-like" aria-label="赞">
+                <svg width="20" height="20" viewBox="0 0 24 24">
+                    <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3H14z"/>
+                    <path d="M7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/>
+                </svg>
+                <span class="wechat-bottom-count" id="like-count">0</span>
+            </button>
+            <button class="wechat-bottom-btn" id="wechat-share" aria-label="转发">
+                <svg width="20" height="20" viewBox="0 0 24 24">
+                    <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/>
+                    <polyline points="16 6 12 2 8 6"/>
+                    <line x1="12" y1="2" x2="12" y2="15"/>
+                </svg>
+            </button>
+            <button class="wechat-bottom-btn" id="wechat-comment-btn" aria-label="评论">
+                <svg width="20" height="20" viewBox="0 0 24 24">
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+</div>
+
+
+
+<aside class="toc-sidebar">
+    <div class="toc-sticky">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#工具清单">工具清单</a></li>
+    <li><a href="#代码清单">代码清单</a>
+      <ul>
+        <li><a href="#合并-word-文档主要针对-docx">合并 Word 文档（主要针对 docx）</a></li>
+        <li><a href="#word-文档转-html">Word 文档转 Html</a></li>
+        <li><a href="#图片转-base64-编码">图片转 Base64 编码</a></li>
+        <li><a href="#替换-html-中的图片为-base64">替换 Html 中的图片为 Base64</a></li>
+        <li><a href="#基于-tkinter-的-gui-设计">基于 tkinter 的 GUI 设计</a></li>
+      </ul>
+    </li>
+    <li><a href="#word-合并及转-html-测试">Word 合并及转 Html 测试</a>
+      <ul>
+        <li><a href="#合并效果">合并效果</a></li>
+        <li><a href="#docx-转-html-效果">Docx 转 Html 效果</a></li>
+        <li><a href="#gui-效果及测试">GUI 效果及测试</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </div>
+</aside>
+
+
+
+
+<script src="/js/wechat-actions.min.c7c69dc8277a9edbfad0acd6cbb33e539dd130246450845253b84aeedb1ba517.js"></script>
+
+
+<script src="/js/toc.min.eb478c8220c4b7ba8ec4ec3b3951b4f2816614e37b26a6bdd9fcdaa674e0bd85.js"></script>
+
+
+
+
+            <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://unpkg.com/gitalk@1.2.2/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://unpkg.com/gitalk@latest/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2022-07-03 23:21:04 \u002b0800 CST',
+        title: 'Word 文档（Docx）合并、转 Html5 并内嵌 Base64 图片的 Python GUI 工具',
+        clientID: '9c36634fbb845c1d1d64',
+        clientSecret: '3d57254b5ffccf04f9d973cc42b1d84ecd48fd01',
+        repo: 'zhuzaiye.github.io',
+        owner: 'zhuzaiye',
+        admin: ['zhuzaiye'],
+        body: decodeURI(location.href),
+        language: "en"
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+         </div>
+      </div>
+   </div>
+</body>
+
+</html>

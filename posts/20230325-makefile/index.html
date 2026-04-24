@@ -1,0 +1,521 @@
+
+<!DOCTYPE html>
+<html lang="en" class="light">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="base" content="https://zhuzaiye.github.io/">
+
+    
+    
+
+    
+    
+        <title>Makefile 构建自动化：从基础语法到 C/C&#43;&#43; 编译实践</title>
+        
+            <meta property="og:title" content="Makefile 构建自动化：从基础语法到 C/C&#43;&#43; 编译实践" />
+        
+    
+
+    
+        
+            <meta property="og:description" content="系统梳理 Makefile 的基础语法与核心概念，涵盖变量、自动变量、条件判断、函数等知识点，并给出完整的 C/C&#43;&#43; 编译示例" />
+        
+    
+
+    
+        
+            <meta name="description" content="系统梳理 Makefile 的基础语法与核心概念，涵盖变量、自动变量、条件判断、函数等知识点，并给出完整的 C/C&#43;&#43; 编译示例" />
+        
+    
+
+    
+    
+
+    
+    
+
+    
+    
+
+    
+    
+        
+        <script src="/js/main.min.8c23cd573774b93805e59c27ceebd6ae929194cb1d3f05c73a0b4d2dececa6a0.js" defer></script>
+    
+
+    
+    
+        
+            <script>
+            MathJax = {
+              tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']]
+              }
+            };
+            </script>
+        
+        <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+
+    <link rel="alternate" type="application/atom+xml" title="hzzhu" href="/index.xml">
+
+    
+    
+    
+    
+
+    
+        <script>
+        (function () {
+            var mode = localStorage.getItem("theme-storage");
+            if (!mode) {
+                mode = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+                localStorage.setItem("theme-storage", mode);
+            }
+            document.documentElement.classList.remove("dark", "light");
+            document.documentElement.classList.add(mode === "dark" ? "dark" : "light");
+        })();
+        </script>
+    
+
+    
+        <link rel="stylesheet" href="/sass/theme/light.min.fcb2ce4540bb641af0a40e6b423e454398070f3dd9b2fed7dd7052f3d44d5a23.css" />
+        <link id="darkModeStyle" rel="stylesheet" href="/sass/theme/dark.min.93b31291e4f3f9c4d168ae61c13d5353c1f5efc475494bc281485fe6855e1024.css" />
+    
+
+    
+
+    
+    
+        
+        <link rel="stylesheet" href="/sass/main.min.7a2a59830d7c98448f41d561e33375ebb095295b219fd8fc91c680a28042f0fc.css" />
+    
+
+    
+    
+
+    
+    
+</head>
+
+
+<body>
+   <div class="page-wrapper">
+      <div class="page-container">
+         <div class="main-content">
+            
+            <header>
+    <div class="main">
+        
+        <a href="https://zhuzaiye.github.io/">hzzhu</a>
+        
+
+        <div class="socials">
+            
+            <a rel="me" href="https://github.com/zhuzaiye/" class="social">
+                <img alt="github" src="/icons/social/github.svg">
+            </a>
+            
+            <a rel="me" href="mailto:hzzhu92@gmail.com" class="social">
+                <img alt="email" src="/icons/social/email.svg">
+            </a>
+            
+            <a rel="me" href="https://twitter.com/pigzhu11" class="social">
+                <img alt="twitter" src="/icons/social/twitter.svg">
+            </a>
+            
+            <a rel="me" href="/index.xml" class="social">
+                <img alt="rss" src="/icons/social/rss.svg">
+            </a>
+            
+        </div>
+    </div>
+
+    <nav>
+        
+        <a href="/posts">/posts</a>
+        
+        <a href="/projects">/projects</a>
+        
+        <a href="/about">/about</a>
+        
+        |
+        
+        <a id="dark-mode-toggle" onclick="toggleTheme(); return false;" href="#">
+            <img src="/icons/sun.svg" id="sun-icon" style="filter: invert(1)" alt="Light" />
+            <img src="/icons/moon.svg" id="moon-icon" alt="Dark" />
+        </a>
+        
+    </nav>
+</header>
+
+            
+            
+
+
+
+
+<article class="post-single wechat-post page-type-posts">
+    
+    
+    <div class="wechat-cover">
+        <img src="/imgs/makefile_cover.svg" alt="Makefile 构建自动化：从基础语法到 C/C&#43;&#43; 编译实践">
+    </div>
+    
+
+    
+    <header class="post-header wechat-header">
+        <h1 class="post-title wechat-title">Makefile 构建自动化：从基础语法到 C/C&#43;&#43; 编译实践</h1>
+        
+        <div class="post-meta wechat-meta">
+            
+            <time class="wechat-date" datetime="2023-03-25T09:18:53&#43;08:00">
+                March 25, 2023
+            </time>
+            
+            <span class="wechat-meta-separator">|</span>
+            <span class="wechat-author">hzzhu</span>
+        </div>
+        
+    </header>
+
+    
+    <div class="post-content">
+        <p>Makefile 是组织编译的命令脚本文件，通过描述目标与依赖之间的关系树，自动化构建生成可执行文件。</p>
+<blockquote>
+<p><code>make</code> 根据 Makefile 中定义的规则关系树，按依赖顺序构建出可执行程序。</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-makefile" data-lang="makefile"><span class="line"><span class="cl"><span class="c"># 目标: 依赖
+</span></span></span><span class="line"><span class="cl"><span class="c">#     命令
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="nf">a.out</span><span class="o">:</span> <span class="n">demo</span>.<span class="n">c</span>
+</span></span><span class="line"><span class="cl">    gcc -o <span class="nv">$@</span> $&lt;
+</span></span></code></pre></div><h2 id="make-指令">make 指令</h2>
+<blockquote>
+<p>Windows 环境</p>
+</blockquote>
+<p>运行 <code>make -v</code> 可能出现：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="s1">&#39;make&#39;</span> 不是内部命令或外部命令, 也不是可执行的程序, 或批处理文件.
+</span></span><span class="line"><span class="cl"><span class="c1"># 系统在环境变量中找不到 make 命令的执行文件</span>
+</span></span></code></pre></div><p>解决方法：</p>
+<ol>
+<li>找到 <code>mingw</code> 安装目录，进入 <code>bin</code> 目录，找到 <code>mingw32-make.exe</code></li>
+<li>将 <code>mingw32-make.exe</code> 重命名为 <code>make.exe</code></li>
+</ol>
+<h2 id="编译过程">编译过程</h2>
+<p><img src="/imgs/compiler.jpg" alt="编译流程"></p>
+<h2 id="makefile-核心语法">Makefile 核心语法</h2>
+<h3 id="变量">变量</h3>
+<p>使用 <code>$(val)</code> 获取变量 <code>val</code> 的值。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-makefile" data-lang="makefile"><span class="line"><span class="cl"><span class="nf">.PHONY</span><span class="o">:</span> <span class="n">clean</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">CC</span><span class="o">=</span>g++
+</span></span><span class="line"><span class="cl"><span class="nv">BIN</span><span class="o">=</span><span class="nb">exec</span>
+</span></span><span class="line"><span class="cl"><span class="nv">OBJS</span><span class="o">=</span>AddTwoSum.o utils.o
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nf">$(BIN)</span><span class="o">:</span> <span class="k">$(</span><span class="nv">OBJS</span><span class="k">)</span>
+</span></span><span class="line"><span class="cl">	@echo <span class="s2">&#34;start compiling...&#34;</span>
+</span></span><span class="line"><span class="cl">	@echo <span class="k">$(</span>CC<span class="k">)</span>
+</span></span><span class="line"><span class="cl">	<span class="k">$(</span>CC<span class="k">)</span> -o <span class="k">$(</span>BIN<span class="k">)</span> <span class="k">$(</span>OBJS<span class="k">)</span>
+</span></span><span class="line"><span class="cl">	@echo <span class="s2">&#34;compile done&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nf">AddTwoSum.o</span><span class="o">:</span> <span class="n">AddTwoSum</span>.<span class="n">cpp</span>
+</span></span><span class="line"><span class="cl">	<span class="k">$(</span>CC<span class="k">)</span> -c -o <span class="nv">$@</span> $&lt;
+</span></span><span class="line"><span class="cl"><span class="nf">utils.o</span><span class="o">:</span> <span class="n">utils</span>.<span class="n">cpp</span>
+</span></span><span class="line"><span class="cl">	<span class="k">$(</span>CC<span class="k">)</span> -c -o <span class="nv">$@</span> $&lt;
+</span></span><span class="line"><span class="cl"><span class="nf">clean</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	rm -f <span class="k">$(</span>BIN<span class="k">)</span> <span class="k">$(</span>OBJS<span class="k">)</span>
+</span></span></code></pre></div><h3 id="条件赋值">条件赋值</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-makefile" data-lang="makefile"><span class="line"><span class="cl"><span class="c"># 条件赋值 ?=  —— 仅在变量未定义时赋值
+</span></span></span><span class="line"><span class="cl"><span class="c"># 追加赋值 +=  —— 向变量追加值
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="nv">CC</span> <span class="o">=</span> g++
+</span></span><span class="line"><span class="cl"><span class="nv">CC</span> <span class="o">?=</span> gcc          <span class="c1"># CC 已定义，此句不生效</span>
+</span></span><span class="line"><span class="cl"><span class="nv">OBJS</span> <span class="o">=</span> AddTwoSum.o
+</span></span><span class="line"><span class="cl"><span class="nv">OBJS</span> <span class="o">+=</span> utils.o    <span class="c1"># 追加</span>
+</span></span><span class="line"><span class="cl"><span class="nf">echo</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	@echo <span class="k">$(</span>CC<span class="k">)</span>
+</span></span><span class="line"><span class="cl">	@echo <span class="k">$(</span>OBJS<span class="k">)</span>
+</span></span></code></pre></div><h3 id="立即变量与延迟变量">立即变量与延迟变量</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-makefile" data-lang="makefile"><span class="line"><span class="cl"><span class="c"># 使用 := 赋值 —— 立即变量（定义时马上展开）
+</span></span></span><span class="line"><span class="cl"><span class="c"># 使用 =  赋值 —— 延迟变量（使用时才展开，保留变量引用关系）
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="nv">a</span> <span class="o">=</span> <span class="m">1</span>
+</span></span><span class="line"><span class="cl"><span class="nv">b</span> <span class="o">=</span> <span class="m">2</span>
+</span></span><span class="line"><span class="cl"><span class="nv">val_a</span> <span class="o">:=</span> <span class="k">$(</span>a<span class="k">)</span>   <span class="c1"># val_a = 1（立即求值）</span>
+</span></span><span class="line"><span class="cl"><span class="nv">val_b</span> <span class="o">=</span> <span class="k">$(</span>b<span class="k">)</span>    <span class="c1"># val_b 的值随 b 变化（延迟求值）</span>
+</span></span><span class="line"><span class="cl"><span class="nv">a</span> <span class="o">=</span> <span class="m">10</span>
+</span></span><span class="line"><span class="cl"><span class="nf">echo</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	@echo <span class="k">$(</span>val_a<span class="k">)</span>
+</span></span><span class="line"><span class="cl">	@echo <span class="k">$(</span>val_b<span class="k">)</span>
+</span></span></code></pre></div><h3 id="自动变量">自动变量</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-makefile" data-lang="makefile"><span class="line"><span class="cl"><span class="c"># 常用自动变量
+</span></span></span><span class="line"><span class="cl"><span class="c"># $@ —— 目标
+</span></span></span><span class="line"><span class="cl"><span class="c"># $^ —— 所有依赖项
+</span></span></span><span class="line"><span class="cl"><span class="c"># $&lt; —— 依赖项中的第一个
+</span></span></span><span class="line"><span class="cl"><span class="c"># $? —— 所有依赖项中被修改过的
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>
+</span></span><span class="line"><span class="cl"><span class="nf">.PHONY</span><span class="o">:</span> <span class="n">clean</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">CC</span><span class="o">=</span>g++
+</span></span><span class="line"><span class="cl"><span class="nv">BIN</span><span class="o">=</span><span class="nb">exec</span>
+</span></span><span class="line"><span class="cl"><span class="nv">OBJS</span><span class="o">=</span>AddTwoSum.o utils.o
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nf">$(BIN)</span><span class="o">:</span> <span class="k">$(</span><span class="nv">OBJS</span><span class="k">)</span>
+</span></span><span class="line"><span class="cl">	@echo <span class="s2">&#34;start compiling...&#34;</span>
+</span></span><span class="line"><span class="cl">	@echo <span class="k">$(</span>CC<span class="k">)</span>
+</span></span><span class="line"><span class="cl">	<span class="k">$(</span>CC<span class="k">)</span> -o <span class="nv">$@</span> $^
+</span></span><span class="line"><span class="cl">	@echo <span class="s2">&#34;compile done&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nf">AddTwoSum.o</span><span class="o">:</span> <span class="n">AddTwoSum</span>.<span class="n">cpp</span>
+</span></span><span class="line"><span class="cl">	<span class="k">$(</span>CC<span class="k">)</span> -c -o <span class="nv">$@</span> $&lt;
+</span></span><span class="line"><span class="cl"><span class="nf">utils.o</span><span class="o">:</span> <span class="n">utils</span>.<span class="n">cpp</span>
+</span></span><span class="line"><span class="cl">	<span class="k">$(</span>CC<span class="k">)</span> -c -o <span class="nv">$@</span> $&lt;
+</span></span><span class="line"><span class="cl"><span class="nf">clean</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	rm -f <span class="k">$(</span>BIN<span class="k">)</span> <span class="k">$(</span>OBJS<span class="k">)</span>
+</span></span></code></pre></div><h3 id="变量替换模式匹配">变量替换（模式匹配）</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-makefile" data-lang="makefile"><span class="line"><span class="cl"><span class="nf">.PHONY</span><span class="o">:</span> <span class="n">echo</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">SRC</span> <span class="o">=</span> demo.c demo1.c
+</span></span><span class="line"><span class="cl"><span class="nv">OBJ</span> <span class="o">=</span> <span class="k">$(</span>SRC:.c<span class="o">=</span>.o<span class="k">)</span>
+</span></span><span class="line"><span class="cl"><span class="nv">OBJ1</span> <span class="o">=</span> <span class="k">$(</span>SRC:%.c<span class="o">=</span>%.o<span class="k">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nf">echo</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	@echo <span class="s2">&#34;SRC=</span><span class="k">$(</span>SRC<span class="k">)</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">	@echo <span class="s2">&#34;OBJ=</span><span class="k">$(</span>OBJ<span class="k">)</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">	@echo <span class="s2">&#34;OBJ1=</span><span class="k">$(</span>OBJ1<span class="k">)</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># 输出：
+</span></span></span><span class="line"><span class="cl"><span class="c"># SRC=demo.c demo1.c
+</span></span></span><span class="line"><span class="cl"><span class="c"># OBJ=demo.o demo1.o
+</span></span></span><span class="line"><span class="cl"><span class="c"># OBJ1=demo.o demo1.o
+</span></span></span></code></pre></div><h3 id="环境变量">环境变量</h3>
+<p>环境变量在运行时载入 Makefile。若存在同名变量，系统环境变量会被 Makefile 中定义的变量覆盖。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-makefile" data-lang="makefile"><span class="line"><span class="cl"><span class="nf">.PHONY</span><span class="o">:</span> <span class="n">echo</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">CFLAGS</span> <span class="o">=</span> -g
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nf">echo</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	@echo <span class="s2">&#34;CFLAGS = </span><span class="k">$(</span>CFLAGS<span class="k">)</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">	@echo <span class="s2">&#34;SHELL = </span><span class="k">$(</span>SHELL<span class="k">)</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">	@echo <span class="s2">&#34;MAKE = </span><span class="k">$(</span>MAKE<span class="k">)</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">	@echo <span class="s2">&#34;HOSTNAME = </span><span class="k">$(</span>HOSTNAME<span class="k">)</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># 输出示例：
+</span></span></span><span class="line"><span class="cl"><span class="c"># CFLAGS = -g
+</span></span></span><span class="line"><span class="cl"><span class="c"># SHELL = /usr/bin/sh
+</span></span></span><span class="line"><span class="cl"><span class="c"># MAKE = /usr/bin/make
+</span></span></span><span class="line"><span class="cl"><span class="c"># HOSTNAME = TX-PC0N4UHP
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>
+</span></span><span class="line"><span class="cl"><span class="c"># 运行时可通过命令行传参覆盖：
+</span></span></span><span class="line"><span class="cl"><span class="c"># make HOSTNAME=CodeMax
+</span></span></span><span class="line"><span class="cl"><span class="c"># HOSTNAME = CodeMax
+</span></span></span></code></pre></div><h3 id="条件判断">条件判断</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-makefile" data-lang="makefile"><span class="line"><span class="cl"><span class="c"># ifeq —— 判断相等
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="nv">mode</span> <span class="o">=</span> debug
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nf">echo</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl"><span class="err">ifeq</span> <span class="err">(</span><span class="k">$(</span><span class="nv">mode</span><span class="k">)</span><span class="err">,debug)</span>
+</span></span><span class="line"><span class="cl">	<span class="err">@echo</span> <span class="s2">&#34;debug mode&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="err">else</span>
+</span></span><span class="line"><span class="cl">	<span class="err">@echo</span> <span class="s2">&#34;release mode&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="err">endif</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># ifneq —— 判断不等
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="nf">echo</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl"><span class="err">ifeq</span> <span class="err">(</span><span class="k">$(</span><span class="nv">mode</span><span class="k">)</span><span class="err">,)</span>
+</span></span><span class="line"><span class="cl">	<span class="err">@echo</span> <span class="s2">&#34;mode is empty&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="err">else</span>
+</span></span><span class="line"><span class="cl">	<span class="err">@echo</span> <span class="s2">&#34;mode is not empty&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="err">endif</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># ifdef —— 判断变量是否已定义
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="nf">echo</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl"><span class="err">ifdef</span> <span class="err">mode</span>
+</span></span><span class="line"><span class="cl">	<span class="err">@echo</span> <span class="s2">&#34;mode is defined&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="err">else</span>
+</span></span><span class="line"><span class="cl">	<span class="err">@echo</span> <span class="s2">&#34;mode is not defined&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="err">endif</span>
+</span></span></code></pre></div><h3 id="函数">函数</h3>
+<p>函数分为三类：</p>
+<ol>
+<li><strong>自定义函数</strong> —— 通过 <code>call</code> 调用</li>
+<li><strong>内嵌函数</strong> —— Make 内置，直接调用</li>
+<li>函数名与参数之间用空格分隔，参数之间用逗号分隔</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-makefile" data-lang="makefile"><span class="line"><span class="cl"><span class="c"># 内嵌函数示例 —— wildcard
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="nv">SRC</span> <span class="o">=</span> <span class="k">$(</span>wildcard *.cpp<span class="k">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nf">echo</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	@echo <span class="s2">&#34;SRC = </span><span class="k">$(</span>SRC<span class="k">)</span><span class="s2">&#34;</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-makefile" data-lang="makefile"><span class="line"><span class="cl"><span class="c"># 自定义函数示例
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="err">define</span> <span class="err">func</span>
+</span></span><span class="line"><span class="cl">	<span class="err">@echo</span> <span class="s2">&#34;param0 = $(0)&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="err">@echo</span> <span class="s2">&#34;param1 = $(1)&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="err">endef</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nf">echo</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="k">$(</span>call func, hello world<span class="k">)</span>
+</span></span></code></pre></div><h3 id="foreach-遍历">foreach 遍历</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-makefile" data-lang="makefile"><span class="line"><span class="cl"><span class="k">$(</span><span class="nv">foreach</span> <span class="nv">VAR</span>, <span class="nv">LIST</span>, <span class="nv">TEXT</span><span class="k">)</span>
+</span></span></code></pre></div><ol>
+<li><code>VAR</code> —— 将 LIST 中空格分隔的每一项依次赋值给 VAR</li>
+<li><code>TEXT</code> —— 使用 VAR 进行处理的脚本</li>
+</ol>
+<h3 id="if-函数">if 函数</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-makefile" data-lang="makefile"><span class="line"><span class="cl"><span class="c"># $(if condition, then[, else])
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="nv">install__path</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl"><span class="nv">install_path</span> <span class="o">=</span> <span class="k">$(if</span> <span class="k">$(</span>install__path<span class="k">)</span>, <span class="k">$(</span>install__path<span class="k">)</span>, /usr/local<span class="k">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nf">echo</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	@echo <span class="s2">&#34;</span><span class="k">$(</span>install_path<span class="k">)</span><span class="s2">&#34;</span>
+</span></span></code></pre></div><h3 id="call-函数">call 函数</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-makefile" data-lang="makefile"><span class="line"><span class="cl"><span class="c"># $(call def_func, &lt;param1&gt;, &lt;param2&gt;...)
+</span></span></span></code></pre></div><h3 id="error--warning-函数">error / warning 函数</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-makefile" data-lang="makefile"><span class="line"><span class="cl"><span class="c"># $(error TEXT...)   —— 抛出错误并终止
+</span></span></span><span class="line"><span class="cl"><span class="c"># $(warning TEXT...) —— 输出警告并继续
+</span></span></span></code></pre></div><h2 id="完整示例">完整示例</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-makefile" data-lang="makefile"><span class="line"><span class="cl"><span class="c"># 伪目标声明：防止当前目录有名为 clean 的文件导致规则跳过
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="nf">.PHONY</span><span class="o">:</span> <span class="n">clean</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># 编译器
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="nv">CC</span> <span class="o">=</span> g++
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># 编译参数
+</span></span></span><span class="line"><span class="cl"><span class="c"># -g        加入调试信息
+</span></span></span><span class="line"><span class="cl"><span class="c"># -DDEBUG   编译 debug 版本
+</span></span></span><span class="line"><span class="cl"><span class="c"># -W -Wall  输出所有警告
+</span></span></span><span class="line"><span class="cl"><span class="c"># -fPIC     生成动态库时使用
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="nv">CFLAGS</span> <span class="o">=</span> -g -DDEBUG -W -Wall -fPIC
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># 头文件目录
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="nv">HEADER</span>  <span class="o">=</span> -I./
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">ALGONAME</span> <span class="o">=</span> AddTwoSum
+</span></span><span class="line"><span class="cl"><span class="nv">TOOLNAME</span> <span class="o">=</span> utils
+</span></span><span class="line"><span class="cl"><span class="nv">OBJS</span><span class="o">=</span> <span class="k">$(</span>ALGONAME<span class="k">)</span>.o <span class="k">$(</span>TOOLNAME<span class="k">)</span>.o
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">TARGET</span> <span class="o">=</span> algo
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nf">$(TARGET)</span><span class="o">:</span> <span class="k">$(</span><span class="nv">OBJS</span><span class="k">)</span>
+</span></span><span class="line"><span class="cl">	@echo <span class="s2">&#34;start compiling...&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">$(</span>CC<span class="k">)</span> <span class="k">$(</span>CFLAGS<span class="k">)</span> -o <span class="nv">$@</span> $^
+</span></span><span class="line"><span class="cl">	@echo <span class="s2">&#34;compile done&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nf">$(ALGONAME).o</span><span class="o">:</span> <span class="k">$(</span><span class="nv">ALGONAME</span><span class="k">)</span>.<span class="n">cpp</span>
+</span></span><span class="line"><span class="cl">	<span class="k">$(</span>CC<span class="k">)</span> -c -o <span class="nv">$@</span> $&lt;
+</span></span><span class="line"><span class="cl"><span class="nf">$(TOOLNAME).o</span><span class="o">:</span> <span class="k">$(</span><span class="nv">TOOLNAME</span><span class="k">)</span>.<span class="n">cpp</span>
+</span></span><span class="line"><span class="cl">	<span class="k">$(</span>CC<span class="k">)</span> -c -o <span class="nv">$@</span> $&lt;
+</span></span><span class="line"><span class="cl"><span class="nf">clean</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	rm -f <span class="k">$(</span>TARGET<span class="k">)</span> <span class="k">$(</span>OBJS<span class="k">)</span>
+</span></span></code></pre></div><h2 id="参考">参考</h2>
+<ul>
+<li><a href="https://www.zhaixue.cc/makefile/makefile-pattern.html">Makefile 模式匹配详解</a></li>
+<li><a href="https://www.ruanyifeng.com/blog/2015/02/make.html">阮一峰 —— Make 命令教程</a></li>
+</ul>
+
+    </div>
+
+</article>
+
+
+
+<div class="wechat-bottom-bar">
+    <div class="wechat-bottom-inner">
+        <div class="wechat-bottom-left">
+            
+            <div class="wechat-bottom-avatar">
+                <img src="/imgs/me_gibuli.png" alt="avatar">
+            </div>
+            
+            <span class="wechat-bottom-name">hzzhu</span>
+        </div>
+        <div class="wechat-bottom-actions">
+            <button class="wechat-bottom-btn" id="wechat-like" aria-label="赞">
+                <svg width="20" height="20" viewBox="0 0 24 24">
+                    <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3H14z"/>
+                    <path d="M7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/>
+                </svg>
+                <span class="wechat-bottom-count" id="like-count">0</span>
+            </button>
+            <button class="wechat-bottom-btn" id="wechat-share" aria-label="转发">
+                <svg width="20" height="20" viewBox="0 0 24 24">
+                    <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/>
+                    <polyline points="16 6 12 2 8 6"/>
+                    <line x1="12" y1="2" x2="12" y2="15"/>
+                </svg>
+            </button>
+            <button class="wechat-bottom-btn" id="wechat-comment-btn" aria-label="评论">
+                <svg width="20" height="20" viewBox="0 0 24 24">
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+</div>
+
+
+
+<aside class="toc-sidebar">
+    <div class="toc-sticky">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#make-指令">make 指令</a></li>
+    <li><a href="#编译过程">编译过程</a></li>
+    <li><a href="#makefile-核心语法">Makefile 核心语法</a>
+      <ul>
+        <li><a href="#变量">变量</a></li>
+        <li><a href="#条件赋值">条件赋值</a></li>
+        <li><a href="#立即变量与延迟变量">立即变量与延迟变量</a></li>
+        <li><a href="#自动变量">自动变量</a></li>
+        <li><a href="#变量替换模式匹配">变量替换（模式匹配）</a></li>
+        <li><a href="#环境变量">环境变量</a></li>
+        <li><a href="#条件判断">条件判断</a></li>
+        <li><a href="#函数">函数</a></li>
+        <li><a href="#foreach-遍历">foreach 遍历</a></li>
+        <li><a href="#if-函数">if 函数</a></li>
+        <li><a href="#call-函数">call 函数</a></li>
+        <li><a href="#error--warning-函数">error / warning 函数</a></li>
+      </ul>
+    </li>
+    <li><a href="#完整示例">完整示例</a></li>
+    <li><a href="#参考">参考</a></li>
+  </ul>
+</nav>
+    </div>
+</aside>
+
+
+
+
+<script src="/js/wechat-actions.min.c7c69dc8277a9edbfad0acd6cbb33e539dd130246450845253b84aeedb1ba517.js"></script>
+
+
+<script src="/js/toc.min.eb478c8220c4b7ba8ec4ec3b3951b4f2816614e37b26a6bdd9fcdaa674e0bd85.js"></script>
+
+
+
+
+            <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://unpkg.com/gitalk@1.2.2/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://unpkg.com/gitalk@latest/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2023-03-25 09:18:53 \u002b0800 CST',
+        title: 'Makefile 构建自动化：从基础语法到 C\/C\u002b\u002b 编译实践',
+        clientID: '9c36634fbb845c1d1d64',
+        clientSecret: '3d57254b5ffccf04f9d973cc42b1d84ecd48fd01',
+        repo: 'zhuzaiye.github.io',
+        owner: 'zhuzaiye',
+        admin: ['zhuzaiye'],
+        body: decodeURI(location.href),
+        language: "en"
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+         </div>
+      </div>
+   </div>
+</body>
+
+</html>

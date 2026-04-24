@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on hzzhu</title>
+    <link>https://zhuzaiye.github.io/posts/</link>
+    <description>Recent content in Posts on hzzhu</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 08 Dec 2025 10:55:06 +0800</lastBuildDate>
+    <atom:link href="https://zhuzaiye.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>一行命令永久激活 Windows — Microsoft Activation Scripts 使用教程</title>
+      <link>https://zhuzaiye.github.io/posts/20251208_windows_active/</link>
+      <pubDate>Mon, 08 Dec 2025 10:55:06 +0800</pubDate>
+      <guid>https://zhuzaiye.github.io/posts/20251208_windows_active/</guid>
+      <description>由于, 我的回购公司的电脑Windows系统激活码已过期, 总是弹出激活提醒, 于是寻找到了: 开源的Windows和Office激活方法.&#xA;需要了解一些激活的知识, 如果不要直接看操作.&#xA;坚定支持通过正确途径进行激活和使用.&#xA;HWID是什么？ 基于硬件指纹的数字许可证激活方式&#xA;HWID 激活机制本身是官方正版方式（Windows 10/11 官方支持）&#xA;特点:&#xA;✔ 优点：&#xA;激活后永久有效 重装系统自动激活 不需要密钥 不需要 KMS 后台服务 ❌ 缺点 / 风险：&#xA;激活工具非官方，属于破解行为 有潜在的隐私或安全风险 微软可能在未来版本封堵（但目前极低） 激活操作 该工具也可以通过OHook激活Office&#xA;Open Powershell 使用Windows的Powershell&#xA;复制粘贴以下的命令, 可以用于激活Windows 8,10,11 irm https://get.activated.win | iex 然后根据以下的图输入对应命令符号, 用于激活对应应用 如果激活Windows输入1 如果激活Office先输入2, 在输入1 (前提是已安装office) 参考文档 需要详细的文档和操作, 或者其他方式, 请跳转到该文档: massgrave</description>
+    </item>
+    <item>
+      <title>RustDesk 自建远程桌面服务：基于 Docker 搭建中继与注册服务器</title>
+      <link>https://zhuzaiye.github.io/posts/20251111-rustdesk/</link>
+      <pubDate>Tue, 11 Nov 2025 10:55:06 +0800</pubDate>
+      <guid>https://zhuzaiye.github.io/posts/20251111-rustdesk/</guid>
+      <description>RustDesk 是一款开源的远程桌面软件，支持自建注册/中继服务器，避免依赖第三方公网服务。&#xA;首先准备一台有公网 IP 的服务器，安装 Docker 并配置国内镜像源。以下是我当前使用的 Docker 镜像源配置，总体平稳快速：&#xA;cat /etc/docker/daemon.json # { # &amp;#34;registry-mirrors&amp;#34;: [ # &amp;#34;https://docker.1panel.live/&amp;#34; # ] # } 起初我在 CentOS 7 上直接部署 RustDesk 的 hbbr/hbbs 服务，虽然能跑起来，但操作和维护都比较繁琐。后来改用官方 Docker 镜像 rustdesk/rustdesk-server 进行搭建，以下是详细步骤。&#xA;拉取镜像 docker image pull rustdesk/rustdesk-server 启动 hbbs/hbbr 服务 1. restart-rustdesk-hbbs.sh&#xA;#!/bin/bash appname=hbbs docker stop $appname &amp;amp;&amp;amp; sudo docker rm $appname docker run -d --name $appname \ --restart unless-stopped \ -p 21115:21115 \ -p 21116:21116 \ -p 21116:21116/udp \ -v $PWD/data:/data \ rustdesk/rustdesk-server hbbs -r [服务器公网IP]:21117 -k /data/id_ed25519 启动后返回如下：</description>
+    </item>
+    <item>
+      <title>费曼学习法：以教促学，将知识真正内化为己用</title>
+      <link>https://zhuzaiye.github.io/posts/20250706-feynman/</link>
+      <pubDate>Sun, 06 Jul 2025 10:55:06 +0800</pubDate>
+      <guid>https://zhuzaiye.github.io/posts/20250706-feynman/</guid>
+      <description> 当你看到一只鸟时，即便你知道它的名字，对它也仍然一无所知。 因为你只是知道了人类赋予它的名字，仅此而已。 至于它在夏天横跨整个国家并飞行上万英里时是怎样辨别方向的，没有人知道是怎么回事。&#xA;—— Richard Feynman&#xA;基于此，我们需要追问两个根本问题：&#xA;知识的本质是什么？ 我该如何获取知识？ 知识与学习 知识的本质是实践所需的逻辑来源支撑。&#xA;学习的本质是获取这种来源支撑的思维方式。&#xA;一定要区分&amp;quot;知识&amp;quot;与&amp;quot;信息&amp;quot;的差别 —— 过滤信息噪音，抓住真正的知识。&#xA;学习的思维策略 对待不同层次的知识，应采取不同的策略：&#xA;生长型知识 —— 重点学习。关乎知识源头与底层原理，值得投入大块时间。 模块化知识 —— 针对性学习。属于工具型、解决具体问题的知识，按需取用。 碎片化知识 —— 坚决不学。零散不成体系的信息，容易造成&amp;quot;学了很多却一无所获&amp;quot;的错觉。 原理性思维： 一定要搞清楚一门知识、一个概念背后的原理、结构和支柱。没有任何知识是孤立存在的。&#xA;知识的原理比知识本身更有价值 理解知识背后的东西，是最重要的思维训练过程 至少进行三遍以上的输出式反馈 必须学会简化知识体系，构建自己的知识框架 费曼学习法四步循环 第一步：选择概念（Concept） 确定要学习的知识点，将其写在纸上。不限于任何方式获取概念的内容。&#xA;还需具备辨别伪概念的能力，选择优质知识来源，不要把时间浪费在劣质材料上。&#xA;始终追问一个核心问题：对我而言最重要的事情是什么？我如何将其本质概念提取出来？&#xA;第二步：教给别人（Teach） 如果没有真实的讲授对象，可以通过录音讲给自己听，再以听众视角判断是否听得明白。&#xA;检验标准：词汇是否专业、知识结构是否完整、思维逻辑是否正确、表达方式是否合理、语言表述是否流畅。&#xA;第三步：找出不足（Review） 在输出的过程中，如果语言表达卡壳或只能强行输出，说明这个知识点还没有真正掌握，需要回过头重新学习。&#xA;第四步：简化知识（Simplify） 简化知识是为了更好地理解和记忆。只有经过自己逻辑加工的知识，才能长久留存。&#xA;方式不限于思维导图、流程图，以及任何你认为便于理解和输出的形式。&#xA;第五步：回顾与复习（Review） 定期回顾笔记，尝试用不同的方式重新解释，确保知识掌握得扎实。&#xA;无论任何知识，都至少需要两遍以上的反复。&#xA;核心理念 必须用自己的语言将所学知识讲述出来 在实践中不断总结适合自己的方式 限制输出的篇幅 —— 三两句讲清楚远胜于长篇大论 抛弃圣人言语和佛陀式表达，&amp;ldquo;我想你&amp;quot;比&amp;quot;家乡的月亮不够亮&amp;quot;更直接有力 </description>
+    </item>
+    <item>
+      <title>LLM 学习笔记：从 NLP 基础到 Transformer 架构与代码实现</title>
+      <link>https://zhuzaiye.github.io/posts/20250618_myllm/</link>
+      <pubDate>Wed, 18 Jun 2025 20:46:00 +0800</pubDate>
+      <guid>https://zhuzaiye.github.io/posts/20250618_myllm/</guid>
+      <description>自然语言处理（NLP） NLP 是研究人类语言与计算机之间交互的科学，目标是让计算机能够理解、处理和生成自然语言。&#xA;文本表示 文本表示是将自然语言转化为计算机能够理解和运算的数字形式（即向量）的技术。&#xA;基于向量构建的词向量空间模型（VSM），将文本内容转化为高维空间中的向量，实现从语言符号域到数字域的映射，使得计算机可以进行数学计算和分析。&#xA;文本表示依赖于语言模型，其核心作用是：基于给定上下文，建模语言的概率分布。&#xA;语言概率分布统计模型 N-Gram 模型：基于统计频率，当前词依赖于前 N-1 个词 RNN / LSTM 模型：通过循环结构记忆前面出现的词 Transformer：以注意力机制（Self-Attention）为核心，为每个词构建向量表示，通过注意力计算词之间的关系，可并行计算并捕获更优的上下文信息 Transformer 架构 Transformer 最初由 Vaswani 等人于 2017 年在论文 《Attention is All You Need》 中提出，是目前 NLP 与多模态大模型的核心架构。&#xA;它以全注意力机制为核心，彻底摆脱了 RNN 的时序依赖，具备更强的并行计算能力和上下文建模能力。&#xA;全注意力机制的核心设计思想：让序列中的每一个元素都可以动态地关注到整个序列中的其他元素，从而更好地理解上下文信息。&#xA;在数学上，上下文信息体现为每个元素之间关联关系的权重大小。&#xA;注意力机制（Attention） 注意力机制的作用是：给定文本序列，通过计算每个词对其他所有词的关注程度（关系权重），实现计算机对文本序列的理解。&#xA;输入的词向量表示 每个输入通过 Embedding + 位置编码（Positional Encoding） 获得向量表示：&#xA;$$X = [x_1, x_2, &amp;hellip;, x_n], \quad x_i \in \mathbb{R}^d$$&#xA;然后通过三个可学习的线性映射矩阵得到 Q、K、V：&#xA;$$Q = XW_Q,\quad K = XW_K,\quad V = XW_V$$&#xA;Q 向量（查询向量）：决定&amp;quot;我需要关注什么&amp;quot; K 向量（被查询向量）：决定&amp;quot;我是什么特征&amp;quot; V 向量（内容向量）：决定&amp;quot;我携带什么内容&amp;quot; Q、K、V 全部来自输入 X，通过三个可学习矩阵 W_Q、W_K、W_V 投影而来。</description>
+    </item>
+    <item>
+      <title>Makefile 构建自动化：从基础语法到 C/C&#43;&#43; 编译实践</title>
+      <link>https://zhuzaiye.github.io/posts/20230325-makefile/</link>
+      <pubDate>Sat, 25 Mar 2023 09:18:53 +0800</pubDate>
+      <guid>https://zhuzaiye.github.io/posts/20230325-makefile/</guid>
+      <description>Makefile 是组织编译的命令脚本文件，通过描述目标与依赖之间的关系树，自动化构建生成可执行文件。&#xA;make 根据 Makefile 中定义的规则关系树，按依赖顺序构建出可执行程序。&#xA;# 目标: 依赖 # 命令 a.out: demo.c gcc -o $@ $&amp;lt; make 指令 Windows 环境&#xA;运行 make -v 可能出现：&#xA;&amp;#39;make&amp;#39; 不是内部命令或外部命令, 也不是可执行的程序, 或批处理文件. # 系统在环境变量中找不到 make 命令的执行文件 解决方法：&#xA;找到 mingw 安装目录，进入 bin 目录，找到 mingw32-make.exe 将 mingw32-make.exe 重命名为 make.exe 编译过程 Makefile 核心语法 变量 使用 $(val) 获取变量 val 的值。&#xA;.PHONY: clean CC=g++ BIN=exec OBJS=AddTwoSum.o utils.o $(BIN): $(OBJS) @echo &amp;#34;start compiling...&amp;#34; @echo $(CC) $(CC) -o $(BIN) $(OBJS) @echo &amp;#34;compile done&amp;#34; AddTwoSum.</description>
+    </item>
+    <item>
+      <title>Word 文档（Docx）合并、转 Html5 并内嵌 Base64 图片的 Python GUI 工具</title>
+      <link>https://zhuzaiye.github.io/posts/20220703_docxtohtml/</link>
+      <pubDate>Sun, 03 Jul 2022 23:21:04 +0800</pubDate>
+      <guid>https://zhuzaiye.github.io/posts/20220703_docxtohtml/</guid>
+      <description>工作中遇到一个需求：将多份 Office Word 文档按指定顺序合并，再统一转为 HTML5 格式。&#xA;具体需要解决以下三个问题：&#xA;按照给定的 Excel 列表，将多个 Word 文档按顺序合并 合并后保留原文档的字体和样式，并将文档中的图片转为 Base64 内嵌 将整套流程封装为简单的 GUI 程序，方便资源组直接使用 工具清单 Tool 说明 Link python=3.7 基础语言 https://docs.python.org/3.7/ base64 图片 Base64 转码 https://docs.python.org/3.7/library/base64.html?highlight=base64#module-base64 tkinter Python GUI 框架 https://docs.python.org/3.7/library/tkinter.html?highlight=tkinter#module-tkinter docx=0.2.4 加载 Word 文档 https://pypi.org/project/docx/ docxcompose=1.3.4 合并操作 Word 文档 https://pypi.org/project/docxcompose/ pywin32=304 调用 Office 宏的 Python 包 https://pypi.org/project/pywin32/ lxml=4.9.0 解析 HTML https://pypi.org/project/lxml/ #! /usr/bin/env python3 # -*- coding: utf-8 -*- # 将 docx 转化为 html import os import base64 import shutil import tkinter as tk from tkinter import filedialog from lxml import etree from win32com import client as wc from docx import Document from docxcompose.</description>
+    </item>
+  </channel>
+</rss>

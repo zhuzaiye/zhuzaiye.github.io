@@ -1,0 +1,276 @@
+
+<!DOCTYPE html>
+<html lang="en" class="light">
+
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="base" content="//localhost:1313/">
+
+    
+    
+
+    
+    
+        <title>State Space Models</title>
+        
+            <meta property="og:title" content="State Space Models" />
+        
+    
+
+    
+        
+            <meta property="og:description" content="hzzhu&#39;s trace." />
+        
+    
+
+    
+        
+            <meta name="description" content="hzzhu&#39;s trace." />
+        
+    
+
+    
+    
+
+    
+    
+
+    
+    
+
+    
+    
+        
+        <script src="/js/main.min.8c23cd573774b93805e59c27ceebd6ae929194cb1d3f05c73a0b4d2dececa6a0.js" defer></script>
+    
+
+    
+    
+        
+            <script>
+            MathJax = {
+              tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']]
+              }
+            };
+            </script>
+        
+        <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+
+    <link rel="alternate" type="application/atom+xml" title="hzzhu" href="/index.xml">
+
+    
+    
+    
+    
+
+    
+        <script>
+        (function () {
+            var mode = localStorage.getItem("theme-storage");
+            if (!mode) {
+                mode = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+                localStorage.setItem("theme-storage", mode);
+            }
+            document.documentElement.classList.remove("dark", "light");
+            document.documentElement.classList.add(mode === "dark" ? "dark" : "light");
+        })();
+        </script>
+    
+
+    
+        <link rel="stylesheet" href="/sass/theme/light.min.fcb2ce4540bb641af0a40e6b423e454398070f3dd9b2fed7dd7052f3d44d5a23.css" />
+        <link id="darkModeStyle" rel="stylesheet" href="/sass/theme/dark.min.93b31291e4f3f9c4d168ae61c13d5353c1f5efc475494bc281485fe6855e1024.css" />
+    
+
+    
+
+    
+    
+        
+        <link rel="stylesheet" href="/sass/main.min.7a2a59830d7c98448f41d561e33375ebb095295b219fd8fc91c680a28042f0fc.css" />
+    
+
+    
+    
+
+    
+    
+</head>
+
+
+<body>
+   <div class="page-wrapper">
+      <div class="page-container">
+         <div class="main-content">
+            
+            <header>
+    <div class="main">
+        
+        <a href="//localhost:1313/">hzzhu</a>
+        
+
+        <div class="socials">
+            
+            <a rel="me" href="https://github.com/zhuzaiye/" class="social">
+                <img alt="github" src="/icons/social/github.svg">
+            </a>
+            
+            <a rel="me" href="mailto:hzzhu92@gmail.com" class="social">
+                <img alt="email" src="/icons/social/email.svg">
+            </a>
+            
+            <a rel="me" href="https://twitter.com/pigzhu11" class="social">
+                <img alt="twitter" src="/icons/social/twitter.svg">
+            </a>
+            
+            <a rel="me" href="/index.xml" class="social">
+                <img alt="rss" src="/icons/social/rss.svg">
+            </a>
+            
+        </div>
+    </div>
+
+    <nav>
+        
+        <a href="/posts">/posts</a>
+        
+        <a href="/projects">/projects</a>
+        
+        <a href="/about">/about</a>
+        
+        |
+        
+        <a id="dark-mode-toggle" onclick="toggleTheme(); return false;" href="#">
+            <img src="/icons/sun.svg" id="sun-icon" style="filter: invert(1)" alt="Light" />
+            <img src="/icons/moon.svg" id="moon-icon" alt="Dark" />
+        </a>
+        
+    </nav>
+</header>
+
+            
+            
+
+
+
+
+<article class="post-single wechat-post page-type-posts">
+    
+    
+
+    
+    <header class="post-header wechat-header">
+        <h1 class="post-title wechat-title">State Space Models</h1>
+        
+        <div class="post-meta wechat-meta">
+            
+            <time class="wechat-date" datetime="2025-12-01T08:19:31&#43;08:00">
+                December 1, 2025
+            </time>
+            
+            <span class="wechat-meta-separator">|</span>
+            <span class="wechat-author">hzzhu</span>
+        </div>
+        
+    </header>
+
+    
+    <div class="post-content">
+        <h2 id="参考链接">参考链接</h2>
+<ul>
+<li><a href="https://huggingface.co/blog/lbourdois/get-on-the-ssm-train">get-on-the-ssm-train</a></li>
+</ul>
+
+    </div>
+
+</article>
+
+
+
+<div class="wechat-bottom-bar">
+    <div class="wechat-bottom-inner">
+        <div class="wechat-bottom-left">
+            
+            <div class="wechat-bottom-avatar">
+                <img src="/imgs/me_gibuli.png" alt="avatar">
+            </div>
+            
+            <span class="wechat-bottom-name">hzzhu</span>
+        </div>
+        <div class="wechat-bottom-actions">
+            <button class="wechat-bottom-btn" id="wechat-like" aria-label="赞">
+                <svg width="20" height="20" viewBox="0 0 24 24">
+                    <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3H14z"/>
+                    <path d="M7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/>
+                </svg>
+                <span class="wechat-bottom-count" id="like-count">0</span>
+            </button>
+            <button class="wechat-bottom-btn" id="wechat-share" aria-label="转发">
+                <svg width="20" height="20" viewBox="0 0 24 24">
+                    <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/>
+                    <polyline points="16 6 12 2 8 6"/>
+                    <line x1="12" y1="2" x2="12" y2="15"/>
+                </svg>
+            </button>
+            <button class="wechat-bottom-btn" id="wechat-comment-btn" aria-label="评论">
+                <svg width="20" height="20" viewBox="0 0 24 24">
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+</div>
+
+
+
+<aside class="toc-sidebar">
+    <div class="toc-sticky">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#参考链接">参考链接</a></li>
+  </ul>
+</nav>
+    </div>
+</aside>
+
+
+
+
+<script src="/js/wechat-actions.min.c7c69dc8277a9edbfad0acd6cbb33e539dd130246450845253b84aeedb1ba517.js"></script>
+
+
+<script src="/js/toc.min.eb478c8220c4b7ba8ec4ec3b3951b4f2816614e37b26a6bdd9fcdaa674e0bd85.js"></script>
+
+
+
+
+            <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://unpkg.com/gitalk@1.2.2/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://unpkg.com/gitalk@latest/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2025-12-01 08:19:31 \u002b0800 CST',
+        title: 'State Space Models',
+        clientID: '9c36634fbb845c1d1d64',
+        clientSecret: '3d57254b5ffccf04f9d973cc42b1d84ecd48fd01',
+        repo: 'zhuzaiye.github.io',
+        owner: 'zhuzaiye',
+        admin: ['zhuzaiye'],
+        body: decodeURI(location.href),
+        language: "en"
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+         </div>
+      </div>
+   </div>
+</body>
+
+</html>
