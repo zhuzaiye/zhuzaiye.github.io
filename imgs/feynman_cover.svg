@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" font-family="Arial, sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f0c29"/>
+      <stop offset="50%" style="stop-color:#1a1a3e"/>
+      <stop offset="100%" style="stop-color:#24243e"/>
+    </linearGradient>
+    <linearGradient id="step1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f72585"/>
+      <stop offset="100%" style="stop-color:#b5179e"/>
+    </linearGradient>
+    <linearGradient id="step2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#7209b7"/>
+      <stop offset="100%" style="stop-color:#560bad"/>
+    </linearGradient>
+    <linearGradient id="step3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4361ee"/>
+      <stop offset="100%" style="stop-color:#3a0ca3"/>
+    </linearGradient>
+    <linearGradient id="step4" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4cc9f0"/>
+      <stop offset="100%" style="stop-color:#4895ef"/>
+    </linearGradient>
+    <filter id="shadow">
+      <feDropShadow dx="1" dy="2" stdDeviation="3" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="400" fill="url(#bg)"/>
+
+  <!-- Subtle radial glow center -->
+  <circle cx="400" cy="180" r="200" fill="white" opacity="0.02"/>
+
+  <!-- Circular flow arrows connecting the 4 steps -->
+  <g opacity="0.12" stroke="white" stroke-width="1.5" fill="none">
+    <!-- Outer ring -->
+    <circle cx="400" cy="210" r="145"/>
+    <!-- Arrow arcs -->
+    <path d="M 350 70 A 145 145 0 0 1 450 70" stroke-dasharray="6,4"/>
+    <path d="M 545 210 A 145 145 0 0 1 450 350" stroke-dasharray="6,4"/>
+    <path d="M 255 350 A 145 145 0 0 1 255 70" stroke-dasharray="6,4"/>
+  </g>
+
+  <!-- Step 1: Concept (top) -->
+  <g transform="translate(400, 82)" filter="url(#shadow)">
+    <rect x="-48" y="-18" width="96" height="36" rx="18" fill="url(#step1)"/>
+    <text x="0" y="6" text-anchor="middle" font-size="13" font-weight="bold" fill="white">Concept</text>
+  </g>
+  <text x="400" y="55" text-anchor="middle" font-size="10" fill="#f72585" opacity="0.7">选择概念</text>
+
+  <!-- Step 2: Teach (right) -->
+  <g transform="translate(540, 210)" filter="url(#shadow)">
+    <rect x="-44" y="-18" width="88" height="36" rx="18" fill="url(#step2)"/>
+    <text x="0" y="6" text-anchor="middle" font-size="13" font-weight="bold" fill="white">Teach</text>
+  </g>
+  <text x="540" y="245" text-anchor="middle" font-size="10" fill="#7209b7" opacity="0.7">教给别人</text>
+
+  <!-- Step 3: Review (bottom) -->
+  <g transform="translate(400, 338)" filter="url(#shadow)">
+    <rect x="-48" y="-18" width="96" height="36" rx="18" fill="url(#step3)"/>
+    <text x="0" y="6" text-anchor="middle" font-size="13" font-weight="bold" fill="white">Review</text>
+  </g>
+  <text x="400" y="370" text-anchor="middle" font-size="10" fill="#4361ee" opacity="0.7">找出不足 · 回顾复习</text>
+
+  <!-- Step 4: Simplify (left) -->
+  <g transform="translate(260, 210)" filter="url(#shadow)">
+    <rect x="-48" y="-18" width="96" height="36" rx="18" fill="url(#step4)"/>
+    <text x="0" y="6" text-anchor="middle" font-size="13" font-weight="bold" fill="white">Simplify</text>
+  </g>
+  <text x="260" y="245" text-anchor="middle" font-size="10" fill="#4cc9f0" opacity="0.7">简化知识</text>
+
+  <!-- Center: Lightbulb / core idea -->
+  <g transform="translate(400, 210)" filter="url(#shadow)">
+    <circle cx="0" cy="0" r="32" fill="none" stroke="white" stroke-width="1.5" opacity="0.3"/>
+    <circle cx="0" cy="0" r="24" fill="white" opacity="0.06"/>
+    <!-- Simplified lightbulb icon -->
+    <text x="0" y="6" text-anchor="middle" font-size="18" fill="white" opacity="0.5">&#x1F4A1;</text>
+  </g>
+
+  <!-- Cycle arrows between center and each step -->
+  <g stroke="white" stroke-width="1" opacity="0.08">
+    <line x1="400" y1="100" x2="400" y2="178"/>
+    <line x1="400" y1="242" x2="400" y2="320"/>
+    <line x1="432" y1="210" x2="508" y2="210"/>
+    <line x1="368" y1="210" x2="292" y2="210"/>
+  </g>
+
+  <!-- Title -->
+  <text x="400" y="40" text-anchor="middle" font-size="14" fill="white" opacity="0.2" letter-spacing="12">费 曼 学 习 法</text>
+
+  <!-- Bottom bar: Feynman quote essence -->
+  <rect x="0" y="395" width="800" height="5" fill="url(#step1)" opacity="0.15"/>
+</svg>
