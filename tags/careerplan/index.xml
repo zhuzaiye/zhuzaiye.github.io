@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>CareerPlan on hzzhu</title>
+		<link>http://localhost:1313/tags/careerplan/</link>
+		<description>Recent content in CareerPlan on hzzhu</description>
+		<generator>Hugo</generator>
+		<language>en-US</language>
+		
+		
+		
+		
+			<lastBuildDate>Sun, 01 Nov 2026 18:04:26 +0800</lastBuildDate>
+		
+			<atom:link href="http://localhost:1313/tags/careerplan/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>从“玩 Prompt 的过客”到“有壁垒的造局人”—AI时代职业跃迁与创业落地的深度复盘指南</title>
+				<link>http://localhost:1313/posts/20261101_ai_career_paln/</link>
+				<pubDate>Sun, 01 Nov 2026 18:04:26 +0800</pubDate>
+				<guid>http://localhost:1313/posts/20261101_ai_career_paln/</guid>
+				<description>&lt;p&gt;你有没有发现，AI 圈正在经历一场静悄悄的“去虚向实”？&lt;/p&gt;&#xA;&lt;p&gt;一两年前，社交媒体上满天飞的是“精选 100 个必用提示词”、“用 ChatGPT 一分钟生成网站”；但到了今天，通用大模型的能力越来越强、调用成本断崖式下跌，那些靠浅层套壳、倒卖提示词的人却集体哑火了。&lt;/p&gt;&#xA;&lt;p&gt;底座模型越强，通用的浅层中间层死得越快。&lt;/p&gt;&#xA;&lt;p&gt;如果大模型本身正在变成像水和电一样的通用基础设施，那么&lt;strong&gt;真正能在这个时代赚到钱、建立长期职业壁垒的人，到底在做什么？&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;答案其实非常清晰：他们不再跟大模型“正面硬刚”，而是找到了大模型触碰不到的三个核心生态位。&lt;/p&gt;&#xA;&lt;h2 id=&#34;ai-时代的商业新三角三种真正有壁垒的生态位&#34;&gt;AI 时代的“商业新三角”：三种真正有壁垒的生态位&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;&#xA;            ▲ 行业深度与业务理解力 (Domain Knowledge)&#xA;                            │&#xA;    [ 垂直 AI 创业者 ]              [ 独家数据把关人 ]&#xA;    • 模式：解决行业极深痛点          • 模式：打造数据飞轮&#xA;    • 壁垒：懂潜规则与交付           • 壁垒：私有资产不可替代&#xA;    ────────────────────────┼──────────────────────────────► 资产排他性&#xA;    [ AI 工作流专家 ]               [ 浅层套壳应用 (高危区) ]&#xA;    • 模式：积木式交付、降本提效     • 风险：极易被大模型迭代吞噬&#xA;    • 壁垒：工程连接与业务拆解      • 状态：无技术深度，无私有资产&#xA;                            │&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;1-做-ai-工作流的人企业需要的是稳定可靠自动运转的流程&#34;&gt;1. 做 AI 工作流的人：企业需要的是稳定可靠自动运转的流程&lt;/h3&gt;&#xA;&lt;p&gt;但在企业端，&lt;strong&gt;只要还需要人工来回复制粘贴、人肉盯进度，这种 AI 就没有任何严肃的生产力意义。&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;同样只要还存在这样&lt;strong&gt;高耗人工, 以及不以解放人和生产力的流程&lt;/strong&gt; 都应该可以考虑 AI 的流程介入, AI不应该是挤掉人类工作, 而是替代&#xA;根本就不需要耗人的流程.&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;我小学还存在“割麦假”, 但是随着联合收割机的普及, 我已经很久没有割过麦子了, 但是依然需要我爸爸妈妈管理农田和决定收割.&#xA;我的意思: AI 是工具, 就像联合收割机, 需要找到合适的麦田, 解决最累人的流程.&lt;/p&gt;&#xA;&lt;/blockquote&gt;</description>
+			</item>
+	</channel>
+</rss>
