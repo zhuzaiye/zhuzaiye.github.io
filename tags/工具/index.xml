@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>工具 on hzzhu</title>
+		<link>https://zhuzaiye.github.io/tags/%E5%B7%A5%E5%85%B7/</link>
+		<description>Recent content in 工具 on hzzhu</description>
+		<generator>Hugo</generator>
+		<language>en-US</language>
+		
+		
+		
+		
+			<lastBuildDate>Mon, 08 Dec 2025 10:55:06 +0800</lastBuildDate>
+		
+			<atom:link href="https://zhuzaiye.github.io/tags/%E5%B7%A5%E5%85%B7/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>一行命令永久激活 Windows — Microsoft Activation Scripts 使用教程</title>
+				<link>https://zhuzaiye.github.io/posts/20251208_windows_active/</link>
+				<pubDate>Mon, 08 Dec 2025 10:55:06 +0800</pubDate>
+				<guid>https://zhuzaiye.github.io/posts/20251208_windows_active/</guid>
+				<description>&lt;p&gt;由于, 我的回购公司的电脑&lt;code&gt;Windows&lt;/code&gt;系统激活码已过期, 总是弹出激活提醒, 于是寻找到了: 开源的Windows和Office激活方法.&lt;br&gt;&#xA;需要了解一些激活的知识, 如果不要直接看操作.&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;坚定支持通过正确途径进行激活和使用.&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;h2 id=&#34;hwid是什么&#34;&gt;HWID是什么？&lt;/h2&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;基于硬件指纹的数字许可证激活方式&lt;br&gt;&#xA;HWID 激活机制本身是官方正版方式（Windows 10/11 官方支持）&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;p&gt;特点:&lt;/p&gt;&#xA;&lt;p&gt;✔ 优点：&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;激活后永久有效&lt;/li&gt;&#xA;&lt;li&gt;重装系统自动激活&lt;/li&gt;&#xA;&lt;li&gt;不需要密钥&lt;/li&gt;&#xA;&lt;li&gt;不需要 KMS 后台服务&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;❌ 缺点 / 风险：&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;激活工具非官方，属于破解行为&lt;/li&gt;&#xA;&lt;li&gt;有潜在的隐私或安全风险&lt;/li&gt;&#xA;&lt;li&gt;微软可能在未来版本封堵（但目前极低）&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;激活操作&#34;&gt;激活操作&lt;/h2&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;该工具也可以通过&lt;code&gt;OHook&lt;/code&gt;激活&lt;code&gt;Office&lt;/code&gt;&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;Open Powershell&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;p&gt;使用Windows的Powershell&lt;/p&gt;&#xA;&lt;ol start=&#34;2&#34;&gt;&#xA;&lt;li&gt;复制粘贴以下的命令, 可以用于激活Windows 8,10,11&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;irm https://get.activated.win &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; iex&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol start=&#34;3&#34;&gt;&#xA;&lt;li&gt;然后根据以下的图输入对应命令符号, 用于激活对应应用&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;p&gt;&lt;img src=&#34;https://zhuzaiye.github.io/imgs/windows_actived_01.png&#34; alt=&#34;windows_actived_01&#34;&gt;&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;如果激活&lt;code&gt;Windows&lt;/code&gt;输入&lt;code&gt;1&lt;/code&gt;&lt;/li&gt;&#xA;&lt;li&gt;如果激活&lt;code&gt;Office&lt;/code&gt;先输入&lt;code&gt;2&lt;/code&gt;, 在输入&lt;code&gt;1&lt;/code&gt; (前提是已安装office)&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;参考文档&#34;&gt;参考文档&lt;/h2&gt;&#xA;&lt;p&gt;需要详细的文档和操作, 或者其他方式, 请跳转到该文档: &lt;a href=&#34;https://massgrave.dev/&#34;&gt;massgrave&lt;/a&gt;&lt;/p&gt;</description>
+			</item>
+	</channel>
+</rss>

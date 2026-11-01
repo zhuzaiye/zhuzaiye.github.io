@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html lang="en" class="light">
+<html lang="en" class="light" data-theme-mode="toggle">
 
 
 <head>
@@ -44,7 +44,12 @@
     
     
         
-        <script src="/js/main.min.8c23cd573774b93805e59c27ceebd6ae929194cb1d3f05c73a0b4d2dececa6a0.js" defer></script>
+        <script src="/js/main.min.177d4db3721926a4fd0ef85fc822e8f5b4c06565db4d94bcffe9a672e5db78ca.js" defer></script>
+    
+
+    
+    
+        <script src="/js/codeblock.min.bac475ec0cede9f600a9b4bcc710bf6713447d94c5c5350080331e1709b952cb.js" defer></script>
     
 
     
@@ -61,7 +66,7 @@
         <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     
 
-    <link rel="alternate" type="application/atom+xml" title="hzzhu" href="/index.xml">
+    <link rel="alternate" type="application/rss+xml" title="hzzhu" href="/index.xml">
 
         
     
@@ -83,8 +88,8 @@
     
 
     
-        <link rel="stylesheet" href="/css/theme/light.min.fcb2ce4540bb641af0a40e6b423e454398070f3dd9b2fed7dd7052f3d44d5a23.css" />
-        <link id="darkModeStyle" rel="stylesheet" href="/css/theme/dark.min.93b31291e4f3f9c4d168ae61c13d5353c1f5efc475494bc281485fe6855e1024.css" />
+        <link rel="stylesheet" href="/css/theme/light.min.6c81cab02dedf3ddb19d53a891984b2f063e1afa5adc47f3e070c95c59f7ccc7.css" />
+        <link id="darkModeStyle" rel="stylesheet" href="/css/theme/dark.min.9a2ec3b06dbf199af14032d37f6647ff6b39c2a37cb05482754143452f37d7aa.css" />
     
 
     
@@ -119,8 +124,12 @@
     
         
     
+        
     
-    <link rel="stylesheet" href="/css/bundle.min.6e824525509df82699f1174b235e2e2e702b04439652af052bf124469df81e1b.css" />
+        
+    
+    
+    <link rel="stylesheet" href="/css/bundle.min.bbbb96adbf63a75ebe4c58bcd73542972a9530876fb65601eb7a496ecd9fe4c5.css" />
 
     
     
@@ -132,7 +141,7 @@
 </head>
 
 
-<body>
+<body class="about-page">
    <div class="page-wrapper">
       <div class="page-container">
          <div class="main-content">
@@ -140,7 +149,10 @@
             <header>
     <div class="main">
         
-        <a href="https://zhuzaiye.github.io/">hzzhu</a>
+        
+        <a href="/posts/" class="home-link home-avatar" aria-label="文章列表">
+            <img src="/imgs/me_gibuli.png" alt="" width="26" height="26">
+        </a>
         
 
         <div class="socials">
@@ -154,7 +166,7 @@
             </a>
             
             <a rel="me" href="https://twitter.com/pigzhu11" class="social">
-                <img alt="twitter" src="/icons/social/twitter.svg">
+                <img alt="X" src="/icons/social/x.svg">
             </a>
             
             <a rel="me" href="/index.xml" class="social">
@@ -166,18 +178,18 @@
 
     <nav>
         
-        <a href="/posts">/posts</a>
+        <a href="/posts">Articles</a>
         
-        <a href="/projects">/projects</a>
+        <a href="/projects">Projects</a>
         
-        <a href="/about">/about</a>
+        <a href="/about">About</a>
         
         |
         
-        <a id="dark-mode-toggle" onclick="toggleTheme(); return false;" href="#">
+        <button type="button" id="dark-mode-toggle" onclick="toggleTheme()" aria-label="切换深浅主题">
             <img src="/icons/sun.svg" id="sun-icon" style="filter: invert(1)" alt="Light" />
             <img src="/icons/moon.svg" id="moon-icon" alt="Dark" />
-        </a>
+        </button>
         
     </nav>
 </header>
@@ -193,41 +205,36 @@
     
 
     
-    <header class="post-header">
-        <h1 class="post-title">About</h1>
-        
-        <div class="post-meta">
-            
-            
-            
-        </div>
-        
-    </header>
+    
+
+    
 
     
     <div class="post-content">
         <div class="about-intro">
   <div class="about-intro-img">
-    <img src="/imgs/me_gibuli.png" alt="Hanzi Zhu" />
+    <img src="/imgs/me_gibuli.png" alt="Hanzi Zhu" width="202" height="305" />
   </div>
-  <div>
-    <p>Hi, I'm Hanzi Zhu (朱汉子), also known as hzzhu.</p>
-    <p>I am a backend and infrastructure engineer who likes small, reliable systems and clear operational paths. Most of my work sits around service architecture, DevOps, containers, databases, and the practical details that keep software running well.</p>
+  <div class="about-intro-text">
+    <h1 class="about-name">Hanzi Zhu <span lang="zh">/ 朱汉子</span></h1>
+    <p class="about-role">Backend &amp; Infrastructure Engineer · AI Explorer</p>
+    <p>I work on backend services, deployment, and the infrastructure that keeps them running.</p>
+    <p>I also design and develop applied AI projects, and research AI model training and fine-tuning.</p>
   </div>
 </div>
-<h2 id="focus">Focus</h2>
+<h2 id="work--tools">Work &amp; tools</h2>
 <ul>
-<li>Backend services and service-oriented architecture</li>
-<li>DevOps workflows, deployment, observability, and automation</li>
-<li>Containerized environments with Docker and Kubernetes</li>
-<li>Reliable data systems with MySQL and PostgreSQL</li>
-<li>Cloud infrastructure, especially common AWS building blocks</li>
+<li><strong>Backend:</strong> Python, Go, C, Rust and shell scripts for services and automation.</li>
+<li><strong>Operations:</strong> Linux, Docker, Kubernetes, and AWS; deployment, monitoring, and troubleshooting.</li>
+<li><strong>Data:</strong> MySQL and PostgreSQL.</li>
+<li><strong>LLM:</strong> Applied AI project design and development, LLM training and fine-tuning, and agent orchestration.</li>
 </ul>
-<h2 id="toolbox">Toolbox</h2>
-<p>I work most often with Python, Go, C, shell scripts, Linux, Docker, Kubernetes, MySQL, PostgreSQL, and AWS. I am also learning Rust more seriously, mostly because I enjoy its bias toward explicitness and durable software.</p>
 <h2 id="background">Background</h2>
-<p>I hold a Master&rsquo;s degree in Mechanical Design from Hefei University of Technology, where my research focused on robot dynamics and analytical modeling. That background still shapes how I think about engineering: model the system, understand the constraints, then simplify the moving parts.</p>
-<h2 id="elsewhere">Elsewhere</h2>
+<ul>
+<li>Master&rsquo;s degree in Mechanical Design from Hefei University of Technology.</li>
+<li>Research focused on [Robot Dynamics &amp; Analytical Modeling].</li>
+</ul>
+<h2 id="contact">Contact</h2>
 <ul>
 <li>GitHub: <a href="https://github.com/zhuzaiye/">zhuzaiye</a></li>
 <li>Email: <a href="mailto:hzzhu92@gmail.com">hzzhu92@gmail.com</a></li>
@@ -236,8 +243,6 @@
     </div>
 
 </article>
-
-
 
 
 

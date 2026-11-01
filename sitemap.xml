@@ -1,4 +1,4 @@
-<?xml-stylesheet type="text/xsl" href="https://zhuzaiye.github.io/sitemap.xsl"?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
@@ -20,8 +20,33 @@
   </url>
   
   <url>
+    <loc>https://zhuzaiye.github.io/tags/</loc>
+    <lastmod>2025-12-08T10:55:06+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://zhuzaiye.github.io/tags/windows/</loc>
+    <lastmod>2025-12-08T10:55:06+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://zhuzaiye.github.io/posts/20251208_windows_active/</loc>
     <lastmod>2025-12-08T10:55:06+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://zhuzaiye.github.io/tags/%E5%B7%A5%E5%85%B7/</loc>
+    <lastmod>2025-12-08T10:55:06+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://zhuzaiye.github.io/tags/docker/</loc>
+    <lastmod>2025-11-11T10:55:06+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://zhuzaiye.github.io/tags/rustdesk/</loc>
+    <lastmod>2025-11-11T10:55:06+08:00</lastmod>
   </url>
   
   <url>
@@ -30,8 +55,28 @@
   </url>
   
   <url>
+    <loc>https://zhuzaiye.github.io/tags/%E8%87%AA%E6%89%98%E7%AE%A1/</loc>
+    <lastmod>2025-11-11T10:55:06+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://zhuzaiye.github.io/tags/%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95/</loc>
+    <lastmod>2025-07-06T10:55:06+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://zhuzaiye.github.io/tags/%E7%9F%A5%E8%AF%86%E7%AE%A1%E7%90%86/</loc>
+    <lastmod>2025-07-06T10:55:06+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://zhuzaiye.github.io/posts/20250706-feynman/</loc>
     <lastmod>2025-07-06T10:55:06+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://zhuzaiye.github.io/tags/llm/</loc>
+    <lastmod>2025-06-18T20:46:00+08:00</lastmod>
   </url>
   
   <url>
@@ -40,12 +85,52 @@
   </url>
   
   <url>
+    <loc>https://zhuzaiye.github.io/tags/pytorch/</loc>
+    <lastmod>2025-06-18T20:46:00+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://zhuzaiye.github.io/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</loc>
+    <lastmod>2025-06-18T20:46:00+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://zhuzaiye.github.io/tags/c/c&#43;&#43;/</loc>
+    <lastmod>2023-03-25T09:18:53+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://zhuzaiye.github.io/tags/makefile/</loc>
+    <lastmod>2023-03-25T09:18:53+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://zhuzaiye.github.io/posts/20230325-makefile/</loc>
     <lastmod>2023-03-25T09:18:53+08:00</lastmod>
   </url>
   
   <url>
+    <loc>https://zhuzaiye.github.io/tags/%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/</loc>
+    <lastmod>2023-03-25T09:18:53+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://zhuzaiye.github.io/tags/python/</loc>
+    <lastmod>2022-07-03T23:21:04+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://zhuzaiye.github.io/tags/word/</loc>
+    <lastmod>2022-07-03T23:21:04+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://zhuzaiye.github.io/posts/20220703_docxtohtml/</loc>
+    <lastmod>2022-07-03T23:21:04+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://zhuzaiye.github.io/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/</loc>
     <lastmod>2022-07-03T23:21:04+08:00</lastmod>
   </url>
   
@@ -59,10 +144,6 @@
   
   <url>
     <loc>https://zhuzaiye.github.io/projects/</loc>
-  </url>
-  
-  <url>
-    <loc>https://zhuzaiye.github.io/tags/</loc>
   </url>
   
 </urlset>

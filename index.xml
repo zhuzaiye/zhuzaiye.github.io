@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 	<channel>
-		<title>Index on hzzhu</title>
+		<title>hzzhu</title>
 		<link>https://zhuzaiye.github.io/</link>
-		<description>Recent content in Index on hzzhu</description>
+		<description>Recent content on hzzhu</description>
 		<generator>Hugo</generator>
 		<language>en-US</language>
 		
@@ -74,7 +74,7 @@
 				<link>https://zhuzaiye.github.io/about/</link>
 				<pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
 				<guid>https://zhuzaiye.github.io/about/</guid>
-				<description>&lt;div class=&#34;about-intro&#34;&gt;&#xA;  &lt;div class=&#34;about-intro-img&#34;&gt;&#xA;    &lt;img src=&#34;https://zhuzaiye.github.io/imgs/me_gibuli.png&#34; alt=&#34;Hanzi Zhu&#34; /&gt;&#xA;  &lt;/div&gt;&#xA;  &lt;div&gt;&#xA;    &lt;p&gt;Hi, I&#39;m Hanzi Zhu (朱汉子), also known as hzzhu.&lt;/p&gt;&#xA;    &lt;p&gt;I am a backend and infrastructure engineer who likes small, reliable systems and clear operational paths. Most of my work sits around service architecture, DevOps, containers, databases, and the practical details that keep software running well.&lt;/p&gt;&#xA;  &lt;/div&gt;&#xA;&lt;/div&gt;&#xA;&lt;h2 id=&#34;focus&#34;&gt;Focus&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Backend services and service-oriented architecture&lt;/li&gt;&#xA;&lt;li&gt;DevOps workflows, deployment, observability, and automation&lt;/li&gt;&#xA;&lt;li&gt;Containerized environments with Docker and Kubernetes&lt;/li&gt;&#xA;&lt;li&gt;Reliable data systems with MySQL and PostgreSQL&lt;/li&gt;&#xA;&lt;li&gt;Cloud infrastructure, especially common AWS building blocks&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;toolbox&#34;&gt;Toolbox&lt;/h2&gt;&#xA;&lt;p&gt;I work most often with Python, Go, C, shell scripts, Linux, Docker, Kubernetes, MySQL, PostgreSQL, and AWS. I am also learning Rust more seriously, mostly because I enjoy its bias toward explicitness and durable software.&lt;/p&gt;</description>
+				<description>&lt;div class=&#34;about-intro&#34;&gt;&#xA;  &lt;div class=&#34;about-intro-img&#34;&gt;&#xA;    &lt;img src=&#34;https://zhuzaiye.github.io/imgs/me_gibuli.png&#34; alt=&#34;Hanzi Zhu&#34; width=&#34;202&#34; height=&#34;305&#34; /&gt;&#xA;  &lt;/div&gt;&#xA;  &lt;div class=&#34;about-intro-text&#34;&gt;&#xA;    &lt;h1 class=&#34;about-name&#34;&gt;Hanzi Zhu &lt;span lang=&#34;zh&#34;&gt;/ 朱汉子&lt;/span&gt;&lt;/h1&gt;&#xA;    &lt;p class=&#34;about-role&#34;&gt;Backend &amp;amp; Infrastructure Engineer · AI Explorer&lt;/p&gt;&#xA;    &lt;p&gt;I work on backend services, deployment, and the infrastructure that keeps them running.&lt;/p&gt;&#xA;    &lt;p&gt;I also design and develop applied AI projects, and research AI model training and fine-tuning.&lt;/p&gt;&#xA;  &lt;/div&gt;&#xA;&lt;/div&gt;&#xA;&lt;h2 id=&#34;work--tools&#34;&gt;Work &amp;amp; tools&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;strong&gt;Backend:&lt;/strong&gt; Python, Go, C, Rust and shell scripts for services and automation.&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;Operations:&lt;/strong&gt; Linux, Docker, Kubernetes, and AWS; deployment, monitoring, and troubleshooting.&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;Data:&lt;/strong&gt; MySQL and PostgreSQL.&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;LLM:&lt;/strong&gt; Applied AI project design and development, LLM training and fine-tuning, and agent orchestration.&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;background&#34;&gt;Background&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Master&amp;rsquo;s degree in Mechanical Design from Hefei University of Technology.&lt;/li&gt;&#xA;&lt;li&gt;Research focused on [Robot Dynamics &amp;amp; Analytical Modeling].&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;contact&#34;&gt;Contact&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;GitHub: &lt;a href=&#34;https://github.com/zhuzaiye/&#34;&gt;zhuzaiye&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;Email: &lt;a href=&#34;mailto:hzzhu92@gmail.com&#34;&gt;hzzhu92@gmail.com&lt;/a&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;</description>
 			</item>
 	</channel>
 </rss>

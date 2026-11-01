@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html lang="en" class="light">
+<html lang="en" class="light" data-theme-mode="toggle">
 
 
 <head>
@@ -44,7 +44,12 @@
     
     
         
-        <script src="/js/main.min.8c23cd573774b93805e59c27ceebd6ae929194cb1d3f05c73a0b4d2dececa6a0.js" defer></script>
+        <script src="/js/main.min.177d4db3721926a4fd0ef85fc822e8f5b4c06565db4d94bcffe9a672e5db78ca.js" defer></script>
+    
+
+    
+    
+        <script src="/js/codeblock.min.bac475ec0cede9f600a9b4bcc710bf6713447d94c5c5350080331e1709b952cb.js" defer></script>
     
 
     
@@ -61,7 +66,7 @@
         <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     
 
-    <link rel="alternate" type="application/atom+xml" title="hzzhu" href="/index.xml">
+    <link rel="alternate" type="application/rss+xml" title="hzzhu" href="/index.xml">
 
         
     
@@ -83,8 +88,8 @@
     
 
     
-        <link rel="stylesheet" href="/css/theme/light.min.fcb2ce4540bb641af0a40e6b423e454398070f3dd9b2fed7dd7052f3d44d5a23.css" />
-        <link id="darkModeStyle" rel="stylesheet" href="/css/theme/dark.min.93b31291e4f3f9c4d168ae61c13d5353c1f5efc475494bc281485fe6855e1024.css" />
+        <link rel="stylesheet" href="/css/theme/light.min.6c81cab02dedf3ddb19d53a891984b2f063e1afa5adc47f3e070c95c59f7ccc7.css" />
+        <link id="darkModeStyle" rel="stylesheet" href="/css/theme/dark.min.9a2ec3b06dbf199af14032d37f6647ff6b39c2a37cb05482754143452f37d7aa.css" />
     
 
     
@@ -119,8 +124,12 @@
     
         
     
+        
     
-    <link rel="stylesheet" href="/css/bundle.min.6e824525509df82699f1174b235e2e2e702b04439652af052bf124469df81e1b.css" />
+        
+    
+    
+    <link rel="stylesheet" href="/css/bundle.min.bbbb96adbf63a75ebe4c58bcd73542972a9530876fb65601eb7a496ecd9fe4c5.css" />
 
     
     
@@ -141,7 +150,10 @@
             <header>
     <div class="main">
         
-        <a href="https://zhuzaiye.github.io/">hzzhu</a>
+        
+        <a href="/posts/" class="home-link home-avatar" aria-label="文章列表">
+            <img src="/imgs/me_gibuli.png" alt="" width="26" height="26">
+        </a>
         
 
         <div class="socials">
@@ -155,7 +167,7 @@
             </a>
             
             <a rel="me" href="https://twitter.com/pigzhu11" class="social">
-                <img alt="twitter" src="/icons/social/twitter.svg">
+                <img alt="X" src="/icons/social/x.svg">
             </a>
             
             <a rel="me" href="/index.xml" class="social">
@@ -167,18 +179,18 @@
 
     <nav>
         
-        <a href="/posts">/posts</a>
+        <a href="/posts">Articles</a>
         
-        <a href="/projects">/projects</a>
+        <a href="/projects">Projects</a>
         
-        <a href="/about">/about</a>
+        <a href="/about">About</a>
         
         |
         
-        <a id="dark-mode-toggle" onclick="toggleTheme(); return false;" href="#">
+        <button type="button" id="dark-mode-toggle" onclick="toggleTheme()" aria-label="切换深浅主题">
             <img src="/icons/sun.svg" id="sun-icon" style="filter: invert(1)" alt="Light" />
             <img src="/icons/moon.svg" id="moon-icon" alt="Dark" />
-        </a>
+        </button>
         
     </nav>
 </header>
@@ -203,10 +215,30 @@
     <div class="wechat-list-item">
         <div class="wechat-list-info">
             <h2 class="wechat-list-title">
-                <a href="https://zhuzaiye.github.io/posts/20251208_windows_active/">一行命令永久激活 Windows — Microsoft Activation Scripts 使用教程</a>
+                <a href="/posts/20251208_windows_active/">一行命令永久激活 Windows — Microsoft Activation Scripts 使用教程</a>
                 
             </h2>
-            <time class="wechat-list-date">2025-12-08</time>
+            <div class="legacy-post-meta">
+                
+
+    
+
+
+
+<a class="article-tag tag-color-0" href="/tags/windows/">Windows</a>
+
+
+    
+
+
+
+<a class="article-tag tag-color-5" href="/tags/%E5%B7%A5%E5%85%B7/">工具</a>
+
+
+
+                <span>hzzhu</span>
+                <time datetime="2025-12-08">2025-12-08</time>
+            </div>
         </div>
         <div class="wechat-list-thumb">
             
@@ -218,10 +250,37 @@
     <div class="wechat-list-item">
         <div class="wechat-list-info">
             <h2 class="wechat-list-title">
-                <a href="https://zhuzaiye.github.io/posts/20251111-rustdesk/">RustDesk 自建远程桌面服务：基于 Docker 搭建中继与注册服务器</a>
+                <a href="/posts/20251111-rustdesk/">RustDesk 自建远程桌面服务：基于 Docker 搭建中继与注册服务器</a>
                 
             </h2>
-            <time class="wechat-list-date">2025-11-11</time>
+            <div class="legacy-post-meta">
+                
+
+    
+
+
+
+<a class="article-tag tag-color-2" href="/tags/rustdesk/">RustDesk</a>
+
+
+    
+
+
+
+<a class="article-tag tag-color-5" href="/tags/docker/">Docker</a>
+
+
+    
+
+
+
+<a class="article-tag tag-color-1" href="/tags/%E8%87%AA%E6%89%98%E7%AE%A1/">自托管</a>
+
+
+
+                <span>hzzhu</span>
+                <time datetime="2025-11-11">2025-11-11</time>
+            </div>
         </div>
         <div class="wechat-list-thumb">
             
@@ -233,10 +292,30 @@
     <div class="wechat-list-item">
         <div class="wechat-list-info">
             <h2 class="wechat-list-title">
-                <a href="https://zhuzaiye.github.io/posts/20250706-feynman/">费曼学习法：以教促学，将知识真正内化为己用</a>
+                <a href="/posts/20250706-feynman/">费曼学习法：以教促学，将知识真正内化为己用</a>
                 
             </h2>
-            <time class="wechat-list-date">2025-07-06</time>
+            <div class="legacy-post-meta">
+                
+
+    
+
+
+
+<a class="article-tag tag-color-5" href="/tags/%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95/">学习方法</a>
+
+
+    
+
+
+
+<a class="article-tag tag-color-0" href="/tags/%E7%9F%A5%E8%AF%86%E7%AE%A1%E7%90%86/">知识管理</a>
+
+
+
+                <span>hzzhu</span>
+                <time datetime="2025-07-06">2025-07-06</time>
+            </div>
         </div>
         <div class="wechat-list-thumb">
             
@@ -248,10 +327,37 @@
     <div class="wechat-list-item">
         <div class="wechat-list-info">
             <h2 class="wechat-list-title">
-                <a href="https://zhuzaiye.github.io/posts/20250618_myllm/">LLM 学习笔记：从 NLP 基础到 Transformer 架构与代码实现</a>
+                <a href="/posts/20250618_myllm/">LLM 学习笔记：从 NLP 基础到 Transformer 架构与代码实现</a>
                 
             </h2>
-            <time class="wechat-list-date">2025-06-18</time>
+            <div class="legacy-post-meta">
+                
+
+    
+
+
+
+<a class="article-tag tag-color-2" href="/tags/llm/">LLM</a>
+
+
+    
+
+
+
+<a class="article-tag tag-color-0" href="/tags/pytorch/">PyTorch</a>
+
+
+    
+
+
+
+<a class="article-tag tag-color-5" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">深度学习</a>
+
+
+
+                <span>hzzhu</span>
+                <time datetime="2025-06-18">2025-06-18</time>
+            </div>
         </div>
         <div class="wechat-list-thumb">
             
@@ -263,10 +369,37 @@
     <div class="wechat-list-item">
         <div class="wechat-list-info">
             <h2 class="wechat-list-title">
-                <a href="https://zhuzaiye.github.io/posts/20230325-makefile/">Makefile 构建自动化：从基础语法到 C/C&#43;&#43; 编译实践</a>
+                <a href="/posts/20230325-makefile/">Makefile 构建自动化：从基础语法到 C/C&#43;&#43; 编译实践</a>
                 
             </h2>
-            <time class="wechat-list-date">2023-03-25</time>
+            <div class="legacy-post-meta">
+                
+
+    
+
+
+
+<a class="article-tag tag-color-5" href="/tags/makefile/">Makefile</a>
+
+
+    
+
+
+
+<a class="article-tag tag-color-4" href="/tags/c/c&#43;&#43;/">C/C&#43;&#43;</a>
+
+
+    
+
+
+
+<a class="article-tag tag-color-3" href="/tags/%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/">构建工具</a>
+
+
+
+                <span>hzzhu</span>
+                <time datetime="2023-03-25">2023-03-25</time>
+            </div>
         </div>
         <div class="wechat-list-thumb">
             
@@ -278,10 +411,37 @@
     <div class="wechat-list-item">
         <div class="wechat-list-info">
             <h2 class="wechat-list-title">
-                <a href="https://zhuzaiye.github.io/posts/20220703_docxtohtml/">Word 文档（Docx）合并、转 Html5 并内嵌 Base64 图片的 Python GUI 工具</a>
+                <a href="/posts/20220703_docxtohtml/">Word 文档（Docx）合并、转 Html5 并内嵌 Base64 图片的 Python GUI 工具</a>
                 
             </h2>
-            <time class="wechat-list-date">2022-07-03</time>
+            <div class="legacy-post-meta">
+                
+
+    
+
+
+
+<a class="article-tag tag-color-0" href="/tags/python/">Python</a>
+
+
+    
+
+
+
+<a class="article-tag tag-color-1" href="/tags/word/">Word</a>
+
+
+    
+
+
+
+<a class="article-tag tag-color-2" href="/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/">自动化</a>
+
+
+
+                <span>hzzhu</span>
+                <time datetime="2022-07-03">2022-07-03</time>
+            </div>
         </div>
         <div class="wechat-list-thumb">
             

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>LLM on hzzhu</title>
+		<link>https://zhuzaiye.github.io/tags/llm/</link>
+		<description>Recent content in LLM on hzzhu</description>
+		<generator>Hugo</generator>
+		<language>en-US</language>
+		
+		
+		
+		
+			<lastBuildDate>Wed, 18 Jun 2025 20:46:00 +0800</lastBuildDate>
+		
+			<atom:link href="https://zhuzaiye.github.io/tags/llm/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>LLM 学习笔记：从 NLP 基础到 Transformer 架构与代码实现</title>
+				<link>https://zhuzaiye.github.io/posts/20250618_myllm/</link>
+				<pubDate>Wed, 18 Jun 2025 20:46:00 +0800</pubDate>
+				<guid>https://zhuzaiye.github.io/posts/20250618_myllm/</guid>
+				<description>&lt;h2 id=&#34;自然语言处理nlp&#34;&gt;自然语言处理（NLP）&lt;/h2&gt;&#xA;&lt;p&gt;NLP 是研究人类语言与计算机之间交互的科学，目标是让计算机能够&lt;strong&gt;理解&lt;/strong&gt;、&lt;strong&gt;处理&lt;/strong&gt;和&lt;strong&gt;生成&lt;/strong&gt;自然语言。&lt;/p&gt;&#xA;&lt;h3 id=&#34;文本表示&#34;&gt;文本表示&lt;/h3&gt;&#xA;&lt;p&gt;文本表示是将自然语言转化为计算机能够理解和运算的数字形式（即向量）的技术。&lt;/p&gt;&#xA;&lt;p&gt;基于向量构建的&lt;strong&gt;词向量空间模型（VSM）&lt;/strong&gt;，将文本内容转化为高维空间中的向量，实现从语言符号域到数字域的映射，使得计算机可以进行数学计算和分析。&lt;/p&gt;&#xA;&lt;p&gt;文本表示依赖于语言模型，其核心作用是：&lt;strong&gt;基于给定上下文，建模语言的概率分布&lt;/strong&gt;。&lt;/p&gt;&#xA;&lt;h3 id=&#34;语言概率分布统计模型&#34;&gt;语言概率分布统计模型&lt;/h3&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;&lt;strong&gt;N-Gram 模型&lt;/strong&gt;：基于统计频率，当前词依赖于前 N-1 个词&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;RNN / LSTM 模型&lt;/strong&gt;：通过循环结构记忆前面出现的词&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;Transformer&lt;/strong&gt;：以注意力机制（Self-Attention）为核心，为每个词构建向量表示，通过注意力计算词之间的关系，可并行计算并捕获更优的上下文信息&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;h2 id=&#34;transformer-架构&#34;&gt;Transformer 架构&lt;/h2&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;Transformer 最初由 Vaswani 等人于 2017 年在论文 &lt;a href=&#34;https://arxiv.org/abs/1706.03762&#34;&gt;《Attention is All You Need》&lt;/a&gt; 中提出，是目前 NLP 与多模态大模型的核心架构。&lt;/p&gt;&#xA;&lt;p&gt;它以全注意力机制为核心，彻底摆脱了 RNN 的时序依赖，具备更强的并行计算能力和上下文建模能力。&lt;/p&gt;&#xA;&lt;p&gt;全注意力机制的核心设计思想：让序列中的每一个元素都可以动态地关注到整个序列中的其他元素，从而更好地理解上下文信息。&lt;/p&gt;&#xA;&lt;p&gt;在数学上，上下文信息体现为每个元素之间关联关系的权重大小。&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;h3 id=&#34;注意力机制attention&#34;&gt;注意力机制（Attention）&lt;/h3&gt;&#xA;&lt;p&gt;注意力机制的作用是：给定文本序列，通过计算每个词对其他所有词的关注程度（关系权重），实现计算机对文本序列的理解。&lt;/p&gt;&#xA;&lt;h4 id=&#34;输入的词向量表示&#34;&gt;输入的词向量表示&lt;/h4&gt;&#xA;&lt;p&gt;每个输入通过 &lt;strong&gt;Embedding + 位置编码（Positional Encoding）&lt;/strong&gt; 获得向量表示：&lt;/p&gt;&#xA;&lt;p&gt;$$X = [x_1, x_2, &amp;hellip;, x_n], \quad x_i \in \mathbb{R}^d$$&lt;/p&gt;&#xA;&lt;p&gt;然后通过三个可学习的线性映射矩阵得到 Q、K、V：&lt;/p&gt;&#xA;&lt;p&gt;$$Q = XW_Q,\quad K = XW_K,\quad V = XW_V$$&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;strong&gt;Q 向量&lt;/strong&gt;（查询向量）：决定&amp;quot;我需要关注什么&amp;quot;&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;K 向量&lt;/strong&gt;（被查询向量）：决定&amp;quot;我是什么特征&amp;quot;&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;V 向量&lt;/strong&gt;（内容向量）：决定&amp;quot;我携带什么内容&amp;quot;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;Q、K、V 全部来自输入 X，通过三个可学习矩阵 W_Q、W_K、W_V 投影而来。&lt;/p&gt;&#xA;&lt;/blockquote&gt;</description>
+			</item>
+	</channel>
+</rss>

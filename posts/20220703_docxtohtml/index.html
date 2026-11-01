@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html lang="en" class="light">
+<html lang="en" class="light" data-theme-mode="toggle">
 
 
 <head>
@@ -44,7 +44,12 @@
     
     
         
-        <script src="/js/main.min.8c23cd573774b93805e59c27ceebd6ae929194cb1d3f05c73a0b4d2dececa6a0.js" defer></script>
+        <script src="/js/main.min.177d4db3721926a4fd0ef85fc822e8f5b4c06565db4d94bcffe9a672e5db78ca.js" defer></script>
+    
+
+    
+    
+        <script src="/js/codeblock.min.bac475ec0cede9f600a9b4bcc710bf6713447d94c5c5350080331e1709b952cb.js" defer></script>
     
 
     
@@ -61,7 +66,7 @@
         <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     
 
-    <link rel="alternate" type="application/atom+xml" title="hzzhu" href="/index.xml">
+    <link rel="alternate" type="application/rss+xml" title="hzzhu" href="/index.xml">
 
         
     
@@ -83,8 +88,8 @@
     
 
     
-        <link rel="stylesheet" href="/css/theme/light.min.fcb2ce4540bb641af0a40e6b423e454398070f3dd9b2fed7dd7052f3d44d5a23.css" />
-        <link id="darkModeStyle" rel="stylesheet" href="/css/theme/dark.min.93b31291e4f3f9c4d168ae61c13d5353c1f5efc475494bc281485fe6855e1024.css" />
+        <link rel="stylesheet" href="/css/theme/light.min.6c81cab02dedf3ddb19d53a891984b2f063e1afa5adc47f3e070c95c59f7ccc7.css" />
+        <link id="darkModeStyle" rel="stylesheet" href="/css/theme/dark.min.9a2ec3b06dbf199af14032d37f6647ff6b39c2a37cb05482754143452f37d7aa.css" />
     
 
     
@@ -119,8 +124,12 @@
     
         
     
+        
     
-    <link rel="stylesheet" href="/css/bundle.min.6e824525509df82699f1174b235e2e2e702b04439652af052bf124469df81e1b.css" />
+        
+    
+    
+    <link rel="stylesheet" href="/css/bundle.min.bbbb96adbf63a75ebe4c58bcd73542972a9530876fb65601eb7a496ecd9fe4c5.css" />
 
     
     
@@ -132,7 +141,7 @@
 </head>
 
 
-<body>
+<body class="article-page">
    <div class="page-wrapper">
       <div class="page-container">
          <div class="main-content">
@@ -140,7 +149,10 @@
             <header>
     <div class="main">
         
-        <a href="https://zhuzaiye.github.io/">hzzhu</a>
+        
+        <a href="/posts/" class="home-link home-avatar" aria-label="文章列表">
+            <img src="/imgs/me_gibuli.png" alt="" width="26" height="26">
+        </a>
         
 
         <div class="socials">
@@ -154,7 +166,7 @@
             </a>
             
             <a rel="me" href="https://twitter.com/pigzhu11" class="social">
-                <img alt="twitter" src="/icons/social/twitter.svg">
+                <img alt="X" src="/icons/social/x.svg">
             </a>
             
             <a rel="me" href="/index.xml" class="social">
@@ -166,18 +178,18 @@
 
     <nav>
         
-        <a href="/posts">/posts</a>
+        <a href="/posts">Articles</a>
         
-        <a href="/projects">/projects</a>
+        <a href="/projects">Projects</a>
         
-        <a href="/about">/about</a>
+        <a href="/about">About</a>
         
         |
         
-        <a id="dark-mode-toggle" onclick="toggleTheme(); return false;" href="#">
+        <button type="button" id="dark-mode-toggle" onclick="toggleTheme()" aria-label="切换深浅主题">
             <img src="/icons/sun.svg" id="sun-icon" style="filter: invert(1)" alt="Light" />
             <img src="/icons/moon.svg" id="moon-icon" alt="Dark" />
-        </a>
+        </button>
         
     </nav>
 </header>
@@ -197,20 +209,78 @@
     
 
     
+    
     <header class="post-header wechat-header">
         <h1 class="post-title wechat-title">Word 文档（Docx）合并、转 Html5 并内嵌 Base64 图片的 Python GUI 工具</h1>
         
+        
+        <div class="wechat-tags">
+            
+
+    
+
+
+
+<a class="article-tag tag-color-0" href="/tags/python/">Python</a>
+
+
+    
+
+
+
+<a class="article-tag tag-color-1" href="/tags/word/">Word</a>
+
+
+    
+
+
+
+<a class="article-tag tag-color-2" href="/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/">自动化</a>
+
+
+
+        </div>
+        
         <div class="post-meta wechat-meta">
+            <span class="wechat-author">hzzhu</span>
             
             <time class="wechat-date" datetime="2022-07-03T23:21:04&#43;08:00">
-                July 3, 2022
+                2022年7月3日
             </time>
             
-            <span class="wechat-meta-separator">|</span>
-            <span class="wechat-author">hzzhu</span>
         </div>
         
     </header>
+    
+
+    
+    <aside class="article-toc" aria-label="文章目录">
+        <details class="toc-panel">
+            <summary>目录<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
+            <div class="toc-sticky"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#工具清单">工具清单</a></li>
+    <li><a href="#代码清单">代码清单</a>
+      <ul>
+        <li><a href="#合并-word-文档主要针对-docx">合并 Word 文档（主要针对 docx）</a></li>
+        <li><a href="#word-文档转-html">Word 文档转 Html</a></li>
+        <li><a href="#图片转-base64-编码">图片转 Base64 编码</a></li>
+        <li><a href="#替换-html-中的图片为-base64">替换 Html 中的图片为 Base64</a></li>
+        <li><a href="#基于-tkinter-的-gui-设计">基于 tkinter 的 GUI 设计</a></li>
+      </ul>
+    </li>
+    <li><a href="#word-合并及转-html-测试">Word 合并及转 Html 测试</a>
+      <ul>
+        <li><a href="#合并效果">合并效果</a></li>
+        <li><a href="#docx-转-html-效果">Docx 转 Html 效果</a></li>
+        <li><a href="#gui-效果及测试">GUI 效果及测试</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+        </details>
+    </aside>
+    
 
     
     <div class="post-content">
@@ -488,61 +558,47 @@
 
 
 
-<aside class="toc-sidebar">
-    <div class="toc-sticky">
-        <nav id="TableOfContents">
-  <ul>
-    <li><a href="#工具清单">工具清单</a></li>
-    <li><a href="#代码清单">代码清单</a>
-      <ul>
-        <li><a href="#合并-word-文档主要针对-docx">合并 Word 文档（主要针对 docx）</a></li>
-        <li><a href="#word-文档转-html">Word 文档转 Html</a></li>
-        <li><a href="#图片转-base64-编码">图片转 Base64 编码</a></li>
-        <li><a href="#替换-html-中的图片为-base64">替换 Html 中的图片为 Base64</a></li>
-        <li><a href="#基于-tkinter-的-gui-设计">基于 tkinter 的 GUI 设计</a></li>
-      </ul>
-    </li>
-    <li><a href="#word-合并及转-html-测试">Word 合并及转 Html 测试</a>
-      <ul>
-        <li><a href="#合并效果">合并效果</a></li>
-        <li><a href="#docx-转-html-效果">Docx 转 Html 效果</a></li>
-        <li><a href="#gui-效果及测试">GUI 效果及测试</a></li>
-      </ul>
-    </li>
-  </ul>
-</nav>
+
+<script src="/js/wechat-actions.min.4c6bc11c99418db78d6bce1d6114bab289f5b7f35aadc8ba525c622c7820dcea.js"></script>
+
+
+<script src="/js/toc.min.e33ee3383cb4b2f45c34f29597a68155eebc5224d77e785c561bbabfd1500695.js"></script>
+
+
+
+
+            
+
+
+
+<section class="article-comments" id="article-comments" data-threaded-comments data-gitalk-src="https://unpkg.com/gitalk@1.8.0/dist/gitalk.min.js" aria-label="文章留言">
+    <div class="comments-status-row" data-comment-status-row>
+        <p class="comments-status" data-comment-status role="status">正在加载讨论…</p>
+        <button type="button" class="thread-text-button" data-comment-retry hidden>重试</button>
+        <a class="comments-issue-link" data-comment-issue hidden href="https://github.com/zhuzaiye/zhuzaiye.github.io/issues" target="_blank" rel="noopener noreferrer">在 GitHub 查看</a>
     </div>
-</aside>
-
-
-
-
-<script src="/js/wechat-actions.min.c7c69dc8277a9edbfad0acd6cbb33e539dd130246450845253b84aeedb1ba517.js"></script>
-
-
-<script src="/js/toc.min.eb478c8220c4b7ba8ec4ec3b3951b4f2816614e37b26a6bdd9fcdaa674e0bd85.js"></script>
-
-
-
-
+    <div class="comment-threads" data-comment-threads></div>
+    <button type="button" class="comments-more" data-comment-more hidden>加载更多讨论</button>
+    <div data-comment-composer-home>
+        <div class="comment-composer" data-comment-composer hidden>
+            <div class="composer-heading">
+                <span data-comment-reply-label>写留言</span>
+                <button type="button" class="thread-text-button" data-comment-cancel hidden>取消回复</button>
+            </div>
+            <p class="composer-note" data-comment-reply-note role="status"></p>
             <div id="gitalk-container"></div>
-    <link rel="stylesheet" href="https://unpkg.com/gitalk@1.2.2/dist/gitalk.css" crossorigin="anonymous">
-    <script src="https://unpkg.com/gitalk@latest/dist/gitalk.min.js" crossorigin="anonymous"></script>
-    <script type="text/javascript">
-      var gitalk = new Gitalk({
-        id: '2022-07-03 23:21:04 \u002b0800 CST',
-        title: 'Word 文档（Docx）合并、转 Html5 并内嵌 Base64 图片的 Python GUI 工具',
-        clientID: '9c36634fbb845c1d1d64',
-        clientSecret: '3d57254b5ffccf04f9d973cc42b1d84ecd48fd01',
-        repo: 'zhuzaiye.github.io',
-        owner: 'zhuzaiye',
-        admin: ['zhuzaiye'],
-        body: decodeURI(location.href),
-        language: "en"
-      });
-      gitalk.render('gitalk-container');
-    </script>
-    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+        </div>
+    </div>
+    <noscript>请启用 JavaScript，或<a href="https://github.com/zhuzaiye/zhuzaiye.github.io/issues">在 GitHub 查看和参与讨论</a>。</noscript>
+</section>
+<script type="application/json" id="gitalk-options">{"admin":["zhuzaiye"],"body":"https://zhuzaiye.github.io/posts/20220703_docxtohtml/","clientID":"9c36634fbb845c1d1d64","clientSecret":"3d57254b5ffccf04f9d973cc42b1d84ecd48fd01","id":"2022-07-03 23:21:04 +0800 CST","owner":"zhuzaiye","repo":"zhuzaiye.github.io","title":"Word 文档（Docx）合并、转 Html5 并内嵌 Base64 图片的 Python GUI 工具"}</script>
+<link rel="stylesheet" href="https://unpkg.com/gitalk@1.8.0/dist/gitalk.css" crossorigin="anonymous">
+
+<script defer src="/js/comments.min.f7d281ce3baee18c43eb13ff79e0d18a67a646db5e51f6d81e418a8108773742.js"></script>
+
+
+
+
 
          </div>
       </div>

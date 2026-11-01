@@ -10,6 +10,120 @@
 		
 		
 		
+			<lastBuildDate>Mon, 08 Dec 2025 10:55:06 +0800</lastBuildDate>
+		
 			<atom:link href="https://zhuzaiye.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>Windows</title>
+				<link>https://zhuzaiye.github.io/tags/windows/</link>
+				<pubDate>Mon, 08 Dec 2025 10:55:06 +0800</pubDate>
+				<guid>https://zhuzaiye.github.io/tags/windows/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>工具</title>
+				<link>https://zhuzaiye.github.io/tags/%E5%B7%A5%E5%85%B7/</link>
+				<pubDate>Mon, 08 Dec 2025 10:55:06 +0800</pubDate>
+				<guid>https://zhuzaiye.github.io/tags/%E5%B7%A5%E5%85%B7/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Docker</title>
+				<link>https://zhuzaiye.github.io/tags/docker/</link>
+				<pubDate>Tue, 11 Nov 2025 10:55:06 +0800</pubDate>
+				<guid>https://zhuzaiye.github.io/tags/docker/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>RustDesk</title>
+				<link>https://zhuzaiye.github.io/tags/rustdesk/</link>
+				<pubDate>Tue, 11 Nov 2025 10:55:06 +0800</pubDate>
+				<guid>https://zhuzaiye.github.io/tags/rustdesk/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>自托管</title>
+				<link>https://zhuzaiye.github.io/tags/%E8%87%AA%E6%89%98%E7%AE%A1/</link>
+				<pubDate>Tue, 11 Nov 2025 10:55:06 +0800</pubDate>
+				<guid>https://zhuzaiye.github.io/tags/%E8%87%AA%E6%89%98%E7%AE%A1/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>学习方法</title>
+				<link>https://zhuzaiye.github.io/tags/%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95/</link>
+				<pubDate>Sun, 06 Jul 2025 10:55:06 +0800</pubDate>
+				<guid>https://zhuzaiye.github.io/tags/%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>知识管理</title>
+				<link>https://zhuzaiye.github.io/tags/%E7%9F%A5%E8%AF%86%E7%AE%A1%E7%90%86/</link>
+				<pubDate>Sun, 06 Jul 2025 10:55:06 +0800</pubDate>
+				<guid>https://zhuzaiye.github.io/tags/%E7%9F%A5%E8%AF%86%E7%AE%A1%E7%90%86/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>LLM</title>
+				<link>https://zhuzaiye.github.io/tags/llm/</link>
+				<pubDate>Wed, 18 Jun 2025 20:46:00 +0800</pubDate>
+				<guid>https://zhuzaiye.github.io/tags/llm/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>PyTorch</title>
+				<link>https://zhuzaiye.github.io/tags/pytorch/</link>
+				<pubDate>Wed, 18 Jun 2025 20:46:00 +0800</pubDate>
+				<guid>https://zhuzaiye.github.io/tags/pytorch/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>深度学习</title>
+				<link>https://zhuzaiye.github.io/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</link>
+				<pubDate>Wed, 18 Jun 2025 20:46:00 +0800</pubDate>
+				<guid>https://zhuzaiye.github.io/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>C/C&#43;&#43;</title>
+				<link>https://zhuzaiye.github.io/tags/c/c&#43;&#43;/</link>
+				<pubDate>Sat, 25 Mar 2023 09:18:53 +0800</pubDate>
+				<guid>https://zhuzaiye.github.io/tags/c/c&#43;&#43;/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Makefile</title>
+				<link>https://zhuzaiye.github.io/tags/makefile/</link>
+				<pubDate>Sat, 25 Mar 2023 09:18:53 +0800</pubDate>
+				<guid>https://zhuzaiye.github.io/tags/makefile/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>构建工具</title>
+				<link>https://zhuzaiye.github.io/tags/%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/</link>
+				<pubDate>Sat, 25 Mar 2023 09:18:53 +0800</pubDate>
+				<guid>https://zhuzaiye.github.io/tags/%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Python</title>
+				<link>https://zhuzaiye.github.io/tags/python/</link>
+				<pubDate>Sun, 03 Jul 2022 23:21:04 +0800</pubDate>
+				<guid>https://zhuzaiye.github.io/tags/python/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Word</title>
+				<link>https://zhuzaiye.github.io/tags/word/</link>
+				<pubDate>Sun, 03 Jul 2022 23:21:04 +0800</pubDate>
+				<guid>https://zhuzaiye.github.io/tags/word/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>自动化</title>
+				<link>https://zhuzaiye.github.io/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/</link>
+				<pubDate>Sun, 03 Jul 2022 23:21:04 +0800</pubDate>
+				<guid>https://zhuzaiye.github.io/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/</guid>
+				<description></description>
+			</item>
 	</channel>
 </rss>
